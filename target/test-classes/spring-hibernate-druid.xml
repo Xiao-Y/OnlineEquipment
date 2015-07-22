@@ -68,7 +68,7 @@
 		<!-- 添加hibernate.cfg.xml文件 -->
 		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
 		<!-- 添加 *.hbm.xml文件 -->
-		<property name="mappingLocations" value="classpath:com/xiaoy/base/entities/*.hbm.xml"/>
+		<property name="mappingLocations" value="classpath:com/xiaoy/entities/*.hbm.xml"/>
 	</bean>
 
 	<!-- 声明式事务 -->
@@ -78,12 +78,10 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-	<!-- 2.注解的形式管理事物 	
-	<tx:annotation-driven transaction-manager="transactionManager" /> 
-	-->
-	
+	<!-- 2.注解的形式管理事物 <tx:annotation-driven transaction-manager="transactionManager" 
+		/> -->
 	<!-- 拦截器方式配置事物 -->
-	 <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="add*" propagation="REQUIRED" />
 			<tx:method name="save*" propagation="REQUIRED" />
@@ -99,11 +97,8 @@
 	</tx:advice>
 
 	<!-- 配置切点 -->
-	 <aop:config>
-		<aop:pointcut id="transactionPointcut" expression="execution(* com.xiaoy..service..*Impl.*(..))" />
-	 <!-- 
-		<aop:pointcut id="transactionPointcut" expression="execution(* com.xiaoy.test.service..*Impl.*(..))" />
-	  -->
+	<aop:config>
+		<aop:pointcut id="transactionPointcut" expression="execution(* sy.service..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
 	</aop:config>

@@ -1,4 +1,4 @@
-package com.xiaoy.entities;
+package com.xiaoy.base.entities;
 
 public class Test
 {
