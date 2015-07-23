@@ -11,9 +11,8 @@
     	<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
     	<!-- SQL有显示及格式 -->
     	<property name="hibernate.show_sql">true</property>
-    	<property name="hibernate.format_sql">false</property>
+    	<property name="hibernate.format_sql">true</property>
     	<!-- 显示注释 -->
-    	<property name="use_sql_comments">false</property>
     	<property name="hibernate.hbm2ddl.auto">update</property>
     	
     </session-factory>

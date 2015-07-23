@@ -8,11 +8,16 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 
-	<!-- 配置自动扫描 -->
-	<context:component-scan base-package="com.xiaoy" />
 	<!-- 导入properties的属性文件 -->
 	<context:property-placeholder
 		location="classpath:spring-hibernate-druid.properties" />
+	<!-- 配置自动扫描 -->
+	<context:component-scan base-package="com.xiaoy">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
 
 	<!-- 配置数据源 -->
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -28,8 +33,7 @@
 		<property name="initialSize" value="${initialSize}" />
 		<!-- 连接池最大使用连接数量 -->
 		<property name="maxActive" value="${maxActive}" />
-		<!-- 连接池最大空闲 -->
-		<property name="maxIdle" value="${maxIdle}" />
+		<!-- 连接池最大空闲 <property name="maxIdle" value="${maxIdle}" /> -->
 		<!-- 连接池最小空闲 -->
 		<property name="minIdle" value="${minIdle}" />
 		<!-- 获取连接最大等待时间 -->
@@ -66,9 +70,9 @@
 		<!-- 添加数据源信息 -->
 		<property name="dataSource" ref="dataSource" />
 		<!-- 添加hibernate.cfg.xml文件 -->
-		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
 		<!-- 添加 *.hbm.xml文件 -->
-		<property name="mappingLocations" value="classpath:com/xiaoy/base/entities/*.hbm.xml"/>
+		<property name="mappingLocations" value="classpath:com/xiaoy/base/entities/*.hbm.xml" />
 	</bean>
 
 	<!-- 声明式事务 -->
@@ -78,12 +82,8 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-	<!-- 2.注解的形式管理事物 	
-	<tx:annotation-driven transaction-manager="transactionManager" /> 
-	-->
-	
-	<!-- 拦截器方式配置事物 -->
-	 <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+	<!--2. 拦截器方式配置事物 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="add*" propagation="REQUIRED" />
 			<tx:method name="save*" propagation="REQUIRED" />
@@ -98,16 +98,13 @@
 		</tx:attributes>
 	</tx:advice>
 
-	<!-- 配置切点 -->
-	 <aop:config>
-		<aop:pointcut id="transactionPointcut" expression="execution(* com.xiaoy..service..*Impl.*(..))" />
-	 <!-- 
-		<aop:pointcut id="transactionPointcut" expression="execution(* com.xiaoy.test.service..*Impl.*(..))" />
-	  -->
+	<!--3. 配置切点 -->
+	<aop:config>
+		<aop:pointcut id="transactionPointcut"
+			expression="execution(* com.xiaoy..service..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
 	</aop:config>
-
 </beans>
 
 

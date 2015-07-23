@@ -5,8 +5,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.xiaoy.base.dao.Common;
 import com.xiaoy.util.GenericSuperclass;
@@ -18,8 +22,16 @@ import com.xiaoy.util.GenericSuperclass;
  * 
  * @date: 2014年11月5日 下午11:00:01
  */
-public class CommonImpl<T> extends BaseDao implements Common<T>
+public class CommonImpl<T> implements Common<T>
 {
+	@Resource
+	private SessionFactory sessionFactory;
+	
+	public Session getSession()
+	{
+		return this.sessionFactory.getCurrentSession();
+	}
+	
 	// 获取当前类的父类的类型(泛型的转换)
 	@SuppressWarnings("rawtypes")
 	Class entityClass = GenericSuperclass.getClass(this.getClass());

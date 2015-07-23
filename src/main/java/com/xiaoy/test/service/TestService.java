@@ -9,4 +9,10 @@ public interface TestService
 
 	public List<Test> getAllNewFile();
 
+	public void saveTest(Test t);
+
+	public void updateTest(Test t);
+
+	public void deleteTest(Test t);
+
 }

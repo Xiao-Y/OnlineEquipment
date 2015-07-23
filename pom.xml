@@ -200,6 +200,13 @@
 			<artifactId>druid</artifactId>
 			<version>0.2.23</version>
 		</dependency>
+		<!-- c3p0 
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.1</version>
+		</dependency>
+		-->
 		<!-- 日志相关jar包 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -216,6 +223,14 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.13</version>
 		</dependency>
+		
+		<!-- 加入slf4j依赖包 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		
 		<!-- json 相关jar包 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -271,6 +286,10 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.3.2</version>
 		</dependency>
+
+		<!-- log4j <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+			<version>1.2.17</version> <scope>compile</scope> </dependency> -->
+
 		<!-- MySql的包 -->
 		<dependency>
 			<groupId>mysql</groupId>

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.xiaoy.base.entities.Test;
 import com.xiaoy.test.dao.TestDao;
@@ -17,11 +16,24 @@ public class TestServiceImpl implements TestService
 
 	@Resource
 	private TestDao testDao;
-	
+
 	public List<Test> getAllNewFile()
 	{
-		List<Test> list = testDao.findCollectionByCondition(null, null);
-		return list;
+		return testDao.findCollectionByCondition("", null);
 	}
 
+	public void saveTest(Test t)
+	{
+		testDao.saveObject(t);
+	}
+
+	public void updateTest(Test t)
+	{
+		testDao.updateObject(t);
+	}
+
+	public void deleteTest(Test t)
+	{
+		testDao.deleteObjectByid(t.getId());
+	}
 }
