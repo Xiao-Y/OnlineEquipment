@@ -22,8 +22,9 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
-	<!-- 处理静态资源 -->
+	<!-- 处理静态资源 
 	<mvc:default-servlet-handler />
+	-->
 
 	<!-- 扫描SpringMVC的注解 -->
 	<mvc:annotation-driven />
