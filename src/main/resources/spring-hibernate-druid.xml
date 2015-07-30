@@ -11,7 +11,11 @@
 	<!-- 导入properties的属性文件 -->
 	<context:property-placeholder
 		location="classpath:spring-hibernate-druid.properties" />
-	<!-- 配置自动扫描 -->
+
+	<!-- 导入事务处理文件 -->
+	<import resource="classpath:spring-hibernate-tx.xml" />
+
+	<!-- 配置Spring的自动扫描 -->
 	<context:component-scan base-package="com.xiaoy">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -64,47 +68,6 @@
 		<property name="filters" value="${filters}" />
 	</bean>
 
-	<!-- 配置SessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<!-- 添加数据源信息 -->
-		<property name="dataSource" ref="dataSource" />
-		<!-- 添加hibernate.cfg.xml文件 -->
-		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
-		<!-- 添加 *.hbm.xml文件 -->
-		<property name="mappingLocations" value="classpath:com/xiaoy/base/entities/*.hbm.xml" />
-	</bean>
-
-	<!-- 声明式事务 -->
-	<!-- 1.hibernate事务管理器 -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-
-	<!--2. 拦截器方式配置事物 -->
-	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="add*" propagation="REQUIRED" />
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-
-			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
-			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
-			<tx:method name="search*" propagation="REQUIRED" read-only="true" />
-
-			<tx:method name="*" propagation="REQUIRED" />
-		</tx:attributes>
-	</tx:advice>
-
-	<!--3. 配置切点 -->
-	<aop:config>
-		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.xiaoy..service..*Impl.*(..))" />
-		<aop:advisor pointcut-ref="transactionPointcut"
-			advice-ref="transactionAdvice" />
-	</aop:config>
 </beans>
 
 

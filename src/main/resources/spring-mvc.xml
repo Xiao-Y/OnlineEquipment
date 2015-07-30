@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-	<!-- 配置自动扫描 -->
+	<!-- 配置SpringMVC的自动扫描 -->
 	<context:component-scan base-package="com.xiaoy"
 		use-default-filters="false">
 		<context:include-filter type="annotation"
