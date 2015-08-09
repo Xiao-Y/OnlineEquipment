@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>OnlineEquipment</name>
+	<name>${project.artifactId}</name>
 	<url>http://maven.apache.org</url>
 
 	<!-- 控制台乱码 -->
@@ -79,12 +79,6 @@
 			<artifactId>commons-pool</artifactId>
 			<version>1.6</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
-		</dependency>
-		<!-- hibernate相关jar包 -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -200,13 +194,6 @@
 			<artifactId>druid</artifactId>
 			<version>0.2.23</version>
 		</dependency>
-		<!-- c3p0 
-		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.5.1</version>
-		</dependency>
-		-->
 		<!-- 日志相关jar包 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -223,14 +210,14 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.13</version>
 		</dependency>
-		
+
 		<!-- 加入slf4j依赖包 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.5</version>
 		</dependency>
-		
+
 		<!-- json 相关jar包 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -287,9 +274,6 @@
 			<version>3.3.2</version>
 		</dependency>
 
-		<!-- log4j <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
-			<version>1.2.17</version> <scope>compile</scope> </dependency> -->
-
 		<!-- MySql的包 -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -307,19 +291,39 @@
 	</dependencies>
 
 	<build>
-		<finalName>OnlineEquipment</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 
 			<!-- 编译的时候使用JDK6和UTF8编码 -->
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
+					<warName>${project.artifactId}</warName>
+					<attachClasses>true</attachClasses>
+					<classesClassifier>api</classesClassifier>
+					<webResources>
+						<resource>
+							<directory>src\main\resources</directory>
+							<targetPath>WEB-INF\classes</targetPath>
+							<includes>
+								<include>**</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 
+			<!-- jetty -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
@@ -328,7 +332,7 @@
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<stopPort>9999</stopPort>
 					<webAppConfig>
-						<contextPath>/OnlineEquipment</contextPath>
+						<contextPath>/${project.artifactId}</contextPath>
 					</webAppConfig>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
@@ -336,6 +340,19 @@
 							<maxIdleTime>60000</maxIdleTime>
 						</connector>
 					</connectors>
+				</configuration>
+			</plugin>
+
+			<!-- tomcat7 插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<port>9090</port>
+					<path>/sshem</path>
+					<uriEncoding>UTF-8</uriEncoding>
+					<server>tomcat7</server>
 				</configuration>
 			</plugin>
 		</plugins>
