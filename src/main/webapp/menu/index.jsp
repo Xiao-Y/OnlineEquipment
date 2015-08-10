@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>系统主页</title>
+<title>菜单列表</title>
 <!-- 引入ext的样式 -->
 <link rel="styleSheet" type="text/css"href="<%=request.getContextPath() %>/resource/js/extjs5.1/packages/ext-theme-neptune/build/resources/ext-theme-neptune-all.css">
 <!-- 引入核心ext文件 -->
@@ -11,13 +11,12 @@
 <!-- 引入国际化文件 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/extjs5.1/packages/ext-locale/build/ext-locale-zh_CN.js"></script>
 
-<script type="text/javascript" src="<%=request.getContextPath() %>/home/app/app.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/menu/app/app.js"></script>
 <!-- font-awesome样式 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/font-awesome.css" />
 -->
 
 </head>
 <body>
-	
 </body>
 </html>

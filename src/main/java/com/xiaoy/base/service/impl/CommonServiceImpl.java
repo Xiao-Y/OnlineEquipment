@@ -56,7 +56,6 @@ public abstract class CommonServiceImpl<T> implements CommonService<T> {
 
 	@Override
 	public T findObjectById(Serializable id) {
-		System.out.println("commonDao----------------->" + commonDao);
 		return commonDao.findObjectById(id);
 	}
 

@@ -22,4 +22,22 @@ public interface MenuService extends CommonService<Menu>
 	 */
 	List<Menu> getChildMenuList();
 
+	/**
+	 * 根据条件查询菜单
+	 * 
+	 * @param menu
+	 *            查询条件
+	 * @return List
+	 */
+	List<Menu> findCollectionByCondition(Menu menu);
+
+	/**
+	 * 根据条件统计菜单记录数
+	 * 
+	 * @param menu
+	 *            查询条件
+	 * @return long
+	 */
+	long countByCollection(Menu menu);
+
 }

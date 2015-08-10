@@ -6,8 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 菜单实体类对应表为Menu
@@ -25,7 +28,9 @@ public class Menu
 	private String parentId;
 	private String parentName;
 	private String remark;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 	private String menuType;
 	private int seq;
@@ -63,7 +68,7 @@ public class Menu
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "id", unique = true, nullable = false,length = 100)
+	@Column(name = "id", unique = true, nullable = false, length = 100)
 	public String getId()
 	{
 		return id;
@@ -162,7 +167,7 @@ public class Menu
 		this.seq = seq;
 	}
 
-	@Column(name = "PARENT_NAME", length = 150)
+	@Transient
 	public String getParentName()
 	{
 		return parentName;
