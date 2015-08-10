@@ -8,25 +8,11 @@ import java.util.Map;
 import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.service.CommonService;
 
-public class CommonServiceImpl<T> implements CommonService<T> {
+public abstract class CommonServiceImpl<T> implements CommonService<T> {
 
-	private CommonDao<T> commonDao;
+	protected CommonDao<T> commonDao;
 	
-	public CommonDao<T> getCommonDao() {
-		return commonDao;
-	}
-
-	public void setCommonDao(CommonDao<T> commonDao) {
-		this.commonDao = commonDao;
-	}
-
-	public CommonServiceImpl() {
-		super();
-	}
-
-	public CommonServiceImpl(CommonDao<T> commonDao) {
-		this.commonDao = commonDao;
-	}
+	public abstract void setCommonDao(CommonDao<T> commonDao);
 
 	@Override
 	public void deleteObjectByid(Serializable id) {
