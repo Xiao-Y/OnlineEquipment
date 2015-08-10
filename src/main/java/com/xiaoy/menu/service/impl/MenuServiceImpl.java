@@ -9,15 +9,21 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.xiaoy.base.entities.Menu;
+import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.menu.dao.MenuDao;
 import com.xiaoy.menu.service.MenuService;
 
 @Service
-public class MenuServiceImpl implements MenuService
+public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuService
 {
 	@Resource
 	private MenuDao menuDao;
 	
+	public MenuServiceImpl() {
+		super.setCommonDao(this.menuDao);
+		System.out.println("this.menuDao------------------>" + this.menuDao);
+	}
+
 	@Override
 	public List<Menu> getParentMenuList()
 	{

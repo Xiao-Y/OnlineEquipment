@@ -36,7 +36,7 @@ import java.util.Map;
  * @author XiaoY
  * 2014年11月5日 下午10:58:20
  */
-public interface Common<T>{
+public interface CommonDao<T>{
 	
 	/**
 	 * 通过id删除一个对象 

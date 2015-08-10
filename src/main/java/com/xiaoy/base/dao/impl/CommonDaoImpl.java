@@ -12,17 +12,17 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.xiaoy.base.dao.Common;
+import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.util.GenericSuperclass;
 
 /**
  * @author XiaoY
  * 
- * @explain 继承HibernateDaoSupport 实现ICommon&ltT&gt
+ * @explain 继承HibernateDaoSupport 实现CommonDao&ltT&gt
  * 
  * @date: 2014年11月5日 下午11:00:01
  */
-public class CommonImpl<T> implements Common<T>
+public class CommonDaoImpl<T> implements CommonDao<T>
 {
 	@Resource
 	private SessionFactory sessionFactory;

@@ -30,6 +30,8 @@ public class MenuController
 	@RequestMapping("/index")
 	public String home()
 	{
+		Menu menu = menuService.findObjectById("1212");
+		System.out.println(menu.getId()+" "+ menu.getMenuName());
 		return "home/index";
 	}
 

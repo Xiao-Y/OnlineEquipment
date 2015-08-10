@@ -63,7 +63,7 @@ public class Menu
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id", unique = true, nullable = false,length = 100)
 	public String getId()
 	{
 		return id;
@@ -151,7 +151,7 @@ public class Menu
 		this.menuType = menuType;
 	}
 
-	@Column(name = "Seq", length = 50)
+	@Column(name = "SEQ", length = 50)
 	public int getSeq()
 	{
 		return seq;

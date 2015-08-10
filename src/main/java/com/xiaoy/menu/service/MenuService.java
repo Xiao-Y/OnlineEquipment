@@ -3,8 +3,9 @@ package com.xiaoy.menu.service;
 import java.util.List;
 
 import com.xiaoy.base.entities.Menu;
+import com.xiaoy.base.service.CommonService;
 
-public interface MenuService
+public interface MenuService extends CommonService<Menu>
 {
 
 	/**
