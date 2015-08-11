@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,12 +29,14 @@ import com.xiaoy.util.Tools;
  */
 @Controller
 @RequestMapping("/menu")
-public class MenuController {
+public class MenuController
+{
 	@Resource
 	private MenuService menuService;
 
 	@RequestMapping("/index")
-	public String index() {
+	public String index()
+	{
 		return "menu/index";
 	}
 
@@ -43,7 +46,9 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "/menuList")
-	public @ResponseBody JsonResult menuList(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult menuList(HttpServletRequest request)
+	{
 		Menu menu = new Menu();
 		menu.setId(Tools.getStringParameter(request, "name"));
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
@@ -54,11 +59,14 @@ public class MenuController {
 		String start = Tools.getStringParameter(request, "start", "0");
 		String limit = Tools.getStringParameter(request, "limit", "15");
 
-		List<Menu> menuList = menuService.findCollectionByCondition(menu,start,limit);
-		for (Menu m : menuList) {
-			if ("-1".equals(m.getParentId())) {
+		List<Menu> menuList = menuService.findCollectionByCondition(menu, start, limit);
+		for (Menu m : menuList)
+		{
+			if (!"-1".equals(m.getParentId()))
+			{
 				Menu mu = menuService.findObjectById(m.getParentId());
-				if (mu != null) {
+				if (mu != null)
+				{
 					m.setParentName(mu.getMenuName());
 				}
 			}
@@ -76,21 +84,26 @@ public class MenuController {
 	 * 
 	 * @param menu
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月11日上午11:11:18
 	 */
 	@RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
-	public @ResponseBody JsonResult saveMenu(@RequestBody Menu menu) {
+	public @ResponseBody
+	JsonResult saveMenu(@RequestBody Menu menu)
+	{
 		JsonResult json = new JsonResult();
-		try {
+		try
+		{
 			// 保存时，添加uuid
-			if (StringUtils.isEmpty(menu.getId())) {
+			if (StringUtils.isEmpty(menu.getId()))
+			{
 				menu.setId(UUID.randomUUID().toString());
 			}
 
 			String menuType = menu.getMenuType();
 			// 当节点类型选择0即树枝节点，parentId设置为-1为树枝节点类型
-			if ("0".equals(menuType)) {
+			if ("0".equals(menuType))
+			{
 				menu.setParentId("-1");
 			}
 			// 首次添加保存和更新时间
@@ -100,7 +113,8 @@ public class MenuController {
 			menuService.saveObject(menu);
 			json.setMessage("菜单保存成功！");
 			json.setSuccess(true);
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.out.println("保存菜单发生异常！");
 			json.setMessage("服务器错误，请稍后再试！");
 			e.printStackTrace();
@@ -113,16 +127,20 @@ public class MenuController {
 	 * 
 	 * @param menu
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月11日上午11:14:58
 	 */
 	@RequestMapping(value = "/updateMenu", method = RequestMethod.POST)
-	public @ResponseBody JsonResult updateMenu(@RequestBody Menu menu) {
+	public @ResponseBody
+	JsonResult updateMenu(@RequestBody Menu menu)
+	{
 		JsonResult json = new JsonResult();
-		try {
+		try
+		{
 			String menuType = menu.getMenuType();
 			// 当节点类型选择0即树枝节点，parentId设置为-1为树枝节点类型
-			if ("0".equals(menuType)) {
+			if ("0".equals(menuType))
+			{
 				menu.setParentId("-1");
 			}
 			menu.setUpdateTime(new Date());
@@ -130,9 +148,27 @@ public class MenuController {
 			menuService.updateMenu(menu);
 			json.setMessage("菜单更新成功！");
 			json.setSuccess(true);
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.out.println("更新菜单发生异常！");
 			json.setMessage("服务器错误，请稍后再试！");
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	@RequestMapping(value = "/deleteMenu/{id}", method = RequestMethod.POST)
+	public @ResponseBody JsonResult deleteMenu(@PathVariable("id") String id)
+	{
+		JsonResult json = new JsonResult();
+		try
+		{
+			menuService.deleteObjectByid(id);
+			json.setSuccess(true);
+			json.setMessage("删除成功！");
+		} catch (Exception e)
+		{
+			json.setMessage("删除失败！");
 			e.printStackTrace();
 		}
 		return json;

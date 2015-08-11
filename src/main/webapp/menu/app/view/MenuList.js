@@ -37,13 +37,14 @@ Ext.define('AM.view.MenuList', {
 		xtype: 'gridpanel',
 		autoScroll:true,
 		store : 'MenuStore',// 加载数据
-		selType : 'checkboxmodel',// 复选框选择模式
-		// multiSelect : true,// 允许多选
+		selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
+			mode: 'SINGLE'//单选模式
+		}),
 		columns : [ 
 		 {
 			xtype : 'rownumberer',
 			header : '序号',
-			width : 30
+			width : 40
 		}, 
 		{
 			header : 'ID',
@@ -86,14 +87,12 @@ Ext.define('AM.view.MenuList', {
 			}
 		}, {
 			header : '创建时间',
-			format : 'Y-m-d H:i:s',// 格式化
 			dataIndex : 'createTime',
-			width : 135
+			width : 140
 		}, {
 			header : '更新时间',
 			dataIndex : 'updateTime',
-			format : 'Y-m-d H:i:s',// 格式化
-			width : 135
+			width : 140
 		}, {
 			header : '备注',
 			dataIndex : 'remark',

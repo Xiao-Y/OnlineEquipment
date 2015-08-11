@@ -79,14 +79,6 @@ Ext.define('AM.controller.MenuController', {
 	},
 	// 保存菜单
 	saveMenu : function(btn) {
-		// -------
-		// var saveFormPanel = btn.up('form');
-		// var fv = saveFormPanel.getValues();
-		// ------两种方式相同
-		// var form = btn.up('form').getForm();
-		// var fv = form.getValues();
-		// -------
-
 		var form = Ext.getCmp("menuAddForm").getForm();
 		if (form.isValid()) {
 			var fv = form.getValues();
@@ -131,8 +123,6 @@ Ext.define('AM.controller.MenuController', {
 		store.load({
 			params:fv
 		});
-//		store.proxy.extraParams = fv;
-//		store.reload();
 	},
 	// 重置
 	resetMenu : function(btn) {
@@ -143,7 +133,9 @@ Ext.define('AM.controller.MenuController', {
 	listResetMenu : function(btn) {
 		var gridPanel = Ext.getCmp("menuList");
 		var store = gridPanel.getStore();
-		store.reload();
+		store.load({
+			params:{}
+		});
 	},
 	// 删除
 	delMenu : function() {
@@ -158,12 +150,9 @@ Ext.define('AM.controller.MenuController', {
 				var sel = sm.getSelection();
 				var selectedId = sel[0].data.id;
 				Ext.Ajax.request({
-					url : '../MenuDel',
+					url : '../menu/deleteMenu/' + selectedId,
 					method : 'POST',
 					async : false,
-					params : {
-						id : selectedId
-					},
 					success : function(resopnse) {
 						var jsonObj = Ext.JSON.decode(resopnse.responseText);
 						Ext.Msg.alert('提示', jsonObj.message);

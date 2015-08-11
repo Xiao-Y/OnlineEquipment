@@ -16,10 +16,12 @@
 	</context:component-scan>
 
 	<!-- Spring MVC JSON配置 -->
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<!-- <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"> -->
+				<bean id="fastJsonHttpMessageConverter" class="com.xiaoy.util.FastJsonHttpMessageConverter">
 					<property name="supportedMediaTypes">
 						<list>
 							<value>text/html;charset=UTF-8</value><!-- 避免IE出现下载JSON文件的情况 -->
@@ -37,9 +39,7 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
-	<!-- 处理静态资源 
-		<mvc:default-servlet-handler />
-		-->
+	<!-- 处理静态资源 <mvc:default-servlet-handler /> -->
 
 	<!-- 扫描SpringMVC的注解 -->
 	<mvc:annotation-driven />

@@ -22,7 +22,11 @@ com.xiaoy.util.Tools
 
 -------------------------------------------------------
 
+com.xiaoy.util.FastJsonHttpMessageConverter
 
+利用@ResponseBody注解返回JSON字符串
+
+-----------------------------------------------------------
 
 
 
