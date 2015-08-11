@@ -28,7 +28,7 @@ public interface MenuService extends CommonService<Menu> {
 	 *            查询条件
 	 * @return List
 	 */
-	List<Menu> findCollectionByCondition(Menu menu);
+	List<Menu> findCollectionByCondition(Menu menu, String start, String limit);
 
 	/**
 	 * 根据条件统计菜单记录数

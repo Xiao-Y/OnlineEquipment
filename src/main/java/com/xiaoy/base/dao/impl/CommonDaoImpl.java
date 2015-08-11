@@ -22,35 +22,31 @@ import com.xiaoy.util.GenericSuperclass;
  * 
  * @date: 2014年11月5日 下午11:00:01
  */
-public class CommonDaoImpl<T> implements CommonDao<T>
-{
+public class CommonDaoImpl<T> implements CommonDao<T> {
 	@Resource
 	private SessionFactory sessionFactory;
-	
-	public Session getSession()
-	{
+
+	@Override
+	public Session getSession() {
 		return this.sessionFactory.getCurrentSession();
 	}
-	
+
 	// 获取当前类的父类的类型(泛型的转换)
 	@SuppressWarnings("rawtypes")
 	Class entityClass = GenericSuperclass.getClass(this.getClass());
 
-	public void deleteObjectByid(Serializable id)
-	{
+	public void deleteObjectByid(Serializable id) {
 		this.getSession().delete(this.getSession().get(entityClass, id));
 	}
 
-	public void deleteObjectByCollectionIds(String hqlWhere, Map<String, Object> paramsMapValue)
-	{
+	public void deleteObjectByCollectionIds(String hqlWhere, Map<String, Object> paramsMapValue) {
 		StringBuffer hql = new StringBuffer(" delete from " + this.entityClass.getSimpleName() + " where 1 = 1 ");
 
 		hql.append(hqlWhere);
 
 		Query query = this.getSession().createQuery(hql.toString());
 
-		if (!StringUtils.isEmpty(hqlWhere) && paramsMapValue != null && paramsMapValue.size() > 0)
-		{
+		if (!StringUtils.isEmpty(hqlWhere) && paramsMapValue != null && paramsMapValue.size() > 0) {
 			// 设置参数
 			this.settingParam(hqlWhere, paramsMapValue, query);
 		}
@@ -58,50 +54,43 @@ public class CommonDaoImpl<T> implements CommonDao<T>
 		query.executeUpdate();
 	}
 
-	public void updateObject(T entity)
-	{
+	public void updateObject(T entity) {
 		this.getSession().update(entity);
 	}
 
-	public void saveObject(T entity)
-	{
+	public void saveObject(T entity) {
 		this.getSession().save(entity);
 	}
 
 	@SuppressWarnings("unchecked")
-	public T findObjectById(Serializable id)
-	{
+	public T findObjectById(Serializable id) {
 		T t = (T) this.getSession().get(entityClass, id);
 		return t;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> findCollectionByCondition(String hqlWhere, Map<String, Object> paramsMapValue)
-	{
+	public List<T> findCollectionByCondition(String hqlWhere, Map<String, Object> paramsMapValue) {
 		StringBuffer hql = new StringBuffer("from " + entityClass.getSimpleName() + " e where 1 = 1 ");
 
 		hql.append(hqlWhere);
 
 		Query query = this.getSession().createQuery(hql.toString());
 
-		if (!StringUtils.isEmpty(hqlWhere) && paramsMapValue != null && paramsMapValue.size() > 0)
-		{
+		if (!StringUtils.isEmpty(hqlWhere) && paramsMapValue != null && paramsMapValue.size() > 0) {
 			// 设置参数
 			this.settingParam(hqlWhere, paramsMapValue, query);
 		}
 		return query.list();
 	}
 
-	public Integer countByCollection(String hqlWhere, Map<String, Object> paramsMapValue)
-	{
+	public Integer countByCollection(String hqlWhere, Map<String, Object> paramsMapValue) {
 		StringBuffer sql = new StringBuffer(" select count(*) from " + entityClass.getSimpleName() + " e where 1 = 1 ");
 
 		sql.append(hqlWhere);
 
 		Query query = this.getSession().createQuery(sql.toString());
 
-		if (!StringUtils.isEmpty(hqlWhere) && paramsMapValue != null && paramsMapValue.size() > 0)
-		{
+		if (!StringUtils.isEmpty(hqlWhere) && paramsMapValue != null && paramsMapValue.size() > 0) {
 			// 设置参数
 			this.settingParam(hqlWhere, paramsMapValue, query);
 		}
@@ -109,32 +98,25 @@ public class CommonDaoImpl<T> implements CommonDao<T>
 		return Integer.parseInt(count.toString());
 	}
 
-	public void updateObjectCollection(Collection<T> entities)
-	{
-		if (entities != null && entities.size() > 0)
-		{
-			for (T t : entities)
-			{
+	public void updateObjectCollection(Collection<T> entities) {
+		if (entities != null && entities.size() > 0) {
+			for (T t : entities) {
 				this.getSession().update(t);
 			}
 		}
 
 	}
 
-	public void saveObjectCollection(Collection<T> entities)
-	{
-		if (entities != null && entities.size() > 0)
-		{
-			for (T t : entities)
-			{
+	public void saveObjectCollection(Collection<T> entities) {
+		if (entities != null && entities.size() > 0) {
+			for (T t : entities) {
 				this.getSession().saveOrUpdate(t);
 			}
 		}
 
 	}
 
-	public void saveOrUpdate(T t)
-	{
+	public void saveOrUpdate(T t) {
 		this.getSession().saveOrUpdate(t);
 	}
 
@@ -151,25 +133,20 @@ public class CommonDaoImpl<T> implements CommonDao<T>
 	 * @date: 2014年12月13日 下午7:52:53
 	 */
 	@SuppressWarnings("rawtypes")
-	protected void settingParam(String hqlWhere, Map<String, Object> paramsMap, Query query)
-	{
-		if (!paramsMap.isEmpty() && paramsMap.size() > 0 && hqlWhere != null && hqlWhere.length() > 0)
-		{
-			for (Map.Entry<String, Object> entry : paramsMap.entrySet())
-			{
-				if (entry.getValue() instanceof Collection)
-				{
+	@Override
+	public void settingParam(String hqlWhere, Map<String, Object> paramsMap, Query query) {
+		if (!paramsMap.isEmpty() && paramsMap.size() > 0 && hqlWhere != null && hqlWhere.length() > 0) {
+			for (Map.Entry<String, Object> entry : paramsMap.entrySet()) {
+				if (entry.getValue() instanceof Collection) {
 					query.setParameterList(entry.getKey(), (Collection) entry.getValue());
-				} else
-				{
+				} else {
 					query.setParameter(entry.getKey(), entry.getValue());
 				}
 			}
 		}
 	}
 
-	public void deleteAll()
-	{
+	public void deleteAll() {
 		String hql = " delete from " + entityClass.getSimpleName();
 		this.getSession().createQuery(hql).executeUpdate();
 	}

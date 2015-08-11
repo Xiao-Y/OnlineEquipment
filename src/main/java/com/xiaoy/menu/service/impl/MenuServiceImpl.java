@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import com.xiaoy.base.dao.CommonDao;
@@ -45,11 +47,22 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 		return childMenus;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Menu> findCollectionByCondition(Menu menu) {
-		StringBuffer where = new StringBuffer("");
+	public List<Menu> findCollectionByCondition(Menu menu, String start, String limit) {
+		Session session = menuDao.getSession();
+		StringBuffer where = new StringBuffer("from Menu where 1=1 ");
+		
 		Map<String, Object> paramsMapValue = this.appHql(where, menu);
-		return menuDao.findCollectionByCondition(where.toString(), paramsMapValue);
+		
+		Query query = session.createQuery(where.toString());
+		
+		menuDao.settingParam(where.toString(), paramsMapValue, query);
+		
+		query.setFirstResult(Integer.parseInt(start));
+		query.setMaxResults(Integer.parseInt(limit));
+		
+		return query.list();
 	}
 
 	@Override

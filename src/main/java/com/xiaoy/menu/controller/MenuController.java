@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.menu.service.MenuService;
+import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
+import com.xiaoy.util.Tools;
 
 /**
  * 菜单操作
@@ -40,9 +42,19 @@ public class MenuController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/menuList")
-	public @ResponseBody JsonResult menuList(Menu menu) {
-		List<Menu> menuList = menuService.findCollectionByCondition(menu);
+	@RequestMapping(value = "/menuList")
+	public @ResponseBody JsonResult menuList(HttpServletRequest request) {
+		Menu menu = new Menu();
+		menu.setId(Tools.getStringParameter(request, "name"));
+		menu.setParentId(Tools.getStringParameter(request, "parentId"));
+		menu.setMenuType(Tools.getStringParameter(request, "menuType"));
+		menu.setMenuName(Tools.getStringParameter(request, "menuName"));
+		menu.setCreateTime(DateHelper.stringConverDate(Tools.getStringParameter(request, "createTime")));
+		menu.setUpdateTime(DateHelper.stringConverDate(Tools.getStringParameter(request, "updateTime")));
+		String start = Tools.getStringParameter(request, "start", "0");
+		String limit = Tools.getStringParameter(request, "limit", "15");
+
+		List<Menu> menuList = menuService.findCollectionByCondition(menu,start,limit);
 		for (Menu m : menuList) {
 			if ("-1".equals(m.getParentId())) {
 				Menu mu = menuService.findObjectById(m.getParentId());

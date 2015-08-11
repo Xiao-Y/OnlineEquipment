@@ -103,7 +103,7 @@ Ext.define('AM.view.MenuQuery', {
 			xtype : 'button',
 			id : 'cancelMenu',
 			text : '关闭',
-			icon : '../js/extJs/icons/used/cancel.png',
+			icon : '../js/extJs/icons/used/cancel.png'
 		} ]
 	} ]
 });
