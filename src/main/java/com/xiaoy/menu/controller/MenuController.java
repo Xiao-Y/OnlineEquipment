@@ -41,7 +41,7 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping("/menuList")
-	public @ResponseBody JsonResult menuList(@ModelAttribute("menu") Menu menu) {
+	public @ResponseBody JsonResult menuList(Menu menu) {
 		List<Menu> menuList = menuService.findCollectionByCondition(menu);
 		for (Menu m : menuList) {
 			if ("-1".equals(m.getParentId())) {

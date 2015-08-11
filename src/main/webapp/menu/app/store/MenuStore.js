@@ -9,9 +9,6 @@ Ext.define('AM.store.MenuStore', {
 			type : 'json',
 			rootProperty : 'root',
 			totalProperty : 'total'
-		},
-		writer : {
-			type : 'json'
 		}
 	},
 	autoLoad : true

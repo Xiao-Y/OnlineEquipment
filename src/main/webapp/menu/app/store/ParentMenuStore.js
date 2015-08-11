@@ -11,9 +11,6 @@ Ext.define('AM.store.ParentMenuStore', {
 			type : 'json',
 			rootProperty : 'root',
 			totalProperty : 'total'
-		},
-		writer : {
-			type : 'json'
 		}
 	},
 	autoLoad : true

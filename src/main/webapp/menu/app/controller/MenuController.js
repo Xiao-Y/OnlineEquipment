@@ -102,7 +102,6 @@ Ext.define('AM.controller.MenuController', {
 				params : Ext.JSON.encode(fv),
 				method : 'POST',
 				async : false,
-				submitEmptyText : false,
 				headers : {
 					"Content-Type" : "application/json; charset=utf-8"
 				},
@@ -129,8 +128,11 @@ Ext.define('AM.controller.MenuController', {
 		Ext.getCmp('menuQueryWindow').destroy();
 		var gridPanel = Ext.getCmp("menuList");
 		var store = gridPanel.getStore();
-		store.proxy.extraParams = fv;
-		store.reload();
+		store.load({
+			params:fv
+		});
+//		store.proxy.extraParams = fv;
+//		store.reload();
 	},
 	// 重置
 	resetMenu : function(btn) {
