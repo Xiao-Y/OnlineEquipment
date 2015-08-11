@@ -333,6 +333,7 @@
 					<stopPort>9999</stopPort>
 					<webAppConfig>
 						<contextPath>/${project.artifactId}</contextPath>
+						<defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
 					</webAppConfig>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">

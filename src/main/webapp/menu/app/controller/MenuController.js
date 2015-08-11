@@ -90,8 +90,15 @@ Ext.define('AM.controller.MenuController', {
 		var form = Ext.getCmp("menuAddForm").getForm();
 		if (form.isValid()) {
 			var fv = form.getValues();
+			var url = "";
+			//根据id是否存在，判断是更新还是保存
+			if(fv.id){
+				url = "../menu/updateMenu";
+			}else{
+				url = '../menu/saveMenu';
+			}
 			Ext.Ajax.request({
-				url : '../MenuSave',
+				url : url,
 				params : Ext.JSON.encode(fv),
 				method : 'POST',
 				async : false,
@@ -101,19 +108,17 @@ Ext.define('AM.controller.MenuController', {
 				},
 				success : function(response) {
 					var jsonObj = Ext.JSON.decode(response.responseText);
-					if (jsonObj.flag) {
+					if (jsonObj.success) {
 						Ext.getCmp('menuAddWindow').destroy();
-						Ext.Msg.alert('提示', '保存成功');
 						var gridPanel = Ext.getCmp("menuList");
 						var store = gridPanel.getStore();
 						store.reload();
-						// Ext.getCmp('menuList').getStore().reload(); // 刷新表格
-					} else {
-						Ext.Msg.alert('提示', '保存失败');
 					}
+					Ext.Msg.alert('提示', jsonObj.message);
 				},
 				failure : function(response) {
-					Ext.Msg.alert('提示', '操作失败');
+					var jsonObj = Ext.JSON.decode(response.responseText);
+					Ext.Msg.alert('提示', jsonObj.message);
 				}
 			});
 		}

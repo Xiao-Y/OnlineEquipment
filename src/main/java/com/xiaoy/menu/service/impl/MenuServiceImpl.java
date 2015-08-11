@@ -17,23 +17,20 @@ import com.xiaoy.menu.dao.MenuDao;
 import com.xiaoy.menu.service.MenuService;
 
 @Service
-public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuService
-{
+public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuService {
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
 	private MenuDao menuDao;
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<Menu> commonDao)
-	{
+	public void setCommonDao(CommonDao<Menu> commonDao) {
 		this.menuDao = (MenuDao) commonDao;
 		super.commonDao = commonDao;
 	}
 
 	@Override
-	public List<Menu> getParentMenuList()
-	{
+	public List<Menu> getParentMenuList() {
 		String hqlWhere = " and parentId = -1 ";
 		Map<String, Object> paramsMapValue = new HashMap<>();
 		List<Menu> parentMenus = menuDao.findCollectionByCondition(hqlWhere, paramsMapValue);
@@ -41,8 +38,7 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 	}
 
 	@Override
-	public List<Menu> getChildMenuList()
-	{
+	public List<Menu> getChildMenuList() {
 		String hqlWhere = " and parentId <> -1 ";
 		Map<String, Object> paramsMapValue = new HashMap<>();
 		List<Menu> childMenus = menuDao.findCollectionByCondition(hqlWhere, paramsMapValue);
@@ -50,16 +46,14 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 	}
 
 	@Override
-	public List<Menu> findCollectionByCondition(Menu menu)
-	{
+	public List<Menu> findCollectionByCondition(Menu menu) {
 		StringBuffer where = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appHql(where, menu);
 		return menuDao.findCollectionByCondition(where.toString(), paramsMapValue);
 	}
 
 	@Override
-	public long countByCollection(Menu menu)
-	{
+	public long countByCollection(Menu menu) {
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, menu);
 		return menuDao.countByCollection(hqlWhere.toString(), paramsMapValue);
@@ -74,36 +68,30 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 	 *            查询参数
 	 * @return Map
 	 */
-	private Map<String, Object> appHql(StringBuffer where, Menu menu)
-	{
+	private Map<String, Object> appHql(StringBuffer where, Menu menu) {
 		Map<String, Object> paramsMapValue = null;
-		if (menu != null)
-		{
+		if (menu != null) {
 			paramsMapValue = new HashMap<>();
 			// 父级id
-			if (!StringUtils.isEmpty(menu.getParentId()) && !menu.getParentId().equals("0"))
-			{
+			if (!StringUtils.isEmpty(menu.getParentId()) && !menu.getParentId().equals("0")) {
 				where.append(" and parentId = :parentId ");
 				paramsMapValue.put("parentId", menu.getParentId());
 			}
 
 			// 菜单名
-			if (!StringUtils.isEmpty(menu.getMenuName()))
-			{
+			if (!StringUtils.isEmpty(menu.getMenuName())) {
 				where.append(" and menuName like :menuName ");
 				paramsMapValue.put("menuName", "%" + menu.getMenuName() + "%");
 			}
 
 			// 菜单类型
-			if (!StringUtils.isEmpty(menu.getMenuType()) && !menu.getMenuType().equals("-1"))
-			{
+			if (!StringUtils.isEmpty(menu.getMenuType()) && !menu.getMenuType().equals("-1")) {
 				where.append(" and menuType = :menuType ");
 				paramsMapValue.put("menuType", menu.getMenuType());
 			}
 
 			// 创建时间
-			if (menu.getCreateTime() != null)
-			{
+			if (menu.getCreateTime() != null) {
 				where.append(" and createTime > timestamp(:createTiem1, '00 00:00:00') ");
 				paramsMapValue.put("createTiem1", sf.format(menu.getCreateTime()));
 
@@ -112,8 +100,7 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 			}
 
 			// 更新时间
-			if (menu.getUpdateTime() != null)
-			{
+			if (menu.getUpdateTime() != null) {
 				where.append(" and updateTime > timestamp(:updateTime1, '00 00:00:00') ");
 				paramsMapValue.put("updateTime1", sf.format(menu.getUpdateTime()));
 
@@ -122,5 +109,17 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 			}
 		}
 		return paramsMapValue;
+	}
+
+	@Override
+	public void updateMenu(Menu menu) {
+		Menu obj = menuDao.findObjectById(menu.getId());
+		obj.setMenuName(menu.getMenuName());
+		obj.setMenuType(menu.getMenuType());
+		obj.setMenuUrl(menu.getMenuUrl());
+		obj.setParentId(menu.getParentId());
+		obj.setRemark(menu.getRemark());
+		obj.setSeq(menu.getSeq());
+		obj.setUpdateTime(menu.getUpdateTime());
 	}
 }

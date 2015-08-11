@@ -5,8 +5,7 @@ import java.util.List;
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.base.service.CommonService;
 
-public interface MenuService extends CommonService<Menu>
-{
+public interface MenuService extends CommonService<Menu> {
 
 	/**
 	 * 获取父菜单的集合
@@ -39,5 +38,14 @@ public interface MenuService extends CommonService<Menu>
 	 * @return long
 	 */
 	long countByCollection(Menu menu);
+
+	/**
+	 * 更新菜单
+	 * 
+	 * @param menu
+	 *
+	 * @date 2015年8月11日上午11:15:14
+	 */
+	void updateMenu(Menu menu);
 
 }
