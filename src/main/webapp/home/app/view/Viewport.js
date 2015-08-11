@@ -10,11 +10,11 @@ Ext.define('AM.view.Viewport',{
 //					
 //					},
 	items : [{
-		//title : 'ExtJS案例',
+		title : 'ExtJS案例',
 		collapisble : true,
 		region : 'north',
-		height : 80,
-		html : '<br><center><font size=5>SpringMVC+Hibernate+ExtJS5.1+Maven	案例</font><br><font size=2>by XiaoY</font></center>'
+		height : 100,
+		html : '<br><center><font size=5>MVC模式实现的ExtJS案例</font><br><font size=2>by XiaoY</font></center>'
 	}, {
 		title : '功能菜单',
 		region : 'west',
@@ -28,9 +28,12 @@ Ext.define('AM.view.Viewport',{
 		}]
 	}, {
 		id : 'mainContent',
+		//title : '主题内容显示',
 		xtype:'tabpanel',
 		region : 'center',
 		collapisble : true
+//		,
+//		contentEl : 'contentIframe'
 	},{
         xtype:'toolbar',
         region:'south',
