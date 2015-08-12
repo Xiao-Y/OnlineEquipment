@@ -2,6 +2,9 @@ Ext.onReady(function() {
 	// 初始化
 	Ext.QuickTips.init();
 
+	//启用图标
+	Ext.setGlyphFontFamily('FontAwesome'); //Font Awesome图标
+	
 	Ext.Loader.setConfig({
 		enabled : true
 	});

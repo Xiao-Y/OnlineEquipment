@@ -8,28 +8,28 @@ Ext.define('AM.view.MenuList', {
 		items:[{
 			xtype : 'button',
 			text : '添加',
-			id : 'addMenu',
-			icon : '../js/extJs/icons/table/table_add.png'
+			glyph : 0xf0fe,
+			id : 'addMenu'
 		}, {
 			xtype : 'button',
 			id : 'delMenu',
-			text : '删除',
-			icon : '../js/extJs/icons/table/table_delete.png'
+			glyph : 0xf146,
+			text : '删除'
 		}, {
 			xtype : 'button',
 			text : '修改',
-			id : "editMenu",
-			icon : '../js/extJs/icons/table/table_edit.png'
+			glyph : 0xf0c7,
+			id : "editMenu"
 		}, {
 			xtype : 'button',
 			text : '高级查询',
-			id : "topQueryMenu",
-			icon : '../js/extJs/icons/used/zoom_in.png'
+			glyph : 0xf002,
+			id : "topQueryMenu"
 		}, {
 			xtype : 'button',
 			text : '重置',
-			id : "listResetMenu",
-			icon : '../js/extJs/icons/used/zoom_in.png'
+			glyph : 0xf021,
+			id : "listResetMenu"
 		} ]
 	},{
 		id : 'menuList',

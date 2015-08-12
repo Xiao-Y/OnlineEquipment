@@ -94,17 +94,17 @@ Ext.define('AM.view.MenuAdd', {
 			xtype : 'button',
 			text : '保存',
 			id : 'saveMenu',
-			icon : '../js/extJs/icons/table/table_save.png'
+			glyph:0xf0c7
 		}, {
 			xtype : 'button',
 			text : '重置',
 			id : 'resetMenu',
-			icon : '../js/extJs/icons/table/table_refresh.png'
+			glyph : 0xf021
 		}, {
 			xtype : 'button',
 			id : 'cancelMenu',
 			text : '关闭',
-			icon : '../js/extJs/icons/used/cancel.png'
+			glyph : 0xf00d
 		} ]
 	} ]
 });
