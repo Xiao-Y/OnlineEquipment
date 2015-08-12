@@ -20,23 +20,31 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "MENU")
-public class Menu
-{
+public class Menu {
+	// ID
 	private String id;
+	// 菜单名
 	private String menuName;
+	// 菜单URL
 	private String menuUrl;
+	// 父级菜单ID。自身为顶级则为-1
 	private String parentId;
+	// 父级菜单名
 	private String parentName;
+	// 备注
 	private String remark;
+	// 创建日期
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
+	// 最后修改日期
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date updateTime;
+	// 菜单类型。1表示叶子节点，0表示树枝节点
 	private String menuType;
+	// 排序号（显示位置）
 	private int seq;
 
-	public Menu(String id, String menuName, String menuUrl, String parentId, String remark, String menuType, int seq)
-	{
+	public Menu(String id, String menuName, String menuUrl, String parentId, String remark, String menuType, int seq) {
 		super();
 		this.id = id;
 		this.menuName = menuName;
@@ -47,13 +55,11 @@ public class Menu
 		this.seq = seq;
 	}
 
-	public Menu()
-	{
+	public Menu() {
 		super();
 	}
 
-	public Menu(String id, String menuName, String menuUrl, String parentId, String remark, Date createTime, Date updateTime, String menuType, int seq)
-	{
+	public Menu(String id, String menuName, String menuUrl, String parentId, String remark, Date createTime, Date updateTime, String menuType, int seq) {
 		super();
 		this.id = id;
 		this.menuName = menuName;
@@ -69,112 +75,92 @@ public class Menu
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
 	@Column(name = "id", unique = true, nullable = false, length = 100)
-	public String getId()
-	{
+	public String getId() {
 		return id;
 	}
 
-	public void setId(String id)
-	{
+	public void setId(String id) {
 		this.id = id;
 	}
 
 	@Column(name = "MENU_NAME", length = 50)
-	public String getMenuName()
-	{
+	public String getMenuName() {
 		return menuName;
 	}
 
-	public void setMenuName(String menuName)
-	{
+	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}
 
 	@Column(name = "MENU_URL", length = 230)
-	public String getMenuUrl()
-	{
+	public String getMenuUrl() {
 		return menuUrl;
 	}
 
-	public void setMenuUrl(String menuUrl)
-	{
+	public void setMenuUrl(String menuUrl) {
 		this.menuUrl = menuUrl;
 	}
 
 	@Column(name = "PARENT_ID", length = 100)
-	public String getParentId()
-	{
+	public String getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(String parentId)
-	{
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 
 	@Column(name = "REMARK", length = 300)
-	public String getRemark()
-	{
+	public String getRemark() {
 		return remark;
 	}
 
-	public void setRemark(String remark)
-	{
+	public void setRemark(String remark) {
 		this.remark = remark;
 	}
 
 	@Column(name = "CREATE_TIME")
-	public Date getCreateTime()
-	{
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime)
-	{
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
 	@Column(name = "UPDATE_TIME")
-	public Date getUpdateTime()
-	{
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime)
-	{
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
 	@Column(name = "MENU_TYPE", length = 2)
-	public String getMenuType()
-	{
+	public String getMenuType() {
 		return menuType;
 	}
 
-	public void setMenuType(String menuType)
-	{
+	public void setMenuType(String menuType) {
 		this.menuType = menuType;
 	}
 
 	@Column(name = "SEQ", length = 50)
-	public int getSeq()
-	{
+	public int getSeq() {
 		return seq;
 	}
 
-	public void setSeq(int seq)
-	{
+	public void setSeq(int seq) {
 		this.seq = seq;
 	}
 
 	@Transient
-	public String getParentName()
-	{
+	public String getParentName() {
 		return parentName;
 	}
 
-	public void setParentName(String parentName)
-	{
+	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}
 }

@@ -7,7 +7,7 @@ import com.xiaoy.base.entities.Menu;
 import com.xiaoy.menu.dao.MenuDao;
 
 @Repository
-public class MenuImpl extends CommonDaoImpl<Menu> implements MenuDao
+public class MenuDaoImpl extends CommonDaoImpl<Menu> implements MenuDao
 {
 
 }
