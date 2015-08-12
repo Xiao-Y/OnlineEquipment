@@ -2,7 +2,14 @@ var msgTip;
 Ext.define('AM.store.MenuTreeStore', {
 	extend : 'Ext.data.TreeStore',
 	model : 'AM.model.MenuTreeModel',
-	defaultRoodId : 'root',
+	//defaultRoodId : 'root',
+	// 设置根节点
+	root : {
+	  text : '根节点',
+	  id : '-1',
+	  leaf : false,//是否为叶子
+	  expanded : true//是否展开
+	},
 	proxy : {
 		url : '../home/buildTree',
 		type : 'ajax',

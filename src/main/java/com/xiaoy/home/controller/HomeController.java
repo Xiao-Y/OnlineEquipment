@@ -34,10 +34,11 @@ public class HomeController
 	 * 
 	 * @return
 	 */
-	@ResponseBody
 	@RequestMapping("/buildTree")
-	public List<Object> buildTree()
+	public @ResponseBody List<Object> buildTree()
 	{
+//		JsonResult json = new JsonResult();
+//		json.setRoot(homeService.buildTree());
 		return homeService.buildTree();
 	}
 }
