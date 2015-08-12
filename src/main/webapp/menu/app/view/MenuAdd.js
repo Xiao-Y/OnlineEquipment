@@ -13,7 +13,6 @@ Ext.define('AM.view.MenuAdd', {
 		autoScroll : true,
 		layout : 'anchor',
 		defaults : {
-			xtype : 'textfield',
 			labelWidth : 130,
 			labelAlign : 'right',
 			anchor : '90%'
@@ -24,14 +23,12 @@ Ext.define('AM.view.MenuAdd', {
 			name : 'id'
 		}, {
 			fieldLabel : '菜单名称',
-			xtype : 'textfield',
 			name : 'menuName',
 			allowBlank : false
 		}, {
 			fieldLabel : '请求路径',
-			xtype : 'textfield',
 			name : 'menuUrl'
-		}, {
+		},{
 			fieldLabel : '节点类型',
 			xtype : 'combobox',
 			// hidden : true,// 隐藏
@@ -42,7 +39,7 @@ Ext.define('AM.view.MenuAdd', {
 			store : 'MenuTypeStore',
 			name : 'menuType',
 			forceSelection : true,// 所选择的值必须是列表中的值
-			value : '1',
+			value : '1',//叶子节点
 			listeners : {
 				"change" : function() {
 					if (Ext.getCmp("menuType").getValue() == "0") {
@@ -59,7 +56,6 @@ Ext.define('AM.view.MenuAdd', {
 			displayField : 'menuName',
 			allowBlank : false,
 			valueField : 'id',
-			//value : '-1',
 			queryMode : 'local',
 			forceSelection : true,// 所选择的值必须是列表中的值
 			store : 'ParentMenuStore',
@@ -83,7 +79,6 @@ Ext.define('AM.view.MenuAdd', {
 			maxValue : 9999
 		}, {
 			fieldLabel : '备注',
-			xtype : 'textfield',
 			name : 'remark'
 		} ]
 	} ],
