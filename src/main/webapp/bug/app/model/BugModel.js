@@ -7,7 +7,7 @@ Ext.define("AM.model.BugModel",{
 		name:"title",
 		type:"string"
 	},{
-		name:"explain",
+		name:"note",
 		type:"string"
 	},{
 		name:"createTime",

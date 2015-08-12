@@ -45,8 +45,7 @@ Ext.define("AM.view.BugList",{
 			xtype : 'rownumberer',
 			header : '序号',
 			width : 40
-		}, 
-		{
+		}, {
 			header : 'ID',
 			hidden : true,
 			dataIndex : 'id',
@@ -54,23 +53,23 @@ Ext.define("AM.view.BugList",{
 		}, {
 			header : 'BUG标题',
 			dataIndex : 'title',
-			width : 130
+			width : 330
 		}, {
-			header : 'BUG状',
+			header : 'BUG状态',
 			dataIndex : 'status',
-			width : 50
+			width : 80
 		}, {
 			header : '父模块',
 			dataIndex : 'parentId',
-			width : 80
+			width : 120
 		}, {
 			header : '子模块',
 			dataIndex : 'childrenId',
-			width : 80
+			width : 120
 		}, {
 			header : '严重程度',
 			dataIndex : 'severity',
-			width : 120
+			width : 80
 		}, {
 			header : '重现规律',
 			dataIndex : 'reappear',
@@ -78,7 +77,7 @@ Ext.define("AM.view.BugList",{
 		}, {
 			header : 'BUG类型',
 			dataIndex : 'bugType',
-			width : 80
+			width : 120
 		}, {
 			header : '优先级',
 			dataIndex : 'priority',
@@ -91,11 +90,7 @@ Ext.define("AM.view.BugList",{
 			header : '更新时间',
 			dataIndex : 'updateTime',
 			width : 140
-		}, {
-			header : '备注',
-			dataIndex : 'remark',
-			width : 160
-		} ],
+		}],
 		// 一个或者一系列组件作为挂靠组件被添加到panel中
 		dockedItems : [ {
 			xtype : 'pagingtoolbar',// 分页组件

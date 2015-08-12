@@ -1,9 +1,9 @@
-Ext.define("AM.store.BugStoer",{
+Ext.define("AM.store.BugStore",{
 	extend:"Ext.data.Store",
 	model : 'AM.model.BugModel',
 	pageSize : 15,
 	proxy:{
-		tyep:"ajax",
+		type:"ajax",
 		url:"../bug/getBugList",
 		reader:{
 			type:"json",
