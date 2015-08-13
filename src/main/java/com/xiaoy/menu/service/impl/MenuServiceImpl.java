@@ -122,6 +122,8 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 				where.append(" and updateTime < timestamp(:updateTime2, '01 00:00:00') ");
 				paramsMapValue.put("updateTime2", sf.format(menu.getUpdateTime()));
 			}
+			
+			where.append(" order by updateTime ");
 		}
 		return paramsMapValue;
 	}

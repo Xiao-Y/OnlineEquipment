@@ -92,6 +92,7 @@ Ext.define('AM.view.BugAdd', {
 				queryMode : 'local',
 				value : '2',
 				forceSelection : true,// 所选择的值必须是列表中的值
+				editable : false,
 				store : 'SeverityStore',
 				name : 'severity',
 				listConfig : {// 下拉列表的样式
@@ -105,11 +106,14 @@ Ext.define('AM.view.BugAdd', {
 				xtype : 'combobox',
 				displayField : 'statusName',
 				valueField : 'status',
+				allowBlank : false,
+				queryMode : 'local',
 				id : 'status',
+				forceSelection : true,// 所选择的值必须是列表中的值
 				store : 'StatusStore',
 				editable : false,
 				name : 'status',
-				value : '0'
+				value : '2'
 			}]
 		},{
 			xtype:'panel',
@@ -128,7 +132,8 @@ Ext.define('AM.view.BugAdd', {
 				allowBlank : false,
 				valueField : 'reappear',
 				queryMode : 'local',
-				value : '0',
+				editable : false,
+				value : '3',
 				forceSelection : true,// 所选择的值必须是列表中的值
 				store : 'ReappearStore',
 				name : 'reappear',
@@ -145,7 +150,8 @@ Ext.define('AM.view.BugAdd', {
 				allowBlank : false,
 				valueField : 'bugType',
 				queryMode : 'local',
-				value : '0',
+				value : '6',
+				editable : false,
 				forceSelection : true,// 所选择的值必须是列表中的值
 				store : 'BugTypeStore',
 				name : 'bugType',

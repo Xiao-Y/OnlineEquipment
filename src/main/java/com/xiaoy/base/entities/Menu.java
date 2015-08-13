@@ -44,32 +44,8 @@ public class Menu {
 	// 排序号（显示位置）
 	private int seq;
 
-	public Menu(String id, String menuName, String menuUrl, String parentId, String remark, String menuType, int seq) {
-		super();
-		this.id = id;
-		this.menuName = menuName;
-		this.menuUrl = menuUrl;
-		this.parentId = parentId;
-		this.remark = remark;
-		this.menuType = menuType;
-		this.seq = seq;
-	}
-
 	public Menu() {
 		super();
-	}
-
-	public Menu(String id, String menuName, String menuUrl, String parentId, String remark, Date createTime, Date updateTime, String menuType, int seq) {
-		super();
-		this.id = id;
-		this.menuName = menuName;
-		this.menuUrl = menuUrl;
-		this.parentId = parentId;
-		this.remark = remark;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
-		this.menuType = menuType;
-		this.seq = seq;
 	}
 
 	@Id

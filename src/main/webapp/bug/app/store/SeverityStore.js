@@ -3,7 +3,7 @@ Ext.define('AM.store.SeverityStore', {
 	extend : 'Ext.data.Store',
 	fields : ['severityName', 'severity'],
 	data : [{
-		severityName : "建议",
+		severityName : "",
 		severity : "0"
 	}, {
 		severityName : "提示",
@@ -17,5 +17,8 @@ Ext.define('AM.store.SeverityStore', {
 	}, {
 		severityName : "致命",
 		severity : "4"
+	},{
+		severityName : "建议",
+		severity : "5"
 	}]
 });

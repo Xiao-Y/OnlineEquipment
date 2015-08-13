@@ -146,6 +146,20 @@ public interface CommonDao<T> {
 	 * @date: 2014年12月13日 下午11:22:52
 	 */
 	public List<T> findCollectionByCondition(String hqlWhere, Map<String, Object> paramsMapValue);
+	
+	/**
+	 * 带条件的查询，带分页。可以通过hqlWhere添加查询条件，paramMapValue设置查询参数
+	 * 
+	 * @param hqlWhere
+	 *            查询条件
+	 * @param paramsMapValue
+	 *            设置查询参数
+	 * @return List&ltT&gt
+	 *
+	 * @author XiaoY
+	 * @date: 2014年12月13日 下午11:22:52
+	 */
+	List<T> findCollectionByCondition(String string, Map<String, Object> paramsMapValue, String start, String limit);
 
 	/**
 	 * 带条件的查询，根据条件查询出现总记录数

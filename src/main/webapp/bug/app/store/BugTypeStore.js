@@ -3,7 +3,7 @@ Ext.define('AM.store.BugTypeStore', {
 	extend : 'Ext.data.Store',
 	fields : ['bugTypeName', 'bugType'],
 	data : [{
-		bugTypeName : "功能问题",
+		bugTypeName : "",
 		bugType : "0"
 	}, {
 		bugTypeName : "规范问题",
@@ -20,5 +20,8 @@ Ext.define('AM.store.BugTypeStore', {
 	}, {
 		bugTypeName : "其它问题",
 		bugType : "5"
+	},{
+		bugTypeName : "功能问题",
+		bugType : "6"
 	}]
 });

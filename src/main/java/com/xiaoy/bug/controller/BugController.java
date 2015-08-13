@@ -53,14 +53,17 @@ public class BugController
 	 */
 	@RequestMapping("/getBugList")
 	public @ResponseBody
-	JsonResult getBugList()
+	JsonResult getBugList(Bug bug,HttpServletRequest request)
 	{
+		String start = Tools.getStringParameter(request, "start", "");
+		String limit = Tools.getStringParameter(request, "limit", "");
+		
 		JsonResult json = new JsonResult();
 		// hqlWhere
 		// paramsMapValue
 		try
 		{
-			List<Bug> bugs = bugService.findCollectionByCondition("", null);
+			List<Bug> bugs = bugService.findCollectionByCondition(bug, start, limit);
 			for (Bug b : bugs)
 			{
 				b.setParentName(menuService.findObjectById(b.getParentId()).getMenuName());

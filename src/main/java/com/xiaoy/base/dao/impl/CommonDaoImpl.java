@@ -150,4 +150,26 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 		String hql = " delete from " + entityClass.getSimpleName();
 		this.getSession().createQuery(hql).executeUpdate();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findCollectionByCondition(String hqlWhere, Map<String, Object> paramsMapValue, String start, String limit)
+	{
+		StringBuffer hql = new StringBuffer("from " + entityClass.getSimpleName() + " e where 1 = 1 ");
+
+		hql.append(hqlWhere);
+
+		Query query = this.getSession().createQuery(hql.toString());
+
+		if (!StringUtils.isEmpty(hqlWhere) && paramsMapValue != null && paramsMapValue.size() > 0) {
+			// 设置参数
+			this.settingParam(hqlWhere, paramsMapValue, query);
+		}
+		
+		if(!StringUtils.isEmpty(start) && !StringUtils.isEmpty(limit)){
+			query.setFirstResult(Integer.parseInt(start));
+			query.setMaxResults(Integer.parseInt(limit));
+		}
+		return query.list();
+	}
 }

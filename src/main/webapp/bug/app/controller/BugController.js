@@ -1,6 +1,6 @@
 Ext.define('AM.controller.BugController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'BugList',"BugAdd"],//, 'BugAdd', 'BugQuery' 
+	views : [ 'BugList',"BugAdd", 'BugQuery'],
 	stores : [ 'BugStore',"ParentMenuStore","ChildrenMenuStore","StatusStore","SeverityStore","ReappearStore","BugTypeStore","PriorityStore"],//
 	models : [ 'BugModel',"MenuModel"],//
 	init : function() {
@@ -32,6 +32,12 @@ Ext.define('AM.controller.BugController', {
 			},
 			"bugList button[id=listResetBug]" : {//清除查询条件，刷新列表
 				click:this.listResetBug
+			},
+			"bugList button[id=topQueryBug]" : {//高级查询窗口
+				click:this.topQueryBug
+			},
+			"bugQuery button[id=queryBug]" : {//高级查询
+				click:this.queryBug
 			}
 		});
 	},
@@ -39,8 +45,6 @@ Ext.define('AM.controller.BugController', {
 		var form = Ext.getCmp("bugAddForm").getForm();
 		if(form.isValid()){
 			var fv = form.getValues();
-			console.info(fv);
-			console.info(Ext.JSON.encode(fv));
 			var url = "";
 			if(fv.id){
 				url = "../bug/updateBug";
@@ -119,10 +123,32 @@ Ext.define('AM.controller.BugController', {
 			}
 		});
 	},
-	listResetBug : function(but){
+	listResetBug : function(but){//重置，清空查询条件
 		var store = Ext.getCmp("bugList").getStore();
 		store.load({
 			params:{}
+		});
+	},
+	topQueryBug : function(){//高级查询窗口
+		Ext.require('AM.view.BugQuery', function() {
+			var baseFormWindow = Ext.getCmp("bugQueryWindow");
+			if (null == baseFormWindow) {
+				Ext.create('AM.view.BugQuery', {});// 第一次创建添加显示窗口
+				console.log('创建窗口');
+			}
+			//当点击查询时加载
+			Ext.getCmp("parentId").getStore().reload();
+			baseFormWindow = Ext.getCmp("bugQueryWindow");
+			baseFormWindow.show();
+		});
+	},
+	queryBug : function(){//高级查询
+		var form = Ext.getCmp('bugQueryForm').getForm();
+		var fv = form.getValues();
+		Ext.getCmp('bugQueryWindow').destroy();
+		var store = Ext.getCmp("bugList").getStore();
+		store.load({
+			params:fv
 		});
 	}
 });

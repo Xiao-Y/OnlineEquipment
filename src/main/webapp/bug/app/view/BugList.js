@@ -59,7 +59,7 @@ Ext.define("AM.view.BugList",{
 			dataIndex : 'status',
 			width : 80,
 			renderer:function(value){
-				if(value=='0'){return "<div style=' background:red;'>" + '未修改' + "</div>";}
+				if(value=='2'){return "<div style=' background:red;'>" + '未修改' + "</div>";}
 				if(value=='1'){return "<div style=' background:green;'>" + '已修改' + "</div>";}
         	}
 		}, {
@@ -75,7 +75,7 @@ Ext.define("AM.view.BugList",{
 			dataIndex : 'severity',
 			width : 80,
 			renderer:function(value){
-				if(value=='0'){return "<font color='3CCF26'>" + '建议' + "</font>";}
+				if(value=='5'){return "<font color='3CCF26'>" + '建议' + "</font>";}
 				if(value=='1'){return "<font color='32C39F'>" + '提示' + "</font>";}
 				if(value=='2'){return "<font color='D55920'>" + '一般' + "</font>";}
 				if(value=='3'){return "<font color='BFBF08'>" + '严重' + "</font>";}
@@ -86,7 +86,7 @@ Ext.define("AM.view.BugList",{
 			dataIndex : 'reappear',
 			width : 80,
 			renderer:function(value){
-				if(value=='0'){return '必然重现';}
+				if(value=='3'){return '必然重现';}
 				if(value=='1'){return '很难重现';}
 				if(value=='2'){return '随机重现';}
         	}
@@ -95,7 +95,7 @@ Ext.define("AM.view.BugList",{
 			dataIndex : 'bugType',
 			width : 120,
 			renderer:function(value){
-				if(value=='0'){return '功能问题';}
+				if(value=='6'){return '功能问题';}
 				if(value=='1'){return '规范问题';}
 				if(value=='2'){return '性能问题';}
 				if(value=='3'){return '安全问题';}

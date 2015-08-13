@@ -3,7 +3,7 @@ Ext.define('AM.store.PriorityStore', {
 	extend : 'Ext.data.Store',
 	fields : ['priorityName', 'priority'],
 	data : [{
-		priorityName : "无关紧要",
+		priorityName : "",
 		priority : "0"
 	}, {
 		priorityName : "低",
@@ -17,5 +17,8 @@ Ext.define('AM.store.PriorityStore', {
 	}, {
 		priorityName : "紧急",
 		priority : "4"
+	},{
+		priorityName : "无关紧要",
+		priority : "5"
 	}]
 });
