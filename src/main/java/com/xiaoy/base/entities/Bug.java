@@ -35,8 +35,8 @@ public class Bug
 	private Date updateTime;
 	// bug上传图片路径
 	private String imgUrl;
-	// bug状态。false未修改，true已经修改
-	private boolean status;
+	// bug状态。0未修改，1已经修改
+	private String status;
 	// bug修改说明
 	private String reviseExplain;
 	// bug出现的父模块id
@@ -49,8 +49,8 @@ public class Bug
 	private String reappear;
 	// bug类型
 	private String bugType;
-	// 优先级
-	private String priority;
+//	// 优先级
+//	private String priority;
 
 	public Bug()
 	{
@@ -126,12 +126,12 @@ public class Bug
 	}
 
 	@Column(name = "STATUS", length = 5)
-	public boolean isStatus()
+	public String getStatus()
 	{
 		return status;
 	}
 
-	public void setStatus(boolean status)
+	public void setStatus(String status)
 	{
 		this.status = status;
 	}
@@ -203,13 +203,20 @@ public class Bug
 	}
 
 	@Column(name = "PRIORITY", length = 5)
-	public String getPriority()
-	{
-		return priority;
-	}
+//	public String getPriority()
+//	{
+//		return priority;
+//	}
+//
+//	public void setPriority(String priority)
+//	{
+//		this.priority = priority;
+//	}
 
-	public void setPriority(String priority)
-	{
-		this.priority = priority;
+	@Override
+	public String toString() {
+		return "Bug [id=" + id + ", title=" + title + ", note=" + note + ", createTime=" + createTime + ", updateTime=" + updateTime + ", imgUrl="
+				+ imgUrl + ", status=" + status + ", reviseExplain=" + reviseExplain + ", parentId=" + parentId + ", childrenId=" + childrenId
+				+ ", severity=" + severity + ", reappear=" + reappear + ", bugType=" + bugType + "]";
 	}
 }

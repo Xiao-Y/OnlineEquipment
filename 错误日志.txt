@@ -20,6 +20,13 @@ rootVisible : false,
 加载列表出现未请求状态：
 BugStore中定义的BugStore写成了BugStoer导致未出现请求
 BugStore中proxy的代理类型type写成了tyep导致未出现请求
+
+Bug表没有自动创建：
+使用了mysql的关键字explain。
+
+保存Bug时，提交的表单没有映射到实体类中：
+前后台属性的类型不匹配
+
 -----------------------------------------------------------------------
 
 

@@ -20,6 +20,13 @@ public interface MenuService extends CommonService<Menu> {
 	 * @return
 	 */
 	List<Menu> getChildMenuList();
+	
+	/**
+	 * 根据父id获取其下的子菜单集合
+	 * @param parentId 父id
+	 * @return
+	 */
+	List<Menu> getChildMenuListByParentId(String parentId);
 
 	/**
 	 * 根据条件查询菜单

@@ -78,11 +78,13 @@ Ext.define("AM.view.BugList",{
 			header : 'BUG类型',
 			dataIndex : 'bugType',
 			width : 120
-		}, {
-			header : '优先级',
-			dataIndex : 'priority',
-			width : 80
-		}, {
+		}
+//		, {
+//			header : '优先级',
+//			dataIndex : 'priority',
+//			width : 80
+//		}
+		, {
 			header : '创建时间',
 			dataIndex : 'createTime',
 			width : 140

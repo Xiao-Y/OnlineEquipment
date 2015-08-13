@@ -59,8 +59,10 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 		
 		menuDao.settingParam(where.toString(), paramsMapValue, query);
 		
-		query.setFirstResult(Integer.parseInt(start));
-		query.setMaxResults(Integer.parseInt(limit));
+		if(!StringUtils.isEmpty(start) && !StringUtils.isEmpty(limit)){
+			query.setFirstResult(Integer.parseInt(start));
+			query.setMaxResults(Integer.parseInt(limit));
+		}
 		
 		return query.list();
 	}
@@ -134,5 +136,17 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 		obj.setRemark(menu.getRemark());
 		obj.setSeq(menu.getSeq());
 		obj.setUpdateTime(menu.getUpdateTime());
+	}
+
+	@Override
+	public List<Menu> getChildMenuListByParentId(String parentId) {
+		if(!StringUtils.isEmpty(parentId)){
+			String hqlWhere = " and parentId = :parentId ";
+			Map<String, Object> paramsMapValue = new HashMap<String, Object>();
+			paramsMapValue.put("parentId", parentId);
+			List<Menu> menus = menuDao.findCollectionByCondition(hqlWhere, paramsMapValue);
+			return menus;
+		}
+		return null;
 	}
 }

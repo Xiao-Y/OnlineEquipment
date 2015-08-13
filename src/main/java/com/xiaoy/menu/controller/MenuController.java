@@ -56,8 +56,8 @@ public class MenuController
 		menu.setMenuName(Tools.getStringParameter(request, "menuName"));
 		menu.setCreateTime(DateHelper.stringConverDate(Tools.getStringParameter(request, "createTime")));
 		menu.setUpdateTime(DateHelper.stringConverDate(Tools.getStringParameter(request, "updateTime")));
-		String start = Tools.getStringParameter(request, "start", "0");
-		String limit = Tools.getStringParameter(request, "limit", "15");
+		String start = Tools.getStringParameter(request, "start", "");
+		String limit = Tools.getStringParameter(request, "limit", "");
 
 		List<Menu> menuList = menuService.findCollectionByCondition(menu, start, limit);
 		for (Menu m : menuList)
