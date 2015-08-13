@@ -57,27 +57,51 @@ Ext.define("AM.view.BugList",{
 		}, {
 			header : 'BUG状态',
 			dataIndex : 'status',
-			width : 80
+			width : 80,
+			renderer:function(value){
+				if(value=='0'){return "<div style=' background:red;'>" + '未修改' + "</div>";}
+				if(value=='1'){return "<div style=' background:green;'>" + '已修改' + "</div>";}
+        	}
 		}, {
 			header : '父模块',
-			dataIndex : 'parentId',
+			dataIndex : 'parentName',
 			width : 120
 		}, {
 			header : '子模块',
-			dataIndex : 'childrenId',
+			dataIndex : 'childrenName',
 			width : 120
 		}, {
 			header : '严重程度',
 			dataIndex : 'severity',
-			width : 80
+			width : 80,
+			renderer:function(value){
+				if(value=='0'){return "<font color='3CCF26'>" + '建议' + "</font>";}
+				if(value=='1'){return "<font color='32C39F'>" + '提示' + "</font>";}
+				if(value=='2'){return "<font color='D55920'>" + '一般' + "</font>";}
+				if(value=='3'){return "<font color='BFBF08'>" + '严重' + "</font>";}
+				if(value=='4'){return "<font color='FA0007'>" + '致命' + "</font>";}
+        	}
 		}, {
 			header : '重现规律',
 			dataIndex : 'reappear',
-			width : 80
+			width : 80,
+			renderer:function(value){
+				if(value=='0'){return '必然重现';}
+				if(value=='1'){return '很难重现';}
+				if(value=='2'){return '随机重现';}
+        	}
 		}, {
 			header : 'BUG类型',
 			dataIndex : 'bugType',
-			width : 120
+			width : 120,
+			renderer:function(value){
+				if(value=='0'){return '功能问题';}
+				if(value=='1'){return '规范问题';}
+				if(value=='2'){return '性能问题';}
+				if(value=='3'){return '安全问题';}
+				if(value=='4'){return '页面问题';}
+				if(value=='5'){return '其它问题';}
+        	}
 		}
 //		, {
 //			header : '优先级',

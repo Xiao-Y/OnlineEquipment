@@ -2,6 +2,7 @@ package com.xiaoy.bug.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +55,10 @@ public class BugController {
 		// paramsMapValue
 		try {
 			List<Bug> bugs = bugService.findCollectionByCondition("", null);
+			for(Bug b : bugs){
+				b.setParentName(menuService.findObjectById(b.getParentId()).getMenuName());
+				b.setChildrenName(menuService.findObjectById(b.getChildrenId()).getMenuName());
+			}
 			json.setSuccess(true);
 			json.setRoot(bugs);
 		} catch (Exception e) {
@@ -86,6 +91,7 @@ public class BugController {
 	@RequestMapping(value = "/svaeBug", method = RequestMethod.POST)
 	public @ResponseBody JsonResult svaeBug(@RequestBody Bug bug) {
 		JsonResult json = new JsonResult();
+		bug.setId(UUID.randomUUID().toString());
 		bug.setCreateTime(new Date());
 		bug.setUpdateTime(new Date());
 		try {

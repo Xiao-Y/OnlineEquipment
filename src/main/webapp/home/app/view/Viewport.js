@@ -16,6 +16,7 @@ Ext.define('AM.view.Viewport',{
 		collapsible: true,//显示折叠
 		xtype : 'panel',//为了显示滑动条
 		autoScroll:true,
+		bodyPadding : 3,
 		items:[{//更换主题
 	        xtype: 'combobox',
 	        width: 200,

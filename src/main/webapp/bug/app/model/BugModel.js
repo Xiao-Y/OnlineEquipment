@@ -30,7 +30,13 @@ Ext.define("AM.model.BugModel",{
 		name:"parentId",
 		type:"string"
 	},{
+		name:"parentName",
+		type:"string"
+	},{
 		name:"childrenId",
+		type:"string"
+	},{
+		name:"childrenName",
 		type:"string"
 	},{
 		name:"severity",
