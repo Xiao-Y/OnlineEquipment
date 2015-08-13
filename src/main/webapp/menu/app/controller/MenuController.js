@@ -16,6 +16,7 @@ Ext.define('AM.controller.MenuController', {
 						//当点击添加时加载
 						Ext.getCmp("parentId").getStore().reload();
 						baseFormWindow = Ext.getCmp("menuAddWindow");
+						baseFormWindow.setTitle("添加菜单");
 						baseFormWindow.show();
 					});
 				}
@@ -173,7 +174,7 @@ Ext.define('AM.controller.MenuController', {
 				return;
 			}
 			var records = sm.getLastSelected();
-			var id = records.internalId;
+			//var id = records.internalId;
 
 			var baseFormWindow = Ext.getCmp('menuAddWindow');
 			if (null == baseFormWindow) {
@@ -181,6 +182,7 @@ Ext.define('AM.controller.MenuController', {
 				console.log('创建窗口');
 			}
 			baseFormWindow = Ext.getCmp('menuAddWindow');
+			baseFormWindow.setTitle("编辑菜单");
 			baseFormWindow.show();
 
 			var form = Ext.getCmp("menuAddForm").getForm();

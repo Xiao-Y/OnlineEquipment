@@ -10,4 +10,10 @@ import com.xiaoy.base.service.CommonService;
  */
 public interface BugService extends CommonService<Bug> {
 
+	/**
+	 * 更新BUG
+	 * @param bug
+	 */
+	void updateBug(Bug bug);
+
 }

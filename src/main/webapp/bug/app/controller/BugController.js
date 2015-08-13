@@ -6,7 +6,7 @@ Ext.define('AM.controller.BugController', {
 	init : function() {
 		this.control({
 			"bugList button[id=addBug]" : {
-				click : function() {
+				click : function() {//添加窗口
 					Ext.require('AM.view.BugAdd', function() {
 						var baseFormWindow = Ext.getCmp("bugAddWindow");
 						if (null == baseFormWindow) {
@@ -21,12 +21,21 @@ Ext.define('AM.controller.BugController', {
 					});
 				}
 			},
-			"bugAdd button[id=saveBug]":{
+			"bugAdd button[id=saveBug]":{//保存操作
 				click:this.saveBug
+			},
+			"bugList button[id=editBug]":{//编辑操作
+				click:this.editBug
+			},
+			"bugList button[id=delBug]" : {//删除操作
+				click:this.delBug
+			},
+			"bugList button[id=listResetBug]" : {//清除查询条件，刷新列表
+				click:this.listResetBug
 			}
 		});
 	},
-	saveBug : function(but){
+	saveBug : function(){//添加/更新
 		var form = Ext.getCmp("bugAddForm").getForm();
 		if(form.isValid()){
 			var fv = form.getValues();
@@ -61,5 +70,59 @@ Ext.define('AM.controller.BugController', {
 				}
 			});
 		}
+	},
+	editBug : function(){//回显
+		Ext.require('AM.view.BugAdd', function() {
+			var sm = Ext.getCmp('bugList').getSelectionModel();
+			if (!sm.hasSelection()) {
+				Ext.Msg.alert('提示', '请选择要修改的行');
+				return;
+			}
+			var records = sm.getLastSelected();
+			var baseFormWindow = Ext.getCmp("bugAddWindow");
+			if (null == baseFormWindow) {
+				Ext.create('AM.view.BugAdd', {});// 第一次创建添加显示窗口
+				console.log('BugAdd创建窗口');
+			}
+			//当点击添加时加载
+			Ext.getCmp("parentId").getStore().reload();
+			baseFormWindow = Ext.getCmp("bugAddWindow");
+			baseFormWindow.setTitle("编辑BUG");
+			baseFormWindow.show();
+			var form = Ext.getCmp("bugAddForm").getForm();
+			form.loadRecord(records);// 将reocrd填充到表单中
+		});
+	},
+	delBug : function(){
+		var sm = Ext.getCmp('bugList').getSelectionModel();
+		if (!sm.hasSelection()) {
+			Ext.Msg.alert('提示', '请选择要删除的行');
+			return;
+		}
+
+		Ext.Msg.confirm('提示', '确定要删除所选的行？', function(btn) {
+			if (btn == 'yes') {
+				var sel = sm.getSelection();
+				var selectedId = sel[0].data.id;
+				Ext.Ajax.request({
+					url : '../bug/deleteBug/' + selectedId,
+					method : 'POST',
+					async : false,
+					success : function(resopnse) {
+						var jsonObj = Ext.JSON.decode(resopnse.responseText);
+						Ext.Msg.alert('提示', jsonObj.message);
+						if (jsonObj.success == true) {
+							Ext.getCmp('bugList').getStore().reload();// 刷新表格
+						}
+					}
+				});
+			}
+		});
+	},
+	listResetBug : function(but){
+		var store = Ext.getCmp("bugList").getStore();
+		store.load({
+			params:{}
+		});
 	}
 });
