@@ -61,14 +61,22 @@ Ext.define('AM.controller.MenuController', {
 			},
 			// 重置
 			'menuAdd button[id=resetMenu]' : {
-				click : this.resetMenu
+				click : function(btn) {
+					var saveFormPanel = Ext.getCmp("menuAddForm");
+					var baseForm = saveFormPanel.getForm();
+					console.info(baseForm);
+					baseForm.reset();
+				}
 			},// 重置
 			'menuList button[id=listResetMenu]' : {
 				click : this.listResetMenu
 			},
 			// 重置
 			'menuQuery button[id=resetMenu]' : {
-				click : this.resetMenu
+				click : function() {
+					var baseForm = Ext.getCmp("menuQueryForm").getForm();
+					baseForm.reset();
+				}
 			},
 			// 取消
 			'menuQuery button[id=cancelMenu]' : {
@@ -115,21 +123,15 @@ Ext.define('AM.controller.MenuController', {
 			});
 		}
 	},
-	queryMenu : function(btn) {
+	queryMenu : function(btn) {//查询
 		var form = Ext.getCmp('menuQueryForm').getForm();
 		var fv = form.getValues();
-		Ext.getCmp('menuQueryWindow').destroy();
+		//Ext.getCmp('menuQueryWindow').destroy();
 		var gridPanel = Ext.getCmp("menuList");
 		var store = gridPanel.getStore();
 		store.load({
 			params:fv
 		});
-	},
-	// 重置
-	resetMenu : function(btn) {
-		var saveFormPanel = Ext.getCmp("menuAddForm");
-		var baseForm = saveFormPanel.getForm();
-		baseForm.reset();
 	},// 重置
 	listResetMenu : function(btn) {
 		var gridPanel = Ext.getCmp("menuList");

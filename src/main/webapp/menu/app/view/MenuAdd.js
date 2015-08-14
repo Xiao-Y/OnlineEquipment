@@ -4,6 +4,7 @@ Ext.define('AM.view.MenuAdd', {
 	id : 'menuAddWindow',
 	height : 300,
 	width : 400,
+	modal:true,//模态框
 	layout : 'fit',
 	items : [ {
 		xtype : 'form',

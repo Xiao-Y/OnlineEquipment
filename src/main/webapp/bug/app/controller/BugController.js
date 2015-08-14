@@ -24,8 +24,23 @@ Ext.define('AM.controller.BugController', {
 			"bugAdd button[id=saveBug]":{//保存操作
 				click:this.saveBug
 			},
+			"bugAdd button[id=resetBug]":{//重置操作
+				click:function(){
+					var form = Ext.getCmp("bugAddForm").getForm();
+					form.reset();
+				}
+			},
+			"bugAdd button[id=cancelBug]":{//关闭操作
+				click:function() {
+					Ext.getCmp('bugAddWindow').destroy();
+				}
+			},
 			"bugList button[id=editBug]":{//编辑操作
 				click:this.editBug
+			},"bugList button[id=resetBug]":{//重置操作
+				click:this.resetBug
+			},"bugList button[id=cancelBug]":{//编辑操作
+				click:this.cancelBug
 			},
 			"bugList button[id=delBug]" : {//删除操作
 				click:this.delBug
@@ -38,6 +53,17 @@ Ext.define('AM.controller.BugController', {
 			},
 			"bugQuery button[id=queryBug]" : {//高级查询
 				click:this.queryBug
+			},
+			"bugQuery button[id=resetBug]" : {//高级查询时，重置查询条件
+				click:function(){
+					var form = Ext.getCmp("bugQueryForm").getForm();
+					form.reset();
+				}
+			},
+			'bugQuery button[id=cancelBug]' : {// 查询关闭
+				click:function() {
+					Ext.getCmp('bugQueryWindow').destroy();
+				}
 			}
 		});
 	},
@@ -145,7 +171,7 @@ Ext.define('AM.controller.BugController', {
 	queryBug : function(){//高级查询
 		var form = Ext.getCmp('bugQueryForm').getForm();
 		var fv = form.getValues();
-		Ext.getCmp('bugQueryWindow').destroy();
+		//Ext.getCmp('bugQueryWindow').destroy();
 		var store = Ext.getCmp("bugList").getStore();
 		store.load({
 			params:fv

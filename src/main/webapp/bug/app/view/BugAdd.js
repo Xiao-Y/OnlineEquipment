@@ -4,6 +4,7 @@ Ext.define('AM.view.BugAdd', {
 	id : 'bugAddWindow',
 	height : 500,
 	width : 800,
+	modal:true,//模态框
 	layout : 'fit',
 	items : [ {
 		xtype : 'form',

@@ -2,9 +2,10 @@ Ext.define('AM.view.BugQuery', {
 	extend : 'Ext.window.Window',
 	alias : "widget.bugQuery",
 	id : 'bugQueryWindow',
-	height : 300,
+	height : 320,
 	width : 400,
 	layout : 'fit',
+	modal:true,
 	title:"高级查询",
 	items : [ {
 		xtype : 'form',
@@ -20,12 +21,16 @@ Ext.define('AM.view.BugQuery', {
 		},
 		defaultType : 'textfield',
 		items : [{
+			fieldLabel : 'BUG标题',
+			name : 'title'
+		},{
 			fieldLabel : 'BUG出现的父模块',
 			xtype : 'combobox',
 			displayField : 'menuName',
 			valueField : 'id',
 			queryMode : 'local',
 			forceSelection : true,// 所选择的值必须是列表中的值
+			editable : true,
 			name : 'parentId',
 			store : 'ParentMenuStore',
 			listConfig : {// 下拉列表的样式
@@ -51,6 +56,7 @@ Ext.define('AM.view.BugQuery', {
 			valueField : 'id',
 			queryMode : 'local',
 			forceSelection : true,// 所选择的值必须是列表中的值
+			editable : true,
 			store : 'ChildrenMenuStore',
 			name : 'childrenId',
 			listConfig : {// 下拉列表的样式
@@ -65,6 +71,7 @@ Ext.define('AM.view.BugQuery', {
 			valueField : 'severity',
 			queryMode : 'local',
 			forceSelection : true,// 所选择的值必须是列表中的值
+			editable : true,
 			store : 'SeverityStore',
 			name : 'severity',
 			value : '0',
@@ -80,7 +87,8 @@ Ext.define('AM.view.BugQuery', {
 			valueField : 'status',
 			id : 'status',
 			store : 'StatusStore',
-			editable : false,
+			forceSelection : true,// 所选择的值必须是列表中的值
+			editable : true,
 			name : 'status',
 			value : '0'
 		},{
@@ -91,6 +99,7 @@ Ext.define('AM.view.BugQuery', {
 			queryMode : 'local',
 			value : '0',
 			forceSelection : true,// 所选择的值必须是列表中的值
+			editable : true,
 			store : 'ReappearStore',
 			name : 'reappear',
 			listConfig : {// 下拉列表的样式
@@ -106,6 +115,7 @@ Ext.define('AM.view.BugQuery', {
 			queryMode : 'local',
 			value : '0',
 			forceSelection : true,// 所选择的值必须是列表中的值
+			editable : true,
 			store : 'BugTypeStore',
 			name : 'bugType',
 			listConfig : {// 下拉列表的样式
@@ -113,9 +123,6 @@ Ext.define('AM.view.BugQuery', {
 				maxHeight : 100
 			},
 			id : 'bugType'
-		}, {
-			fieldLabel : 'BUG标题',
-			name : 'title'
 		}]
 	} ],
 	dockedItems : [ {

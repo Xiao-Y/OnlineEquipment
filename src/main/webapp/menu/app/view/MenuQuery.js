@@ -5,6 +5,7 @@ Ext.define('AM.view.MenuQuery', {
 	height : 300,
 	width : 400,
 	layout : 'fit',
+	modal:true,//模态框
 	title:"高级查询",
 	items : [ {
 		xtype : 'form',
