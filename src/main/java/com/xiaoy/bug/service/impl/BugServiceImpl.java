@@ -113,8 +113,17 @@ public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService
 				hqlWhwere.append(" and title like :title ");
 				param.put("title", "%" + bug.getTitle() + "%");
 			}
+			hqlWhwere.append(" order by updateTime desc");
 			return param;
 		}
 		return null;
+	}
+
+	@Override
+	public long countByCollection(Bug bug)
+	{
+		StringBuffer hqlWhere = new StringBuffer("");
+		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, bug);
+		return bugDao.countByCollection(hqlWhere.toString(), paramsMapValue);
 	}
 }

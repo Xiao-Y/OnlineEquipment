@@ -66,17 +66,17 @@ public class BugController
 		String limit = Tools.getStringParameter(request, "limit", "");
 
 		JsonResult json = new JsonResult();
-		// hqlWhere
-		// paramsMapValue
 		try
 		{
 			List<Bug> bugs = bugService.findCollectionByCondition(bug, start, limit);
+			long total = bugService.countByCollection(bug);
 			for (Bug b : bugs)
 			{
 				b.setParentName(menuService.findObjectById(b.getParentId()).getMenuName());
 				b.setChildrenName(menuService.findObjectById(b.getChildrenId()).getMenuName());
 			}
 			json.setSuccess(true);
+			json.setTotal(total);
 			json.setRoot(bugs);
 		} catch (Exception e)
 		{

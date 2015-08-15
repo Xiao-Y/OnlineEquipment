@@ -8,8 +8,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import com.xiaoy.base.dao.CommonDao;
@@ -47,24 +45,12 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 		return childMenus;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Menu> findCollectionByCondition(Menu menu, String start, String limit) {
-		Session session = menuDao.getSession();
-		StringBuffer where = new StringBuffer("from Menu where 1=1 ");
-		
-		Map<String, Object> paramsMapValue = this.appHql(where, menu);
-		
-		Query query = session.createQuery(where.toString());
-		
-		menuDao.settingParam(where.toString(), paramsMapValue, query);
-		
-		if(!StringUtils.isEmpty(start) && !StringUtils.isEmpty(limit)){
-			query.setFirstResult(Integer.parseInt(start));
-			query.setMaxResults(Integer.parseInt(limit));
-		}
-		
-		return query.list();
+		StringBuffer hqlWhere = new StringBuffer("");
+		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, menu);
+		List<Menu> list = menuDao.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
+		return list;
 	}
 
 	@Override
@@ -123,7 +109,7 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 				paramsMapValue.put("updateTime2", sf.format(menu.getUpdateTime()));
 			}
 			
-			where.append(" order by updateTime ");
+			where.append(" order by updateTime desc");
 		}
 		return paramsMapValue;
 	}
