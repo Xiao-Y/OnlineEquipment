@@ -129,7 +129,7 @@ Ext.define("AM.view.BugList",{
 		title: 'BUG截图信息',
 		region: 'south',
 		xtype: 'panel',
-		id:'bugImage',
+		id:'bugImagePanel',
 		autoScroll:true,
 		split:true,
 		height:150,

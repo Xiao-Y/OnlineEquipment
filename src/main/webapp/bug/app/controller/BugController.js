@@ -51,7 +51,7 @@ Ext.define('AM.controller.BugController', {
 			"bugList button[id=topQueryBug]" : {//高级查询窗口
 				click:this.topQueryBug
 			},
-			"bugList gridpanel[id=bugList]" : {
+			"bugList gridpanel[id=bugList]" : {//点击列表中的某一行触发
 				itemclick:this.getImage
 			},
 			"bugQuery button[id=queryBug]" : {//高级查询
@@ -178,6 +178,7 @@ Ext.define('AM.controller.BugController', {
 		});
 	},
 	getImage : function(view, record, item, index,  e,  eOpts){
+		//获取点击行的id
 		var id = record.get('id');
 		var imgArray = new Array();
 		Ext.Ajax.request({
@@ -186,7 +187,7 @@ Ext.define('AM.controller.BugController', {
 			async:false,
 			success:function(response){
 				var obj = Ext.JSON.decode(response.responseText);
-				console.info(obj);
+				//获取图片数组
 				imgArray = obj.root;
 			},
 			failure:function(response){
@@ -194,17 +195,21 @@ Ext.define('AM.controller.BugController', {
 				Ext.Msg.alert('提示',obj.message);
 			}
 		});
-		
-		Ext.getCmp('bugImage').removeAll();
-		for(var i =0 ;i<imgArray.length;i++){
-			(function(imageId){
-				var changingImage = Ext.create('Ext.Img', {
-					width:400,
-					height:250,
-					src: '../resource/upload/image/'+imgArray[i]
-				});
-				Ext.getCmp('bugImage').add(changingImage);
-			})(imgArray[i])
+		//移除页面板上的图片		
+		Ext.getCmp('bugImagePanel').removeAll();
+		if(imgArray){
+			for(var i = 0; i < imgArray.length; i++){
+				(function(imageId){
+					//创建image对象
+					var changingImage = Ext.create('Ext.Img', {
+						width:400,
+						height:250,
+						src: '../resource/upload/image/'+imgArray[i]
+					});
+					//添加到面板上
+					Ext.getCmp('bugImagePanel').add(changingImage);
+				})(imgArray[i])
+			}
 		}
 	}
 });
