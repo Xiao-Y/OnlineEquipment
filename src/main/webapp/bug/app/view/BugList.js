@@ -125,5 +125,14 @@ Ext.define("AM.view.BugList",{
 			// 展示信息
 			displayInfo : true
 		}]
+	},{
+		title: 'BUG截图信息',
+		region: 'south',
+		xtype: 'panel',
+		id:'bugImage',
+		autoScroll:true,
+		split:true,
+		height:150,
+		layout: 'column'
 	}]
 });

@@ -7,12 +7,14 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.xiaoy.base.entities.Bug;
 import com.xiaoy.base.entities.Menu;
@@ -31,6 +33,11 @@ import com.xiaoy.util.Tools;
 @RequestMapping("/bug")
 public class BugController
 {
+
+	/**
+	 * 上传图片的路径
+	 */
+	public final static String REALPATH = "resource/upload/image";
 
 	@Resource
 	private BugService bugService;
@@ -53,11 +60,11 @@ public class BugController
 	 */
 	@RequestMapping("/getBugList")
 	public @ResponseBody
-	JsonResult getBugList(Bug bug,HttpServletRequest request)
+	JsonResult getBugList(Bug bug, HttpServletRequest request)
 	{
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
-		
+
 		JsonResult json = new JsonResult();
 		// hqlWhere
 		// paramsMapValue
@@ -109,12 +116,16 @@ public class BugController
 	 */
 	@RequestMapping(value = "/svaeBug", method = RequestMethod.POST)
 	public @ResponseBody
-	JsonResult svaeBug(@RequestBody Bug bug)
+	JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request)
 	{
-		JsonResult json = new JsonResult();
+		String imgUrl = Tools.uploadFile(imgUrls, request, REALPATH);
+		Bug bug = this.setParamBug(request);
+		bug.setImgUrl(imgUrl);
 		bug.setId(UUID.randomUUID().toString());
 		bug.setCreateTime(new Date());
 		bug.setUpdateTime(new Date());
+
+		JsonResult json = new JsonResult();
 		try
 		{
 			bugService.saveObject(bug);
@@ -129,6 +140,27 @@ public class BugController
 	}
 
 	/**
+	 * 向Bug对象中放入值
+	 * 
+	 * @param request
+	 * @return
+	 */
+	private Bug setParamBug(HttpServletRequest request)
+	{
+		Bug bug = new Bug();
+		bug.setParentId(Tools.getStringParameter(request, "parentId"));
+		bug.setChildrenId(Tools.getStringParameter(request, "childrenId"));
+		bug.setSeverity(Tools.getStringParameter(request, "severity"));
+		bug.setStatus(Tools.getStringParameter(request, "status"));
+		bug.setReappear(Tools.getStringParameter(request, "reappear"));
+		bug.setBugType(Tools.getStringParameter(request, "bugType"));
+		bug.setNote(Tools.getStringParameter(request, "note"));
+		bug.setReviseExplain(Tools.getStringParameter(request, "reviseExplain"));
+		bug.setTitle(Tools.getStringParameter(request, "title"));
+		return bug;
+	}
+
+	/**
 	 * 更新BUG
 	 * 
 	 * @param bug
@@ -136,11 +168,15 @@ public class BugController
 	 */
 	@RequestMapping(value = "/updateBug", method = RequestMethod.POST)
 	public @ResponseBody
-	JsonResult updateBug(@RequestBody Bug bug)
+	JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request)
 	{
+		String imgUrl = Tools.uploadFile(imgUrls, request, REALPATH);
 		JsonResult json = new JsonResult();
 		try
 		{
+			Bug bug = this.setParamBug(request);
+			bug.setId(Tools.getStringParameter(request, "id"));
+			bug.setImgUrl(imgUrl);
 			bug.setUpdateTime(new Date());
 			bugService.updateBug(bug);
 			json.setSuccess(true);
@@ -169,6 +205,39 @@ public class BugController
 			bugService.deleteObjectByid(id);
 			json.setMessage("删除成功！");
 			json.setSuccess(true);
+		} catch (Exception e)
+		{
+			json.setMessage("服务器错误，请稍后再试！");
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	/**
+	 * 根据id获取图片名数组
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/getImage/{id}")
+	public @ResponseBody
+	JsonResult getImage(@PathVariable("id") String id)
+	{
+		JsonResult json = new JsonResult();
+		try
+		{
+			Bug bug = bugService.findObjectById(id);
+			if (bug != null)
+			{
+				String strImg = bug.getImgUrl();
+				if (!StringUtils.isEmpty(strImg))
+				{
+					String[] image = strImg.split(",");
+					json.setRoot(image);
+					json.setSuccess(true);
+				}
+			}
+
 		} catch (Exception e)
 		{
 			json.setMessage("服务器错误，请稍后再试！");

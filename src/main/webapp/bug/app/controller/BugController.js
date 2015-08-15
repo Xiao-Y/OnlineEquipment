@@ -51,6 +51,9 @@ Ext.define('AM.controller.BugController', {
 			"bugList button[id=topQueryBug]" : {//高级查询窗口
 				click:this.topQueryBug
 			},
+			"bugList gridpanel[id=bugList]" : {
+				itemclick:this.getImage
+			},
 			"bugQuery button[id=queryBug]" : {//高级查询
 				click:this.queryBug
 			},
@@ -77,16 +80,13 @@ Ext.define('AM.controller.BugController', {
 			}else{
 				url = "../bug/svaeBug";
 			}
-			Ext.Ajax.request({
+			
+			form.submit({
 				url : url,
 				params : Ext.JSON.encode(fv),
-				method : 'POST',
-				async : false,
-				headers : {
-					"Content-Type" : "application/json; charset=utf-8"
-				},
-				success:function(response){
-					var obj = Ext.JSON.decode(response.responseText);
+				waitMsg : '正在保存图片...',
+				success:function(form, action){
+					var obj = Ext.JSON.decode(action.response.responseText);
 					if(obj.success){
 						Ext.getCmp("bugAddWindow").destroy();
 						var store = Ext.getCmp("bugList").getStore();
@@ -94,8 +94,8 @@ Ext.define('AM.controller.BugController', {
 					}
 					Ext.Msg.alert('提示', obj.message);
 				},
-				failure:function(response){
-					var obj = Ext.JSON.decode(response.responseText);
+				failure:function(form, action){
+					var obj = Ext.JSON.decode(action.response.responseText);
 					Ext.Msg.alert('提示', obj.message);
 				}
 			});
@@ -176,5 +176,35 @@ Ext.define('AM.controller.BugController', {
 		store.load({
 			params:fv
 		});
+	},
+	getImage : function(view, record, item, index,  e,  eOpts){
+		var id = record.get('id');
+		var imgArray = new Array();
+		Ext.Ajax.request({
+			url:"../bug/getImage/" + id,
+			method:'GET',
+			async:false,
+			success:function(response){
+				var obj = Ext.JSON.decode(response.responseText);
+				console.info(obj);
+				imgArray = obj.root;
+			},
+			failure:function(response){
+				var obj = Ext.JSON.decode(response.responseText);
+				Ext.Msg.alert('提示',obj.message);
+			}
+		});
+		
+		Ext.getCmp('bugImage').removeAll();
+		for(var i =0 ;i<imgArray.length;i++){
+			(function(imageId){
+				var changingImage = Ext.create('Ext.Img', {
+					width:400,
+					height:250,
+					src: '../resource/upload/image/'+imgArray[i]
+				});
+				Ext.getCmp('bugImage').add(changingImage);
+			})(imgArray[i])
+		}
 	}
 });
