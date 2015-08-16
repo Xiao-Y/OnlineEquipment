@@ -26,7 +26,7 @@ import com.xiaoy.user.service.UserService;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:19:02
  */
-@Service
+//@Service
 public class MyRealm extends AuthorizingRealm
 {
 

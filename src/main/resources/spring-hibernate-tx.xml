@@ -48,6 +48,25 @@
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
 	</aop:config>
+
+	<!-- 系统操作日志 -->
+	<aop:config>
+		<!-- 保存操作的切点 -->
+		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.save*(..))" id="saveHandleLogPointcut" />
+		<!-- 更新操作的切点 -->
+		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.update*(..))" id="updateHandleLogPointcut" />
+		<!-- 删除操作的切点 -->
+		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.delete*(..))" id="deleteHandleLogPointcut" />
+		<!-- 切面： 将哪个对象中的哪个方法，织入到哪个切入点 -->
+		<aop:aspect id="logAsp" ref="logServiceImpl">
+			<!-- 前置通知 <aop:before method="log" pointcut-ref="logPointcut" /> <aop:after-returning 
+				method="logArgAndReturn" returning="returnObj" pointcut-ref="logPointcut" 
+				/> -->
+			<aop:after method="logArgSave" pointcut-ref="saveHandleLogPointcut" />
+			<aop:after method="logArgUpdate" pointcut-ref="updateHandleLogPointcut" />
+			<aop:after method="logArgDelete" pointcut-ref="deleteHandleLogPointcut" />
+		</aop:aspect>
+	</aop:config>
 </beans>
 
 
