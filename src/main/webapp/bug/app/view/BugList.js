@@ -133,6 +133,7 @@ Ext.define("AM.view.BugList",{
 		autoScroll:true,
 		split:true,
 		height:150,
+//		layout: 'fit'
 		layout: 'column'
 	}]
 });

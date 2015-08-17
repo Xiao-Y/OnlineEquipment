@@ -202,8 +202,8 @@ Ext.define('AM.controller.BugController', {
 				(function(imageId){
 					//创建image对象
 					var changingImage = Ext.create('Ext.Img', {
-						width:400,
-						height:250,
+						width:800,
+						height:600,
 						src: '../resource/upload/image/'+imgArray[i]
 					});
 					//添加到面板上

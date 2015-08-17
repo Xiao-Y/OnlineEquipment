@@ -77,13 +77,17 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 		}
 		//获取超类的全类名
 		//String methodName = joinPoint.getSignature().getDeclaringTypeName();
+		
+		//获取类全名
+		String className = joinPoint.getTarget().getClass().getName();
 		// 获取方法名
 		String methodName = joinPoint.getSignature().getName();
 		// 获取操作内容
-		String opContent = this.optionContent(joinPoint.getArgs(), methodName);
+		String opContent = this.optionContent(joinPoint.getArgs());
 
 		log.setId(UUID.randomUUID().toString());
 		log.setContent(opContent);
+		log.setRunClass(className + "." + methodName);
 		log.setCreateTime(new Date());
 		//TODO临时的用户id
 		log.setUserId("1111");
@@ -94,14 +98,13 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 	/**
 	 * 使用Java反射来获取被拦截方法(insert、update)的参数值， 将参数值拼接为操作内容
 	 */
-	private String optionContent(Object[] args, String mName)
+	private String optionContent(Object[] args)
 	{
 		if (args == null)
 		{
 			return null;
 		}
 		StringBuffer rs = new StringBuffer();
-		rs.append(mName);
 		String className = null;
 		int index = 1;
 		// 遍历参数对象
@@ -127,7 +130,6 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 				{
 					// 调用get方法，获取返回值
 					rsValue = method.invoke(info);
-
 					if (rsValue == null)
 					{// 没有返回值
 						continue;

@@ -41,8 +41,8 @@
 
 	<!-- 支持上传文件 -->  
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    	<!-- 配置最大上传文件的大小 -->
-    	<property name="maxUploadSize" value="1000000"/>
+    	<!-- 配置最大上传文件的大小，以字节为单位计算。当设为-1时表示无限制，默认是-1。 -->
+    	<property name="maxUploadSize" value="-1"/>
     </bean>
     
 	<!-- 处理静态资源 <mvc:default-servlet-handler /> -->
