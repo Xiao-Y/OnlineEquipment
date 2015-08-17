@@ -67,7 +67,7 @@ public class Log
 		this.createTime = createTime;
 	}
 
-	@Column(name = "CONTENT", length = 450)
+	@Column(name = "CONTENT", length = 1000)
 	public String getContent()
 	{
 		return content;

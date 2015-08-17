@@ -3,9 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 	<!-- 配置SessionFactory -->
 	<bean id="sessionFactory"
@@ -59,9 +59,10 @@
 		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.delete*(..))" id="deleteHandleLogPointcut" />
 		<!-- 切面： 将哪个对象中的哪个方法，织入到哪个切入点 -->
 		<aop:aspect id="logAsp" ref="logServiceImpl">
-			<!-- 前置通知 <aop:before method="log" pointcut-ref="logPointcut" /> <aop:after-returning 
-				method="logArgAndReturn" returning="returnObj" pointcut-ref="logPointcut" 
-				/> -->
+			<!-- 前置通知 <aop:before method="log" pointcut-ref="logPointcut" />  -->
+			<!-- 有返回值的前置通知 
+			<aop:after-returning method="logArgAndReturn" returning="returnObj" pointcut-ref="logPointcut" />
+			-->
 			<aop:after method="logArgSave" pointcut-ref="saveHandleLogPointcut" />
 			<aop:after method="logArgUpdate" pointcut-ref="updateHandleLogPointcut" />
 			<aop:after method="logArgDelete" pointcut-ref="deleteHandleLogPointcut" />

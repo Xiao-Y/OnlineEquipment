@@ -13,6 +13,7 @@ import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.entities.Log;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.log.dao.LogDao;
+import com.xiaoy.log.service.HandleTyepEnum;
 import com.xiaoy.log.service.LogService;
 
 /**
@@ -39,7 +40,7 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 	public void logArgSave(JoinPoint joinPoint)
 	{
 		Log log = new Log();
-		log.setOperation("保存操作");
+		log.setOperation(HandleTyepEnum.SAVE.getValue());
 		this.saveLog(joinPoint, log);
 	}
 
@@ -47,7 +48,7 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 	public void logArgUpdate(JoinPoint joinPoint)
 	{
 		Log log = new Log();
-		log.setOperation("更新操作");
+		log.setOperation(HandleTyepEnum.UPDATE.getValue());
 		this.saveLog(joinPoint, log);
 	}
 
@@ -55,7 +56,7 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 	public void logArgDelete(JoinPoint joinPoint)
 	{
 		Log log = new Log();
-		log.setOperation("删除操作");
+		log.setOperation(HandleTyepEnum.DELERE.getValue());
 		this.saveLog(joinPoint, log);
 	}
 
@@ -74,6 +75,8 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 		{// 没有参数
 			return;
 		}
+		//获取超类的全类名
+		//String methodName = joinPoint.getSignature().getDeclaringTypeName();
 		// 获取方法名
 		String methodName = joinPoint.getSignature().getName();
 		// 获取操作内容
@@ -82,6 +85,7 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 		log.setId(UUID.randomUUID().toString());
 		log.setContent(opContent);
 		log.setCreateTime(new Date());
+		//TODO临时的用户id
 		log.setUserId("1111");
 
 		logDao.saveObject(log);
@@ -135,7 +139,6 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 				// 将值加入内容中
 				rs.append("(" + methodName + " : " + rsValue + ")");
 			}
-
 			rs.append("]");
 			index++;
 		}
