@@ -1,7 +1,5 @@
 package com.xiaoy.log.service;
 
-import org.aspectj.lang.JoinPoint;
-
 import com.xiaoy.base.entities.Log;
 import com.xiaoy.base.service.CommonService;
 
@@ -14,34 +12,9 @@ import com.xiaoy.base.service.CommonService;
 public interface LogService extends CommonService<Log>
 {
 	/**
-	 * 有参的保存方法的日志
+	 * AOP日志专用，不会记录到日志中
 	 * 
-	 * @param point
+	 * @param log
 	 */
-	public void logArgSave(JoinPoint point);
-
-	/**
-	 * 有参的更新方法的日志
-	 * 
-	 * @param point
-	 */
-	public void logArgUpdate(JoinPoint point);
-
-	/**
-	 * 有参的删除方法的日志
-	 * 
-	 * @param point
-	 */
-	public void logArgDelete(JoinPoint point);
-
-	// // 无参的日志方法
-	// public void log();
-
-	// /**
-	// * 有参有返回值的方法
-	// *
-	// * @param point
-	// * @param returnObj
-	// */
-	// public void logArgAndReturn(JoinPoint point, Object returnObj);
+	public void persistLog(Log log);
 }

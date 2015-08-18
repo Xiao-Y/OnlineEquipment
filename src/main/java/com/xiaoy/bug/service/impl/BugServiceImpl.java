@@ -1,8 +1,6 @@
 package com.xiaoy.bug.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -23,7 +21,6 @@ import com.xiaoy.bug.service.BugService;
 @Service
 public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService
 {
-
 	private BugDao bugDao;
 
 	@Resource
@@ -58,72 +55,13 @@ public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService
 	@Override
 	public List<Bug> findCollectionByCondition(Bug bug, String start, String limit)
 	{
-		StringBuffer hqlWhere = new StringBuffer("");
-		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, bug);
-		List<Bug> list = bugDao.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
+		List<Bug> list = bugDao.findCollectionByCondition(bug, start, limit);
 		return list;
-	}
-
-	/**
-	 * 设置查询条件
-	 * 
-	 * @param hqlWhwere
-	 * @param bug
-	 * @return
-	 * 
-	 * @date 2015年8月14日上午9:04:10
-	 */
-	private Map<String, Object> appHql(StringBuffer hqlWhwere, Bug bug)
-	{
-		if (bug != null)
-		{
-			Map<String, Object> param = new HashMap<String, Object>();
-			if (!StringUtils.isEmpty(bug.getBugType()) && !"0".equals(bug.getBugType()))
-			{
-				hqlWhwere.append(" and bugType = :bugType ");
-				param.put("bugType", bug.getBugType());
-			}
-			if (!StringUtils.isEmpty(bug.getChildrenId()))
-			{
-				hqlWhwere.append(" and childrenId = :childrenId ");
-				param.put("childrenId", bug.getChildrenId());
-			}
-			if (!StringUtils.isEmpty(bug.getParentId()))
-			{
-				hqlWhwere.append(" and parentId = :parentId ");
-				param.put("parentId", bug.getParentId());
-			}
-			if (!StringUtils.isEmpty(bug.getReappear()) && !"0".equals(bug.getReappear()))
-			{
-				hqlWhwere.append(" and reappear = :reappear ");
-				param.put("reappear", bug.getReappear());
-			}
-			if (!StringUtils.isEmpty(bug.getSeverity()) && !"0".equals(bug.getSeverity()))
-			{
-				hqlWhwere.append(" and severity = :severity ");
-				param.put("severity", bug.getSeverity());
-			}
-			if (!StringUtils.isEmpty(bug.getStatus()) && !"0".equals(bug.getStatus()))
-			{
-				hqlWhwere.append(" and status = :status ");
-				param.put("status", bug.getStatus());
-			}
-			if (!StringUtils.isEmpty(bug.getTitle()))
-			{
-				hqlWhwere.append(" and title like :title ");
-				param.put("title", "%" + bug.getTitle() + "%");
-			}
-			hqlWhwere.append(" order by updateTime desc");
-			return param;
-		}
-		return null;
 	}
 
 	@Override
 	public long countByCollection(Bug bug)
 	{
-		StringBuffer hqlWhere = new StringBuffer("");
-		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, bug);
-		return bugDao.countByCollection(hqlWhere.toString(), paramsMapValue);
+		return bugDao.countByCollection(bug);
 	}
 }

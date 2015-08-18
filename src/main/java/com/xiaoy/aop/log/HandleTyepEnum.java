@@ -1,4 +1,4 @@
-package com.xiaoy.log.service;
+package com.xiaoy.aop.log;
 
 /**
  * 用于存储日志中出现的常量
