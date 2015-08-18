@@ -4,9 +4,9 @@ Ext.define('AM.view.Viewport',{
 	// 布局方式：border
 	layout : 'border',
 	items : [{
-		title : 'ExtJS案例',
+		//title : 'ExtJS案例',
 		region : 'north',
-		height : 100,
+		height : 60,
 		html : '<br><center><font size=5>MVC模式实现的ExtJS案例</font><br><font size=2>by XiaoY</font></center>'	
 	}, {
 		title : '功能菜单',

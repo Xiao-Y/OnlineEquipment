@@ -13,6 +13,7 @@ import com.xiaoy.aop.log.HandleTyepEnum;
 import com.xiaoy.aop.log.LogAop;
 import com.xiaoy.base.entities.Log;
 import com.xiaoy.log.service.LogService;
+import com.xiaoy.util.LoginHelper;
 
 @Component
 public class LogAopImpl implements LogAop
@@ -73,8 +74,7 @@ public class LogAopImpl implements LogAop
 		log.setContent(opContent);
 		log.setRunClass(className + "." + methodName);
 		log.setCreateTime(new Date());
-		// TODO临时的用户id
-		log.setUserId("1111");
+		log.setUserId(LoginHelper.getLoginUserId());
 
 		logService.persistLog(log);
 	}

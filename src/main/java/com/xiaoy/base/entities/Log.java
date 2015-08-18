@@ -88,4 +88,11 @@ public class Log {
 	public void setRunClass(String runClass) {
 		this.runClass = runClass;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Log [id=" + id + ", userId=" + userId + ", createTime=" + createTime + ", runClass=" + runClass + ", content=" + content + ", operation="
+				+ operation + "]";
+	}
 }

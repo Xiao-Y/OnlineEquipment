@@ -1,5 +1,7 @@
 package com.xiaoy.log.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -34,5 +36,11 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 	public void persistLog(Log log)
 	{
 		logDao.saveObject(log);
+	}
+
+	@Override
+	public List<Log> findCollectionByCondition(Log log)
+	{
+		return logDao.findCollectionByCondition(log);
 	}
 }

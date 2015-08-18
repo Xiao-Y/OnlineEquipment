@@ -1,5 +1,7 @@
 package com.xiaoy.log.service;
 
+import java.util.List;
+
 import com.xiaoy.base.entities.Log;
 import com.xiaoy.base.service.CommonService;
 
@@ -17,4 +19,13 @@ public interface LogService extends CommonService<Log>
 	 * @param log
 	 */
 	public void persistLog(Log log);
+
+	/**
+	 * 根据条件查询出日志
+	 * 
+	 * @param log
+	 *            查询日志
+	 * @return
+	 */
+	public List<Log> findCollectionByCondition(Log log);
 }
