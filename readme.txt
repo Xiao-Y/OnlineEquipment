@@ -1,4 +1,27 @@
 
+系统是以模块进行划分的，每个模块中都遵循MVC结构。controller为控制器层、service为业务逻辑层、dao为数据库交互层。
+前端使用的是ExtJs的mvc模式，
+结构：
+home
+	app
+		controller
+		model
+		store
+		view
+		app.js
+	index.jsp
+
+系统使用到的技术：
+后端：SpringMVC-4.0.5、Hibernate-4.2.0、Sping-4.0.5、Shiro-1.2.2
+前端：Extjs-5.1
+字体样式：FontAwesome-4.2.0
+服务容器：jetty-8.1.14
+数据库：Mysql-5.1
+
+系统入口：
+http://localhost:9080/OnlineEquipment/home/index
+
+
 1.每个入口jsp中都要引入公用js和css
 
 <jsp:include page="/resource/index.html"/>
