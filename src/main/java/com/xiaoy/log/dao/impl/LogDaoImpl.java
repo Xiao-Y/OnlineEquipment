@@ -42,7 +42,7 @@ public class LogDaoImpl extends CommonDaoImpl<Log> implements LogDao
 			if (!StringUtils.isEmpty(log.getRunClass()))
 			{
 				hqlWhere.append(" and runClass like :runClass ");
-				map.put("runClass", log.getRunClass());
+				map.put("runClass", "%" + log.getRunClass() + "%");
 			}
 			// 执行的时间
 			if (log.getCreateTime() != null)
@@ -59,7 +59,7 @@ public class LogDaoImpl extends CommonDaoImpl<Log> implements LogDao
 			if (!StringUtils.isEmpty(log.getUserId()))
 			{
 				hqlWhere.append(" and userId  in(:userId) ");
-				map.put("userId", log.getUserId());
+				map.put("userId", log.getUserIds());
 			}
 
 			// 操作类型

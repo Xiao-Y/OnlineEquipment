@@ -1,5 +1,7 @@
 package com.xiaoy.user.service;
 
+import java.util.List;
+
 import com.xiaoy.base.entities.User;
 import com.xiaoy.base.service.CommonService;
 
@@ -20,4 +22,12 @@ public interface UserService extends CommonService<User>
 	 */
 	User findByName(String loginName);
 
+	/**
+	 * 通过名字查询出现用户的id
+	 * 
+	 * @param name
+	 *            名字
+	 * @return
+	 */
+	List<Object> getUserIdByName(String name);
 }

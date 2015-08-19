@@ -7,22 +7,22 @@ Ext.define('AM.view.LogList', {
 		xtype: 'toolbar',
 		items:[{
 			xtype : 'button',
-			text : '详细信息',
-			glyph : 0xf0ae,
-			id : "lookLog"
-		}, {
-			xtype : 'button',
 			text : '高级查询',
 			glyph : 0xf002,
 			id : "topQueryLog"
-		}, {
+		},{
+			xtype : 'button',
+			text : '详细信息',
+			glyph : 0xf0ae,
+			id : "lookLog"
+		},{
 			xtype : 'button',
 			text : '重置',
 			glyph : 0xf021,
 			id : "listResetLog"
 		} ]
 	},{
-		id : 'logist',
+		id : 'logList',
 		region: 'center',
 		xtype: 'gridpanel',
 		autoScroll:true,
@@ -45,10 +45,6 @@ Ext.define('AM.view.LogList', {
 			header : '处理类',
 			dataIndex : 'runClass',
 			width : 450
-		}, {
-			header : '日志内容',
-			dataIndex : 'content',
-			width : 150
 		}, {
 			header : '操作',
 			dataIndex : 'operation',
