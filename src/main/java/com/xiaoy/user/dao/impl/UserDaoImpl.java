@@ -21,8 +21,19 @@ public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao
 		String hql = "select id from User where username like :username";
 		Session session = this.getSession();
 		Query query = session.createQuery(hql);
+		query.setParameter("username", name);
 		List<Object> list = query.list();
 		return list;
+	}
+
+	@Override
+	public User findByName(String loginName) 
+	{
+		String hql = "select User from User where username = :username";
+		Session session = this.getSession();
+		Query query = session.createQuery(hql);
+		query.setParameter("username", loginName);
+		return (User) query.uniqueResult();
 	}
 
 }

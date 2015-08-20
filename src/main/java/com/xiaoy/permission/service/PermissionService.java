@@ -2,22 +2,16 @@ package com.xiaoy.permission.service;
 
 import java.util.Set;
 
+import com.xiaoy.base.entities.Permission;
+import com.xiaoy.base.service.CommonService;
+
 /**
- * 角色服务
+ * 权限类
  * 
  * @author XiaoY
- * @date: 2015年8月16日 上午10:42:22
+ * @date 2015年8月20日下午5:51:58
  */
-public interface RoleService
-{
-
-	/**
-	 * 通过用户的id查询出现角色信息
-	 * 
-	 * @param id
-	 * @return
-	 */
-	Set<String> findRoleName(String id);
+public interface PermissionService extends CommonService<Permission> {
 
 	/**
 	 * 通过用户id获得权限集合
@@ -26,5 +20,4 @@ public interface RoleService
 	 * @return
 	 */
 	Set<String> getPermissionNames(String id);
-
 }

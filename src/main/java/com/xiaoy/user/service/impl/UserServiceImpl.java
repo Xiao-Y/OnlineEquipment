@@ -28,8 +28,8 @@ public class UserServiceImpl extends CommonServiceImpl<User> implements UserServ
 	@Override
 	public User findByName(String loginName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		User user = userDao.findByName(loginName);
+		return user;
 	}
 
 	@Override

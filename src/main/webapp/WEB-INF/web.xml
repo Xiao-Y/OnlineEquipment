@@ -28,6 +28,18 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- 防止session被提前关闭状 -->
+	 <filter>
+	   <filter-name>OpenSessionInViewFilter</filter-name>
+	   <filter-class>
+	       org.springframework.orm.hibernate4.support.OpenSessionInViewFilter
+	   </filter-class>
+	 </filter>
+	 <filter-mapping>
+	   <filter-name>OpenSessionInViewFilter</filter-name>
+	   <url-pattern>/*</url-pattern>
+	 </filter-mapping>
+
 	<!-- druid数据源Web监控配置 -->
 	<filter>
 		<filter-name>druidWebStatFilter</filter-name>
