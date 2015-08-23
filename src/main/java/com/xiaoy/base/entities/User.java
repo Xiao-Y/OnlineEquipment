@@ -39,6 +39,12 @@ public class User
 	private String imageUrl;
 	// 地址
 	private String address;
+	//创建时间
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date createTime;
+	//更新时间
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date updateTime;
 	// 用户持有角色集合
 	Set<Role> roles = new HashSet<>();
 
@@ -108,6 +114,28 @@ public class User
 	public void setAddress(String address)
 	{
 		this.address = address;
+	}
+
+	@Column(name = "CREATE_TIME")
+	public Date getCreateTime()
+	{
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime)
+	{
+		this.createTime = createTime;
+	}
+
+	@Column(name = "UPDATE_TIME")
+	public Date getUpdateTime()
+	{
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime)
+	{
+		this.updateTime = updateTime;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL)

@@ -68,6 +68,7 @@ public class LogDaoImpl extends CommonDaoImpl<Log> implements LogDao
 				hqlWhere.append(" and operation = :operation ");
 				map.put("operation", log.getOperation());
 			}
+			hqlWhere.append(" order by createTime desc ");
 			return map;
 		}
 		return null;

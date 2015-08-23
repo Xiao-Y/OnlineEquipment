@@ -38,14 +38,14 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 	}
 
 	@Override
-	public Set<String> findRoleName(String id) {
+	public Set<String> findRoleCode(String id) {
 		User user = userService.findObjectById(id);
 		Set<Role> set = user.getRoles();
-		Set<String> roleNames = new HashSet<String>();
+		Set<String> roleCodes = new HashSet<String>();
 		for (Role r : set) {
-			roleNames.add(r.getRoleName());
+			roleCodes.add(r.getRoleCode());
 		}
-		return roleNames;
+		return roleCodes;
 	}
 
 	@Override

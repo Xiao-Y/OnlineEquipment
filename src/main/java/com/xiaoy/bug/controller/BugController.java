@@ -72,8 +72,14 @@ public class BugController
 			long total = bugService.countByCollection(bug);
 			for (Bug b : bugs)
 			{
-				b.setParentName(menuService.findObjectById(b.getParentId()).getMenuName());
-				b.setChildrenName(menuService.findObjectById(b.getChildrenId()).getMenuName());
+				if (menuService.findObjectById(b.getParentId()) != null)
+				{
+					b.setParentName(menuService.findObjectById(b.getParentId()).getMenuName());
+				}
+				if (menuService.findObjectById(b.getChildrenId()) != null)
+				{
+					b.setChildrenName(menuService.findObjectById(b.getChildrenId()).getMenuName());
+				}
 			}
 			json.setSuccess(true);
 			json.setTotal(total);

@@ -1,5 +1,6 @@
 package com.xiaoy.base.entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 权限实体类
@@ -25,6 +28,13 @@ public class Permission
 	private String id;
 	private String permissionName;
 	private String url;
+	// 创建时间
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date createTime;
+	// 更新时间
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date updateTime;
+
 	private Set<Role> roles = new HashSet<>();
 
 	@Id
@@ -60,6 +70,28 @@ public class Permission
 	public void setUrl(String url)
 	{
 		this.url = url;
+	}
+
+	@Column(name = "CREATE_TIME")
+	public Date getCreateTime()
+	{
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime)
+	{
+		this.createTime = createTime;
+	}
+
+	@Column(name = "UPDATE_TIME")
+	public Date getUpdateTime()
+	{
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime)
+	{
+		this.updateTime = updateTime;
 	}
 
 	@ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)

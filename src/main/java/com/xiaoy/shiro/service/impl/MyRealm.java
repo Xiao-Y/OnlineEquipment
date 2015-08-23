@@ -48,12 +48,12 @@ public class MyRealm extends AuthorizingRealm {
 		User user = userService.findByName(loginName);
 		if (user != null) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-			// 通过用户id获得角色名称集合
-			Set<String> roleNames = roleService.findRoleName(user.getId());
+			// 通过用户id获得角色Code集合
+			Set<String> roleCodes = roleService.findRoleCode(user.getId());
 			// 通过用户id获得权限集合
 			Set<String> permissions = permissionService.getPermissionNames(user.getId());
 			// 登录的用户有多少个角色
-			info.setRoles(roleNames);
+			info.setRoles(roleCodes);
 			info.addStringPermissions(permissions);
 			return info;
 		}

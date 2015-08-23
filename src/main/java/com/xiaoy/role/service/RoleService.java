@@ -14,12 +14,12 @@ import com.xiaoy.base.entities.Role;
 public interface RoleService {
 
 	/**
-	 * 通过用户的id查询出现角色信息
+	 * 通过用户的id查询出现角色Code信息
 	 * 
 	 * @param id
 	 * @return
 	 */
-	Set<String> findRoleName(String id);
+	Set<String> findRoleCode(String id);
 
 	/**
 	 * 通过用户id获取角色id集合
