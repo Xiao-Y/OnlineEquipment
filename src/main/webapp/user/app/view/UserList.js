@@ -53,7 +53,7 @@ Ext.define("AM.view.UserList", {
 		}, {
 			header : '用户名',
 			dataIndex : 'username',
-			width : 130
+			width : 110
 		}, {
 			header : '出生年月',
 			dataIndex : 'birthday',
@@ -61,11 +61,25 @@ Ext.define("AM.view.UserList", {
 		}, {
 			header : '地址',
 			dataIndex : 'address',
-			width : 350
+			width : 240
 		}, {
 			header : '角色名称',
 			dataIndex : 'roleName',
-			width : 350
+			width : 260
+		}, {
+			header : '创建时间',
+			dataIndex : 'createTime',
+			width : 140
+		}, {
+			header : '更新时间',
+			dataIndex : 'updateTime',
+			width : 140
+		}],
+		dockedItems : [{
+			xtype : "pagingtoolbar",
+			store : "UserStore",
+			dock : "bottom",
+			displayInfo : true
 		}]
 	}]
 });

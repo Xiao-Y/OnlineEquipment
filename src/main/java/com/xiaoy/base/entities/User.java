@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -39,14 +40,17 @@ public class User
 	private String imageUrl;
 	// 地址
 	private String address;
-	//创建时间
+	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
-	//更新时间
+	// 更新时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date updateTime;
 	// 用户持有角色集合
 	Set<Role> roles = new HashSet<>();
+
+	// 角色名称
+	private String roleName;
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
@@ -148,5 +152,16 @@ public class User
 	public void setRoles(Set<Role> roles)
 	{
 		this.roles = roles;
+	}
+
+	@Transient
+	public String getRoleName()
+	{
+		return roleName;
+	}
+
+	public void setRoleName(String roleName)
+	{
+		this.roleName = roleName;
 	}
 }

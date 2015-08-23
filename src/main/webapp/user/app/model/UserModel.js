@@ -15,6 +15,14 @@ Ext.define("AM.model.UserModel", {
 		type : "string",
 		sortable : true
 	},{
+		name : "createTime",
+		type : "string",
+		sortable : true
+	},{
+		name : "updateTime",
+		type : "string",
+		sortable : true
+	},{
 		name : "imageUrl",
 		type : "string"
 	},{
@@ -23,11 +31,5 @@ Ext.define("AM.model.UserModel", {
 	},{
 		name : "roleName",
 		type : "string"
-	}],
-	dockedItems : [{
-		xtype : "pagingtoolber",
-		store : "UserStore",
-		dock : "buttom",
-		displayInfo : true
 	}]
 });

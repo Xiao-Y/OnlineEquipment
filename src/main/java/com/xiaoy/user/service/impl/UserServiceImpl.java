@@ -44,4 +44,16 @@ public class UserServiceImpl extends CommonServiceImpl<User> implements UserServ
 		return objs;
 	}
 
+	@Override
+	public List<User> findCollectionByCondition(User user, String start, String limit)
+	{
+		return userDao.findCollectionByCondition(user, start, limit);
+	}
+
+	@Override
+	public long countByCollection(User user)
+	{
+		return userDao.countByCollection(user);
+	}
+
 }

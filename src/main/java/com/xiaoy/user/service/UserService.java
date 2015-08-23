@@ -30,4 +30,20 @@ public interface UserService extends CommonService<User>
 	 * @return
 	 */
 	List<Object> getUserIdByName(String name);
+
+	/**
+	 * 根据条件查询用户信息
+	 * 
+	 * @param user
+	 * @return
+	 */
+	List<User> findCollectionByCondition(User user, String start, String limit);
+
+	/**
+	 * 根据条件查询用户记录总数
+	 * 
+	 * @param user
+	 * @return
+	 */
+	long countByCollection(User user);
 }

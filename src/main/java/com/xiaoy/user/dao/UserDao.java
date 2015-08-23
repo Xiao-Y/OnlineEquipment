@@ -5,7 +5,8 @@ import java.util.List;
 import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.entities.User;
 
-public interface UserDao extends CommonDao<User> {
+public interface UserDao extends CommonDao<User>
+{
 
 	/**
 	 * 通过名字查询出现用户的id
@@ -21,9 +22,25 @@ public interface UserDao extends CommonDao<User> {
 	 * 
 	 * @param loginName登陆名
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月20日下午5:27:49
 	 */
 	User findByName(String loginName);
+
+	/**
+	 * 根据条件查询用户信息
+	 * 
+	 * @param user
+	 * @return
+	 */
+	List<User> findCollectionByCondition(User user, String start, String limit);
+
+	/**
+	 * 根据条件查询用户记录总数
+	 * 
+	 * @param user
+	 * @return
+	 */
+	long countByCollection(User user);
 
 }
