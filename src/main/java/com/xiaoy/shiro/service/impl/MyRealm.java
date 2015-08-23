@@ -14,6 +14,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.springframework.stereotype.Service;
 
 import com.xiaoy.base.entities.User;
 import com.xiaoy.permission.service.PermissionService;
@@ -26,7 +27,7 @@ import com.xiaoy.user.service.UserService;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:19:02
  */
-// @Service
+@Service
 public class MyRealm extends AuthorizingRealm {
 
 	@Resource
