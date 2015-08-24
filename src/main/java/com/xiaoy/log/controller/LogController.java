@@ -70,7 +70,7 @@ public class LogController
 			json.setRoot(list);
 		} catch (Exception e)
 		{
-			json.setMessage(MessageTips.ERRER);
+			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
 		return json;

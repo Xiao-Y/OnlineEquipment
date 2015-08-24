@@ -19,6 +19,7 @@ import com.xiaoy.base.entities.Menu;
 import com.xiaoy.menu.service.MenuService;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
+import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
 
 /**
@@ -111,12 +112,11 @@ public class MenuController
 			menu.setUpdateTime(new Date());
 
 			menuService.saveObject(menu);
-			json.setMessage("菜单保存成功！");
+			json.setMessage(MessageTips.SAVE_SUCCESS);
 			json.setSuccess(true);
 		} catch (Exception e)
 		{
-			System.out.println("保存菜单发生异常！");
-			json.setMessage("服务器错误，请稍后再试！");
+			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
 		return json;
@@ -146,12 +146,11 @@ public class MenuController
 			menu.setUpdateTime(new Date());
 
 			menuService.updateMenu(menu);
-			json.setMessage("菜单更新成功！");
+			json.setMessage(MessageTips.UPDATE_SUCCESS);
 			json.setSuccess(true);
 		} catch (Exception e)
 		{
-			System.out.println("更新菜单发生异常！");
-			json.setMessage("服务器错误，请稍后再试！");
+			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
 		return json;
@@ -165,10 +164,10 @@ public class MenuController
 		{
 			menuService.deleteObjectByid(id);
 			json.setSuccess(true);
-			json.setMessage("删除成功！");
+			json.setMessage(MessageTips.DELETE_SUCCESS);
 		} catch (Exception e)
 		{
-			json.setMessage("删除失败！");
+			json.setMessage(MessageTips.DELETE_FAILURE);
 			e.printStackTrace();
 		}
 		return json;

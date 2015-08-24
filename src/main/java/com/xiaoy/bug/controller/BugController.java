@@ -21,6 +21,7 @@ import com.xiaoy.base.entities.Menu;
 import com.xiaoy.bug.service.BugService;
 import com.xiaoy.menu.service.MenuService;
 import com.xiaoy.util.JsonResult;
+import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
 
 /**
@@ -86,7 +87,7 @@ public class BugController
 			json.setRoot(bugs);
 		} catch (Exception e)
 		{
-			json.setMessage("服务器错误，请稍后重试！");
+			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
 		return json;
@@ -136,10 +137,10 @@ public class BugController
 		{
 			bugService.saveObject(bug);
 			json.setSuccess(true);
-			json.setMessage("BUG保存成功！");
+			json.setMessage(MessageTips.SAVE_SUCCESS);
 		} catch (Exception e)
 		{
-			json.setMessage("服务器错误！");
+			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
 		return json;
@@ -186,10 +187,10 @@ public class BugController
 			bug.setUpdateTime(new Date());
 			bugService.updateBug(bug);
 			json.setSuccess(true);
-			json.setMessage("BUG更新成功！");
+			json.setMessage(MessageTips.UPDATE_SUCCESS);
 		} catch (Exception e)
 		{
-			json.setMessage("服务器错误，请稍后再试！");
+			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
 		return json;
@@ -209,11 +210,11 @@ public class BugController
 		try
 		{
 			bugService.deleteObjectByid(id);
-			json.setMessage("删除成功！");
+			json.setMessage(MessageTips.DELETE_SUCCESS);
 			json.setSuccess(true);
 		} catch (Exception e)
 		{
-			json.setMessage("服务器错误，请稍后再试！");
+			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
 		return json;
@@ -246,7 +247,7 @@ public class BugController
 
 		} catch (Exception e)
 		{
-			json.setMessage("服务器错误，请稍后再试！");
+			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
 		return json;

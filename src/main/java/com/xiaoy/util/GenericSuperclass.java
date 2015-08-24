@@ -20,13 +20,6 @@ public class GenericSuperclass
 	@SuppressWarnings("rawtypes")
 	public static Class getClass(Class tClass)
 	{
-		// 两种方法的一样的
-		// System.out.println("开始泛型类型转换");
-		// ParameterizedType pt =
-		// (ParameterizedType)tClass.getGenericSuperclass();
-		// Type[] type = pt.getActualTypeArguments();
-		// return (Class) type[0];
-
 		//得到泛型化的超类：CommonImpl<T>
 		ParameterizedType pt = (ParameterizedType) tClass
 				.getGenericSuperclass();
