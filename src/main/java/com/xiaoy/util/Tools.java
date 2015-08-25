@@ -1,7 +1,6 @@
 package com.xiaoy.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -76,7 +75,7 @@ public class Tools {
 	}
 
 	/**
-	 * 保存上传的文件，返回文件名的字符串以“，”分隔
+	 * 保存上传的文件，返回文件名的字符串以“*”分隔
 	 * 
 	 * @param imgUrls
 	 * @param request
@@ -85,10 +84,9 @@ public class Tools {
 	 */
 	public static String uploadFile(MultipartFile[] imgUrls, HttpServletRequest request, String realPath) {
 		String path = request.getSession().getServletContext().getRealPath(realPath);
-		//加载配置文件
-		Properties properties = Tools.readPropertiesFile(SYSTEM_CONFIG);
-		//获取文件的分割符
-		String imageSplit = properties.getProperty("imageSplit");
+		
+		//获取图片的分割符
+		String imageSplit = Tools.getReadPropertiesString(SYSTEM_CONFIG, "imageUploadSplit");
 		
 		StringBuffer buffer = new StringBuffer("");
 		for (MultipartFile m : imgUrls) {
@@ -119,6 +117,28 @@ public class Tools {
 			imgUrl = imgUrl.substring(0, index);
 		}
 		return imgUrl;
+	}
+	
+	/**
+	 * 删除图片
+	 * @param realPath	图片路径
+	 * @param imgUrls	图片名称字符串，可以为单个
+	 *
+	 * @date 2015年8月25日下午12:02:11
+	 */
+	public static void deleteFile(HttpServletRequest request,String imgUrls, String realPath){
+		//获取图片的分割符
+		String imageSplit = Tools.getReadPropertiesString(SYSTEM_CONFIG, "imageSplit");
+		String path = request.getSession().getServletContext().getRealPath(realPath);
+		if(!StringUtils.isEmpty(imgUrls)){
+			String[] imageNames = imgUrls.split(imageSplit);
+			for(String imageName : imageNames){
+				File file = new File(path,imageName);
+				if(file.exists()){
+					file.delete();
+				}
+			}
+		}
 	}
 
 	/**
@@ -164,7 +184,7 @@ public class Tools {
 	}
 	
 	 /**
-	  * 读取资源文件
+	  * 加载资源文件
 	  * 
 	  * @param filename
 	  *
@@ -175,9 +195,9 @@ public class Tools {
         Properties properties = new Properties();  
         try  
         {  
-            InputStream inputStream = new FileInputStream(filename);  
-            properties.load(inputStream);  
-            inputStream.close(); //关闭流  
+        	InputStream in = Tools.class.getClassLoader().getResourceAsStream(filename);
+            properties.load(in);  
+            in.close(); //关闭流  
         }  
         catch (IOException e)  
         {  
@@ -185,4 +205,30 @@ public class Tools {
         }  
        return properties;
     } 
+
+    /**
+     * 加载资源文件,并通过key获取value
+     * @param filename	配置文件的名称
+     * @param key	关键字
+     * @return	value
+     *
+     * @date 2015年8月25日上午11:37:05
+     */
+   public static String getReadPropertiesString(String filename,String key)  
+   {  
+       Properties properties = new Properties();  
+       String vauel = "";
+       try  
+       {  
+    	   InputStream in = Tools.class.getClassLoader().getResourceAsStream(filename);
+           properties.load(in);  
+           in.close(); //关闭流  
+           vauel = properties.getProperty(key);
+       }  
+       catch (IOException e)  
+       {  
+           e.printStackTrace();  
+       }  
+      return vauel;
+   } 
 }

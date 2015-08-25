@@ -2,7 +2,6 @@ package com.xiaoy.bug.controller;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -35,12 +34,6 @@ import com.xiaoy.util.Tools;
 @RequestMapping("/bug")
 public class BugController
 {
-
-	/**
-	 * 上传图片的路径
-	 */
-	public final static String REALPATH = "resource/upload/image";
-	
 	/**
 	 * 系统配置文件
 	 */
@@ -131,7 +124,9 @@ public class BugController
 	public @ResponseBody
 	JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request)
 	{
-		String imgUrl = Tools.uploadFile(imgUrls, request, REALPATH);
+		//获取bug图片的路径 
+		String bugRealPath = Tools.getReadPropertiesString(SYSTEM_CONFIG, "bugRealPath");
+		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
 		Bug bug = this.setParamBug(request);
 		bug.setImgUrl(imgUrl);
 		bug.setId(UUID.randomUUID().toString());
@@ -183,7 +178,9 @@ public class BugController
 	public @ResponseBody
 	JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request)
 	{
-		String imgUrl = Tools.uploadFile(imgUrls, request, REALPATH);
+		//获取bug图片的路径 
+		String bugRealPath = Tools.getReadPropertiesString(SYSTEM_CONFIG, "bugRealPath");
+		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
 		JsonResult json = new JsonResult();
 		try
 		{
@@ -245,8 +242,7 @@ public class BugController
 				String strImg = bug.getImgUrl();
 				if (!StringUtils.isEmpty(strImg))
 				{
-					Properties properties = Tools.readPropertiesFile(SYSTEM_CONFIG);
-					String imageSplit = properties.getProperty("imageSplit");
+					String imageSplit = Tools.getReadPropertiesString(SYSTEM_CONFIG, "imageSplit");
 					String[] image = strImg.split(imageSplit);
 					json.setRoot(image);
 					json.setSuccess(true);

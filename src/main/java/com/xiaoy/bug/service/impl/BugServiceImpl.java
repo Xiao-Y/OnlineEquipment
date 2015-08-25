@@ -3,6 +3,7 @@ package com.xiaoy.bug.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.xiaoy.base.entities.Bug;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.bug.dao.BugDao;
 import com.xiaoy.bug.service.BugService;
+import com.xiaoy.util.Tools;
 
 /**
  * 
@@ -21,6 +23,14 @@ import com.xiaoy.bug.service.BugService;
 @Service
 public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService
 {
+	/**
+	 * 系统配置文件
+	 */
+	public final static String SYSTEM_CONFIG = "systemConfig.properties";
+	
+	@Resource
+	HttpServletRequest request;
+	
 	private BugDao bugDao;
 
 	@Resource
@@ -34,12 +44,18 @@ public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService
 	@Override
 	public void updateBug(Bug bug)
 	{
+		//获取bug图片的路径 
+		String bugRealPath = Tools.getReadPropertiesString(SYSTEM_CONFIG, "bugRealPath");
+		
 		Bug b = bugDao.findObjectById(bug.getId());
 		b.setBugType(bug.getBugType());
 		b.setChildrenId(bug.getChildrenId());
 		String imgUrl = bug.getImgUrl();
 		if (!StringUtils.isEmpty(imgUrl))
 		{
+			String oldImgUrl = b.getImgUrl();
+			//删除图片
+			Tools.deleteFile(request, oldImgUrl,bugRealPath);
 			b.setImgUrl(imgUrl);
 		}
 		b.setNote(bug.getNote());
