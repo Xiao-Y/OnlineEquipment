@@ -3,6 +3,7 @@ package com.xiaoy.log.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import com.xiaoy.base.entities.Log;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.log.dao.LogDao;
 import com.xiaoy.log.service.LogService;
+import com.xiaoy.util.Tools;
 
 /**
  * 系统操作日志记录服务<br>
@@ -23,6 +25,9 @@ import com.xiaoy.log.service.LogService;
 public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 {
 	private LogDao logDao;
+	
+	@Resource
+	private  HttpServletRequest request;
 
 	@Resource
 	@Override
@@ -35,6 +40,8 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 	@Override
 	public void persistLog(Log log)
 	{
+		String ip = Tools.toIpAddr(request);
+		log.setIpAddr(ip);
 		logDao.saveObject(log);
 	}
 

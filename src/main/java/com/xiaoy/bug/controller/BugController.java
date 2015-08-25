@@ -2,6 +2,7 @@ package com.xiaoy.bug.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -39,6 +40,11 @@ public class BugController
 	 * 上传图片的路径
 	 */
 	public final static String REALPATH = "resource/upload/image";
+	
+	/**
+	 * 系统配置文件
+	 */
+	public final static String SYSTEM_CONFIG = "systemConfig.properties";
 
 	@Resource
 	private BugService bugService;
@@ -239,12 +245,13 @@ public class BugController
 				String strImg = bug.getImgUrl();
 				if (!StringUtils.isEmpty(strImg))
 				{
-					String[] image = strImg.split(",");
+					Properties properties = Tools.readPropertiesFile(SYSTEM_CONFIG);
+					String imageSplit = properties.getProperty("imageSplit");
+					String[] image = strImg.split(imageSplit);
 					json.setRoot(image);
 					json.setSuccess(true);
 				}
 			}
-
 		} catch (Exception e)
 		{
 			json.setMessage(MessageTips.SERVICE_ERRER);

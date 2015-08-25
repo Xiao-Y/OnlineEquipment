@@ -27,6 +27,8 @@ public class Log
 	private String id;
 	// 用户id
 	private String userId;
+	//ip地址
+	private String ipAddr;
 	// 创建日期
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
@@ -119,10 +121,18 @@ public class Log
 		this.userIds = userIds;
 	}
 
-	@Override
-	public String toString()
-	{
-		return "Log [id=" + id + ", userId=" + userId + ", createTime=" + createTime + ", runClass=" + runClass + ", content=" + content + ", operation="
-				+ operation + "]";
+	public String getIpAddr() {
+		return ipAddr;
 	}
+
+	public void setIpAddr(String ipAddr) {
+		this.ipAddr = ipAddr;
+	}
+
+	@Override
+	public String toString() {
+		return "Log [id=" + id + ", userId=" + userId + ", ipAddr=" + ipAddr + ", createTime=" + createTime + ", runClass=" + runClass + ", content="
+				+ content + ", operation=" + operation + ", userIds=" + userIds + "]";
+	}
+
 }

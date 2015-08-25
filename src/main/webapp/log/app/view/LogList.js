@@ -36,8 +36,7 @@ Ext.define('AM.view.LogList', {
 			xtype : 'rownumberer',
 			header : '序号',
 			width : 50
-		}, 
-		{
+		}, {
 			header : 'ID',
 			hidden : true,
 			dataIndex : 'id'
@@ -51,6 +50,9 @@ Ext.define('AM.view.LogList', {
 		}, {
 			header : '用户名',
 			dataIndex : 'userId'
+		}, {
+			header : 'IP地址',
+			dataIndex : 'ipAddr'
 		}, {
 			header : '处理时间',
 			dataIndex : 'createTime'

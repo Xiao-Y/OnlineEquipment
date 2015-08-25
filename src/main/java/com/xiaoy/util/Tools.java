@@ -1,9 +1,13 @@
 package com.xiaoy.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2015年8月11日下午5:37:40
  */
 public class Tools {
+	
+	/**
+	 * 系统配置文件
+	 */
+	public final static String SYSTEM_CONFIG = "systemConfig.properties";
 
 	/**
 	 * 用于从request中获取参数值
@@ -76,11 +85,17 @@ public class Tools {
 	 */
 	public static String uploadFile(MultipartFile[] imgUrls, HttpServletRequest request, String realPath) {
 		String path = request.getSession().getServletContext().getRealPath(realPath);
+		//加载配置文件
+		Properties properties = Tools.readPropertiesFile(SYSTEM_CONFIG);
+		//获取文件的分割符
+		String imageSplit = properties.getProperty("imageSplit");
+		
 		StringBuffer buffer = new StringBuffer("");
 		for (MultipartFile m : imgUrls) {
 			// 获取文件的名称
 			String fileName = m.getOriginalFilename();
 			if (!StringUtils.isEmpty(fileName)) {
+				fileName = Tools.generateFileName(fileName);
 				File targetFile = new File(path, fileName);
 				// 文件路径不存在
 				if (!targetFile.exists()) {
@@ -95,12 +110,12 @@ public class Tools {
 				}
 				// 拼接图片的名字，用于保存
 				buffer.append(fileName);
-				buffer.append(",");
+				buffer.append(imageSplit);
 			}
 		}
 		String imgUrl = buffer.toString();
 		if (!StringUtils.isEmpty(imgUrl)) {
-			int index = imgUrl.lastIndexOf(",");
+			int index = imgUrl.lastIndexOf(imageSplit);
 			imgUrl = imgUrl.substring(0, index);
 		}
 		return imgUrl;
@@ -133,7 +148,7 @@ public class Tools {
 	}
 
 	/**
-	 * 传入原图名称，，获得一个以时间格式的新名称
+	 * 传入原图名称，获得一个以时间格式的新名称
 	 * 
 	 * @param fileName
 	 *            　原图名称
@@ -147,4 +162,27 @@ public class Tools {
 		String extension = fileName.substring(position);
 		return formatDate + random + extension;
 	}
+	
+	 /**
+	  * 读取资源文件
+	  * 
+	  * @param filename
+	  *
+	  * @date 2015年8月25日上午9:23:04
+	  */
+    public static Properties readPropertiesFile(String filename)  
+    {  
+        Properties properties = new Properties();  
+        try  
+        {  
+            InputStream inputStream = new FileInputStream(filename);  
+            properties.load(inputStream);  
+            inputStream.close(); //关闭流  
+        }  
+        catch (IOException e)  
+        {  
+            e.printStackTrace();  
+        }  
+       return properties;
+    } 
 }
