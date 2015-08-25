@@ -128,7 +128,7 @@ public class Bug
 		this.updateTime = updateTime;
 	}
 
-	@Column(name = "IMG_URL", length = 100)
+	@Column(name = "IMG_URL", length = 150)
 	public String getImgUrl()
 	{
 		return imgUrl;

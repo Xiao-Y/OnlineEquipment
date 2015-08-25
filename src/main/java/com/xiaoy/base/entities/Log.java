@@ -88,7 +88,7 @@ public class Log
 		this.content = content;
 	}
 
-	@Column(name = "OPERATION", length = 150)
+	@Column(name = "OPERATION", length = 1000)
 	public String getOperation()
 	{
 		return operation;

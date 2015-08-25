@@ -32,8 +32,7 @@ import com.xiaoy.util.Tools;
  */
 @Controller
 @RequestMapping("/bug")
-public class BugController
-{
+public class BugController {
 	/**
 	 * 系统配置文件
 	 */
@@ -45,9 +44,11 @@ public class BugController
 	@Resource
 	private MenuService menuService;
 
+	// @Resource
+	// private HttpServletRequest request;
+
 	@RequestMapping("/index")
-	public String index()
-	{
+	public String index() {
 		return "bug/index";
 	}
 
@@ -60,32 +61,26 @@ public class BugController
 	 */
 	@RequestMapping("/getBugList")
 	public @ResponseBody
-	JsonResult getBugList(Bug bug, HttpServletRequest request)
-	{
+	JsonResult getBugList(Bug bug, HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
 
 		JsonResult json = new JsonResult();
-		try
-		{
+		try {
 			List<Bug> bugs = bugService.findCollectionByCondition(bug, start, limit);
 			long total = bugService.countByCollection(bug);
-			for (Bug b : bugs)
-			{
-				if (menuService.findObjectById(b.getParentId()) != null)
-				{
+			for (Bug b : bugs) {
+				if (menuService.findObjectById(b.getParentId()) != null) {
 					b.setParentName(menuService.findObjectById(b.getParentId()).getMenuName());
 				}
-				if (menuService.findObjectById(b.getChildrenId()) != null)
-				{
+				if (menuService.findObjectById(b.getChildrenId()) != null) {
 					b.setChildrenName(menuService.findObjectById(b.getChildrenId()).getMenuName());
 				}
 			}
 			json.setSuccess(true);
 			json.setTotal(total);
 			json.setRoot(bugs);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
@@ -102,8 +97,7 @@ public class BugController
 	 */
 	@RequestMapping(value = "/parentMenuList")
 	public @ResponseBody
-	JsonResult parentMenuList(HttpServletRequest request)
-	{
+	JsonResult parentMenuList(HttpServletRequest request) {
 		Menu menu = new Menu();
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
 
@@ -122,25 +116,22 @@ public class BugController
 	 */
 	@RequestMapping(value = "/svaeBug", method = RequestMethod.POST)
 	public @ResponseBody
-	JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request)
-	{
-		//获取bug图片的路径 
-		String bugRealPath = Tools.getReadPropertiesString(SYSTEM_CONFIG, "bugRealPath");
+	JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
+		// 获取bug图片的路径
+		String bugRealPath = Tools.getReadPropertiesString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
 		Bug bug = this.setParamBug(request);
 		bug.setImgUrl(imgUrl);
 		bug.setId(UUID.randomUUID().toString());
 		bug.setCreateTime(new Date());
 		bug.setUpdateTime(new Date());
-
 		JsonResult json = new JsonResult();
-		try
-		{
+		try {
 			bugService.saveObject(bug);
 			json.setSuccess(true);
 			json.setMessage(MessageTips.SAVE_SUCCESS);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
+			Tools.deleteFile(request, imgUrl, bugRealPath);
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
@@ -153,8 +144,7 @@ public class BugController
 	 * @param request
 	 * @return
 	 */
-	private Bug setParamBug(HttpServletRequest request)
-	{
+	private Bug setParamBug(HttpServletRequest request) {
 		Bug bug = new Bug();
 		bug.setParentId(Tools.getStringParameter(request, "parentId"));
 		bug.setChildrenId(Tools.getStringParameter(request, "childrenId"));
@@ -176,23 +166,23 @@ public class BugController
 	 */
 	@RequestMapping(value = "/updateBug", method = RequestMethod.POST)
 	public @ResponseBody
-	JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request)
-	{
-		//获取bug图片的路径 
-		String bugRealPath = Tools.getReadPropertiesString(SYSTEM_CONFIG, "bugRealPath");
+	JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
+		// 获取bug图片的路径
+		String bugRealPath = Tools.getReadPropertiesString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
+		// 拼接图片名
 		JsonResult json = new JsonResult();
-		try
-		{
+		try {
 			Bug bug = this.setParamBug(request);
 			bug.setId(Tools.getStringParameter(request, "id"));
 			bug.setImgUrl(imgUrl);
 			bug.setUpdateTime(new Date());
 			bugService.updateBug(bug);
+
 			json.setSuccess(true);
 			json.setMessage(MessageTips.UPDATE_SUCCESS);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
+			Tools.deleteFile(request, imgUrl, bugRealPath);
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
@@ -207,16 +197,17 @@ public class BugController
 	 */
 	@RequestMapping(value = "/deleteBug/{id}", method = RequestMethod.POST)
 	public @ResponseBody
-	JsonResult deleteBug(@PathVariable("id") String id)
-	{
+	JsonResult deleteBug(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		try
-		{
+		try {
+			String imgUrls = bugService.findObjectById(id).getImgUrl();
 			bugService.deleteObjectByid(id);
+			// 获取bug图片的路径
+			String bugRealPath = Tools.getReadPropertiesString(request, "bugRealPath");
+			Tools.deleteFile(request, imgUrls, bugRealPath);
 			json.setMessage(MessageTips.DELETE_SUCCESS);
 			json.setSuccess(true);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
@@ -231,25 +222,20 @@ public class BugController
 	 */
 	@RequestMapping("/getImage/{id}")
 	public @ResponseBody
-	JsonResult getImage(@PathVariable("id") String id)
-	{
+	JsonResult getImage(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		try
-		{
+		try {
 			Bug bug = bugService.findObjectById(id);
-			if (bug != null)
-			{
+			if (bug != null) {
 				String strImg = bug.getImgUrl();
-				if (!StringUtils.isEmpty(strImg))
-				{
-					String imageSplit = Tools.getReadPropertiesString(SYSTEM_CONFIG, "imageSplit");
+				if (!StringUtils.isEmpty(strImg)) {
+					String imageSplit = Tools.getReadPropertiesString(request, "imageSplit");
 					String[] image = strImg.split(imageSplit);
 					json.setRoot(image);
 					json.setSuccess(true);
 				}
 			}
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}

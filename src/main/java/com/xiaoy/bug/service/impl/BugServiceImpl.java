@@ -21,41 +21,31 @@ import com.xiaoy.util.Tools;
  * @date 2015年8月12日下午5:54:56
  */
 @Service
-public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService
-{
-	/**
-	 * 系统配置文件
-	 */
-	public final static String SYSTEM_CONFIG = "systemConfig.properties";
-	
+public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService {
 	@Resource
 	HttpServletRequest request;
-	
+
 	private BugDao bugDao;
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<Bug> commonDao)
-	{
+	public void setCommonDao(CommonDao<Bug> commonDao) {
 		this.bugDao = (BugDao) commonDao;
 		super.commonDao = commonDao;
 	}
 
 	@Override
-	public void updateBug(Bug bug)
-	{
-		//获取bug图片的路径 
-		String bugRealPath = Tools.getReadPropertiesString(SYSTEM_CONFIG, "bugRealPath");
-		
+	public void updateBug(Bug bug) {
 		Bug b = bugDao.findObjectById(bug.getId());
 		b.setBugType(bug.getBugType());
 		b.setChildrenId(bug.getChildrenId());
 		String imgUrl = bug.getImgUrl();
-		if (!StringUtils.isEmpty(imgUrl))
-		{
+		if (!StringUtils.isEmpty(imgUrl)) {
 			String oldImgUrl = b.getImgUrl();
-			//删除图片
-			Tools.deleteFile(request, oldImgUrl,bugRealPath);
+			// 获取bug图片的路径
+			String bugRealPath = Tools.getReadPropertiesString(request, "bugRealPath");
+			// 删除图片
+			Tools.deleteFile(request, oldImgUrl, bugRealPath);
 			b.setImgUrl(imgUrl);
 		}
 		b.setNote(bug.getNote());
@@ -69,15 +59,13 @@ public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService
 	}
 
 	@Override
-	public List<Bug> findCollectionByCondition(Bug bug, String start, String limit)
-	{
+	public List<Bug> findCollectionByCondition(Bug bug, String start, String limit) {
 		List<Bug> list = bugDao.findCollectionByCondition(bug, start, limit);
 		return list;
 	}
 
 	@Override
-	public long countByCollection(Bug bug)
-	{
+	public long countByCollection(Bug bug) {
 		return bugDao.countByCollection(bug);
 	}
 }

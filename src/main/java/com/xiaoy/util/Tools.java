@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,12 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2015年8月11日下午5:37:40
  */
 public class Tools {
-	
-	/**
-	 * 系统配置文件
-	 */
-	public final static String SYSTEM_CONFIG = "systemConfig.properties";
-
 	/**
 	 * 用于从request中获取参数值
 	 * 
@@ -36,7 +31,7 @@ public class Tools {
 	 *            参数的名字
 	 * @param defaultValue
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月11日下午5:30:39
 	 */
 	public static String getStringParameter(HttpServletRequest request, String name, String defaultValue) {
@@ -59,7 +54,7 @@ public class Tools {
 	 * @param name
 	 *            参数的名字
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月11日下午5:30:39
 	 */
 	public static String getStringParameter(HttpServletRequest request, String name) {
@@ -84,10 +79,9 @@ public class Tools {
 	 */
 	public static String uploadFile(MultipartFile[] imgUrls, HttpServletRequest request, String realPath) {
 		String path = request.getSession().getServletContext().getRealPath(realPath);
-		
-		//获取图片的分割符
-		String imageSplit = Tools.getReadPropertiesString(SYSTEM_CONFIG, "imageUploadSplit");
-		
+
+		// 获取图片的分割符
+		String imageSplit = Tools.getReadPropertiesString(request, "imageUploadSplit");
 		StringBuffer buffer = new StringBuffer("");
 		for (MultipartFile m : imgUrls) {
 			// 获取文件的名称
@@ -118,23 +112,30 @@ public class Tools {
 		}
 		return imgUrl;
 	}
-	
+
+	/*
+	 * public static String appendFileName(MultipartFile[] imgUrls, HttpServletRequest request) { // 获取图片的拼接符 String imageSplit = Tools.getReadPropertiesString(request, "imageUploadSplit"); StringBuffer buffer = new StringBuffer(""); for (MultipartFile m : imgUrls) { // 获取文件的名称 String fileName = m.getOriginalFilename(); if (!StringUtils.isEmpty(fileName)) { fileName = Tools.generateFileName(fileName); // 拼接图片的名字，用于保存 buffer.append(fileName); buffer.append(imageSplit); } } String imgUrl = buffer.toString(); if (!StringUtils.isEmpty(imgUrl)) { int index = imgUrl.lastIndexOf(imageSplit); imgUrl = imgUrl.substring(0, index); } return imgUrl; }
+	 */
+
 	/**
 	 * 删除图片
-	 * @param realPath	图片路径
-	 * @param imgUrls	图片名称字符串，可以为单个
-	 *
+	 * 
+	 * @param realPath
+	 *            图片路径
+	 * @param imgUrls
+	 *            图片名称字符串，可以为单个
+	 * 
 	 * @date 2015年8月25日下午12:02:11
 	 */
-	public static void deleteFile(HttpServletRequest request,String imgUrls, String realPath){
-		//获取图片的分割符
-		String imageSplit = Tools.getReadPropertiesString(SYSTEM_CONFIG, "imageSplit");
+	public static void deleteFile(HttpServletRequest request, String imgUrls, String realPath) {
+		// 获取图片的分割符
+		String imageSplit = Tools.getReadPropertiesString(request, "imageSplit");
 		String path = request.getSession().getServletContext().getRealPath(realPath);
-		if(!StringUtils.isEmpty(imgUrls)){
+		if (!StringUtils.isEmpty(imgUrls)) {
 			String[] imageNames = imgUrls.split(imageSplit);
-			for(String imageName : imageNames){
-				File file = new File(path,imageName);
-				if(file.exists()){
+			for (String imageName : imageNames) {
+				File file = new File(path, imageName);
+				if (file.exists()) {
 					file.delete();
 				}
 			}
@@ -182,53 +183,38 @@ public class Tools {
 		String extension = fileName.substring(position);
 		return formatDate + random + extension;
 	}
-	
-	 /**
-	  * 加载资源文件
-	  * 
-	  * @param filename
-	  *
-	  * @date 2015年8月25日上午9:23:04
-	  */
-    public static Properties readPropertiesFile(String filename)  
-    {  
-        Properties properties = new Properties();  
-        try  
-        {  
-        	InputStream in = Tools.class.getClassLoader().getResourceAsStream(filename);
-            properties.load(in);  
-            in.close(); //关闭流  
-        }  
-        catch (IOException e)  
-        {  
-            e.printStackTrace();  
-        }  
-       return properties;
-    } 
 
-    /**
-     * 加载资源文件,并通过key获取value
-     * @param filename	配置文件的名称
-     * @param key	关键字
-     * @return	value
-     *
-     * @date 2015年8月25日上午11:37:05
-     */
-   public static String getReadPropertiesString(String filename,String key)  
-   {  
-       Properties properties = new Properties();  
-       String vauel = "";
-       try  
-       {  
-    	   InputStream in = Tools.class.getClassLoader().getResourceAsStream(filename);
-           properties.load(in);  
-           in.close(); //关闭流  
-           vauel = properties.getProperty(key);
-       }  
-       catch (IOException e)  
-       {  
-           e.printStackTrace();  
-       }  
-      return vauel;
-   } 
+	/**
+	 * 加载资源文件
+	 * 
+	 * @param filename
+	 * 
+	 * @date 2015年8月25日上午9:23:04
+	 */
+	public static Properties readPropertiesFile(String filename) {
+		Properties properties = new Properties();
+		try {
+			InputStream in = Tools.class.getClassLoader().getResourceAsStream(filename);
+			properties.load(in);
+			in.close(); // 关闭流
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return properties;
+	}
+
+	/**
+	 * 从内存中，通过key获取系统属性的value
+	 * 
+	 * @param request
+	 * @param key
+	 *            关键字
+	 * @return value
+	 */
+	public static String getReadPropertiesString(HttpServletRequest request, String key) {
+		ServletContext sct = request.getServletContext();
+		Properties properties = (Properties) sct.getAttribute("SYSTEM_CONFIG");
+		String value = properties.getProperty(key);
+		return value;
+	}
 }
