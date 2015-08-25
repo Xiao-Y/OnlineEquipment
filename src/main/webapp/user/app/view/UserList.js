@@ -37,6 +37,7 @@ Ext.define("AM.view.UserList", {
 		xtype: 'gridpanel',
 		autoScroll:true,
 		store : 'UserStore',// 加载数据
+		forceFit : true,//让每列自动填充满表格
 		selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
 			mode: 'SINGLE'//单选模式
 		}),
@@ -44,36 +45,30 @@ Ext.define("AM.view.UserList", {
 		 {
 			xtype : 'rownumberer',
 			header : '序号',
-			width : 40
+			width : 50
 		}, {
 			header : 'ID',
 			hidden : true,
-			dataIndex : 'id',
-			width : 120
+			dataIndex : 'id'
 		}, {
 			header : '用户名',
-			dataIndex : 'username',
-			width : 110
+			dataIndex : 'username'
 		}, {
 			header : '出生年月',
-			dataIndex : 'birthday',
-			width : 150
+			dataIndex : 'birthday'
 		}, {
 			header : '地址',
 			dataIndex : 'address',
 			width : 240
 		}, {
 			header : '角色名称',
-			dataIndex : 'roleName',
-			width : 260
+			dataIndex : 'roleName'
 		}, {
 			header : '创建时间',
-			dataIndex : 'createTime',
-			width : 140
+			dataIndex : 'createTime'
 		}, {
 			header : '更新时间',
-			dataIndex : 'updateTime',
-			width : 140
+			dataIndex : 'updateTime'
 		}],
 		dockedItems : [{
 			xtype : "pagingtoolbar",

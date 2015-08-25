@@ -37,46 +37,41 @@ Ext.define('AM.view.MenuList', {
 		xtype: 'gridpanel',
 		autoScroll:true,
 		store : 'MenuStore',// 加载数据
+		forceFit : true,//让每列自动填充满表格
+		stripeRows:true,//斑马线效果,默认为true
 		selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
 			mode: 'SINGLE'//单选模式
 		}),
+		
 		columns : [ 
 		 {
 			xtype : 'rownumberer',
-			header : '序号',
-			width : 40
+			width : 50,
+			header : '序号'
 		}, 
 		{
 			header : 'ID',
 			hidden : true,
-			dataIndex : 'id',
-			width : 120
+			dataIndex : 'id'
 		}, {
 			header : '菜单名称',
-			dataIndex : 'menuName',
-			//locked : true,	//锁定
-			width : 130
+			dataIndex : 'menuName'
 		}, {
 			header : '请求路径',
-			dataIndex : 'menuUrl',
-			width : 150
+			dataIndex : 'menuUrl'
 		}, {
 			header : '所在位置',
-			dataIndex : 'seq',
-			width : 80
+			dataIndex : 'seq'
 		}, {
 			header : '父级ID',
-			dataIndex : 'parentId',
-//			hidden : true,
-			width : 120
+			dataIndex : 'parentId'
 		}, {
 			header : '父级菜单名称',
-			dataIndex : 'parentName',
-			width : 120
+			dataIndex : 'parentName'
 		}, {
 			header : '节点类型',
-			dataIndex : 'menuType',
 			width : 80,
+			dataIndex : 'menuType',
 			renderer : function(value) {
 				if (value == '0') {
 					return '树枝节点';
@@ -87,16 +82,13 @@ Ext.define('AM.view.MenuList', {
 			}
 		}, {
 			header : '创建时间',
-			dataIndex : 'createTime',
-			width : 140
+			dataIndex : 'createTime'
 		}, {
 			header : '更新时间',
-			dataIndex : 'updateTime',
-			width : 140
+			dataIndex : 'updateTime'
 		}, {
 			header : '备注',
-			dataIndex : 'remark',
-			width : 160
+			dataIndex : 'remark'
 		} ],
 		// 一个或者一系列组件作为挂靠组件被添加到panel中
 		dockedItems : [ {

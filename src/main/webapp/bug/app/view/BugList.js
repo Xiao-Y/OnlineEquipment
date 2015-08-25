@@ -36,6 +36,7 @@ Ext.define("AM.view.BugList",{
 		region: 'center',
 		xtype: 'gridpanel',
 		autoScroll:true,
+		forceFit : true,//让每列自动填充满表格
 		store : 'BugStore',// 加载数据
 		selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
 			mode: 'SINGLE'//单选模式
@@ -44,7 +45,7 @@ Ext.define("AM.view.BugList",{
 		 {
 			xtype : 'rownumberer',
 			header : '序号',
-			width : 40
+			width : 50
 		}, {
 			header : 'ID',
 			hidden : true,
@@ -53,7 +54,7 @@ Ext.define("AM.view.BugList",{
 		}, {
 			header : 'BUG标题',
 			dataIndex : 'title',
-			width : 330
+			width : 300
 		}, {
 			header : 'BUG状态',
 			dataIndex : 'status',
@@ -64,12 +65,10 @@ Ext.define("AM.view.BugList",{
         	}
 		}, {
 			header : '父模块',
-			dataIndex : 'parentName',
-			width : 120
+			dataIndex : 'parentName'
 		}, {
 			header : '子模块',
-			dataIndex : 'childrenName',
-			width : 120
+			dataIndex : 'childrenName'
 		}, {
 			header : '严重程度',
 			dataIndex : 'severity',
@@ -93,7 +92,6 @@ Ext.define("AM.view.BugList",{
 		}, {
 			header : 'BUG类型',
 			dataIndex : 'bugType',
-			width : 120,
 			renderer:function(value){
 				if(value=='6'){return '功能问题';}
 				if(value=='1'){return '规范问题';}
@@ -110,12 +108,10 @@ Ext.define("AM.view.BugList",{
 //		}
 		, {
 			header : '创建时间',
-			dataIndex : 'createTime',
-			width : 140
+			dataIndex : 'createTime'
 		}, {
 			header : '更新时间',
-			dataIndex : 'updateTime',
-			width : 140
+			dataIndex : 'updateTime'
 		}],
 		// 一个或者一系列组件作为挂靠组件被添加到panel中
 		dockedItems : [ {

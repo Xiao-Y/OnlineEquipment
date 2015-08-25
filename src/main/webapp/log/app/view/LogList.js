@@ -26,6 +26,7 @@ Ext.define('AM.view.LogList', {
 		region: 'center',
 		xtype: 'gridpanel',
 		autoScroll:true,
+		forceFit : true,//让每列自动填充满表格
 		store : 'LogStore',// 加载数据
 		selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
 			mode: 'SINGLE'//单选模式
@@ -34,29 +35,25 @@ Ext.define('AM.view.LogList', {
 		 {
 			xtype : 'rownumberer',
 			header : '序号',
-			width : 40
+			width : 50
 		}, 
 		{
 			header : 'ID',
 			hidden : true,
-			dataIndex : 'id',
-			width : 120
+			dataIndex : 'id'
 		}, {
 			header : '处理类',
 			dataIndex : 'runClass',
 			width : 450
 		}, {
 			header : '操作',
-			dataIndex : 'operation',
-			width : 80
+			dataIndex : 'operation'
 		}, {
 			header : '用户名',
-			dataIndex : 'userId',
-			width : 120
+			dataIndex : 'userId'
 		}, {
 			header : '处理时间',
-			dataIndex : 'createTime',
-			width : 140
+			dataIndex : 'createTime'
 		}],
 		dockedItems : [ {
 			xtype : 'pagingtoolbar',// 分页组件
