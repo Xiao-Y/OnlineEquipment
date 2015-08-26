@@ -31,6 +31,7 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 
 	private RoleDao roleDao;
 
+	@Resource
 	@Override
 	public void setCommonDao(CommonDao<Role> commonDao) {
 		this.roleDao = (RoleDao) commonDao;
@@ -62,5 +63,10 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 	@Override
 	public List<Role> getRoleListByRoleIds(List<String> roleIds) {
 		return roleDao.getRoleListByRoleIds(roleIds);
+	}
+
+	@Override
+	public List<Role> getRoleList(Role role, String start, String limit) {
+		return roleDao.getRoleList(role, start, limit);
 	}
 }

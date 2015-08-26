@@ -18,4 +18,15 @@ public interface RoleDao extends CommonDao<Role> {
 	 */
 	List<Role> getRoleListByRoleIds(List<String> roleIds);
 
+	/**
+	 * 根据条件查询角色信息
+	 * 
+	 * @param role
+	 *            查询条件
+	 * @return
+	 *
+	 * @date 2015年8月26日下午12:20:01
+	 */
+	List<Role> getRoleList(Role role, String start, String limit);
+
 }

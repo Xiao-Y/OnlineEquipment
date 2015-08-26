@@ -20,4 +20,11 @@ public class RoleDaoImpl extends CommonDaoImpl<Role> implements RoleDao {
 		map.put("id", roleIds);
 		return super.findCollectionByCondition(hqlWhere, map);
 	}
+
+	@Override
+	public List<Role> getRoleList(Role role, String start, String limit) {
+		StringBuffer hqlWhere = new StringBuffer("");
+		Map<String, Object> paramsMapValue = null;
+		return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
+	}
 }
