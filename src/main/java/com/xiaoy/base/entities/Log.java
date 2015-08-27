@@ -77,7 +77,7 @@ public class Log
 		this.createTime = createTime;
 	}
 
-	@Column(name = "CONTENT", length = 1000)
+	@Column(name = "CONTENT", length = 5000)
 	public String getContent()
 	{
 		return content;
@@ -88,7 +88,7 @@ public class Log
 		this.content = content;
 	}
 
-	@Column(name = "OPERATION", length = 1000)
+	@Column(name = "OPERATION", length = 5000)
 	public String getOperation()
 	{
 		return operation;

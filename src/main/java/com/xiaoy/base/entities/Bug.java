@@ -95,7 +95,7 @@ public class Bug
 		this.title = title;
 	}
 
-	@Column(name = "NOTE", nullable = false, length = 300)
+	@Column(name = "NOTE", nullable = false, length = 3000)
 	public String getNote()
 	{
 		return note;
@@ -150,7 +150,7 @@ public class Bug
 		this.status = status;
 	}
 
-	@Column(name = "REVISE_EXPLAIN", length = 300)
+	@Column(name = "REVISE_EXPLAIN", length = 3000)
 	public String getReviseExplain()
 	{
 		return reviseExplain;
