@@ -30,7 +30,12 @@ Ext.define("AM.view.RoleList", {
 			text : '重置',
 			glyph : 0xf021,
 			id : "listResetRole"
-		} ]
+		}, {
+			xtype : 'button',
+			text : '授权',
+			glyph : 0xf007,
+			id : "authorize"
+		}  ]
 	},{
 		id : 'roleList',
 		region: 'center',

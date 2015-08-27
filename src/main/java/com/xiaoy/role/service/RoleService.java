@@ -3,6 +3,7 @@ package com.xiaoy.role.service;
 import java.util.List;
 import java.util.Set;
 
+import com.xiaoy.base.entities.Menu;
 import com.xiaoy.base.entities.Role;
 
 /**
@@ -53,4 +54,27 @@ public interface RoleService {
 	 * @date 2015年8月26日下午12:20:01
 	 */
 	List<Role> getRoleList(Role role, String start, String limit);
+
+	/**
+	 * 构建菜单树
+	 * 
+	 * @return
+	 *
+	 * @date 2015年8月27日下午6:05:16
+	 */
+	List<Object> buildTree();
+
+	/**
+	 * 获取父菜单的集合
+	 * 
+	 * @return
+	 */
+	List<Menu> getParentMenuList();
+
+	/**
+	 * 获取子菜单的集合
+	 * 
+	 * @return
+	 */
+	List<Menu> getChildMenuList();
 }
