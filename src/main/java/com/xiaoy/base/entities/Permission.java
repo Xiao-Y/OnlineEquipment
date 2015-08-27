@@ -23,8 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "PERMISSION")
-public class Permission
-{
+public class Permission {
 	private String id;
 	private String permissionName;
 	private String url;
@@ -40,68 +39,57 @@ public class Permission
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
 	@Column(name = "ID", unique = true, nullable = false, length = 100)
-	public String getId()
-	{
+	public String getId() {
 		return id;
 	}
 
-	public void setId(String id)
-	{
+	public void setId(String id) {
 		this.id = id;
 	}
 
 	@Column(name = "PERMISSION_NAME", length = 150)
-	public String getPermissionName()
-	{
+	public String getPermissionName() {
 		return permissionName;
 	}
 
-	public void setPermissionName(String permissionName)
-	{
+	public void setPermissionName(String permissionName) {
 		this.permissionName = permissionName;
 	}
 
 	@Column(name = "URL", length = 300)
-	public String getUrl()
-	{
+	public String getUrl() {
 		return url;
 	}
 
-	public void setUrl(String url)
-	{
+	public void setUrl(String url) {
 		this.url = url;
 	}
 
 	@Column(name = "CREATE_TIME")
-	public Date getCreateTime()
-	{
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime)
-	{
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
 	@Column(name = "UPDATE_TIME")
-	public Date getUpdateTime()
-	{
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime)
-	{
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
-	@ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)
-	public Set<Role> getRoles()
-	{
+	// @ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles)
-	{
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 }

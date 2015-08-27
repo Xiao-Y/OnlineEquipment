@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -26,8 +27,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "USER")
-public class User
-{
+public class User {
 	private String id;
 	// 用户名
 	private String username;
@@ -55,113 +55,93 @@ public class User
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
 	@Column(name = "ID", unique = true, nullable = false, length = 100)
-	public String getId()
-	{
+	public String getId() {
 		return id;
 	}
 
-	public void setId(String id)
-	{
+	public void setId(String id) {
 		this.id = id;
 	}
 
 	@Column(name = "USERNAME", unique = true, nullable = false, length = 20)
-	public String getUsername()
-	{
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername(String username)
-	{
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	@Column(name = "PASSWORD", nullable = false, length = 50)
-	public String getPassword()
-	{
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password)
-	{
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	@Column(name = "BIRTHDAY")
-	public Date getBirthday()
-	{
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday)
-	{
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
 	@Column(name = "IMAGE_URL", length = 150)
-	public String getImageUrl()
-	{
+	public String getImageUrl() {
 		return imageUrl;
 	}
 
-	public void setImageUrl(String imageUrl)
-	{
+	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 
 	@Column(name = "ADDRESS", length = 300)
-	public String getAddress()
-	{
+	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address)
-	{
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
 	@Column(name = "CREATE_TIME")
-	public Date getCreateTime()
-	{
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime)
-	{
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
 	@Column(name = "UPDATE_TIME")
-	public Date getUpdateTime()
-	{
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime)
-	{
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	public Set<Role> getRoles()
-	{
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles)
-	{
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
 	@Transient
-	public String getRoleName()
-	{
+	public String getRoleName() {
 		return roleName;
 	}
 
-	public void setRoleName(String roleName)
-	{
+	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
 }

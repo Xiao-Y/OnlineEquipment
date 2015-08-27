@@ -20,7 +20,9 @@
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<!-- <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"> -->
+				<!-- 
+				<bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				 -->
 				<bean id="fastJsonHttpMessageConverter" class="com.xiaoy.util.FastJsonHttpMessageConverter">
 					<property name="supportedMediaTypes">
 						<list>

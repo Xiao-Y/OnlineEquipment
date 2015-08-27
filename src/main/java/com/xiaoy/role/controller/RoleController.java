@@ -48,6 +48,7 @@ public class RoleController {
 		JsonResult json = new JsonResult();
 		List<Role> roles = roleService.getRoleList(role,start,limit);
 		json.setRoot(roles);
+		json.setSuccess(true);
 		return json;
 	}
 }
