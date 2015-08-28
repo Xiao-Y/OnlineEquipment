@@ -14,7 +14,7 @@ Ext.define("AM.controller.RoleController",{
 							console.log('创建窗口');
 						}
 						//当点击授权时加载
-//						Ext.getCmp("roleTreeWindow").getStore().reload();
+						Ext.getCmp("roleTreeView").getStore().reload();
 						baseFormWindow = Ext.getCmp("authorizeWindow");
 						baseFormWindow.setTitle("授权管理");
 						baseFormWindow.show();

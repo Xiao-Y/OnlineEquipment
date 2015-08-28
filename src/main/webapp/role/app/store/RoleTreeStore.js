@@ -19,6 +19,5 @@ Ext.define('AM.store.RoleTreeStore', {
 		writer : {
 			type : 'json'
 		}
-	},
-	autoLoad : true
+	}
 });
