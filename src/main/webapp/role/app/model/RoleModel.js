@@ -10,6 +10,9 @@ Ext.define("AM.model.RoleModel",{
 		name : "roleCode",
 		type : "string"
 	},{
+		name : "authorizeStatus",
+		type : "string"
+	},{
 		name : "createTime",
 		type : "string"
 	},{

@@ -61,7 +61,10 @@ Ext.define("AM.view.RoleList", {
 		}, {
 			header : '角色CODE',
 			dataIndex : 'roleCode'
-		}, {
+		},{
+			header : "授权状态",
+			dataIndex : 'authorizeStatus'
+		},{
 			header : '创建时间',
 			dataIndex : 'createTime'
 		}, {

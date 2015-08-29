@@ -5,7 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
@@ -13,6 +18,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Element;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -81,7 +87,7 @@ public class Tools {
 		String path = request.getSession().getServletContext().getRealPath(realPath);
 
 		// 获取图片的分割符
-		String imageSplit = Tools.getReadPropertiesString(request, "imageUploadSplit");
+		String imageSplit = Tools.getSystemConfigString(request, "imageUploadSplit");
 		StringBuffer buffer = new StringBuffer("");
 		for (MultipartFile m : imgUrls) {
 			// 获取文件的名称
@@ -129,7 +135,7 @@ public class Tools {
 	 */
 	public static void deleteFile(HttpServletRequest request, String imgUrls, String realPath) {
 		// 获取图片的分割符
-		String imageSplit = Tools.getReadPropertiesString(request, "imageSplit");
+		String imageSplit = Tools.getSystemConfigString(request, "imageSplit");
 		String path = request.getSession().getServletContext().getRealPath(realPath);
 		if (!StringUtils.isEmpty(imgUrls)) {
 			String[] imageNames = imgUrls.split(imageSplit);
@@ -211,10 +217,74 @@ public class Tools {
 	 *            关键字
 	 * @return value
 	 */
-	public static String getReadPropertiesString(HttpServletRequest request, String key) {
+	public static String getSystemConfigString(HttpServletRequest request, String key) {
 		ServletContext sct = request.getServletContext();
 		Properties properties = (Properties) sct.getAttribute("SYSTEM_CONFIG");
 		String value = properties.getProperty(key);
 		return value;
+	}
+
+	/**
+	 * 用于从内存中读取property.xml中的属性配置<br>
+	 * 如果model不存在，则读取所有<br>
+	 * 如果field不存在，则读取所有<br>
+	 * 如果key不存在，则读取所有
+	 * 
+	 * @param request
+	 * @param modelStr
+	 *            模块的名称
+	 * @param fieldStr
+	 *            字段名
+	 * @param keyStr
+	 *            关键字
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	// public static PropertyModel getReadPropertyXML(HttpServletRequest request, String modelStr, String fieldStr, String keyStr) {
+	public static List<PropertyModel> getReadPropertyXML(Element rootElement, String modelStr, String fieldStr, String keyStr) {
+		//ServletContext servletContext = request.getServletContext();
+//		Element element = (Element) servletContext.getAttribute("PROPERTY");
+		List<PropertyModel> list = new ArrayList<>();
+		Element element = rootElement;
+		Iterator<Element> models = element.elementIterator();
+		while (models.hasNext()) {
+			PropertyModel pm = new PropertyModel();
+			Element model = models.next();
+			String modelName = model.attributeValue("name");
+			pm.setModel(modelName);
+			// 读取指定模块的数据
+			Iterator<Element> datas = model.elementIterator();
+			while (datas.hasNext()) {
+				Element data = datas.next();
+				String field = data.attributeValue("field");
+				pm.setField(field);
+				Iterator<Element> maps = data.elementIterator();
+				Map<String, String> mapData = new HashMap<String, String>();
+				while (maps.hasNext()) {
+					Element map = maps.next();
+					String key = map.attributeValue("key");
+					String value = map.attributeValue("value");
+					mapData.put(key, value);
+				}
+				pm.setData(mapData);
+			}
+			list.add(pm);
+			// if (!StringUtils.isEmpty(modelStr) && dataElement.attributeValue("field").trim().equals(modelStr)) {
+			// // 读取指定字段的数据
+			// if (!StringUtils.isEmpty(fieldStr)) {
+			// // 读取指定关键字的数据
+			// if (!StringUtils.isEmpty(keyStr)) {
+			//
+			// } else {// 读取所有关键字的数据
+			//
+			// }
+			// } else {// 读取所有字段的
+			//
+			// }
+			// } else {// 读取所有
+			//
+			// }
+		}
+		return list;
 	}
 }

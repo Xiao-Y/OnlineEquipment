@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<property>
+	<model name="role">
+		<!-- 授权状态，0未授权，1已授权 -->
+		<data field="authorizeStatus">
+			<map key="0" value="未授权" />
+			<map key="1" value="已授权" />
+		</data>
+		<data field="authorizeStatus2">
+			<map key="02" value="未授权2" />
+			<map key="12" value="已授权2" />
+		</data>
+	</model>
+	<model name="user">
+		<!-- 授权状态，0未授权，1已授权 -->
+		<data field="authorizeStatus">
+			<map key="0" value="未授权" />
+			<map key="1" value="已授权" />
+		</data>
+	</model>
+</property>

@@ -118,7 +118,7 @@ public class BugController {
 	public @ResponseBody
 	JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
 		// 获取bug图片的路径
-		String bugRealPath = Tools.getReadPropertiesString(request, "bugRealPath");
+		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
 		Bug bug = this.setParamBug(request);
 		bug.setImgUrl(imgUrl);
@@ -168,7 +168,7 @@ public class BugController {
 	public @ResponseBody
 	JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
 		// 获取bug图片的路径
-		String bugRealPath = Tools.getReadPropertiesString(request, "bugRealPath");
+		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
 		// 拼接图片名
 		JsonResult json = new JsonResult();
@@ -203,7 +203,7 @@ public class BugController {
 			String imgUrls = bugService.findObjectById(id).getImgUrl();
 			bugService.deleteObjectByid(id);
 			// 获取bug图片的路径
-			String bugRealPath = Tools.getReadPropertiesString(request, "bugRealPath");
+			String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 			Tools.deleteFile(request, imgUrls, bugRealPath);
 			json.setMessage(MessageTips.DELETE_SUCCESS);
 			json.setSuccess(true);
@@ -229,7 +229,7 @@ public class BugController {
 			if (bug != null) {
 				String strImg = bug.getImgUrl();
 				if (!StringUtils.isEmpty(strImg)) {
-					String imageSplit = Tools.getReadPropertiesString(request, "imageSplit");
+					String imageSplit = Tools.getSystemConfigString(request, "imageSplit");
 					String[] image = strImg.split(imageSplit);
 					json.setRoot(image);
 					json.setSuccess(true);

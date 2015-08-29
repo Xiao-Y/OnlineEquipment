@@ -1,14 +1,10 @@
 package com.xiaoy.base.entities;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -34,7 +30,7 @@ public class Permission {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date updateTime;
 
-	private Set<Role> roles = new HashSet<>();
+	// private Set<Role> roles = new HashSet<>();
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
@@ -83,13 +79,13 @@ public class Permission {
 		this.updateTime = updateTime;
 	}
 
-	// @ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)
-	@ManyToMany(cascade = CascadeType.ALL)
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
+	// //@ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)
+	// @ManyToMany(cascade = CascadeType.ALL)
+	// public Set<Role> getRoles() {
+	// return roles;
+	// }
+	//
+	// public void setRoles(Set<Role> roles) {
+	// this.roles = roles;
+	// }
 }

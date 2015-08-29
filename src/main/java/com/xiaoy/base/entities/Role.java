@@ -37,8 +37,10 @@ public class Role {
 	// 更新时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date updateTime;
+	// 授权状态，0未授权，1已授权
+	private String authorizeStatus;
 	// 角色持有用户的集合
-	private Set<User> users = new HashSet<>();
+	// private Set<User> users = new HashSet<>();
 	// 角色持有权限的集合
 	private Set<Permission> permissions = new HashSet<>();
 
@@ -89,18 +91,27 @@ public class Role {
 		this.updateTime = updateTime;
 	}
 
-	// @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
-	@ManyToMany(cascade = CascadeType.ALL)
-	public Set<User> getUsers() {
-		return users;
+	// //@ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
+	// @ManyToMany(cascade = CascadeType.ALL)
+	// public Set<User> getUsers() {
+	// return users;
+	// }
+	//
+	// public void setUsers(Set<User> users) {
+	// this.users = users;
+	// }
+
+	@Column(name = "AUTHORIZE_STATUS", length = 5)
+	public String getAuthorizeStatus() {
+		return authorizeStatus;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setAuthorizeStatus(String authorizeStatus) {
+		this.authorizeStatus = authorizeStatus;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "per_role", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "pro_id", referencedColumnName = "id"))
+	@JoinTable(name = "PERMISSION_ROLE", joinColumns = @JoinColumn(name = "ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "PRO_ID"))
 	public Set<Permission> getPermissions() {
 		return permissions;
 	}

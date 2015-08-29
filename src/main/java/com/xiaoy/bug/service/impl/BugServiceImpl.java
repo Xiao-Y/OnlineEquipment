@@ -43,7 +43,7 @@ public class BugServiceImpl extends CommonServiceImpl<Bug> implements BugService
 		if (!StringUtils.isEmpty(imgUrl)) {
 			String oldImgUrl = b.getImgUrl();
 			// 获取bug图片的路径
-			String bugRealPath = Tools.getReadPropertiesString(request, "bugRealPath");
+			String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 			// 删除图片
 			Tools.deleteFile(request, oldImgUrl, bugRealPath);
 			b.setImgUrl(imgUrl);

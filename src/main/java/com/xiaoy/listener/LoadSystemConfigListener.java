@@ -15,32 +15,27 @@ import com.xiaoy.util.Tools;
  * @author XiaoY
  * @date: 2015年8月25日 下午9:13:57
  */
-public class LoadSystemConfigListener implements ServletContextListener
-{
+public class LoadSystemConfigListener implements ServletContextListener {
 	/**
 	 * 系统配置文件
 	 */
 	public final static String SYSTEM_CONFIG = "systemConfig.properties";
 
 	@Override
-	public void contextInitialized(ServletContextEvent sc)
-	{
+	public void contextInitialized(ServletContextEvent sc) {
 		Properties properties = new Properties();
-		try
-		{
+		try {
 			InputStream in = Tools.class.getClassLoader().getResourceAsStream(SYSTEM_CONFIG);
 			properties.load(in);
 			in.close(); // 关闭流
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		sc.getServletContext().setAttribute("SYSTEM_CONFIG", properties);
 	}
 
 	@Override
-	public void contextDestroyed(ServletContextEvent sc)
-	{
+	public void contextDestroyed(ServletContextEvent sc) {
 
 	}
 }
