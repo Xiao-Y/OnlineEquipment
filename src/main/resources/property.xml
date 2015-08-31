@@ -1,21 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <property>
 	<model name="role">
-		<!-- 授权状态，0未授权，1已授权 -->
+		<!-- 授权状态 -->
 		<data field="authorizeStatus">
 			<map key="0" value="未授权" />
 			<map key="1" value="已授权" />
-		</data>
-		<data field="authorizeStatus2">
-			<map key="02" value="未授权2" />
-			<map key="12" value="已授权2" />
 		</data>
 	</model>
-	<model name="user">
-		<!-- 授权状态，0未授权，1已授权 -->
-		<data field="authorizeStatus">
-			<map key="0" value="未授权" />
-			<map key="1" value="已授权" />
+
+	<model name="bug">
+		<!-- bug类型 -->
+		<data field="bugType">
+			<map key="0" value="" />
+			<map key="1" value="规范问题" />
+			<map key="2" value="性能问题" />
+			<map key="3" value="安全问题" />
+			<map key="4" value="页面问题" />
+			<map key="5" value="其它问题" />
+			<map key="6" value="功能问题" />
+		</data>
+		<!-- 优先级 -->
+		<data field="priority">
+			<map key="0" value="" />
+			<map key="1" value="低" />
+			<map key="2" value="中" />
+			<map key="3" value="高" />
+			<map key="4" value="紧急" />
+			<map key="5" value="无关紧要" />
+		</data>
+		<!-- 重现规律 -->
+		<data field="reappear">
+			<map key="0" value="" />
+			<map key="1" value="很难重现" />
+			<map key="2" value="随机重现" />
+			<map key="3" value="必然重现" />
+		</data>
+		<!-- 严重程度 -->
+		<data field="severity">
+			<map key="0" value="" />
+			<map key="1" value="提示" />
+			<map key="2" value="一般" />
+			<map key="3" value="严重" />
+			<map key="4" value="致命" />
+			<map key="5" value="建议" />
+		</data>
+		<!-- 修改状态 -->
+		<data field="status">
+			<map key="0" value="" />
+			<map key="1" value="已修改" />
+			<map key="2" value="未修改" />
+		</data>
+	</model>
+
+	<model name="log">
+		<!-- 操作类型 -->
+		<data field="operation">
+			<map key="delete" value="删除操作" />
+			<map key="save" value="保存操作" />
+			<map key="update" value="更新操作" />
+		</data>
+	</model>
+
+	<model name="menu">
+		<!-- 菜单类型 -->
+		<data field="menuType">
+			<map key="0" value="树枝节点" />
+			<map key="1" value="叶子节点" />
 		</data>
 	</model>
 </property>

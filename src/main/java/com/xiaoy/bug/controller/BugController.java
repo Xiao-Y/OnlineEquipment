@@ -33,19 +33,12 @@ import com.xiaoy.util.Tools;
 @Controller
 @RequestMapping("/bug")
 public class BugController {
-	/**
-	 * 系统配置文件
-	 */
-	public final static String SYSTEM_CONFIG = "systemConfig.properties";
 
 	@Resource
 	private BugService bugService;
 
 	@Resource
 	private MenuService menuService;
-
-	// @Resource
-	// private HttpServletRequest request;
 
 	@RequestMapping("/index")
 	public String index() {

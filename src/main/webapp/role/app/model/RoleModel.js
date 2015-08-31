@@ -13,6 +13,9 @@ Ext.define("AM.model.RoleModel",{
 		name : "authorizeStatus",
 		type : "string"
 	},{
+		name : "authorizeStatusName",
+		type : "string"
+	},{
 		name : "createTime",
 		type : "string"
 	},{

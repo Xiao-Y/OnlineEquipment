@@ -73,6 +73,11 @@
 		<listener-class>com.xiaoy.listener.LoadSystemConfigListener</listener-class>
 	</listener>
 	
+	<!-- 加载属性配置文件监听 -->
+	<listener>
+		<listener-class>com.xiaoy.listener.LoadPropertyListenter</listener-class>
+	</listener>
+	
 	<!-- 防止内存溢出监听器 -->
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>

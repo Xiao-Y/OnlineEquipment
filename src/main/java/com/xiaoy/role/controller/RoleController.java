@@ -36,17 +36,17 @@ public class RoleController {
 	 * 角色列表
 	 * 
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月26日上午11:26:01
 	 */
 	@RequestMapping("/getRoleList")
-	public @ResponseBody JsonResult getRoleList(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getRoleList(HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
-
 		Role role = new Role();
 		JsonResult json = new JsonResult();
-		List<Role> roles = roleService.getRoleList(role, start, limit);
+		List<Role> roles = roleService.getRoleList(request, role, start, limit);
 		json.setRoot(roles);
 		json.setSuccess(true);
 		return json;
@@ -56,11 +56,12 @@ public class RoleController {
 	 * 构建菜单树
 	 * 
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月27日下午6:02:37
 	 */
 	@RequestMapping("/buildTree")
-	public @ResponseBody JsonResult buildTree() {
+	public @ResponseBody
+	JsonResult buildTree() {
 		JsonResult json = new JsonResult();
 		List<Object> list = roleService.buildTree();
 		json.setRoot(list);

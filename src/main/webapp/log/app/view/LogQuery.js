@@ -32,8 +32,8 @@ Ext.define('AM.view.LogQuery', {
 		}, {
 			fieldLabel : '操作类型',
 			xtype : 'combobox',
-			displayField : 'operation',
-			valueField : 'id',
+			displayField : 'displayField',
+			valueField : 'valueField',
 			queryMode : 'local',
 			store : 'HandleTypeStore',
 			name : 'operation',

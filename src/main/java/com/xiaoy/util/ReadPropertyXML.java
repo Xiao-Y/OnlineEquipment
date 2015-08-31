@@ -6,9 +6,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
 
+/**
+ * 用于读取属性文件
+ * 
+ * @author XiaoY
+ * @date: 2015年8月31日 下午11:07:28
+ */
 public class ReadPropertyXML {
 
 	/**
@@ -18,13 +27,10 @@ public class ReadPropertyXML {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	// public static PropertyModel getReadPropertyXML(HttpServletRequest
-	// request, String modelStr, String fieldStr, String keyStr) {
-	public static List<PropertyModel> getReadPropertyXML(Element rootElement) {
-		// ServletContext servletContext = request.getServletContext();
-		// Element element = (Element) servletContext.getAttribute("PROPERTY");
+	public static List<PropertyModel> getReadPropertyXML(HttpServletRequest request) {
+		ServletContext servletContext = request.getServletContext();
+		Element element = (Element) servletContext.getAttribute("PROPERTY");
 		List<PropertyModel> list = new ArrayList<>();
-		Element element = rootElement;
 		Iterator<Element> models = element.elementIterator();
 		while (models.hasNext()) {
 			PropertyModel pm = new PropertyModel();
@@ -33,10 +39,10 @@ public class ReadPropertyXML {
 			pm.setModel(modelName);
 			// 读取指定模块的数据
 			Iterator<Element> datas = model.elementIterator();
+			Map<String, Map<String, String>> fields = new HashMap<>();
 			while (datas.hasNext()) {
 				Element data = datas.next();
 				String field = data.attributeValue("field");
-				pm.setField(field);
 				Iterator<Element> maps = data.elementIterator();
 				Map<String, String> mapData = new HashMap<String, String>();
 				while (maps.hasNext()) {
@@ -45,7 +51,8 @@ public class ReadPropertyXML {
 					String value = map.attributeValue("value");
 					mapData.put(key, value);
 				}
-				pm.setData(mapData);
+				fields.put(field, mapData);
+				pm.setDatas(fields);
 			}
 			list.add(pm);
 		}
@@ -60,30 +67,28 @@ public class ReadPropertyXML {
 	 *            模块的名称
 	 * 
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月31日上午9:02:15
 	 */
 	@SuppressWarnings("unchecked")
-	// public static PropertyModel getReadPropertyXML(HttpServletRequest
-	// request, String modelStr, String fieldStr, String keyStr) {
-	public static List<PropertyModel> getReadPropertyXML(Element rootElement, String modelStr) {
-		// ServletContext servletContext = request.getServletContext();
-		// Element element = (Element) servletContext.getAttribute("PROPERTY");
-		List<PropertyModel> list = new ArrayList<>();
-		Element element = rootElement;
+	public static PropertyModel getReadPropertyXML(HttpServletRequest request, String modelStr) {
+		ServletContext servletContext = request.getServletContext();
+		Element element = (Element) servletContext.getAttribute("PROPERTY");
+		PropertyModel pm = null;
 		Iterator<Element> models = element.elementIterator();
 		while (models.hasNext()) {
 			Element model = models.next();
 			String modelName = model.attributeValue("name");
 			if (!StringUtils.isEmpty(modelStr) && modelName.equals(modelStr)) {
-				PropertyModel pm = new PropertyModel();
+				pm = new PropertyModel();
 				pm.setModel(modelName);
 				// 读取指定模块的数据
 				Iterator<Element> datas = model.elementIterator();
+				Map<String, Map<String, String>> fields = new HashMap<>();
 				while (datas.hasNext()) {
 					Element data = datas.next();
 					String field = data.attributeValue("field");
-					pm.setField(field);
+
 					Iterator<Element> maps = data.elementIterator();
 					Map<String, String> mapData = new HashMap<String, String>();
 					while (maps.hasNext()) {
@@ -92,13 +97,13 @@ public class ReadPropertyXML {
 						String value = map.attributeValue("value");
 						mapData.put(key, value);
 					}
-					pm.setData(mapData);
+					fields.put(field, mapData);
+					pm.setDatas(fields);
 				}
-				list.add(pm);
 				break;
 			}
 		}
-		return list;
+		return pm;
 	}
 
 	/**
@@ -110,23 +115,20 @@ public class ReadPropertyXML {
 	 * @param fieldStr
 	 *            字段名
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月31日上午9:01:56
 	 */
 	@SuppressWarnings("unchecked")
-	// public static PropertyModel getReadPropertyXML(HttpServletRequest
-	// request, String modelStr, String fieldStr, String keyStr) {
-	public static List<PropertyModel> getReadPropertyXML(Element rootElement, String modelStr, String fieldStr) {
-		// ServletContext servletContext = request.getServletContext();
-		// Element element = (Element) servletContext.getAttribute("PROPERTY");
-		List<PropertyModel> list = new ArrayList<>();
-		Element element = rootElement;
+	public static PropertyModel getReadPropertyXML(HttpServletRequest request, String modelStr, String fieldStr) {
+		ServletContext servletContext = request.getServletContext();
+		Element element = (Element) servletContext.getAttribute("PROPERTY");
+		PropertyModel pm = null;
 		Iterator<Element> models = element.elementIterator();
 		while (models.hasNext()) {
 			Element model = models.next();
 			String modelName = model.attributeValue("name");
 			if (!StringUtils.isEmpty(modelStr) && modelName.equals(modelStr)) {
-				PropertyModel pm = new PropertyModel();
+				pm = new PropertyModel();
 				pm.setModel(modelName);
 				// 读取指定模块的数据
 				Iterator<Element> datas = model.elementIterator();
@@ -134,28 +136,28 @@ public class ReadPropertyXML {
 					Element data = datas.next();
 					String field = data.attributeValue("field");
 					if (!StringUtils.isEmpty(fieldStr) && field.equals(fieldStr)) {
-						pm.setField(field);
 						Iterator<Element> maps = data.elementIterator();
 						Map<String, String> mapData = new HashMap<String, String>();
+						Map<String, Map<String, String>> fields = new HashMap<>();
 						while (maps.hasNext()) {
 							Element map = maps.next();
 							String key = map.attributeValue("key");
 							String value = map.attributeValue("value");
 							mapData.put(key, value);
 						}
-						pm.setData(mapData);
+						fields.put(field, mapData);
+						pm.setDatas(fields);
 						break;
 					}
 				}
-				list.add(pm);
 				break;
 			}
 		}
-		return list;
+		return pm;
 	}
 
 	/**
-	 * * 用于从内存中读取指定模块名称、字段和关键字的property.xml中的属性配置<br>
+	 * 用于从内存中读取指定模块名称、字段和关键字的property.xml中的属性配置<br>
 	 * 
 	 * @param rootElement
 	 * @param modelStr
@@ -165,23 +167,20 @@ public class ReadPropertyXML {
 	 * @param keyStr
 	 *            关键字
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月31日上午9:02:44
 	 */
 	@SuppressWarnings("unchecked")
-	// public static PropertyModel getReadPropertyXML(HttpServletRequest
-	// request, String modelStr, String fieldStr, String keyStr) {
-	public static List<PropertyModel> getReadPropertyXML(Element rootElement, String modelStr, String fieldStr, String keyStr) {
-		// ServletContext servletContext = request.getServletContext();
-		// Element element = (Element) servletContext.getAttribute("PROPERTY");
-		List<PropertyModel> list = new ArrayList<>();
-		Element element = rootElement;
+	public static PropertyModel getReadPropertyXML(HttpServletRequest request, String modelStr, String fieldStr, String keyStr) {
+		ServletContext servletContext = request.getServletContext();
+		Element element = (Element) servletContext.getAttribute("PROPERTY");
+		PropertyModel pm = null;
 		Iterator<Element> models = element.elementIterator();
 		while (models.hasNext()) {
 			Element model = models.next();
 			String modelName = model.attributeValue("name");
 			if (!StringUtils.isEmpty(modelStr) && modelName.equals(modelStr)) {
-				PropertyModel pm = new PropertyModel();
+				pm = new PropertyModel();
 				pm.setModel(modelName);
 				// 读取指定模块的数据
 				Iterator<Element> datas = model.elementIterator();
@@ -189,26 +188,28 @@ public class ReadPropertyXML {
 					Element data = datas.next();
 					String field = data.attributeValue("field");
 					if (!StringUtils.isEmpty(fieldStr) && field.equals(fieldStr)) {
-						pm.setField(field);
 						Iterator<Element> maps = data.elementIterator();
 						Map<String, String> mapData = new HashMap<String, String>();
+						Map<String, Map<String, String>> fields = new HashMap<>();
 						while (maps.hasNext()) {
 							Element map = maps.next();
 							String key = map.attributeValue("key");
 							String value = map.attributeValue("value");
 							if (!StringUtils.isEmpty(keyStr) && key.equals(keyStr)) {
 								mapData.put(key, value);
+
 								break;
 							}
 						}
-						pm.setData(mapData);
+						fields.put(field, mapData);
+						pm.setDatas(fields);
 						break;
 					}
 				}
-				list.add(pm);
+				// list.add(pm);
 				break;
 			}
 		}
-		return list;
+		return pm;
 	}
 }

@@ -13,6 +13,7 @@ Ext.define('AM.controller.LogController', {
 							Ext.create('AM.view.LogQuery', {});// 第一次创建添加显示窗口
 						}
 						//当点击添加时加载
+						Ext.getCmp("operation").getStore().reload();
 						baseFormWindow = Ext.getCmp("logQueryWindow");
 						baseFormWindow.setTitle("高级查询");
 						baseFormWindow.show();

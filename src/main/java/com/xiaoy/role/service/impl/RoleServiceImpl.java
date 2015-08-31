@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ import com.xiaoy.menu.service.MenuService;
 import com.xiaoy.role.dao.RoleDao;
 import com.xiaoy.role.service.RoleService;
 import com.xiaoy.user.service.UserService;
+import com.xiaoy.util.PropertyModel;
+import com.xiaoy.util.ReadPropertyXML;
 
 /**
  * 角色实现类
@@ -73,35 +76,39 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 	}
 
 	@Override
-	public List<Role> getRoleList(Role role, String start, String limit) {
-		return roleDao.getRoleList(role, start, limit);
+	public List<Role> getRoleList(HttpServletRequest request, Role role, String start, String limit) {
+		List<Role> list = roleDao.getRoleList(role, start, limit);
+		for (Role r : list) {
+			PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "role", "authorizeStatus", r.getAuthorizeStatus());
+			Map<String, Map<String, String>> datas = propertyModel.getDatas();
+			Map<String, String> map = datas.get("authorizeStatus");
+			String authorizeStatusName = map.get(r.getAuthorizeStatus());
+			r.setAuthorizeStatusName(authorizeStatusName);
+		}
+		return list;
 	}
 
 	@Override
-	public List<Menu> getParentMenuList()
-	{
+	public List<Menu> getParentMenuList() {
 		List<Menu> parentMenus = menuService.getParentMenuList();
 		return parentMenus;
 	}
 
 	@Override
-	public List<Menu> getChildMenuList()
-	{
+	public List<Menu> getChildMenuList() {
 		List<Menu> childMenus = menuService.getChildMenuList();
 		return childMenus;
 	}
 
 	@Override
-	public List<Object> buildTree()
-	{
+	public List<Object> buildTree() {
 		// 获取父级菜单
 		List<Menu> parentMenu = this.getParentMenuList();
 		// 获取所有的子菜单
 		List<Menu> childMenu = this.getChildMenuList();
 
 		List<Object> json = new ArrayList<Object>();
-		for (Menu parent : parentMenu)
-		{
+		for (Menu parent : parentMenu) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", parent.getId());
 			map.put("expandabl", false);// 菜单折叠状态
@@ -109,10 +116,8 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 			map.put("index", parent.getSeq());
 			map.put("leaf", false);
 			List<Object> list = new ArrayList<Object>();
-			for (Menu child : childMenu)
-			{
-				if (parent.getId().equals(child.getParentId()))
-				{
+			for (Menu child : childMenu) {
+				if (parent.getId().equals(child.getParentId())) {
 					Map<String, Object> childMap = new HashMap<>();
 					childMap.put("id", child.getId());
 					childMap.put("text", child.getMenuName());// 菜单名称

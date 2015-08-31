@@ -7,8 +7,6 @@ import java.util.Properties;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.xiaoy.util.Tools;
-
 /**
  * 用于在服务启动时，加载系统配置文件
  * 
@@ -25,7 +23,7 @@ public class LoadSystemConfigListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sc) {
 		Properties properties = new Properties();
 		try {
-			InputStream in = Tools.class.getClassLoader().getResourceAsStream(SYSTEM_CONFIG);
+			InputStream in = getClass().getClassLoader().getResourceAsStream(SYSTEM_CONFIG);
 			properties.load(in);
 			in.close(); // 关闭流
 		} catch (IOException e) {

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -39,6 +40,8 @@ public class Role {
 	private Date updateTime;
 	// 授权状态，0未授权，1已授权
 	private String authorizeStatus;
+	// 授权状态名称
+	private String authorizeStatusName;
 	// 角色持有用户的集合
 	// private Set<User> users = new HashSet<>();
 	// 角色持有权限的集合
@@ -108,6 +111,15 @@ public class Role {
 
 	public void setAuthorizeStatus(String authorizeStatus) {
 		this.authorizeStatus = authorizeStatus;
+	}
+
+	@Transient
+	public String getAuthorizeStatusName() {
+		return authorizeStatusName;
+	}
+
+	public void setAuthorizeStatusName(String authorizeStatusName) {
+		this.authorizeStatusName = authorizeStatusName;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL)

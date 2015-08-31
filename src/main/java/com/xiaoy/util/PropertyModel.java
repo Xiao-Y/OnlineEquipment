@@ -12,8 +12,9 @@ import java.util.TreeMap;
 public class PropertyModel {
 
 	private String model;
-	private String field;
-	private Map<String, String> data = new TreeMap<>();
+	private Map<String, Map<String, String>> datas = new TreeMap<>();
+
+	// private Map<String, String> data = new TreeMap<>();
 
 	public String getModel() {
 		return model;
@@ -23,24 +24,24 @@ public class PropertyModel {
 		this.model = model;
 	}
 
-	public String getField() {
-		return field;
+	public Map<String, Map<String, String>> getDatas() {
+		return datas;
 	}
 
-	public void setField(String field) {
-		this.field = field;
+	public void setDatas(Map<String, Map<String, String>> datas) {
+		this.datas = datas;
 	}
 
-	public Map<String, String> getData() {
-		return data;
-	}
-
-	public void setData(Map<String, String> data) {
-		this.data = data;
-	}
+	// public Map<String, String> getData() {
+	// return data;
+	// }
+	//
+	// public void setData(Map<String, String> data) {
+	// this.data = data;
+	// }
 
 	@Override
 	public String toString() {
-		return "PropertyModel [model=" + model + ", field=" + field + ", data=" + data + "]";
+		return "PropertyModel [model=" + model + ", datas=" + datas + "]";
 	}
 }

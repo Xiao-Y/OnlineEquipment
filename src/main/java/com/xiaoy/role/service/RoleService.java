@@ -3,6 +3,8 @@ package com.xiaoy.role.service;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.base.entities.Role;
 
@@ -53,7 +55,7 @@ public interface RoleService {
 	 *
 	 * @date 2015年8月26日下午12:20:01
 	 */
-	List<Role> getRoleList(Role role, String start, String limit);
+	List<Role> getRoleList(HttpServletRequest request,Role role, String start, String limit);
 
 	/**
 	 * 构建菜单树
