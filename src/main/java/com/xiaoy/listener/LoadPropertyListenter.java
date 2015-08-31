@@ -12,7 +12,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.xiaoy.util.PropertyModel;
-import com.xiaoy.util.Tools;
+import com.xiaoy.util.ReadPropertyXML;
 
 /**
  * 用于项目启动时加载属性配置文件
@@ -28,13 +28,14 @@ public class LoadPropertyListenter implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent sc) {
 		Element rootElement = null;
 		SAXReader reader = new SAXReader();
-		// InputStream in = Tools.class.getClassLoader().getResourceAsStream(PROPERTY);
+		// InputStream in =
+		// Tools.class.getClassLoader().getResourceAsStream(PROPERTY);
 		File file = new File("D:\\project\\workspace\\OnlineEquipment\\src\\main\\resources\\property.xml");
 		try {
 			// Document document = reader.read(in);
 			Document document = reader.read(file);
 			rootElement = document.getRootElement();
-			List<PropertyModel> list = Tools.getReadPropertyXML(rootElement, "", "", "");
+			List<PropertyModel> list = ReadPropertyXML.getReadPropertyXML(rootElement);
 			for (PropertyModel pm : list) {
 				System.out.println(pm);
 			}
