@@ -1,23 +1,25 @@
 Ext.define('AM.view.RoleAuthorize', {
 	extend : 'Ext.window.Window',
-	//alias : "widget.authorize",
 	id : 'authorizeWindow',
-	height : 500,
-	width : 400,
+	alias : "widget.authorizeSave",
+	height : 400,
+	width : 300,
 	layout : 'fit',
 	modal:true,//模态框
 	items : [ {
-		xtype : 'panel',//为了显示滑动条
+		xtype : 'form',//为了显示滑动条
 		autoScroll:true,
-		bodyPadding : 3,
 		items:[{
-			title : "选择权限",
 			xtype : 'treepanel',//添加菜单树
+			id : "treepanelId",
 			border : false,
-			// 是否显示根节点
-			rootVisible : true,
-			// 数据集
-			store : 'RoleTreeStore'
+			rootVisible : false,// 是否显示根节点
+			store : 'RoleTreeStore',
+			listeners : {
+				'checkchange':function(node, checked) {
+					console.info("node : " + node +",checked : "+ checked);
+    			}
+			}
 		}]
 	} ],
 	dockedItems : [ {

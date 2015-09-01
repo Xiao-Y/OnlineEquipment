@@ -111,10 +111,11 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 		for (Menu parent : parentMenu) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", parent.getId());
-			map.put("expandabl", true);// 是否展开
+			map.put("expanded", true);// 是否展开
 			map.put("text", parent.getMenuName());// 菜单名称
 			map.put("index", parent.getSeq());
 			map.put("leaf", false);
+			map.put("checked", false);
 			List<Object> list = new ArrayList<Object>();
 			for (Menu child : childMenu) {
 				if (parent.getId().equals(child.getParentId())) {
@@ -125,6 +126,7 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 					childMap.put("parentId", child.getParentId());
 					childMap.put("url", "../" + child.getMenuUrl());
 					childMap.put("leaf", true);
+					childMap.put("checked", false);
 					list.add(childMap);
 				}
 			}

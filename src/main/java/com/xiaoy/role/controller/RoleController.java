@@ -61,11 +61,7 @@ public class RoleController {
 	 */
 	@RequestMapping("/buildTree")
 	public @ResponseBody
-	JsonResult buildTree() {
-		JsonResult json = new JsonResult();
-		List<Object> list = roleService.buildTree();
-		json.setRoot(list);
-		json.setSuccess(true);
-		return json;
+	List<Object> buildTree() {
+		return roleService.buildTree();
 	}
 }

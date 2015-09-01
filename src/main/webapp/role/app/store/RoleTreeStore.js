@@ -1,7 +1,6 @@
-var msgTip;
 Ext.define('AM.store.RoleTreeStore', {
 	extend : 'Ext.data.TreeStore',
-	model : 'AM.model.RoleTreeModel',
+	//model : 'AM.model.RoleTreeModel',
 	defaultRoodId : 'root',
 	// 设置根节点
 	root : {
@@ -11,7 +10,7 @@ Ext.define('AM.store.RoleTreeStore', {
 	  expanded : true//是否展开
 	},
 	proxy : {
-		url : '../role/data.json',
+		url : '../role/buildTree',
 		type : 'ajax',
 		reader : {
 			type : 'json',
