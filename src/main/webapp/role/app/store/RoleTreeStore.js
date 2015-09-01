@@ -11,13 +11,12 @@ Ext.define('AM.store.RoleTreeStore', {
 	  expanded : true//是否展开
 	},
 	proxy : {
-		url : '../role/buildTree',
+		url : '../role/data.json',
 		type : 'ajax',
 		reader : {
-			type : 'json'
-		},
-		writer : {
-			type : 'json'
+			type : 'json',
+			defaultRootProperty : "root"
 		}
-	}
+	},
+	autoLoad : true
 });

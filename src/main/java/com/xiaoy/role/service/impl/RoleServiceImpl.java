@@ -111,7 +111,7 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 		for (Menu parent : parentMenu) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", parent.getId());
-			map.put("expandabl", false);// 菜单折叠状态
+			map.put("expandabl", true);// 是否展开
 			map.put("text", parent.getMenuName());// 菜单名称
 			map.put("index", parent.getSeq());
 			map.put("leaf", false);

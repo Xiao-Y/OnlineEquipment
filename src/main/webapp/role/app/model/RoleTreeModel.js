@@ -9,12 +9,9 @@ Ext.define('AM.model.RoleTreeModel', {
 	}, {
 		name : 'text',
 		type : 'string'
-	},
-	// type为布尔型时，后面的默认值是必须写的，要不会出错
-	{
+	},{
 		name : 'leaf',
-		type : 'boolean',
-		defaultValue : true
+		type : 'boolean'
 	}, {
 		name : 'url',
 		type : 'string'

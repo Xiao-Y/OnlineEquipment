@@ -1,6 +1,6 @@
 Ext.define('AM.view.RoleAuthorize', {
 	extend : 'Ext.window.Window',
-	alias : "widget.authorize",
+	//alias : "widget.authorize",
 	id : 'authorizeWindow',
 	height : 500,
 	width : 400,
@@ -12,7 +12,12 @@ Ext.define('AM.view.RoleAuthorize', {
 		bodyPadding : 3,
 		items:[{
 			title : "选择权限",
-			xtype : 'roleTree'//添加菜单树
+			xtype : 'treepanel',//添加菜单树
+			border : false,
+			// 是否显示根节点
+			rootVisible : true,
+			// 数据集
+			store : 'RoleTreeStore'
 		}]
 	} ],
 	dockedItems : [ {
