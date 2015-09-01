@@ -1,10 +1,10 @@
 Ext.define('AM.model.ThemeModel', {
 	extend : 'Ext.data.Model',
 	fields : [ {
-		name : 'value',
+		name : 'displayField',
 		type : 'string'
 	}, {
-		name : 'name',
+		name : 'valueField',
 		type : 'string'
 	}]
 });

@@ -23,8 +23,8 @@ Ext.define('AM.view.Viewport',{
 	        id:"themeCombo",
 	        labelWidth: 50,
 	        fieldLabel: '主题',
-	        displayField: 'name',
-	        valueField: 'value',
+	        displayField: 'displayField',
+	        valueField: 'valueField',
 	        queryMode: 'local',
 	        store: "ThemeStore"
 		},{
