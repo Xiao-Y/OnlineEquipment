@@ -74,9 +74,9 @@ Ext.define('AM.view.BugAdd', {
 				},{
 					fieldLabel : '严重程度',
 					xtype : 'combobox',
-					displayField : 'severityName',
+					displayField : 'displayField',
 					allowBlank : false,
-					valueField : 'severity',
+					valueField : 'valueField',
 					id : 'severity',
 					queryMode : 'local',
 					value : '2',
@@ -92,8 +92,8 @@ Ext.define('AM.view.BugAdd', {
 				},{
 					fieldLabel : 'BUG状态',
 					xtype : 'combobox',
-					displayField : 'statusName',
-					valueField : 'status',
+					displayField : 'displayField',
+					valueField : 'valueField',
 					allowBlank : false,
 					queryMode : 'local',
 					id : 'status',
@@ -105,9 +105,9 @@ Ext.define('AM.view.BugAdd', {
 				},{
 					fieldLabel : '重现规律',
 					xtype : 'combobox',
-					displayField : 'reappearName',
+					displayField : 'displayField',
 					allowBlank : false,
-					valueField : 'reappear',
+					valueField : 'valueField',
 					id : 'reappear',
 					queryMode : 'local',
 					editable : false,
@@ -123,15 +123,15 @@ Ext.define('AM.view.BugAdd', {
 				}, {
 					fieldLabel : 'BUG类型',
 					xtype : 'combobox',
-					displayField : 'bugTypeName',
-					id : 'bugType',
+					displayField : 'displayField',
 					allowBlank : false,
-					valueField : 'bugType',
+					valueField : 'valueField',
 					queryMode : 'local',
 					value : '6',
 					editable : false,
 					forceSelection : true,// 所选择的值必须是列表中的值
 					store : 'BugTypeStore',
+					id : 'bugType',
 					name : 'bugType',
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>",

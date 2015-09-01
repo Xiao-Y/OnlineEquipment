@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
@@ -114,7 +117,17 @@ public class Tools {
 	}
 
 	/*
-	 * public static String appendFileName(MultipartFile[] imgUrls, HttpServletRequest request) { // 获取图片的拼接符 String imageSplit = Tools.getReadPropertiesString(request, "imageUploadSplit"); StringBuffer buffer = new StringBuffer(""); for (MultipartFile m : imgUrls) { // 获取文件的名称 String fileName = m.getOriginalFilename(); if (!StringUtils.isEmpty(fileName)) { fileName = Tools.generateFileName(fileName); // 拼接图片的名字，用于保存 buffer.append(fileName); buffer.append(imageSplit); } } String imgUrl = buffer.toString(); if (!StringUtils.isEmpty(imgUrl)) { int index = imgUrl.lastIndexOf(imageSplit); imgUrl = imgUrl.substring(0, index); } return imgUrl; }
+	 * public static String appendFileName(MultipartFile[] imgUrls,
+	 * HttpServletRequest request) { // 获取图片的拼接符 String imageSplit =
+	 * Tools.getReadPropertiesString(request, "imageUploadSplit"); StringBuffer
+	 * buffer = new StringBuffer(""); for (MultipartFile m : imgUrls) { //
+	 * 获取文件的名称 String fileName = m.getOriginalFilename(); if
+	 * (!StringUtils.isEmpty(fileName)) { fileName =
+	 * Tools.generateFileName(fileName); // 拼接图片的名字，用于保存
+	 * buffer.append(fileName); buffer.append(imageSplit); } } String imgUrl =
+	 * buffer.toString(); if (!StringUtils.isEmpty(imgUrl)) { int index =
+	 * imgUrl.lastIndexOf(imageSplit); imgUrl = imgUrl.substring(0, index); }
+	 * return imgUrl; }
 	 */
 
 	/**
@@ -216,5 +229,31 @@ public class Tools {
 		Properties properties = (Properties) sct.getAttribute("SYSTEM_CONFIG");
 		String value = properties.getProperty(key);
 		return value;
+	}
+
+	/**
+	 * 从内存中，通过模块名称和字段名称获取下拉列表对象
+	 * 
+	 * @param request
+	 * @param modelStr
+	 *            模块名称
+	 * @param fieldStr
+	 *            字段名称
+	 * @return
+	 *
+	 * @date 2015年9月1日上午11:12:50
+	 */
+	public static List<CheckBox> getCheckBox(HttpServletRequest request, String modelStr, String fieldStr) {
+		PropertyModel pm = ReadPropertyXML.getReadPropertyXML(request, modelStr, fieldStr);
+		Map<String, Map<String, String>> datas = pm.getDatas();
+		Map<String, String> map = datas.get(fieldStr);
+		List<CheckBox> list = new ArrayList<CheckBox>();
+		for (Map.Entry<String, String> m : map.entrySet()) {
+			CheckBox cb = new CheckBox();
+			cb.setDisplayField(m.getValue());
+			cb.setValueField(m.getKey());
+			list.add(cb);
+		}
+		return list;
 	}
 }

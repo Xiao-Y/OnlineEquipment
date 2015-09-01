@@ -20,6 +20,7 @@ import com.xiaoy.base.entities.Bug;
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.bug.service.BugService;
 import com.xiaoy.menu.service.MenuService;
+import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
@@ -53,8 +54,7 @@ public class BugController {
 	 * @date 2015年8月12日下午6:00:49
 	 */
 	@RequestMapping("/getBugList")
-	public @ResponseBody
-	JsonResult getBugList(Bug bug, HttpServletRequest request) {
+	public @ResponseBody JsonResult getBugList(Bug bug, HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
 
@@ -89,8 +89,7 @@ public class BugController {
 	 * @date 2015年8月13日上午11:04:34
 	 */
 	@RequestMapping(value = "/parentMenuList")
-	public @ResponseBody
-	JsonResult parentMenuList(HttpServletRequest request) {
+	public @ResponseBody JsonResult parentMenuList(HttpServletRequest request) {
 		Menu menu = new Menu();
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
 
@@ -108,8 +107,7 @@ public class BugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/svaeBug", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
+	public @ResponseBody JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
 		// 获取bug图片的路径
 		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
@@ -158,8 +156,7 @@ public class BugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateBug", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
+	public @ResponseBody JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
 		// 获取bug图片的路径
 		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
@@ -189,8 +186,7 @@ public class BugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteBug/{id}", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult deleteBug(@PathVariable("id") String id, HttpServletRequest request) {
+	public @ResponseBody JsonResult deleteBug(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		try {
 			String imgUrls = bugService.findObjectById(id).getImgUrl();
@@ -214,8 +210,7 @@ public class BugController {
 	 * @return
 	 */
 	@RequestMapping("/getImage/{id}")
-	public @ResponseBody
-	JsonResult getImage(@PathVariable("id") String id, HttpServletRequest request) {
+	public @ResponseBody JsonResult getImage(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		try {
 			Bug bug = bugService.findObjectById(id);
@@ -232,6 +227,91 @@ public class BugController {
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
+		return json;
+	}
+
+	/**
+	 * 向页面发送bug类型下拉列表中的数据
+	 * 
+	 * @param request
+	 * @return
+	 *
+	 * @date 2015年9月1日上午11:16:37
+	 */
+	@RequestMapping("/getBugType")
+	public @ResponseBody JsonResult getBugType(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		List<CheckBox> list = Tools.getCheckBox(request, "bug", "bugType");
+		json.setRoot(list);
+		json.setSuccess(true);
+		return json;
+	}
+
+	/**
+	 * 向页面发送bug优先级下拉列表中的数据
+	 * 
+	 * @param request
+	 * @return
+	 *
+	 * @date 2015年9月1日上午11:18:28
+	 */
+	@RequestMapping("/getPriority")
+	public @ResponseBody JsonResult getPriority(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		List<CheckBox> list = Tools.getCheckBox(request, "bug", "priority");
+		json.setRoot(list);
+		json.setSuccess(true);
+		return json;
+	}
+
+	/**
+	 * 重现规律
+	 * 
+	 * @param request
+	 * @return
+	 *
+	 * @date 2015年9月1日上午11:21:45
+	 */
+	@RequestMapping("/getReappear")
+	public @ResponseBody JsonResult getReappear(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		List<CheckBox> list = Tools.getCheckBox(request, "bug", "reappear");
+		json.setRoot(list);
+		json.setSuccess(true);
+		return json;
+	}
+
+	/**
+	 * BUG严重程度
+	 * 
+	 * @param request
+	 * @return
+	 *
+	 * @date 2015年9月1日上午11:21:45
+	 */
+	@RequestMapping("/getSeverity")
+	public @ResponseBody JsonResult getSeverity(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		List<CheckBox> list = Tools.getCheckBox(request, "bug", "severity");
+		json.setRoot(list);
+		json.setSuccess(true);
+		return json;
+	}
+
+	/**
+	 * BUG状态
+	 * 
+	 * @param request
+	 * @return
+	 *
+	 * @date 2015年9月1日上午11:21:45
+	 */
+	@RequestMapping("/getStatus")
+	public @ResponseBody JsonResult getStatus(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		List<CheckBox> list = Tools.getCheckBox(request, "bug", "status");
+		json.setRoot(list);
+		json.setSuccess(true);
 		return json;
 	}
 }

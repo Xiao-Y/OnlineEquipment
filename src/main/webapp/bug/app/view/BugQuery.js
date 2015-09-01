@@ -3,7 +3,7 @@ Ext.define('AM.view.BugQuery', {
 	alias : "widget.bugQuery",
 	id : 'bugQueryWindow',
 	height : 320,
-	width : 400,
+	width : 550,
 	layout : 'fit',
 	modal:true,
 	title:"高级查询",
@@ -67,8 +67,8 @@ Ext.define('AM.view.BugQuery', {
 		},{
 			fieldLabel : '严重程度',
 			xtype : 'combobox',
-			displayField : 'severityName',
-			valueField : 'severity',
+			displayField : 'displayField',
+			valueField : 'valueField',
 			queryMode : 'local',
 			forceSelection : true,// 所选择的值必须是列表中的值
 			editable : true,
@@ -83,8 +83,8 @@ Ext.define('AM.view.BugQuery', {
 		},{
 			fieldLabel : 'BUG状态',
 			xtype : 'combobox',
-			displayField : 'statusName',
-			valueField : 'status',
+			displayField : 'displayField',
+			valueField : 'valueField',
 			id : 'status',
 			store : 'StatusStore',
 			forceSelection : true,// 所选择的值必须是列表中的值
@@ -94,8 +94,8 @@ Ext.define('AM.view.BugQuery', {
 		},{
 			fieldLabel : '重现规律',
 			xtype : 'combobox',
-			displayField : 'reappearName',
-			valueField : 'reappear',
+			displayField : 'displayField',
+			valueField : 'valueField',
 			queryMode : 'local',
 			value : '0',
 			forceSelection : true,// 所选择的值必须是列表中的值
@@ -110,8 +110,8 @@ Ext.define('AM.view.BugQuery', {
 		}, {
 			fieldLabel : 'BUG类型',
 			xtype : 'combobox',
-			displayField : 'bugTypeName',
-			valueField : 'bugType',
+			displayField : 'displayField',
+			valueField : 'valueField',
 			queryMode : 'local',
 			value : '0',
 			forceSelection : true,// 所选择的值必须是列表中的值

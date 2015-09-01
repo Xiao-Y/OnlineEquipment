@@ -15,6 +15,10 @@ Ext.define('AM.controller.BugController', {
 						}
 						//当点击添加时加载
 						Ext.getCmp("parentId").getStore().reload();
+						Ext.getCmp("bugType").getStore().reload();
+						Ext.getCmp("reappear").getStore().reload();
+						Ext.getCmp("severity").getStore().reload();
+						Ext.getCmp("status").getStore().reload();
 						baseFormWindow = Ext.getCmp("bugAddWindow");
 						baseFormWindow.setTitle("添加BUG");
 						baseFormWindow.show();
@@ -116,6 +120,10 @@ Ext.define('AM.controller.BugController', {
 			}
 			//当点击添加时加载
 			Ext.getCmp("parentId").getStore().reload();
+			Ext.getCmp("bugType").getStore().reload();
+			Ext.getCmp("reappear").getStore().reload();
+			Ext.getCmp("severity").getStore().reload();
+			Ext.getCmp("status").getStore().reload();
 			baseFormWindow = Ext.getCmp("bugAddWindow");
 			baseFormWindow.setTitle("编辑BUG");
 			baseFormWindow.show();
@@ -164,6 +172,10 @@ Ext.define('AM.controller.BugController', {
 			}
 			//当点击查询时加载
 			Ext.getCmp("parentId").getStore().reload();
+			Ext.getCmp("bugType").getStore().reload();
+			Ext.getCmp("reappear").getStore().reload();
+			Ext.getCmp("severity").getStore().reload();
+			Ext.getCmp("status").getStore().reload();
 			baseFormWindow = Ext.getCmp("bugQueryWindow");
 			baseFormWindow.show();
 		});
