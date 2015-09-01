@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.menu.service.MenuService;
+import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
@@ -30,14 +31,12 @@ import com.xiaoy.util.Tools;
  */
 @Controller
 @RequestMapping("/menu")
-public class MenuController
-{
+public class MenuController {
 	@Resource
 	private MenuService menuService;
 
 	@RequestMapping("/index")
-	public String index()
-	{
+	public String index() {
 		return "menu/index";
 	}
 
@@ -47,9 +46,7 @@ public class MenuController
 	 * @return
 	 */
 	@RequestMapping(value = "/menuList")
-	public @ResponseBody
-	JsonResult menuList(HttpServletRequest request)
-	{
+	public @ResponseBody JsonResult menuList(HttpServletRequest request) {
 		Menu menu = new Menu();
 		menu.setId(Tools.getStringParameter(request, "name"));
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
@@ -61,13 +58,10 @@ public class MenuController
 		String limit = Tools.getStringParameter(request, "limit", "");
 
 		List<Menu> menuList = menuService.findCollectionByCondition(menu, start, limit);
-		for (Menu m : menuList)
-		{
-			if (!"-1".equals(m.getParentId()))
-			{
+		for (Menu m : menuList) {
+			if (!"-1".equals(m.getParentId())) {
 				Menu mu = menuService.findObjectById(m.getParentId());
-				if (mu != null)
-				{
+				if (mu != null) {
 					m.setParentName(mu.getMenuName());
 				}
 			}
@@ -89,22 +83,17 @@ public class MenuController
 	 * @date 2015年8月11日上午11:11:18
 	 */
 	@RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult saveMenu(@RequestBody Menu menu)
-	{
+	public @ResponseBody JsonResult saveMenu(@RequestBody Menu menu) {
 		JsonResult json = new JsonResult();
-		try
-		{
+		try {
 			// 保存时，添加uuid
-			if (StringUtils.isEmpty(menu.getId()))
-			{
+			if (StringUtils.isEmpty(menu.getId())) {
 				menu.setId(UUID.randomUUID().toString());
 			}
 
 			String menuType = menu.getMenuType();
 			// 当节点类型选择0即树枝节点，parentId设置为-1为树枝节点类型
-			if ("0".equals(menuType))
-			{
+			if ("0".equals(menuType)) {
 				menu.setParentId("-1");
 			}
 			// 首次添加保存和更新时间
@@ -114,8 +103,7 @@ public class MenuController
 			menuService.saveObject(menu);
 			json.setMessage(MessageTips.SAVE_SUCCESS);
 			json.setSuccess(true);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
@@ -131,16 +119,12 @@ public class MenuController
 	 * @date 2015年8月11日上午11:14:58
 	 */
 	@RequestMapping(value = "/updateMenu", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult updateMenu(@RequestBody Menu menu)
-	{
+	public @ResponseBody JsonResult updateMenu(@RequestBody Menu menu) {
 		JsonResult json = new JsonResult();
-		try
-		{
+		try {
 			String menuType = menu.getMenuType();
 			// 当节点类型选择0即树枝节点，parentId设置为-1为树枝节点类型
-			if ("0".equals(menuType))
-			{
+			if ("0".equals(menuType)) {
 				menu.setParentId("-1");
 			}
 			menu.setUpdateTime(new Date());
@@ -148,8 +132,7 @@ public class MenuController
 			menuService.updateMenu(menu);
 			json.setMessage(MessageTips.UPDATE_SUCCESS);
 			json.setSuccess(true);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
 		}
@@ -157,19 +140,33 @@ public class MenuController
 	}
 
 	@RequestMapping(value = "/deleteMenu/{id}", method = RequestMethod.POST)
-	public @ResponseBody JsonResult deleteMenu(@PathVariable("id") String id)
-	{
+	public @ResponseBody JsonResult deleteMenu(@PathVariable("id") String id) {
 		JsonResult json = new JsonResult();
-		try
-		{
+		try {
 			menuService.deleteObjectByid(id);
 			json.setSuccess(true);
 			json.setMessage(MessageTips.DELETE_SUCCESS);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			json.setMessage(MessageTips.DELETE_FAILURE);
 			e.printStackTrace();
 		}
+		return json;
+	}
+
+	/**
+	 * 向页面发送菜单类型
+	 * 
+	 * @param request
+	 * @return
+	 *
+	 * @date 2015年9月1日上午11:52:48
+	 */
+	@RequestMapping("/getMenuType")
+	public @ResponseBody JsonResult getMenuType(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		List<CheckBox> checkBox = Tools.getCheckBox(request, "menu", "menuType");
+		json.setRoot(checkBox);
+		json.setSuccess(true);
 		return json;
 	}
 }

@@ -1,8 +1,6 @@
 package com.xiaoy.log.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +18,6 @@ import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
-import com.xiaoy.util.PropertyModel;
-import com.xiaoy.util.ReadPropertyXML;
 import com.xiaoy.util.Tools;
 
 @Controller
@@ -38,8 +34,7 @@ public class LogController {
 	}
 
 	@RequestMapping("/getLogList")
-	public @ResponseBody
-	JsonResult getLogList(HttpServletRequest request) {
+	public @ResponseBody JsonResult getLogList(HttpServletRequest request) {
 		String userName = Tools.getStringParameter(request, "userName");
 		String runClass = Tools.getStringParameter(request, "runClass");
 		String operation = Tools.getStringParameter(request, "operation");
@@ -79,19 +74,9 @@ public class LogController {
 	 * @return
 	 */
 	@RequestMapping("/getHandleType")
-	public @ResponseBody
-	JsonResult getHandleType(HttpServletRequest request) {
+	public @ResponseBody JsonResult getHandleType(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "log", "operation");
-		Map<String, Map<String, String>> datas = propertyModel.getDatas();
-		Map<String, String> map = datas.get("operation");
-		List<CheckBox> list = new ArrayList<CheckBox>();
-		for (Map.Entry<String, String> m : map.entrySet()) {
-			CheckBox cb = new CheckBox();
-			cb.setValueField(m.getKey());
-			cb.setDisplayField(m.getValue());
-			list.add(cb);
-		}
+		List<CheckBox> list = Tools.getCheckBox(request, "log", "operation");
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;

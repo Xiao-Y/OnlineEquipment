@@ -8,6 +8,17 @@
 		</data>
 	</model>
 
+	<model name="home">
+		<!-- 主题 -->
+		<data field="theme">
+			<map key="aria" value="Aria主题" />
+			<map key="neptune" value="Neptune主题" />
+			<map key="crisp" value="Crisp主题" />
+			<map key="classic" value="Classic主题" />
+			<map key="gray" value="Gray主题" />
+		</data>
+	</model>
+
 	<model name="bug">
 		<!-- bug类型 -->
 		<data field="bugType">

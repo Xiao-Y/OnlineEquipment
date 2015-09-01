@@ -33,8 +33,8 @@ Ext.define('AM.view.MenuAdd', {
 			fieldLabel : '节点类型',
 			xtype : 'combobox',
 			// hidden : true,// 隐藏
-			displayField : 'menuTypeName',
-			valueField : 'menuType',
+			displayField : 'displayField',
+			valueField : 'valueField',
 			id : 'menuType',
 			queryMode : 'local',
 			store : 'MenuTypeStore',
