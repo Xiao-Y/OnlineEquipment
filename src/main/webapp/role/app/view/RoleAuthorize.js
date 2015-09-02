@@ -15,10 +15,10 @@ Ext.define('AM.view.RoleAuthorize', {
 			border : false,
 			rootVisible : false,// 是否显示根节点
 			store : 'RoleTreeStore',
-			listeners : {
-				'checkchange':function(node, checked) {
-					console.info("node : " + node +",checked : "+ checked);
-    			}
+			listeners : {//添加监听 设置树的节点选择的级联关系
+ 				"checkchange": function(node, checked) {
+      				listenerCheck(node, checked);
+  				}
 			}
 		}]
 	} ],
@@ -38,3 +38,36 @@ Ext.define('AM.view.RoleAuthorize', {
 		} ]
 	} ]
 });
+
+//添加监听 设置树的节点选择的级联关系
+var listenerCheck = function(node, checked) {
+	childHasChecked(node,checked);
+	var parentNode = node.parentNode;
+	console.info(parentNode);
+ 	if(parentNode != null) {   
+  		parentCheck(parentNode,checked);   
+ 	} 
+};
+ //级联选中父节点
+var parentCheck = function(node ,checked){    
+  	var childNodes = node.childNodes;
+	for (var i = 0; i < childNodes.length; i++) {
+		if (childNodes[i].get('checked')) {
+			node.set('checked',checked);
+			continue;
+		}else{
+			node.set('checked',false);
+			break;
+		}
+	}
+	var parentNode = node.parentNode;
+	if (parentNode != null ) {
+		parentCheck(parentNode,checked);
+  	}
+};
+ //级联选择子节点
+var childHasChecked = function (node, checked) {
+ 	node.cascadeBy(function (child) {
+    	child.set("checked",checked)
+ 	});
+};
