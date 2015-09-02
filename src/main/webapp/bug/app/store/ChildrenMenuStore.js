@@ -3,7 +3,7 @@ Ext.define('AM.store.ChildrenMenuStore', {
 	extend : 'Ext.data.Store',
 	model : 'AM.model.MenuModel',
 	proxy : {
-		url : '../bug/parentMenuList',
+		url : '../bug/getChildMenuListByParentId',
 		type : 'ajax',
 		reader : {
 			type : 'json',

@@ -81,7 +81,7 @@ public class BugController {
 	}
 
 	/**
-	 * 通过父id获取其下的子类集合
+	 * 获取所有的父类集合，（parentId为-1的）
 	 * 
 	 * @param menu
 	 * @return
@@ -94,6 +94,24 @@ public class BugController {
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
 
 		List<Menu> menus = menuService.findCollectionByCondition(menu, "", "");
+		JsonResult json = new JsonResult();
+		json.setSuccess(true);
+		json.setRoot(menus);
+		return json;
+	}
+	
+	/**
+	 * 通过父id获取其下的子类集合
+	 * 
+	 * @param parentId
+	 * @return
+	 * 
+	 * @date 2015年8月13日上午11:04:34
+	 */
+	@RequestMapping(value = "/getChildMenuListByParentId")
+	public @ResponseBody JsonResult getChildMenuListByParentId(HttpServletRequest request) {
+		String parentId = Tools.getStringParameter(request, "parentId");
+		List<Menu> menus = menuService.getChildMenuListByParentId(parentId);
 		JsonResult json = new JsonResult();
 		json.setSuccess(true);
 		json.setRoot(menus);

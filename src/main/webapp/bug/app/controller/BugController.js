@@ -118,7 +118,7 @@ Ext.define('AM.controller.BugController', {
 				Ext.create('AM.view.BugAdd', {});// 第一次创建添加显示窗口
 				console.log('BugAdd创建窗口');
 			}
-			//当点击添加时加载
+			//当点击时加载
 			Ext.getCmp("parentId").getStore().reload();
 			Ext.getCmp("bugType").getStore().reload();
 			Ext.getCmp("reappear").getStore().reload();
@@ -128,6 +128,13 @@ Ext.define('AM.controller.BugController', {
 			baseFormWindow.setTitle("编辑BUG");
 			baseFormWindow.show();
 			var form = Ext.getCmp("bugAddForm").getForm();
+			//通过父id查询其下的子菜单
+			var store = Ext.getCmp("childrenId").getStore();
+			store.proxy.extraParams = {
+				"parentId" : records.get("parentId")
+			}
+			store.currentPage = 1;
+			store.load();
 			form.loadRecord(records);// 将reocrd填充到表单中
 		});
 	},
