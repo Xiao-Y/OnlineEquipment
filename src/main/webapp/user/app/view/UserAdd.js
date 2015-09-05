@@ -32,6 +32,9 @@ Ext.define("AM.view.UserAdd",{
 			format : 'Y-m-d',
 			invalidText : "{0}不是一个正确的日期格式，如2015-08-06",
 			name : 'birthday'
+		}, {
+			xtype : '地址',
+			name : 'id'
 		}]
 	}]
 });
