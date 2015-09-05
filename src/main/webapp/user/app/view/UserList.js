@@ -2,9 +2,11 @@ Ext.define("AM.view.UserList", {
 	extend : "Ext.panel.Panel",
 	alias : 'widget.userList',
 	layout: 'border',
+	border:false,
 	items : [{
 		region : "north",
 		xtype: 'toolbar',
+		border:false,
 		items : [{
 			xtype : 'button',
 			text : '添加',

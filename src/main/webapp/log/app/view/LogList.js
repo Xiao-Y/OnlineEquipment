@@ -2,9 +2,11 @@ Ext.define('AM.view.LogList', {
 	extend : 'Ext.panel.Panel',
 	alias : 'widget.logList',
 	layout: 'border',
+	border:false,
 	items:[{
 		region: 'north',
 		xtype: 'toolbar',
+		border:false,
 		items:[{
 			xtype : 'button',
 			text : '高级查询',

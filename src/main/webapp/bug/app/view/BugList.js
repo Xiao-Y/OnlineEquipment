@@ -2,9 +2,11 @@ Ext.define("AM.view.BugList",{
 	extend : 'Ext.panel.Panel',
 	alias : 'widget.bugList',
 	layout: 'border',
+	border:false,
 	items:[{
 		region: 'north',
 		xtype: 'toolbar',
+		border:false,
 		items:[{
 			xtype : 'button',
 			text : '添加',
@@ -129,7 +131,6 @@ Ext.define("AM.view.BugList",{
 		autoScroll:true,
 		split:true,
 		height:150,
-//		layout: 'fit'
 		layout: 'column'
 	}]
 });

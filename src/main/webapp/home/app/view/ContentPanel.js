@@ -3,9 +3,8 @@ Ext.define('AM.view.ContentPanel', {
     alias : 'widget.contentPanel', 
     height: 385,
     width: 675,
-    layout: {
-        type: 'fit'
-    },
+    layout: "fit",
+    border:false,
     headerPosition: 'left',
     title: '',
 
