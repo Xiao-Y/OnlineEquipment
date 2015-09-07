@@ -33,5 +33,14 @@ Ext.define("AM.model.ZipModel", {
 	},{
 		name : "pinyin",
 		type : "string"
+	},{
+		name : "province",
+		type : "string"
+	},{
+		name : "city",
+		type : "string"
+	},{
+		name : "area",
+		type : "string"
 	}]
 });

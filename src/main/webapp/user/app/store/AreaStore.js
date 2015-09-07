@@ -1,8 +1,8 @@
-Ext.define("AM.store.ZipStore",{
+Ext.define("AM.store.AreaStore",{
 	extend : "Ext.data.Store",
 	model : "AM.model.ZipModel",
 	proxy : {
-		url : "../user/getProvince",
+		url : "../user/getZip",
 		type : "ajax",
 		reader : {
 			type : "json",

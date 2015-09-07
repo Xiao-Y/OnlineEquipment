@@ -2,7 +2,7 @@ Ext.define("AM.controller.UserController",{
 	extend : "Ext.app.Controller",
 	views : ["UserList","UserAdd"],
 	models : ["UserModel","ZipModel"],
-	stores : ["UserStore","ZipStore"],
+	stores : ["UserStore","ProvinceStore","CityStore","AreaStore"],
 	init : function(){
 		this.control({
 			"userList button[id=addUser]" : {
@@ -13,7 +13,7 @@ Ext.define("AM.controller.UserController",{
 							Ext.create('AM.view.UserAdd', {});// 第一次创建添加显示窗口
 						}
 						//当点击添加时加载
-						Ext.getCmp("address").getStore().reload();
+						Ext.getCmp("province").getStore().reload();
 						baseFormWindow = Ext.getCmp("userAddWindow");
 						baseFormWindow.setTitle("添加用户信息");
 						baseFormWindow.show();

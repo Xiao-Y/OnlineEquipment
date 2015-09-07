@@ -36,22 +36,70 @@ Ext.define("AM.view.UserAdd",{
 			fieldLabel : '角色',
 			name : 'roleName'
 		}, {
-			fieldLabel : '地址',
+			fieldLabel : '省市/直辖市',
 			xtype : 'combobox',
-			 //hidden : true,// 隐藏
 			displayField : 'name',
 			allowBlank : false,
 			valueField : 'id',
 			queryMode : 'local',
 			forceSelection : true,// 所选择的值必须是列表中的值
-			store : 'ZipStore',
-			name : 'address',
+			store : 'ProvinceStore',
+			id : 'province',
+			name : 'province',
 			listConfig : {// 下拉列表的样式
 				emptyText : "<font color='red'>没有找到匹配项</font>",
-				maxHeight : 100
-			// 最大宽度
+				maxHeight : 100// 最大宽度
 			},
-			id : 'address'
+			listeners: {
+        		select:function(combo){
+        			Ext.getCmp('city').store.removeAll();
+    	   			Ext.getCmp('city').store.load({
+    	   				params : {
+    	   					province:combo.getValue()
+    	   				}
+    	   			});// 刷新下拉框
+        		}
+        	}
+		}, {
+			fieldLabel : '市/直辖县级',
+			xtype : 'combobox',
+			displayField : 'name',
+			allowBlank : false,
+			valueField : 'id',
+			queryMode : 'local',
+			forceSelection : true,// 所选择的值必须是列表中的值
+			store : 'CityStore',
+			id : 'city',
+			name : 'city',
+			listConfig : {// 下拉列表的样式
+				emptyText : "<font color='red'>没有找到匹配项</font>",
+				maxHeight : 100// 最大宽度
+			},
+			listeners: {
+        		select:function(combo){
+        			Ext.getCmp('area').store.removeAll();
+    	   			Ext.getCmp('area').store.load({
+    	   				params : {
+    	   					city:combo.getValue()
+    	   				}
+    	   			});// 刷新子模块下拉框
+        		}
+        	}
+		}, {
+			fieldLabel : '区/县',
+			xtype : 'combobox',
+			displayField : 'name',
+			allowBlank : false,
+			valueField : 'id',
+			queryMode : 'local',
+			forceSelection : true,// 所选择的值必须是列表中的值
+			store : 'AreaStore',
+			id : 'area',
+			name : 'area',
+			listConfig : {// 下拉列表的样式
+				emptyText : "<font color='red'>没有找到匹配项</font>",
+				maxHeight : 100// 最大宽度
+			}
 		}]
 	}]
 });

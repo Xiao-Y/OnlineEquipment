@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,12 +70,20 @@ public class UserController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/getProvince")
+	@RequestMapping("/getZip")
 	public @ResponseBody
-	JsonResult getProvince() {
-		JsonResult json = new JsonResult();
+	JsonResult getZip(HttpServletRequest request) {
 		Zip zip = new Zip();
-		zip.setLevelType("1");
+		String city = Tools.getStringParameter(request, "city");
+		String province = Tools.getStringParameter(request, "province");
+		if(!StringUtils.isEmpty(city)){
+			zip.setParentId(city);
+		}else if(!StringUtils.isEmpty(province)){
+			zip.setParentId(province);
+		}else{
+			zip.setLevelType("1");
+		}
+		JsonResult json = new JsonResult();
 		List<Zip> list = zipService.getZipCondition(zip);
 		json.setSuccess(true);
 		json.setRoot(list);

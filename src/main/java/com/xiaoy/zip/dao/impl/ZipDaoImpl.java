@@ -38,6 +38,10 @@ public class ZipDaoImpl extends CommonDaoImpl<Zip> implements ZipDao {
 				hqlWhere.append(" and levelType = :levelType ");
 				map.put("levelType", zip.getLevelType());
 			}
+			if(!StringUtils.isEmpty(zip.getParentId())){
+				hqlWhere.append(" and parentId = :parentId ");
+				map.put("parentId", zip.getParentId());
+			}
 			return map;
 		}
 		return null;
