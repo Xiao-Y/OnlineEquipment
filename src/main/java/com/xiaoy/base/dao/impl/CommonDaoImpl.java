@@ -71,8 +71,9 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> findCollectionByCondition(String hqlWhere, Map<String, Object> paramsMapValue) {
 		StringBuffer hql = new StringBuffer("from " + entityClass.getSimpleName() + " e where 1 = 1 ");
-
-		hql.append(hqlWhere);
+		if(!StringUtils.isEmpty(hqlWhere)){
+			hql.append(hqlWhere);
+		}
 
 		Query query = this.getSession().createQuery(hql.toString());
 

@@ -135,4 +135,9 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 		}
 		return json;
 	}
+
+	@Override
+	public List<Role> getRoleList() {
+		return roleDao.findCollectionByCondition(null, null);
+	}
 }

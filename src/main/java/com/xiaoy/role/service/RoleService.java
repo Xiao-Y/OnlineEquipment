@@ -30,7 +30,7 @@ public interface RoleService {
 	 * @param id
 	 *            用户id
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月20日下午6:02:13
 	 */
 	List<String> getRoleIdByUserId(String id);
@@ -41,7 +41,7 @@ public interface RoleService {
 	 * @param roleIds
 	 *            角色 id集合
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月20日下午6:06:01
 	 */
 	List<Role> getRoleListByRoleIds(List<String> roleIds);
@@ -52,16 +52,16 @@ public interface RoleService {
 	 * @param role
 	 *            查询条件
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月26日下午12:20:01
 	 */
-	List<Role> getRoleList(HttpServletRequest request,Role role, String start, String limit);
+	List<Role> getRoleList(HttpServletRequest request, Role role, String start, String limit);
 
 	/**
 	 * 构建菜单树
 	 * 
 	 * @return
-	 *
+	 * 
 	 * @date 2015年8月27日下午6:05:16
 	 */
 	List<Object> buildTree();
@@ -79,4 +79,11 @@ public interface RoleService {
 	 * @return
 	 */
 	List<Menu> getChildMenuList();
+
+	/**
+	 * 获取角色信息
+	 * 
+	 * @return
+	 */
+	List<Role> getRoleList();
 }

@@ -38,7 +38,7 @@
 			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
 			<tx:method name="search*" propagation="REQUIRED" read-only="true" />
 
-			<tx:method name="*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
 
