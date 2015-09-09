@@ -2,7 +2,6 @@ package com.xiaoy.user.service;
 
 import java.util.List;
 
-import com.xiaoy.base.entities.Role;
 import com.xiaoy.base.entities.User;
 import com.xiaoy.base.service.CommonService;
 
