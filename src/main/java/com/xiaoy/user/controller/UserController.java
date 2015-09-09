@@ -1,5 +1,6 @@
 package com.xiaoy.user.controller;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -151,6 +152,8 @@ public class UserController {
 		user.setPassword(password);
 		user.setBirthday(birthday == "" ? null : DateHelper.stringConverDate(birthday));
 		user.setAddress(address.toString());
+		user.setCreateTime(new Date());
+		user.setUpdateTime(new Date());
 		Set<Role> roles = new HashSet<Role>();
 		Role role = new Role();
 		role.setId(roleId);
