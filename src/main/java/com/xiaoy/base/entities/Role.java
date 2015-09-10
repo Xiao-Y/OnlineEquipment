@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,6 +17,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
@@ -42,8 +44,9 @@ public class Role {
 	private String authorizeStatus;
 	// 授权状态名称
 	private String authorizeStatusName;
-//	// 角色持有用户的集合
-//	private Set<User> users = new HashSet<>();
+	// 角色持有用户的集合
+	@JsonBackReference
+	private Set<User> users = new HashSet<>();
 	// 角色持有权限的集合
 	private Set<Permission> permissions = new HashSet<>();
 
@@ -94,16 +97,16 @@ public class Role {
 		this.updateTime = updateTime;
 	}
 
-	// // @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
-	// @ManyToMany(fetch = FetchType.LAZY)
-	// @JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
-	// public Set<User> getUsers() {
-	// return users;
-	// }
-	//
-	// public void setUsers(Set<User> users) {
-	// this.users = users;
-	// }
+	 // @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
+	 @ManyToMany(fetch = FetchType.LAZY)
+	 @JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
+	 public Set<User> getUsers() {
+	 return users;
+	 }
+	
+	 public void setUsers(Set<User> users) {
+	 this.users = users;
+	 }
 
 	@Column(name = "AUTHORIZE_STATUS", length = 5)
 	public String getAuthorizeStatus() {

@@ -95,7 +95,7 @@ public class Bug
 		this.title = title;
 	}
 
-	@Column(name = "NOTE", nullable = false, length = 3000)
+	@Column(name = "NOTE", nullable = false, length = 8000)
 	public String getNote()
 	{
 		return note;

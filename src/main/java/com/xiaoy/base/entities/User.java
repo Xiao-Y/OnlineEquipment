@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * 用户实体类
@@ -46,6 +47,7 @@ public class User {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date updateTime;
 	// 用户持有角色集合
+	@JsonManagedReference
 	Set<Role> roles = new HashSet<>();
 
 	// 角色名称
