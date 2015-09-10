@@ -11,7 +11,6 @@ Ext.define('AM.controller.MenuController', {
 						var baseFormWindow = Ext.getCmp("menuAddWindow");
 						if (null == baseFormWindow) {
 							Ext.create('AM.view.MenuAdd', {});// 第一次创建添加显示窗口
-							console.log('创建窗口');
 						}
 						//当点击添加时加载
 						Ext.getCmp("parentId").getStore().reload();
@@ -28,7 +27,6 @@ Ext.define('AM.controller.MenuController', {
 						var baseFormWindow = Ext.getCmp("menuQueryWindow");
 						if (null == baseFormWindow) {
 							Ext.create('AM.view.MenuQuery', {});// 第一次创建添加显示窗口
-							console.log('创建窗口');
 						}
 						//当点击查询时加载
 						Ext.getCmp("parentId").getStore().reload();
@@ -64,7 +62,6 @@ Ext.define('AM.controller.MenuController', {
 				click : function(btn) {
 					var saveFormPanel = Ext.getCmp("menuAddForm");
 					var baseForm = saveFormPanel.getForm();
-					console.info(baseForm);
 					baseForm.reset();
 				}
 			},// 重置
@@ -150,8 +147,10 @@ Ext.define('AM.controller.MenuController', {
 
 		Ext.Msg.confirm('提示', '确定要删除所选的行？', function(btn) {
 			if (btn == 'yes') {
-				var sel = sm.getSelection();
-				var selectedId = sel[0].data.id;
+				//var sel = sm.getSelection();
+				var record = sm.getLastSelected();
+				var selectedId = record.get("id");
+//				var selectedId = sel[0].data.id;
 				Ext.Ajax.request({
 					url : '../menu/deleteMenu/' + selectedId,
 					method : 'POST',

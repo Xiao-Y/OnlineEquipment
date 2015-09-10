@@ -23,6 +23,9 @@ Ext.define("AM.controller.UserController",{
 			},
 			"userAdd button[id=saveUser]" : {
 				click : this.saveUser
+			},
+			"userList button[id=delUser]" : {
+				click : this.delUser
 			}
 		});
 	},
@@ -51,11 +54,39 @@ Ext.define("AM.controller.UserController",{
 					}
 					Ext.Msg.alert(obj.hint,obj.message);
 				},
-				failure : function(response) {
+				failuer : function(response) {
 					var obj = Ext.JSON.decode(response.responseText);
 					Ext.Msg.alert(obj.hint,obj.message);
 				}
 			});
 		}
-	} 
+	},
+	delUser : function(){
+		var sm = Ext.getCmp("userList").getSelectionModel();
+		if(!sm.hasSelection()){
+			Ext.Msg.alert('提示', '请选择要删除的行');
+			return;
+		}
+		Ext.Msg.confirm('提示', '确定要删除所选的行？', function(btn) {
+			if(btn == "yes" ){
+				var record = sm.getLastSelected();
+				var id = record.get("id");
+				Ext.Ajax.request({
+					url : "../user/deleteUserById/" + id,
+					method : "POST",
+					async : false,
+					success : function(response){
+						var obj = Ext.decode(response.responseText);
+						Ext.Msg.alert(obj.hint,obj.message);
+						if(obj.success){
+							Ext.getCmp("userList").getStore().reload();
+						}
+					},
+					failuer : function(response){
+						Ext.Msg.alert("提示","系统错误，请稍后重试！");
+					}
+				});
+			}
+		})
+	}
 });

@@ -56,4 +56,9 @@ public class UserServiceImpl extends CommonServiceImpl<User> implements UserServ
 		return userDao.countByCollection(user);
 	}
 
+	@Override
+	public void deleteUserById(String id) {
+		userDao.deleteObjectByid(id);
+	}
+
 }

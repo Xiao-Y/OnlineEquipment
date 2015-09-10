@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaoy.base.entities.Role;
@@ -48,9 +50,9 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/getUserList")
-	public @ResponseBody
-	JsonResult getUserList(HttpServletRequest request) {
+	public JsonResult getUserList(HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
 		String splie = Tools.getSystemConfigString(request, "zipViewSplit");
@@ -168,6 +170,28 @@ public class UserController {
 			e.printStackTrace();
 			json.setSuccess(false);
 			json.setMessage(MessageTips.SERVICE_ERRER);
+		}
+		return json;
+	}
+
+	/**
+	 * 通过userId删除用户信息，同时删除中间表关联关系
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteUserById/{id}", method = RequestMethod.POST)
+	public @ResponseBody
+	JsonResult deleteUserById(@PathVariable("id") String id) {
+		JsonResult json = new JsonResult();
+		try {
+			userService.deleteUserById(id);
+			json.setSuccess(true);
+			json.setMessage(MessageTips.DELETE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMessage(MessageTips.DELETE_FAILURE);
 		}
 		return json;
 	}

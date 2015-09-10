@@ -11,8 +11,7 @@ import com.xiaoy.base.service.CommonService;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:21:55
  */
-public interface UserService extends CommonService<User>
-{
+public interface UserService extends CommonService<User> {
 
 	/**
 	 * 通过用户名查找用户信息
@@ -46,4 +45,11 @@ public interface UserService extends CommonService<User>
 	 * @return
 	 */
 	long countByCollection(User user);
+
+	/**
+	 * 通过用户id删除信息，同时删除关联关系
+	 * 
+	 * @param id
+	 */
+	void deleteUserById(String id);
 }
