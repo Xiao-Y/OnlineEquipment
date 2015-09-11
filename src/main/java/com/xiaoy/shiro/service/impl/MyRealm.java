@@ -16,10 +16,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.stereotype.Service;
 
+import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.background.usermsg.user.service.UserService;
 import com.xiaoy.base.entities.User;
 import com.xiaoy.permission.service.PermissionService;
-import com.xiaoy.role.service.RoleService;
 
 /**
  * shiro 控制权限

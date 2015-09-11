@@ -50,6 +50,21 @@ Bug表没有自动创建：
 使用了自己定义的封装JsonResult,其中有多余的数，故菜单树未出现
 ---------------------------------------------------------------------
 
+5.修改项目目录结构
+--------------------------------------------------------------------
+控制器:@RequestMapping("/background/usermsg/user")
+
+index返回值：
+	@RequestMapping("/index")
+	public String index() {
+		return "background/usermsg/user/index";
+	}
+
+index.jsp:
+<script type="text/javascript" src="<%=request.getContextPath() %>/background/usermsg/user/app/app.js"></script>
+
+-----------------------------------------------------------------------
+
 
 
 

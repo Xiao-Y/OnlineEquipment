@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.xiaoy.aop.log.HandleTyepEnum;
 import com.xiaoy.aop.log.LogAop;
+import com.xiaoy.background.resourcesmsg.log.service.LogService;
 import com.xiaoy.base.entities.Log;
-import com.xiaoy.log.service.LogService;
 import com.xiaoy.util.LoginHelper;
 
 @Component

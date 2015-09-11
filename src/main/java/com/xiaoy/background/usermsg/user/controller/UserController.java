@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoy.background.resourcesmsg.zip.service.ZipService;
+import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.background.usermsg.user.service.UserService;
 import com.xiaoy.base.entities.Role;
 import com.xiaoy.base.entities.User;
 import com.xiaoy.base.entities.Zip;
-import com.xiaoy.role.service.RoleService;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
-import com.xiaoy.zip.service.ZipService;
 
 @Controller
 @RequestMapping("/background/usermsg/user")
@@ -41,7 +41,7 @@ public class UserController {
 
 	@RequestMapping("/index")
 	public String index() {
-		return "user/index";
+		return "background/usermsg/user/index";
 	}
 
 	/**

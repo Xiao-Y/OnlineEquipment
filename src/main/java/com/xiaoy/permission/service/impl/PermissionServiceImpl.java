@@ -8,13 +8,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.entities.Permission;
 import com.xiaoy.base.entities.Role;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.permission.dao.PermissionDao;
 import com.xiaoy.permission.service.PermissionService;
-import com.xiaoy.role.service.RoleService;
 
 @Service
 public class PermissionServiceImpl extends CommonServiceImpl<Permission> implements PermissionService
