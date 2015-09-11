@@ -43,7 +43,7 @@ Ext.define('AM.controller.HomeController', {
 	},
 	changeTheme:function(combo){//更换主题
         var  theme = combo.getValue();
-        var href = '../resource/js/extjs5.1/packages/ext-theme-'+theme+'/build/resources/ext-theme-'+theme+'-all.css';
+        var href = '../../resource/js/extjs5.1/packages/ext-theme-'+theme+'/build/resources/ext-theme-'+theme+'-all.css';
         var link = Ext.fly('theme');
         if(!link) {
             link = Ext.getHead().appendChild({

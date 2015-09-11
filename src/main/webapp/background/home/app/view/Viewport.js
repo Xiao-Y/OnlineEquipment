@@ -9,7 +9,8 @@ Ext.define('AM.view.Viewport',{
 		region : 'north',
 		height : 60,
 		border:false,
-		html : '<br><center><font size=5>MVC模式实现的ExtJS案例</font><br><font size=2>by XiaoY</font></center>'	
+		//html : '<br><center><font size=5>MVC模式实现的ExtJS案例</font><br><font size=2>by XiaoY</font></center>'	
+		html : '<img src="../../resource/images/headbg.jpg">'	
 	}, {
 		title : '功能菜单',
 		region : 'west',
