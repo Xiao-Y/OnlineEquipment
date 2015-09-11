@@ -1,4 +1,4 @@
-package com.xiaoy.user.controller;
+package com.xiaoy.background.usermsg.user.controller;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoy.background.usermsg.user.service.UserService;
 import com.xiaoy.base.entities.Role;
 import com.xiaoy.base.entities.User;
 import com.xiaoy.base.entities.Zip;
 import com.xiaoy.role.service.RoleService;
-import com.xiaoy.user.service.UserService;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
@@ -28,7 +28,7 @@ import com.xiaoy.util.Tools;
 import com.xiaoy.zip.service.ZipService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/background/usermsg/user")
 public class UserController {
 	@Resource
 	private UserService userService;

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
+import com.xiaoy.background.usermsg.user.service.UserService;
 import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.base.entities.Role;
@@ -20,7 +21,6 @@ import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.menu.service.MenuService;
 import com.xiaoy.role.dao.RoleDao;
 import com.xiaoy.role.service.RoleService;
-import com.xiaoy.user.service.UserService;
 import com.xiaoy.util.PropertyModel;
 import com.xiaoy.util.ReadPropertyXML;
 

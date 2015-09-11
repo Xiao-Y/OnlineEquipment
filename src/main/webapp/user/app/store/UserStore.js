@@ -3,7 +3,7 @@ Ext.define("AM.store.UserStore",{
 	model : "AM.model.UserModel",
 	pageSize : 15,
 	proxy : {
-		url : "../user/getUserList",
+		url : "../background/usermsg/user/getUserList",
 		type : "ajax",
 		reader : {
 			type : "json",

@@ -1,4 +1,4 @@
-package com.xiaoy.user.service.impl;
+package com.xiaoy.background.usermsg.user.service.impl;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.xiaoy.background.usermsg.user.dao.UserDao;
+import com.xiaoy.background.usermsg.user.service.UserService;
 import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.entities.User;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
-import com.xiaoy.user.dao.UserDao;
-import com.xiaoy.user.service.UserService;
 
 @Service
 public class UserServiceImpl extends CommonServiceImpl<User> implements UserService

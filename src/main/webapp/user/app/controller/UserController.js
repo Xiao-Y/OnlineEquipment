@@ -35,9 +35,9 @@ Ext.define("AM.controller.UserController",{
 			var fv = form.getValues();
 			var url = "";
 			if(fv.id){
-				url = "../user/updateUser";
+				url = "../background/usermsg/user/updateUser";
 			}else{
-				url = "../user/saveUser";
+				url = "../background/usermsg/user/saveUser";
 			}
 			Ext.Ajax.request({
 				url : url,
@@ -72,7 +72,7 @@ Ext.define("AM.controller.UserController",{
 				var record = sm.getLastSelected();
 				var id = record.get("id");
 				Ext.Ajax.request({
-					url : "../user/deleteUserById/" + id,
+					url : "../background/usermsg/user/deleteUserById/" + id,
 					method : "POST",
 					async : false,
 					success : function(response){

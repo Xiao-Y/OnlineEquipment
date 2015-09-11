@@ -2,7 +2,7 @@ Ext.define("AM.store.ProvinceStore",{
 	extend : "Ext.data.Store",
 	model : "AM.model.ZipModel",
 	proxy : {
-		url : "../user/getZip",
+		url : "../background/usermsg/user/getZip",
 		type : "ajax",
 		reader : {
 			type : "json",

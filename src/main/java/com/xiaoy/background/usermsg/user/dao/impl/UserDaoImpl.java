@@ -1,4 +1,4 @@
-package com.xiaoy.user.dao.impl;
+package com.xiaoy.background.usermsg.user.dao.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -7,9 +7,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import com.xiaoy.background.usermsg.user.dao.UserDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
 import com.xiaoy.base.entities.User;
-import com.xiaoy.user.dao.UserDao;
 
 @Repository
 public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao

@@ -1,25 +1,12 @@
-package com.xiaoy.user.service;
+package com.xiaoy.background.usermsg.user.dao;
 
 import java.util.List;
 
+import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.entities.User;
-import com.xiaoy.base.service.CommonService;
 
-/**
- * 用户service
- * 
- * @author XiaoY
- * @date: 2015年8月16日 上午10:21:55
- */
-public interface UserService extends CommonService<User> {
-
-	/**
-	 * 通过用户名查找用户信息
-	 * 
-	 * @param loginName
-	 * @return
-	 */
-	User findByName(String loginName);
+public interface UserDao extends CommonDao<User>
+{
 
 	/**
 	 * 通过名字查询出现用户的id
@@ -29,6 +16,16 @@ public interface UserService extends CommonService<User> {
 	 * @return
 	 */
 	List<Object> getUserIdByName(String name);
+
+	/**
+	 * 通过登陆名查询出用户信息
+	 * 
+	 * @param loginName登陆名
+	 * @return
+	 * 
+	 * @date 2015年8月20日下午5:27:49
+	 */
+	User findByName(String loginName);
 
 	/**
 	 * 根据条件查询用户信息
@@ -46,10 +43,4 @@ public interface UserService extends CommonService<User> {
 	 */
 	long countByCollection(User user);
 
-	/**
-	 * 通过用户id删除信息，同时删除关联关系
-	 * 
-	 * @param id
-	 */
-	void deleteUserById(String id);
 }
