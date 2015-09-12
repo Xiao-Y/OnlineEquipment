@@ -5,7 +5,6 @@ Ext.define('AM.view.Viewport',{
 	layout : 'border',
 	border:false,
 	items : [{
-		//title : 'ExtJS案例',
 		region : 'north',
 		height : 60,
 		border:false,
@@ -30,6 +29,7 @@ Ext.define('AM.view.Viewport',{
 	        displayField: 'displayField',
 	        valueField: 'valueField',
 	        queryMode: 'local',
+	        value : "Crisp主题",
 	        store: "ThemeStore"
 		},{
 			border:false,

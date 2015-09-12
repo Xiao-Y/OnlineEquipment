@@ -1,7 +1,7 @@
 Ext.define('AM.controller.HomeController', {
 	extend : 'Ext.app.Controller',
 	// 将Viewport.js添加到控制器
-	views : ['Viewport', 'MenuTreeView', 'ContextMenu'],
+	views : ['Viewport', 'MenuTreeView'],
 	stores : ['MenuTreeStore','ThemeStore'],
 	models : ['MenuTreeModel','ThemeModel'],//写成了model,导致后面的url没有获取 
 	// 通过init函数来监听视图事件，控制视图与控制器的交互
@@ -31,10 +31,8 @@ Ext.define('AM.controller.HomeController', {
 		if (!mainPanel.child('#' + id)) {
 			var tab = Ext.create('AM.view.ContentPanel', {
 				itemId : id,
-				url : url,
 				title : title,
-				closable : true,
-				glyph:0xf123
+				url : url
 			});
 			mainPanel.add(tab).show().doLayout();
 		} else {
@@ -42,17 +40,18 @@ Ext.define('AM.controller.HomeController', {
 		}
 	},
 	changeTheme:function(combo){//更换主题
-        var  theme = combo.getValue();
+        var theme = combo.getValue();
         var href = '../../resource/js/extjs5.1/packages/ext-theme-'+theme+'/build/resources/ext-theme-'+theme+'-all.css';
         var link = Ext.fly('theme');
         if(!link) {
             link = Ext.getHead().appendChild({
                  tag:'link',
                  id:'theme',
-                 rel:'stylesheet',
-                 href:''
+                 rel:'stylesheet'
             });
         };
-        link.set({href:Ext.String.format(href, theme)});
+        link.set({
+        	href : Ext.String.format(href, theme)
+        });
     }
 });
