@@ -55,9 +55,49 @@ public class UserController {
 	public JsonResult getUserList(HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
-		String splie = Tools.getSystemConfigString(request, "zipViewSplit");
+		String username = Tools.getStringParameter(request, "username");
+		String birthday = Tools.getStringParameter(request, "birthday");
+		String[] roleIdStr = request.getParameterValues("roleId");
+		String province = Tools.getStringParameter(request, "province");
+		String city = Tools.getStringParameter(request, "city");
+		String area = Tools.getStringParameter(request, "area");
+		String createTime = Tools.getStringParameter(request, "createTime");
+		String updateTime = Tools.getStringParameter(request, "updateTime");
+		String zipSaveSplit = Tools.getSystemConfigString(request, "zipSaveSplit");
+		StringBuffer address = new StringBuffer("");
+		if (!StringUtils.isEmpty(province)) {
+			address.append(province);
+			address.append(zipSaveSplit);
+		}
+		if (!StringUtils.isEmpty(city)) {
+			address.append(city);
+			address.append(zipSaveSplit);
+		}
+		if (!StringUtils.isEmpty(area)) {
+			address.append(area);
+			address.append(zipSaveSplit);
+		}
 		User user = new User();
-		JsonResult json = new JsonResult();
+		user.setUsername(username);
+		user.setBirthday(birthday == "" ? null : DateHelper.stringConverDate(birthday));
+		user.setCreateTime(createTime == "" ? null : DateHelper.stringConverDate(createTime));
+		user.setUpdateTime(updateTime == "" ? null : DateHelper.stringConverDate(updateTime));
+		if (!StringUtils.isEmpty(address) && address.toString().endsWith(zipSaveSplit)) {
+			address.append(zipSaveSplit);
+			String addressStr = address.toString().replace(zipSaveSplit + zipSaveSplit, "");
+			user.setAddress(addressStr);
+		}
+		if (roleIdStr != null && roleIdStr.length > 0 && roleIdStr[0] != "") {
+			Set<Role> roles = new HashSet<Role>();
+			for (String roleId : roleIdStr) {
+				Role role = new Role();
+				role.setId(roleId);
+				roles.add(role);
+			}
+			user.setRoles(roles);
+		}
+
+		String splie = Tools.getSystemConfigString(request, "zipViewSplit");
 		List<User> users = userService.findCollectionByCondition(user, start, limit);
 		for (User u : users) {
 			StringBuffer str = new StringBuffer("");
@@ -98,6 +138,7 @@ public class UserController {
 			u.setRoleName(roleNameStr);
 		}
 		long total = userService.countByCollection(user);
+		JsonResult json = new JsonResult();
 		json.setRoot(users);
 		json.setTotal(total);
 		json.setSuccess(true);

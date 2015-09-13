@@ -1,6 +1,6 @@
 Ext.define("AM.controller.UserController",{
 	extend : "Ext.app.Controller",
-	views : ["UserList","UserAdd"],
+	views : ["UserList","UserAdd","UserQuery"],
 	models : ["UserModel","ZipModel","RoleModel"],
 	stores : ["UserStore","ProvinceStore","CityStore","AreaStore","RoleStore"],
 	init : function(){
@@ -25,6 +25,21 @@ Ext.define("AM.controller.UserController",{
 			},
 			"userList button[id=delUser]" : {
 				click : this.delUser
+			},
+			"userList button[id=listResetUser]" : {
+				click : this.listResetUser
+			},
+			"userList button[id=topQueryUser]" : {
+				click : this.topQueryUser
+			},
+			"userQuery button[id=cancel]" : {
+				click : this.cancelOrReset
+			},
+			"userQuery button[id=reset]" : {
+				click : this.cancelOrReset
+			},
+			"userQuery button[id=queryUser]" : {
+				click : this.queryUser
 			}
 		});
 	},
@@ -141,6 +156,34 @@ Ext.define("AM.controller.UserController",{
 			baseFormWindow.setTitle("修改用户信息");
 			baseFormWindow.show();
 		});
+	},
+	listResetUser : function(){
+		var store = Ext.getCmp("userList").getStore();
+		store.load({
+			params : {}
+		});
+	},
+	topQueryUser : function(){
+		Ext.require('AM.view.UserQuery', function() {
+				var baseFormWindow = Ext.getCmp("userQueryWindow");
+				if (null == baseFormWindow) {
+					Ext.create('AM.view.UserQuery', {});// 第一次创建添加显示窗口
+				}
+				//当点击添加时加载
+				Ext.getCmp("province").getStore().reload();
+				Ext.getCmp("roleId").getStore().reload();
+				baseFormWindow = Ext.getCmp("userQueryWindow");
+				baseFormWindow.setTitle("查询用户信息");
+				baseFormWindow.show();
+			});
+	},
+	queryUser : function(){
+		var form = Ext.getCmp('userQueryForm').getForm();
+		var fv = form.getValues();
+		var store = Ext.getCmp("userList").getStore();
+		store.load({
+			params:fv
+		});	
 	},
 	cancelOrReset : function(btn){
 		if(btn.getId() == "cancel"){
