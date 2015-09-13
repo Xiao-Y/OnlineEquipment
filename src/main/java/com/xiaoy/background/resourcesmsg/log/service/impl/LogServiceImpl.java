@@ -22,32 +22,33 @@ import com.xiaoy.util.Tools;
  * @date: 2015年8月16日 下午11:22:44
  */
 @Service
-public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
-{
+public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService {
 	private LogDao logDao;
-	
+
 	@Resource
-	private  HttpServletRequest request;
+	private HttpServletRequest request;
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<Log> commonDao)
-	{
+	public void setCommonDao(CommonDao<Log> commonDao) {
 		this.logDao = (LogDao) commonDao;
 		super.commonDao = commonDao;
 	}
 
 	@Override
-	public void persistLog(Log log)
-	{
+	public void persistLog(Log log) {
 		String ip = Tools.toIpAddr(request);
 		log.setIpAddr(ip);
 		logDao.saveObject(log);
 	}
 
 	@Override
-	public List<Log> findCollectionByCondition(Log log)
-	{
-		return logDao.findCollectionByCondition(log);
+	public List<Log> findCollectionByCondition(Log log, String start, String limit) {
+		return logDao.findCollectionByCondition(log, start, limit);
+	}
+
+	@Override
+	public long countLog(Log log) {
+		return logDao.countLog(log);
 	}
 }

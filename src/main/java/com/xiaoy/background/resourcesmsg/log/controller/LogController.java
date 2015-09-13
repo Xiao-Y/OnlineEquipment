@@ -34,11 +34,14 @@ public class LogController {
 	}
 
 	@RequestMapping("/getLogList")
-	public @ResponseBody JsonResult getLogList(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getLogList(HttpServletRequest request) {
 		String userName = Tools.getStringParameter(request, "userName");
 		String runClass = Tools.getStringParameter(request, "runClass");
 		String operation = Tools.getStringParameter(request, "operation");
 		String strCreateTime = Tools.getStringParameter(request, "createTime");
+		String start = Tools.getStringParameter(request, "start", "");
+		String limit = Tools.getStringParameter(request, "limit", "");
 		List<Object> objs = null;
 		if (!StringUtils.isEmpty(userName)) {
 			objs = userService.getUserIdByName(userName);
@@ -57,9 +60,11 @@ public class LogController {
 
 		JsonResult json = new JsonResult();
 		try {
-			List<Log> list = logService.findCollectionByCondition(log);
+			List<Log> list = logService.findCollectionByCondition(log, start, limit);
+			long total = logService.countLog(log);
 			json.setSuccess(true);
 			json.setRoot(list);
+			json.setTotal(total);;
 		} catch (Exception e) {
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
@@ -74,7 +79,8 @@ public class LogController {
 	 * @return
 	 */
 	@RequestMapping("/getHandleType")
-	public @ResponseBody JsonResult getHandleType(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getHandleType(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		List<CheckBox> list = Tools.getCheckBox(request, "log", "operation");
 		json.setRoot(list);

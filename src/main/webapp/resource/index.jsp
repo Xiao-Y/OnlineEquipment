@@ -11,7 +11,6 @@
 <!-- 引入国际化文件 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/extjs5.1/packages/ext-locale/build/ext-locale-zh_CN.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>页面文件</title>
 </head>
 <body>
 

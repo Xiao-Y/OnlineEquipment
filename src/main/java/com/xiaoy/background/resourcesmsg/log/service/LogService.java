@@ -11,8 +11,7 @@ import com.xiaoy.base.service.CommonService;
  * @author XiaoY
  * @date: 2015年8月16日 下午10:03:43
  */
-public interface LogService extends CommonService<Log>
-{
+public interface LogService extends CommonService<Log> {
 	/**
 	 * AOP日志专用，不会记录到日志中
 	 * 
@@ -27,5 +26,14 @@ public interface LogService extends CommonService<Log>
 	 *            查询日志
 	 * @return
 	 */
-	public List<Log> findCollectionByCondition(Log log);
+	public List<Log> findCollectionByCondition(Log log, String start, String limit);
+
+	/**
+	 * 根据条件查询出日志记录数
+	 * 
+	 * @param log
+	 *            查询日志
+	 * @return
+	 */
+	public long countLog(Log log);
 }
