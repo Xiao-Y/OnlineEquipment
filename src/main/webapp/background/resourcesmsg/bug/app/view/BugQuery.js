@@ -136,11 +136,11 @@ Ext.define('AM.view.BugQuery', {
 		}, {
 			xtype : 'button',
 			text : '重置',
-			id : 'resetBug',
+			id : 'reset',
 			glyph : 0xf021
 		}, {
 			xtype : 'button',
-			id : 'cancelBug',
+			id : 'cancel',
 			text : '关闭',
 			glyph : 0xf00d
 		} ]

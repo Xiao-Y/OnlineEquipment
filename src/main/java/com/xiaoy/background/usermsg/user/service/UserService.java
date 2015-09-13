@@ -52,4 +52,11 @@ public interface UserService extends CommonService<User> {
 	 * @param id
 	 */
 	void deleteUserById(String id);
+
+	/**
+	 * 更新用户信息
+	 * 
+	 * @param user
+	 */
+	void updateUser(User user);
 }

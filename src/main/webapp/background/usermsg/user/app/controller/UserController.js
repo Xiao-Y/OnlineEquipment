@@ -6,29 +6,43 @@ Ext.define("AM.controller.UserController",{
 	init : function(){
 		this.control({
 			"userList button[id=addUser]" : {
-				click : function() {
-					Ext.require('AM.view.UserAdd', function() {
-						var baseFormWindow = Ext.getCmp("userAddWindow");
-						if (null == baseFormWindow) {
-							Ext.create('AM.view.UserAdd', {});// 第一次创建添加显示窗口
-						}
-						//当点击添加时加载
-						Ext.getCmp("province").getStore().reload();
-						Ext.getCmp("roleId").getStore().reload();
-						baseFormWindow = Ext.getCmp("userAddWindow");
-						baseFormWindow.setTitle("添加用户信息");
-						baseFormWindow.show();
-					});
-				}
+				click : this.addUser
 			},
 			"userAdd button[id=saveUser]" : {
 				click : this.saveUser
+			},
+			"userAdd button[id=cancel]" : {
+				click : this.cancelOrReset
+			},
+			"userAdd button[id=reset]" : {
+				click : this.cancelOrReset
+			},
+			"userAdd button[id=saveUser]" : {
+				click : this.saveUser
+			},
+			"userList button[id=editUser]" : {
+				click : this.editUser
 			},
 			"userList button[id=delUser]" : {
 				click : this.delUser
 			}
 		});
 	},
+	addUser : 
+		function() {
+			Ext.require('AM.view.UserAdd', function() {
+				var baseFormWindow = Ext.getCmp("userAddWindow");
+				if (null == baseFormWindow) {
+					Ext.create('AM.view.UserAdd', {});// 第一次创建添加显示窗口
+				}
+				//当点击添加时加载
+				Ext.getCmp("province").getStore().reload();
+				Ext.getCmp("roleId").getStore().reload();
+				baseFormWindow = Ext.getCmp("userAddWindow");
+				baseFormWindow.setTitle("添加用户信息");
+				baseFormWindow.show();
+			});
+		},
 	saveUser : function(){
 		var form = Ext.getCmp("userAddForm").getForm();
 		if(form.isValid()){
@@ -88,5 +102,51 @@ Ext.define("AM.controller.UserController",{
 				});
 			}
 		})
+	},
+	editUser : function(){
+		Ext.require('AM.view.UserAdd', function() {
+			var sm = Ext.getCmp("userList").getSelectionModel();
+			if(!sm.hasSelection()){
+				Ext.Msg.alert('提示', '请选择要修改的行');
+				return;
+			}
+			var baseFormWindow = Ext.getCmp("userAddWindow");
+			if (null == baseFormWindow) {
+				Ext.create('AM.view.UserAdd', {});// 第一次创建添加显示窗口
+			}
+			
+			Ext.getCmp("province").getStore().reload();
+			Ext.getCmp("roleId").getStore().reload();
+			
+			var record = sm.getLastSelected();
+			var provinceNum = record.get("province");
+			var cityStore = Ext.getCmp("city").getStore();
+			cityStore.proxy.extraParams = {
+				province : provinceNum
+			};
+			cityStore.currentPage = 1;
+			cityStore.load();
+			
+			var cityNum = record.get("city");
+			var areaStore = Ext.getCmp("area").getStore();
+			areaStore.proxy.extraParams = {
+				city : cityNum
+			};
+			areaStore.currentPage = 1;
+			areaStore.load();
+			var form = Ext.getCmp("userAddForm").getForm();
+			form.loadRecord(record);// 将reocrd填充到表单中
+			
+			baseFormWindow = Ext.getCmp("userAddWindow");
+			baseFormWindow.setTitle("修改用户信息");
+			baseFormWindow.show();
+		});
+	},
+	cancelOrReset : function(btn){
+		if(btn.getId() == "cancel"){
+			Ext.getCmp("cancel").up("window").destroy();
+		}else if(btn.getId() == "reset"){
+			Ext.getCmp("reset").up("window").down("form").getForm().reset()
+		}
 	}
 });

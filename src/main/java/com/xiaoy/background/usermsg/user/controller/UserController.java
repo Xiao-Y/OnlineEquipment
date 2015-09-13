@@ -62,20 +62,34 @@ public class UserController {
 		for (User u : users) {
 			StringBuffer str = new StringBuffer("");
 			Set<Role> set = u.getRoles();
+			String[] roleIds = new String[set.size()];
+			int i = 0;
 			for (Role r : set) {
+				roleIds[i] = r.getId();
+				// 遍历角色名称，拼接用于显示
 				str.append(r.getRoleName());
 				str.append(" || ");
+				i++;
 			}
+			// 添加角色id
+			u.setRoleId(roleIds);
 			String[] addresses = u.getAddress().split(splie);
 			if (addresses != null && addresses.length > 0) {
+				// 添加地理代码
+				u.setProvince(addresses[0]);
+				u.setCity(addresses[1]);
+				u.setArea(addresses[2]);
+				// 用于页面显示地理信息
 				String areaNum = addresses[addresses.length - 1];
 				if (!StringUtils.isEmpty(areaNum)) {
 					Zip zip = zipService.findObjectById(areaNum);
 					u.setAddress(zip.getMergerName());
+
 				} else {
-					user.setAddress("");
+					u.setAddress("");
 				}
 			}
+			// 拼接用于显示的角色名称
 			String roleNameStr = str.toString();
 			if (!StringUtils.isEmpty(roleNameStr) && roleNameStr.endsWith(" || ")) {
 				roleNameStr += "||";
@@ -130,13 +144,20 @@ public class UserController {
 		return json;
 	}
 
+	/**
+	 * 保存用户信息
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/saveUser")
 	public @ResponseBody
 	JsonResult saveUser(HttpServletRequest request) {
 		String username = Tools.getStringParameter(request, "username");
 		String password = Tools.getStringParameter(request, "password");
 		String birthday = Tools.getStringParameter(request, "birthday");
-		String roleId = Tools.getStringParameter(request, "roleId");
+		// String roleId = Tools.getStringParameter(request, "roleId");
+		String roleIds[] = request.getParameterValues("roleId");
 		String province = Tools.getStringParameter(request, "province");
 		String city = Tools.getStringParameter(request, "city");
 		String area = Tools.getStringParameter(request, "area");
@@ -157,9 +178,11 @@ public class UserController {
 		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());
 		Set<Role> roles = new HashSet<Role>();
-		Role role = new Role();
-		role.setId(roleId);
-		roles.add(role);
+		for (String roleId : roleIds) {
+			Role role = new Role();
+			role.setId(roleId);
+			roles.add(role);
+		}
 		user.setRoles(roles);
 		JsonResult json = new JsonResult();
 		try {
@@ -192,6 +215,58 @@ public class UserController {
 			e.printStackTrace();
 			json.setSuccess(false);
 			json.setMessage(MessageTips.DELETE_FAILURE);
+		}
+		return json;
+	}
+
+	/**
+	 * 更新信息
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	public JsonResult updateUser(HttpServletRequest request) {
+		String username = Tools.getStringParameter(request, "username");
+		String id = Tools.getStringParameter(request, "id");
+		String password = Tools.getStringParameter(request, "password");
+		String birthday = Tools.getStringParameter(request, "birthday");
+		String roleIds[] = request.getParameterValues("roleId");
+		String province = Tools.getStringParameter(request, "province");
+		String city = Tools.getStringParameter(request, "city");
+		String area = Tools.getStringParameter(request, "area");
+		// 从内存中，通过key获取分割符
+		String splie = Tools.getSystemConfigString(request, "zipSaveSplit");
+		StringBuffer address = new StringBuffer();
+		address.append(province);
+		address.append(splie);
+		address.append(city);
+		address.append(splie);
+		address.append(area);
+		User user = new User();
+		user.setId(id);
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setBirthday(birthday == "" ? null : DateHelper.stringConverDate(birthday));
+		user.setAddress(address.toString());
+		user.setUpdateTime(new Date());
+		Set<Role> roles = new HashSet<Role>();
+		for (String roleId : roleIds) {
+			Role role = new Role();
+			role.setId(roleId);
+			roles.add(role);
+		}
+		user.setRoles(roles);
+		JsonResult json = new JsonResult();
+		try {
+			userService.updateUser(user);
+			json.setSuccess(true);
+			json.setMessage(MessageTips.UPDATE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMessage(MessageTips.SERVICE_ERRER);
 		}
 		return json;
 	}

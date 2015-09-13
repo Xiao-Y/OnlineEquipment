@@ -62,11 +62,11 @@ Ext.define('AM.view.LogQuery', {
 		}, {
 			xtype : 'button',
 			text : '重置',
-			id : 'resetLog',
+			id : 'reset',
 			glyph : 0xf021
 		}, {
 			xtype : 'button',
-			id : 'cancelLog',
+			id : 'cancel',
 			text : '关闭',
 			glyph:0xf00d
 		} ]

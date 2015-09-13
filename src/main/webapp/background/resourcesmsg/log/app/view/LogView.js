@@ -42,7 +42,7 @@ Ext.define('AM.view.LogView', {
 		dock : 'bottom',
 		items : [ '->', {
 			xtype : 'button',
-			id : 'cancelLog',
+			id : 'cancel',
 			text : '关闭',
 			glyph:0xf00d
 		} ]

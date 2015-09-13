@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,6 +29,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name = "USER")
+@DynamicInsert(true)
+@DynamicUpdate(true)
 public class User {
 	private String id;
 	// 用户名
@@ -50,8 +54,18 @@ public class User {
 	@JsonManagedReference
 	Set<Role> roles = new HashSet<>();
 
+	/******************** 临时变量***start *****************************/
 	// 角色名称
 	private String roleName;
+	// 区域的代码
+	private String area;
+	// 省代码
+	private String province;
+	// 市代码
+	private String city;
+	private String[] roleId;
+
+	/******************** 临时变量***end *****************************/
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
@@ -144,5 +158,41 @@ public class User {
 
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
+	}
+
+	@Transient
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	@Transient
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	@Transient
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	@Transient
+	public String[] getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String[] roleId) {
+		this.roleId = roleId;
 	}
 }

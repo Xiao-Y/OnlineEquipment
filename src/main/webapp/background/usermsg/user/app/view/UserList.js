@@ -63,6 +63,15 @@ Ext.define("AM.view.UserList", {
 			dataIndex : 'address',
 			width : 240
 		}, {
+			hidden : true,
+			dataIndex : 'province'
+		}, {
+			hidden : true,
+			dataIndex : 'city'
+		}, {
+			hidden : true,
+			dataIndex : 'area'
+		}, {
 			header : '角色名称',
 			dataIndex : 'roleName'
 		}, {

@@ -31,5 +31,14 @@ Ext.define("AM.model.UserModel", {
 	},{
 		name : "roleName",
 		type : "string"
+	},{
+		name : "province",
+		type : "string"
+	},{
+		name : "city",
+		type : "string"
+	},{
+		name : "area",
+		type : "string"
 	}]
 });

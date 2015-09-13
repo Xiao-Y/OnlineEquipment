@@ -6,34 +6,11 @@ Ext.define('AM.controller.MenuController', {
 	init : function() {
 		this.control({
 			'menuList button[id=addMenu]' : {
-				click : function() {
-					Ext.require('AM.view.MenuAdd', function() {
-						var baseFormWindow = Ext.getCmp("menuAddWindow");
-						if (null == baseFormWindow) {
-							Ext.create('AM.view.MenuAdd', {});// 第一次创建添加显示窗口
-						}
-						//当点击添加时加载
-						Ext.getCmp("parentId").getStore().reload();
-						baseFormWindow = Ext.getCmp("menuAddWindow");
-						baseFormWindow.setTitle("添加菜单");
-						baseFormWindow.show();
-					});
-				}
+				click : this.addMenu
 			},
 			// 高级查询
 			'menuList button[id=topQueryMenu]' : {
-				click : function() {
-					Ext.require('AM.view.MenuQuery', function() {
-						var baseFormWindow = Ext.getCmp("menuQueryWindow");
-						if (null == baseFormWindow) {
-							Ext.create('AM.view.MenuQuery', {});// 第一次创建添加显示窗口
-						}
-						//当点击查询时加载
-						Ext.getCmp("parentId").getStore().reload();
-						baseFormWindow = Ext.getCmp("menuQueryWindow");
-						baseFormWindow.show();
-					});
-				}
+				click : this.topQueryMenu
 			},
 			// 删除
 			'menuList button[id=delMenu]' : {
@@ -44,10 +21,8 @@ Ext.define('AM.controller.MenuController', {
 				click : this.editMenu
 			},
 			// 取消
-			'menuAdd button[id=cancelMenu]' : {
-				click : function() {
-					Ext.getCmp('menuAddWindow').destroy();
-				}
+			'menuAdd button[id=cancel]' : {
+				click : this.cancelOrReset
 			},
 			// 保存操作
 			'menuAdd button[id=saveMenu]' : {
@@ -58,28 +33,19 @@ Ext.define('AM.controller.MenuController', {
 				click : this.queryMenu
 			},
 			// 重置
-			'menuAdd button[id=resetMenu]' : {
-				click : function(btn) {
-					var saveFormPanel = Ext.getCmp("menuAddForm");
-					var baseForm = saveFormPanel.getForm();
-					baseForm.reset();
-				}
+			'menuAdd button[id=reset]' : {
+				click : this.cancelOrReset
 			},// 重置
 			'menuList button[id=listResetMenu]' : {
 				click : this.listResetMenu
 			},
 			// 重置
-			'menuQuery button[id=resetMenu]' : {
-				click : function() {
-					var baseForm = Ext.getCmp("menuQueryForm").getForm();
-					baseForm.reset();
-				}
+			'menuQuery button[id=reset]' : {
+				click : this.cancelOrReset
 			},
 			// 取消
-			'menuQuery button[id=cancelMenu]' : {
-				click : function() {
-					Ext.getCmp('menuQueryWindow').destroy();
-				}
+			'menuQuery button[id=cancel]' : {
+				click : this.cancelOrReset
 			}
 		});
 	},
@@ -180,7 +146,6 @@ Ext.define('AM.controller.MenuController', {
 			var baseFormWindow = Ext.getCmp('menuAddWindow');
 			if (null == baseFormWindow) {
 				Ext.create('AM.view.MenuAdd', {});// 第一次创建添加显示窗口
-				console.log('创建窗口');
 			}
 			baseFormWindow = Ext.getCmp('menuAddWindow');
 			baseFormWindow.setTitle("编辑菜单");
@@ -189,5 +154,40 @@ Ext.define('AM.controller.MenuController', {
 			var form = Ext.getCmp("menuAddForm").getForm();
 			form.loadRecord(records);// 将reocrd填充到表单中
 		});
-	}
+	},
+	topQueryMenu : 
+		function() {
+			Ext.require('AM.view.MenuQuery', function() {
+				var baseFormWindow = Ext.getCmp("menuQueryWindow");
+				if (null == baseFormWindow) {
+					Ext.create('AM.view.MenuQuery', {});// 第一次创建添加显示窗口
+				}
+				//当点击查询时加载
+				Ext.getCmp("parentId").getStore().reload();
+				baseFormWindow = Ext.getCmp("menuQueryWindow");
+				baseFormWindow.show();
+			});
+		},
+	addMenu : 
+		function() {
+			Ext.require('AM.view.MenuAdd', function() {
+				var baseFormWindow = Ext.getCmp("menuAddWindow");
+				if (null == baseFormWindow) {
+					Ext.create('AM.view.MenuAdd', {});// 第一次创建添加显示窗口
+				}
+				//当点击添加时加载
+				Ext.getCmp("parentId").getStore().reload();
+				baseFormWindow = Ext.getCmp("menuAddWindow");
+				baseFormWindow.setTitle("添加菜单");
+				baseFormWindow.show();
+			});
+		},
+	cancelOrReset : 
+		function(btn){
+			if(btn.getId() == "cancel"){
+				Ext.getCmp("cancel").up("window").destroy();
+			}else if(btn.getId() == "reset"){
+				Ext.getCmp("reset").up("window").down("form").getForm().reset()
+			}
+		}
 });

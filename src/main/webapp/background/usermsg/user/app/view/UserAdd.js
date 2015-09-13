@@ -44,6 +44,7 @@ Ext.define("AM.view.UserAdd",{
 			xtype : 'combobox',
 			displayField : 'roleName',
 			allowBlank : false,
+			multiSelect : true,//允许多选
 			valueField : 'id',
 			queryMode : 'local',
 			forceSelection : true,// 所选择的值必须是列表中的值
@@ -51,8 +52,7 @@ Ext.define("AM.view.UserAdd",{
 			name : 'roleId',
 			id : 'roleId',
 			listConfig : {// 下拉列表的样式
-				emptyText : "<font color='red'>没有找到匹配项</font>",
-				maxHeight : 100// 最大宽度
+				emptyText : "<font color='red'>没有找到匹配项</font>"
 			}
 		}, {
 			fieldLabel : '省市/直辖市',
@@ -66,12 +66,12 @@ Ext.define("AM.view.UserAdd",{
 			id : 'province',
 			name : 'province',
 			listConfig : {// 下拉列表的样式
-				emptyText : "<font color='red'>没有找到匹配项</font>",
-				maxHeight : 100// 最大宽度
+				emptyText : "<font color='red'>没有找到匹配项</font>"
 			},
 			listeners: {
         		select:function(combo){
         			Ext.getCmp('city').store.removeAll();
+        			Ext.getCmp('area').store.removeAll();
     	   			Ext.getCmp('city').store.load({
     	   				params : {
     	   					province:combo.getValue()
@@ -91,8 +91,7 @@ Ext.define("AM.view.UserAdd",{
 			id : 'city',
 			name : 'city',
 			listConfig : {// 下拉列表的样式
-				emptyText : "<font color='red'>没有找到匹配项</font>",
-				maxHeight : 100// 最大宽度
+				emptyText : "<font color='red'>没有找到匹配项</font>"
 			},
 			listeners: {
         		select:function(combo){
@@ -116,8 +115,7 @@ Ext.define("AM.view.UserAdd",{
 			id : 'area',
 			name : 'area',
 			listConfig : {// 下拉列表的样式
-				emptyText : "<font color='red'>没有找到匹配项</font>",
-				maxHeight : 100// 最大宽度
+				emptyText : "<font color='red'>没有找到匹配项</font>"
 			}
 		}]
 	}],
@@ -132,11 +130,11 @@ Ext.define("AM.view.UserAdd",{
 		}, {
 			xtype : 'button',
 			text : '重置',
-			id : 'resetUser',
+			id : 'reset',
 			glyph : 0xf021
 		}, {
 			xtype : 'button',
-			id : 'cancelUser',
+			id : 'cancel',
 			text : '关闭',
 			glyph : 0xf00d
 		} ]
