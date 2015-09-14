@@ -33,7 +33,7 @@ public interface UserDao extends CommonDao<User>
 	 * @param user
 	 * @return
 	 */
-	List<User> findCollectionByCondition(User user, String start, String limit);
+	List<User> findUsersByCondition(User user, String start, String limit);
 
 	/**
 	 * 根据条件查询用户记录总数

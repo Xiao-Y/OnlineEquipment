@@ -71,7 +71,7 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> findCollectionByCondition(String hqlWhere, Map<String, Object> paramsMapValue) {
 		StringBuffer hql = new StringBuffer("from " + entityClass.getSimpleName() + " e where 1 = 1 ");
-		if(!StringUtils.isEmpty(hqlWhere)){
+		if (!StringUtils.isEmpty(hqlWhere)) {
 			hql.append(hqlWhere);
 		}
 
@@ -82,6 +82,17 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 			this.settingParam(hqlWhere, paramsMapValue, query);
 		}
 		return query.list();
+	}
+
+	public Integer countHQLByCollection(String hql, Map<String, Object> paramsMapValue) {
+		Query query = this.getSession().createQuery(hql);
+
+		if (!StringUtils.isEmpty(hql) && paramsMapValue != null && paramsMapValue.size() > 0) {
+			// 设置参数
+			this.settingParam(hql, paramsMapValue, query);
+		}
+		Object count = query.uniqueResult();
+		return Integer.parseInt(count.toString());
 	}
 
 	public Integer countByCollection(String hqlWhere, Map<String, Object> paramsMapValue) {
@@ -154,8 +165,25 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findCollectionByCondition(String hqlWhere, Map<String, Object> paramsMapValue, String start, String limit)
-	{
+	public List<T> find(String hql, Map<String, Object> paramsMapValue, String start, String limit) {
+		Query query = this.getSession().createQuery(hql);
+
+		if (!StringUtils.isEmpty(hql) && paramsMapValue != null && paramsMapValue.size() > 0) {
+			// 设置参数
+			this.settingParam(hql, paramsMapValue, query);
+		}
+
+		if (!StringUtils.isEmpty(start) && !StringUtils.isEmpty(limit)) {
+			query.setFirstResult(Integer.parseInt(start));
+			query.setMaxResults(Integer.parseInt(limit));
+		}
+		List<T> list = query.list();
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findCollectionByCondition(String hqlWhere, Map<String, Object> paramsMapValue, String start, String limit) {
 		StringBuffer hql = new StringBuffer("from " + entityClass.getSimpleName() + " e where 1 = 1 ");
 
 		hql.append(hqlWhere);
@@ -166,8 +194,8 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 			// 设置参数
 			this.settingParam(hqlWhere, paramsMapValue, query);
 		}
-		
-		if(!StringUtils.isEmpty(start) && !StringUtils.isEmpty(limit)){
+
+		if (!StringUtils.isEmpty(start) && !StringUtils.isEmpty(limit)) {
 			query.setFirstResult(Integer.parseInt(start));
 			query.setMaxResults(Integer.parseInt(limit));
 		}

@@ -43,7 +43,7 @@ public class UserServiceImpl extends CommonServiceImpl<User> implements UserServ
 
 	@Override
 	public List<User> findCollectionByCondition(User user, String start, String limit) {
-		return userDao.findCollectionByCondition(user, start, limit);
+		return userDao.findUsersByCondition(user, start, limit);
 	}
 
 	@Override
