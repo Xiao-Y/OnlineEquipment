@@ -29,6 +29,11 @@ Ext.define("AM.view.BugList",{
 			id : "topQueryBug"
 		}, {
 			xtype : 'button',
+			text : '详细信息',
+			glyph : 0xf0ae,
+			id : "lookBug"
+		}, {
+			xtype : 'button',
 			text : '重置',
 			glyph : 0xf021,
 			id : "listResetBug"
@@ -102,13 +107,7 @@ Ext.define("AM.view.BugList",{
 				if(value=='4'){return '页面问题';}
 				if(value=='5'){return '其它问题';}
         	}
-		}
-//		, {
-//			header : '优先级',
-//			dataIndex : 'priority',
-//			width : 80
-//		}
-		, {
+		}, {
 			header : '创建时间',
 			dataIndex : 'createTime'
 		}, {

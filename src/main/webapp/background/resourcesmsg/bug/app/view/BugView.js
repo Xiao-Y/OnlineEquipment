@@ -24,17 +24,35 @@ Ext.define('AM.view.BugView', {
 			fieldLabel : 'BUG标题',
 			name : 'title'
 		},{
-			fieldLabel : '运行类名',
-			name : 'runClass'
+			fieldLabel : '父模块',
+			name : 'parentName'
 		},{
-			fieldLabel : '操作类型',
-			name : 'operation'
+			fieldLabel : '子模块',
+			name : 'childrenName'
 		},{
-			fieldLabel : '执行时间',
+			fieldLabel : 'BUG类型',
+			name : 'bugType'
+		},{
+			fieldLabel : 'BUG状态',
+			name : 'status'
+		},{
+			fieldLabel : '严重程度',
+			name : 'severity'
+		},{
+			fieldLabel : '重现规律',
+			name : 'reappear'
+		},{
+			fieldLabel : 'BUG描述',
+			name : 'note'
+		},{
+			fieldLabel : '修改反馈',
+			name : 'reviseExplain'
+		},{
+			fieldLabel : '创建时间',
 			name : 'createTime'
-		}, {
-			fieldLabel : '操作内容',
-			name : 'content'
+		},{
+			fieldLabel : '更新时间',
+			name : 'updateTime'
 		}]
 	} ],
 	dockedItems : [ {

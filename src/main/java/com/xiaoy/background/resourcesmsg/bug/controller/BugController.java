@@ -1,7 +1,9 @@
 package com.xiaoy.background.resourcesmsg.bug.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -23,6 +25,8 @@ import com.xiaoy.base.entities.Menu;
 import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
+import com.xiaoy.util.PropertyModel;
+import com.xiaoy.util.ReadPropertyXML;
 import com.xiaoy.util.Tools;
 
 /**
@@ -54,7 +58,8 @@ public class BugController {
 	 * @date 2015年8月12日下午6:00:49
 	 */
 	@RequestMapping("/getBugList")
-	public @ResponseBody JsonResult getBugList(Bug bug, HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getBugList(Bug bug, HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
 
@@ -89,7 +94,8 @@ public class BugController {
 	 * @date 2015年8月13日上午11:04:34
 	 */
 	@RequestMapping(value = "/parentMenuList")
-	public @ResponseBody JsonResult parentMenuList(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult parentMenuList(HttpServletRequest request) {
 		Menu menu = new Menu();
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
 
@@ -99,7 +105,7 @@ public class BugController {
 		json.setRoot(menus);
 		return json;
 	}
-	
+
 	/**
 	 * 通过父id获取其下的子类集合
 	 * 
@@ -109,7 +115,8 @@ public class BugController {
 	 * @date 2015年8月13日上午11:04:34
 	 */
 	@RequestMapping(value = "/getChildMenuListByParentId")
-	public @ResponseBody JsonResult getChildMenuListByParentId(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getChildMenuListByParentId(HttpServletRequest request) {
 		String parentId = Tools.getStringParameter(request, "parentId");
 		List<Menu> menus = menuService.getChildMenuListByParentId(parentId);
 		JsonResult json = new JsonResult();
@@ -125,7 +132,8 @@ public class BugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/svaeBug", method = RequestMethod.POST)
-	public @ResponseBody JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
 		// 获取bug图片的路径
 		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
@@ -174,7 +182,8 @@ public class BugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateBug", method = RequestMethod.POST)
-	public @ResponseBody JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
 		// 获取bug图片的路径
 		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
@@ -204,7 +213,8 @@ public class BugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteBug/{id}", method = RequestMethod.POST)
-	public @ResponseBody JsonResult deleteBug(@PathVariable("id") String id, HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult deleteBug(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		try {
 			String imgUrls = bugService.findObjectById(id).getImgUrl();
@@ -228,7 +238,8 @@ public class BugController {
 	 * @return
 	 */
 	@RequestMapping("/getImage/{id}")
-	public @ResponseBody JsonResult getImage(@PathVariable("id") String id, HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getImage(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		try {
 			Bug bug = bugService.findObjectById(id);
@@ -253,11 +264,12 @@ public class BugController {
 	 * 
 	 * @param request
 	 * @return
-	 *
+	 * 
 	 * @date 2015年9月1日上午11:16:37
 	 */
 	@RequestMapping("/getBugType")
-	public @ResponseBody JsonResult getBugType(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getBugType(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		List<CheckBox> list = Tools.getCheckBox(request, "bug", "bugType");
 		json.setRoot(list);
@@ -270,11 +282,12 @@ public class BugController {
 	 * 
 	 * @param request
 	 * @return
-	 *
+	 * 
 	 * @date 2015年9月1日上午11:18:28
 	 */
 	@RequestMapping("/getPriority")
-	public @ResponseBody JsonResult getPriority(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getPriority(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		List<CheckBox> list = Tools.getCheckBox(request, "bug", "priority");
 		json.setRoot(list);
@@ -287,11 +300,12 @@ public class BugController {
 	 * 
 	 * @param request
 	 * @return
-	 *
+	 * 
 	 * @date 2015年9月1日上午11:21:45
 	 */
 	@RequestMapping("/getReappear")
-	public @ResponseBody JsonResult getReappear(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getReappear(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		List<CheckBox> list = Tools.getCheckBox(request, "bug", "reappear");
 		json.setRoot(list);
@@ -304,11 +318,12 @@ public class BugController {
 	 * 
 	 * @param request
 	 * @return
-	 *
+	 * 
 	 * @date 2015年9月1日上午11:21:45
 	 */
 	@RequestMapping("/getSeverity")
-	public @ResponseBody JsonResult getSeverity(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getSeverity(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		List<CheckBox> list = Tools.getCheckBox(request, "bug", "severity");
 		json.setRoot(list);
@@ -321,15 +336,69 @@ public class BugController {
 	 * 
 	 * @param request
 	 * @return
-	 *
+	 * 
 	 * @date 2015年9月1日上午11:21:45
 	 */
 	@RequestMapping("/getStatus")
-	public @ResponseBody JsonResult getStatus(HttpServletRequest request) {
+	public @ResponseBody
+	JsonResult getStatus(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		List<CheckBox> list = Tools.getCheckBox(request, "bug", "status");
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;
+	}
+
+	@ResponseBody
+	@RequestMapping("/getBugViewById/{id}")
+	public Map<String,Object> getBugViewById(HttpServletRequest request, @PathVariable("id") String id) {
+		Bug bug = bugService.findObjectById(id);
+		Map<String,Object> mapResult = new HashMap<String, Object>();
+		if (bug != null) {
+			String status = bug.getStatus();
+			if (!StringUtils.isEmpty(status)) {
+				PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "status", status);
+				Map<String, Map<String, String>> map = propertyModel.getDatas();
+				Map<String, String> map2 = map.get("status");
+				status = map2.get(status);
+				bug.setStatus(status);
+			}
+
+			String severity = bug.getSeverity();
+			if (!StringUtils.isEmpty(severity)) {
+				PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "severity", severity);
+				Map<String, Map<String, String>> map = propertyModel.getDatas();
+				Map<String, String> map2 = map.get("severity");
+				severity = map2.get(severity);
+				bug.setSeverity(severity);
+			}
+
+			String reappear = bug.getReappear();
+			if (!StringUtils.isEmpty(reappear)) {
+				PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "reappear", reappear);
+				Map<String, Map<String, String>> map = propertyModel.getDatas();
+				Map<String, String> map2 = map.get("reappear");
+				reappear = map2.get(reappear);
+				bug.setReappear(reappear);
+			}
+
+			String bugType = bug.getBugType();
+			if (!StringUtils.isEmpty(bugType)) {
+				PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "bugType", bugType);
+				Map<String, Map<String, String>> map = propertyModel.getDatas();
+				Map<String, String> map2 = map.get("bugType");
+				bugType = map2.get(bugType);
+				bug.setBugType(bugType);
+			}
+			String parentId = bug.getParentId();
+			String parentName = menuService.findObjectById(parentId).getMenuName();
+			bug.setParentName(parentName);
+			String childrenId = bug.getChildrenId();
+			String childrenName = menuService.findObjectById(childrenId).getMenuName();
+			bug.setChildrenName(childrenName);
+			mapResult.put("success",true);
+			mapResult.put("data", bug);
+		}
+		return mapResult;
 	}
 }

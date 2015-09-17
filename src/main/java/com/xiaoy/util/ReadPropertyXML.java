@@ -197,7 +197,6 @@ public class ReadPropertyXML {
 							String value = map.attributeValue("value");
 							if (!StringUtils.isEmpty(keyStr) && key.equals(keyStr)) {
 								mapData.put(key, value);
-
 								break;
 							}
 						}

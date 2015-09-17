@@ -1,6 +1,6 @@
 Ext.define('AM.controller.BugController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'BugList',"BugAdd", 'BugQuery'],
+	views : [ 'BugList',"BugAdd", 'BugQuery',"BugView"],
 	stores : [ 'BugStore',"ParentMenuStore","ChildrenMenuStore","StatusStore","SeverityStore","ReappearStore","BugTypeStore","PriorityStore"],//
 	models : [ 'BugModel',"MenuModel"],//
 	init : function() {
@@ -23,6 +23,9 @@ Ext.define('AM.controller.BugController', {
 			"bugList button[id=delBug]" : {//删除操作
 				click:this.delBug
 			},
+			"bugList button[id=lookBug]" : {//查看详细信息
+				click:this.lookBug
+			},
 			"bugList button[id=listResetBug]" : {//清除查询条件，刷新列表
 				click:this.listResetBug
 			},
@@ -39,6 +42,9 @@ Ext.define('AM.controller.BugController', {
 				click:this.cancelOrReset
 			},
 			'bugQuery button[id=cancel]' : {// 查询关闭
+				click:this.cancelOrReset
+			},
+			'bugView button[id=cancel]' : {// 查询关闭
 				click:this.cancelOrReset
 			}
 		});
@@ -72,7 +78,6 @@ Ext.define('AM.controller.BugController', {
 			}else{
 				url = "../bug/svaeBug";
 			}
-			
 			form.submit({
 				url : url,
 				params : Ext.JSON.encode(fv),
@@ -123,6 +128,38 @@ Ext.define('AM.controller.BugController', {
 			store.currentPage = 1;
 			store.load();
 			form.loadRecord(records);// 将reocrd填充到表单中
+		});
+	},
+	lookBug : function(){
+		Ext.require('AM.view.BugView', function() {
+			var sm = Ext.getCmp('bugList').getSelectionModel();
+			if (!sm.hasSelection()) {
+				Ext.Msg.alert('提示', '请选择要查看的行');
+				return;
+			}
+			var records = sm.getLastSelected();
+			var baseFormWindow = Ext.getCmp("bugViewWindow");
+			if (null == baseFormWindow) {
+				Ext.create('AM.view.BugView', {});// 第一次创建添加显示窗口
+			}
+			baseFormWindow = Ext.getCmp("bugViewWindow");
+			baseFormWindow.setTitle("查看BUG详细信息");
+			baseFormWindow.show();
+			var selectedId = records.get("id");
+			var form = Ext.getCmp("bugViewForm").getForm();
+			
+			form.load({
+				 url: '../bug/getBugViewById/' + selectedId,
+                waitMsg: '正在载入数据...',
+                waitTitle: '请稍等...',
+//                params: { t: "get", prid: prid },
+//                success: function(_form, action) {
+//					
+//                },
+                failure: function(_form, action) {
+                    msg("提示信息", "加载数据时发生异常！");
+                }
+			});
 		});
 	},
 	delBug : function(){
