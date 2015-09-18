@@ -126,7 +126,7 @@ Ext.define("AM.view.UserQuery",{
 			xtype : 'button',
 			text : '查询',
 			id : 'queryUser',
-			glyph:0xf0c7
+			glyph : 0xf002
 		}, {
 			xtype : 'button',
 			text : '重置',

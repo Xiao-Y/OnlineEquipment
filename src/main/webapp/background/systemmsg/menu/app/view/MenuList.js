@@ -13,12 +13,12 @@ Ext.define('AM.view.MenuList', {
 		}, {
 			xtype : 'button',
 			id : 'delMenu',
-			glyph : 0xf146,
+			glyph : 0xf1f8,
 			text : '删除'
 		}, {
 			xtype : 'button',
 			text : '修改',
-			glyph : 0xf0c7,
+			glyph : 0xf040,
 			id : "editMenu"
 		}, {
 			xtype : 'button',

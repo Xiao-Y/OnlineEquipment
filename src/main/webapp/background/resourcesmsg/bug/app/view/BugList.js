@@ -15,12 +15,12 @@ Ext.define("AM.view.BugList",{
 		}, {
 			xtype : 'button',
 			id : 'delBug',
-			glyph : 0xf146,
+			glyph : 0xf1f8,
 			text : '删除'
 		}, {
 			xtype : 'button',
 			text : '修改',
-			glyph : 0xf0c7,
+			glyph : 0xf040,
 			id : "editBug"
 		}, {
 			xtype : 'button',
