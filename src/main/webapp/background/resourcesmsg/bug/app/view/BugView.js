@@ -2,8 +2,10 @@ Ext.define('AM.view.BugView', {
 	extend : 'Ext.window.Window',
 	alias : "widget.bugView",
 	id : 'bugViewWindow',
-	height : 350,
-	width : 600,
+	resizable : false,//是否可调整 
+	maximizable : true, //显示最大化
+	height : 360,
+	width : 500,
 	layout : 'fit',
 	modal:true,//模态框
 	items : [ {
@@ -16,10 +18,8 @@ Ext.define('AM.view.BugView', {
 			activeTab: 0,
 			xtype: 'tabpanel',
 			layout : 'fit',
-			bodyPadding : 5,
 		    items:[{
 		    	title:"详细信息",
-				bodyPadding : 5,
 				autoScroll : true,
 				layout : 'anchor',
 				defaults : {
@@ -66,8 +66,8 @@ Ext.define('AM.view.BugView', {
 		    	title: 'BUG截图信息',
 				xtype: 'panel',
 				id:'bugViewImagePanel',
-				autoScroll:true,
-				layout: 'column'
+				layout: 'fit',
+				autoScroll:true
 		    }]
 		}]
 	} ],

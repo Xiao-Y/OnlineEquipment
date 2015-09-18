@@ -162,37 +162,35 @@ Ext.define('AM.controller.BugController', {
 			});
 			//加载图片
 			//获取点击行的id
-		var imgArray = new Array();
-		Ext.Ajax.request({
-			url:"../bug/getImage/" + selectedId,
-			method:'GET',
-			async:false,
-			success:function(response){
-				var obj = Ext.JSON.decode(response.responseText);
-				//获取图片数组
-				imgArray = obj.root;
-			},
-			failure:function(response){
-				var obj = Ext.JSON.decode(response.responseText);
-				Ext.Msg.alert('提示',obj.message);
+			var imgArray = new Array();
+			Ext.Ajax.request({
+				url:"../bug/getImage/" + selectedId,
+				method:'GET',
+				async:false,
+				success:function(response){
+					var obj = Ext.JSON.decode(response.responseText);
+					//获取图片数组
+					imgArray = obj.root;
+				},
+				failure:function(response){
+					var obj = Ext.JSON.decode(response.responseText);
+					Ext.Msg.alert('提示',obj.message);
+				}
+			});
+			//移除页面板上的图片		
+			Ext.getCmp('bugViewImagePanel').removeAll();
+			if(imgArray){
+				for(var i = 0; i < imgArray.length; i++){
+					(function(imageId){
+						//创建image对象
+						var changingImage = Ext.create('Ext.Img', {
+							src: '../../../resource/upload/image/'+imgArray[i]
+						});
+						//添加到面板上
+						Ext.getCmp('bugViewImagePanel').add(changingImage);
+					})(imgArray[i])
+				}
 			}
-		});
-		//移除页面板上的图片		
-		Ext.getCmp('bugViewImagePanel').removeAll();
-		if(imgArray){
-			for(var i = 0; i < imgArray.length; i++){
-				(function(imageId){
-					//创建image对象
-					var changingImage = Ext.create('Ext.Img', {
-						width:800,
-						height:600,
-						src: '../../../resource/upload/image/'+imgArray[i]
-					});
-					//添加到面板上
-					Ext.getCmp('bugImagePanel').add(changingImage);
-				})(imgArray[i])
-			}
-		}
 		});
 	},
 	delBug : function(){

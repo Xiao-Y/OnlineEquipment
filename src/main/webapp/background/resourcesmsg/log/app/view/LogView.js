@@ -2,6 +2,8 @@ Ext.define('AM.view.LogView', {
 	extend : 'Ext.window.Window',
 	alias : "widget.logView",
 	id : 'logViewWindow',
+	resizable   : false,//是否可调整 
+	maximizable : true, //显示最大化
 	height : 350,
 	width : 600,
 	layout : 'fit',
