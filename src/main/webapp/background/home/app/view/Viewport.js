@@ -20,6 +20,7 @@ Ext.define('AM.view.Viewport',{
 		border:false,
 		autoScroll:true,
 		bodyPadding : 3,
+	    glyph:0xf1b0,
 		items:[{//更换主题
 	        xtype: 'combobox',
 	        width: 200,

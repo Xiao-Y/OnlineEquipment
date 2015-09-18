@@ -6,6 +6,7 @@ Ext.define('AM.view.ContentPanel', {
     closable : true,//显示关闭按钮
     headerPosition: 'left',
 	glyph:0xf123,
+	//glyph:0xf1cd,
     initComponent: function() {
         var me = this;
         me.callParent(arguments);

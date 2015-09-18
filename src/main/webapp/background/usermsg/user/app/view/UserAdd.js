@@ -138,6 +138,11 @@ Ext.define("AM.view.UserAdd",{
 		dock : 'bottom',
 		items : [ '->', {
 			xtype : 'button',
+			text : '修改头像',
+			id : 'EditUserImg',
+			glyph:0xf0ee
+		},{
+			xtype : 'button',
 			text : '保存',
 			id : 'saveUser',
 			glyph:0xf0c7

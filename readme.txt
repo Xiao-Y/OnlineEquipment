@@ -18,8 +18,8 @@ home
 服务容器：jetty-8.1.14
 数据库：Mysql-5.1
 
-系统入口：
-http://localhost:9080/OnlineEquipment/home/index
+系统后台入口：
+http://localhost:9080/OnlineEquipment/background/home/index
 
 
 1.每个入口jsp中都要引入公用js和css
