@@ -13,7 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.util.GenericSuperclass;
+import com.xiaoy.util.GenericSuperClazz;
 
 /**
  * @author XiaoY
@@ -33,7 +33,7 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 
 	// 获取当前类的父类的类型(泛型的转换)
 	@SuppressWarnings("rawtypes")
-	Class entityClass = GenericSuperclass.getClass(this.getClass());
+	Class entityClass = GenericSuperClazz.getClass(this.getClass());
 
 	public void deleteObjectByid(Serializable id) {
 		this.getSession().delete(this.getSession().get(entityClass, id));
