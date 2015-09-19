@@ -64,7 +64,7 @@ public class LogController {
 			long total = logService.countLog(log);
 			json.setSuccess(true);
 			json.setRoot(list);
-			json.setTotal(total);;
+			json.setTotal(total);
 		} catch (Exception e) {
 			json.setMessage(MessageTips.SERVICE_ERRER);
 			e.printStackTrace();
