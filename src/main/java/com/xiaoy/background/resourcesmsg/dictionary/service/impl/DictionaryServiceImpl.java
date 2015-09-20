@@ -1,5 +1,7 @@
 package com.xiaoy.background.resourcesmsg.dictionary.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +22,12 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 	public void setCommonDao(CommonDao<Dictionary> commonDao) {
 		super.commonDao = commonDao;
 		this.dictionaryDao = (DictionaryDao) commonDao;
+	}
+
+	@Override
+	public List<Dictionary> getDictionary(Dictionary dictionary) {
+		List<Dictionary> list = dictionaryDao.getDictionary(dictionary);
+		return list;
 	}
 
 }

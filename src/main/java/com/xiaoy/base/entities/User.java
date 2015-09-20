@@ -1,5 +1,6 @@
 package com.xiaoy.base.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +8,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -16,7 +16,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,25 +30,21 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "USER")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class User {
-	private String id;
+public class User extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 6181384115936269946L;
+
 	// 用户名
 	private String username;
 	// 密码
 	private String password;
 	// 出生年月
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date birthday;
 	// 头像URL
 	private String imageUrl;
 	// 地址
 	private String address;
-	// 创建时间
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createTime;
-	// 更新时间
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date updateTime;
 	// 用户持有角色集合
 	@JsonManagedReference
 	Set<Role> roles = new HashSet<>();
@@ -66,17 +61,6 @@ public class User {
 	private String[] roleId;
 
 	/******************** 临时变量***end *****************************/
-
-	@Id
-	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	@Column(name = "USERNAME", unique = true, nullable = false, length = 20)
 	public String getUsername() {
@@ -121,24 +105,6 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	@Column(name = "CREATE_TIME")
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	@Column(name = "UPDATE_TIME")
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)

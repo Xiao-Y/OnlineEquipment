@@ -1,6 +1,6 @@
 package com.xiaoy.base.entities;
 
-import java.util.Date;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,17 +8,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 角色实体类
@@ -28,18 +24,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "ROLE")
-public class Role {
-	private String id;
+public class Role extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = -5600137110830037129L;
 	// 角色名称
 	private String roleName;
 	// 角色Code
 	private String roleCode;
-	// 创建时间
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createTime;
-	// 更新时间
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date updateTime;
 	// 授权状态，0未授权，1已授权
 	private String authorizeStatus;
 	// 授权状态名称
@@ -49,17 +40,6 @@ public class Role {
 	private Set<User> users = new HashSet<>();
 	// 角色持有权限的集合
 	private Set<Permission> permissions = new HashSet<>();
-
-	@Id
-	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	@Column(name = "ROLE_NAME", length = 50)
 	public String getRoleName() {
@@ -79,34 +59,16 @@ public class Role {
 		this.roleCode = roleCode;
 	}
 
-	@Column(name = "CREATE_TIME")
-	public Date getCreateTime() {
-		return createTime;
+	// @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
-
-	@Column(name = "UPDATE_TIME")
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	 // @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
-	 @ManyToMany(fetch = FetchType.LAZY)
-	 @JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
-	 public Set<User> getUsers() {
-	 return users;
-	 }
-	
-	 public void setUsers(Set<User> users) {
-	 this.users = users;
-	 }
 
 	@Column(name = "AUTHORIZE_STATUS", length = 5)
 	public String getAuthorizeStatus() {

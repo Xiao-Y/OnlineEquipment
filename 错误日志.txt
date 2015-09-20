@@ -45,8 +45,23 @@ Bug表没有自动创建：
 使用了自己定义的封装JsonResult,其中有多余的数，故菜单树未出现
 ---------------------------------------------------------------------
 
+5.数据字典
+---------------------------------------------------------------------
+数据字典自动建表没有自动建立
+1.使用了实体类的继承
+	子类：
+	@Entity
+	@Table(name = "DICTIONARY")
+	public class Dictionary extends BaseEntity implements Serializable {
+	
+	父类：
+	@MappedSuperclass
+	public abstract class BaseEntity {
 
-
+	注意：
+	1.注解要在get方法上
+	2.@Transient注解也要放在get方法上
+	3.父类要在类上使用@MappedSuperclass,说明是一个不完整的实体类，不会在数据库中建立表
 
 
 

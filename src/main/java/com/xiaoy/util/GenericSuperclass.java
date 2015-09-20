@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
  * @explain 类型转换器
  * @date: 2014年11月5日 下午9:45:44
  */
-public class GenericSuperClazz {
+public class GenericSuperclass {
 	/**
 	 * 泛型类型转换器
 	 * 

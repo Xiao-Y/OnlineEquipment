@@ -1,15 +1,10 @@
 package com.xiaoy.base.entities;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 权限实体类
@@ -19,29 +14,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "PERMISSION")
-public class Permission {
-	private String id;
+public class Permission extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = -5265798075097339678L;
+
 	private String permissionName;
 	private String url;
-	// 创建时间
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createTime;
-	// 更新时间
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date updateTime;
 
 	// private Set<Role> roles = new HashSet<>();
-
-	@Id
-	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	@Column(name = "PERMISSION_NAME", length = 150)
 	public String getPermissionName() {
@@ -59,24 +39,6 @@ public class Permission {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	@Column(name = "CREATE_TIME")
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	@Column(name = "UPDATE_TIME")
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 
 	// //@ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)

@@ -1,18 +1,13 @@
 package com.xiaoy.base.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 日志记录
@@ -22,16 +17,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "LOG")
-public class Log
-{
-	private String id;
+public class Log extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 3048622707076335461L;
+
 	// 用户id
 	private String userId;
-	//ip地址
+	// ip地址
 	private String ipAddr;
-	// 创建日期
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createTime;
 	// 运行的类
 	private String runClass;
 	// 日志内容
@@ -42,82 +35,48 @@ public class Log
 	// 用于存放用户的id
 	private List<Object> userIds = new ArrayList<>();
 
-	@Id
-	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
-	public String getId()
-	{
-		return id;
-	}
-
-	public void setId(String id)
-	{
-		this.id = id;
-	}
-
 	@Column(name = "USER_ID", nullable = false, length = 100)
-	public String getUserId()
-	{
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId)
-	{
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	@Column(name = "CREATE_TIME", nullable = false)
-	public Date getCreateTime()
-	{
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime)
-	{
-		this.createTime = createTime;
-	}
-
 	@Column(name = "CONTENT", length = 8000)
-	public String getContent()
-	{
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(String content)
-	{
+	public void setContent(String content) {
 		this.content = content;
 	}
 
 	@Column(name = "OPERATION", length = 5000)
-	public String getOperation()
-	{
+	public String getOperation() {
 		return operation;
 	}
 
-	public void setOperation(String operation)
-	{
+	public void setOperation(String operation) {
 		this.operation = operation;
 	}
 
 	@Column(name = "RUN_CLASS", length = 150)
-	public String getRunClass()
-	{
+	public String getRunClass() {
 		return runClass;
 	}
 
-	public void setRunClass(String runClass)
-	{
+	public void setRunClass(String runClass) {
 		this.runClass = runClass;
 	}
 
 	@Transient
-	public List<Object> getUserIds()
-	{
+	public List<Object> getUserIds() {
 		return userIds;
 	}
 
-	public void setUserIds(List<Object> userIds)
-	{
+	public void setUserIds(List<Object> userIds) {
 		this.userIds = userIds;
 	}
 
@@ -131,8 +90,7 @@ public class Log
 
 	@Override
 	public String toString() {
-		return "Log [id=" + id + ", userId=" + userId + ", ipAddr=" + ipAddr + ", createTime=" + createTime + ", runClass=" + runClass + ", content="
-				+ content + ", operation=" + operation + ", userIds=" + userIds + "]";
+		return "Log [userId=" + userId + ", ipAddr=" + ipAddr + ", runClass=" + runClass + ", content=" + content + ", operation=" + operation + ", userIds="
+				+ userIds + "]";
 	}
-
 }

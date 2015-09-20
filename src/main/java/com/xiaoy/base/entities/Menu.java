@@ -1,16 +1,11 @@
 package com.xiaoy.base.entities;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 菜单实体类对应表为Menu
@@ -20,9 +15,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "MENU")
-public class Menu {
-	// ID
-	private String id;
+public class Menu extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 4280720426670786694L;
+
 	// 菜单名
 	private String menuName;
 	// 菜单URL
@@ -33,12 +29,6 @@ public class Menu {
 	private String parentName;
 	// 备注
 	private String remark;
-	// 创建日期
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createTime;
-	// 最后修改日期
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date updateTime;
 	// 菜单类型。1表示叶子节点，0表示树枝节点
 	private String menuType;
 	// 排序号（显示位置）
@@ -46,17 +36,6 @@ public class Menu {
 
 	public Menu() {
 		super();
-	}
-
-	@Id
-	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "id", unique = true, nullable = false, length = 100)
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	@Column(name = "MENU_NAME", length = 50)
@@ -93,24 +72,6 @@ public class Menu {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	@Column(name = "CREATE_TIME")
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	@Column(name = "UPDATE_TIME")
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 
 	@Column(name = "MENU_TYPE", length = 2)

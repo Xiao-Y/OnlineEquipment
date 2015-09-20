@@ -1,16 +1,11 @@
 package com.xiaoy.base.entities;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * bug实体类
@@ -20,276 +15,192 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "BUG")
-public class Bug
-{
-	// ID
-	private String id;
+public class Bug extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 9100328495508187536L;
+
 	// bug标题
 	private String title;
 	// 缺陷描述 (重现的步骤)
 	private String note;
-	// 创建时间
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createTime;
-	// 最后更新时间
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date updateTime;
 	// bug上传图片路径
 	private String imgUrl;
 	// bug状态。0未修改，1已经修改
 	private String status;
-	// bug状态名称
-	private String statusName;
 	// bug修改说明
 	private String reviseExplain;
 	// bug出现的父模块id
 	private String parentId;
-	// bug出现的父模块名称
-	private String parentName;
 	// bug出现的子模块id
 	private String childrenId;
-	// bug出现的子模块名称
-	private String childrenName;
 	// bug严重程度
 	private String severity;
-	// bug严重程度名称
-	private String severityName;
 	// 重现规律
 	private String reappear;
-	// 重现规律名称
-	private String reappearName;
 	// bug类型
 	private String bugType;
+
+	/********* 临时的变量******start ****************/
+	// bug状态名称
+	private String statusName;
+	// bug出现的父模块名称
+	private String parentName;
+	// bug出现的子模块名称
+	private String childrenName;
+	// bug严重程度名称
+	private String severityName;
+	// 重现规律名称
+	private String reappearName;
 	// bug类型名称
 	private String bugTypeName;
 
-	// // 优先级
-	// private String priority;
+	/********* 临时的变量******end ****************/
 
-	public Bug()
-	{
+	public Bug() {
 		super();
 	}
 
-	@Id
-	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
-	public String getId()
-	{
-		return id;
-	}
-
-	public void setId(String id)
-	{
-		this.id = id;
-	}
-
 	@Column(name = "TITLE", nullable = false, length = 100)
-	public String getTitle()
-	{
+	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title)
-	{
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
 	@Column(name = "NOTE", nullable = false, length = 8000)
-	public String getNote()
-	{
+	public String getNote() {
 		return note;
 	}
 
-	public void setNote(String note)
-	{
+	public void setNote(String note) {
 		this.note = note;
 	}
 
-	@Column(name = "CREATE_TIME")
-	public Date getCreateTime()
-	{
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime)
-	{
-		this.createTime = createTime;
-	}
-
-	@Column(name = "UPDATE_TIME")
-	public Date getUpdateTime()
-	{
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime)
-	{
-		this.updateTime = updateTime;
-	}
-
 	@Column(name = "IMG_URL", length = 150)
-	public String getImgUrl()
-	{
+	public String getImgUrl() {
 		return imgUrl;
 	}
 
-	public void setImgUrl(String imgUrl)
-	{
+	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
 
 	@Column(name = "STATUS", length = 5)
-	public String getStatus()
-	{
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status)
-	{
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
 	@Column(name = "REVISE_EXPLAIN", length = 3000)
-	public String getReviseExplain()
-	{
+	public String getReviseExplain() {
 		return reviseExplain;
 	}
 
-	public void setReviseExplain(String reviseExplain)
-	{
+	public void setReviseExplain(String reviseExplain) {
 		this.reviseExplain = reviseExplain;
 	}
 
 	@Column(name = "PARENT_ID", length = 100)
-	public String getParentId()
-	{
+	public String getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(String parentId)
-	{
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 
 	@Column(name = "CHILDREN_ID", length = 100)
-	public String getChildrenId()
-	{
+	public String getChildrenId() {
 		return childrenId;
 	}
 
-	public void setChildrenId(String childrenId)
-	{
+	public void setChildrenId(String childrenId) {
 		this.childrenId = childrenId;
 	}
 
 	@Column(name = "SEVERITY", length = 5)
-	public String getSeverity()
-	{
+	public String getSeverity() {
 		return severity;
 	}
 
-	public void setSeverity(String severity)
-	{
+	public void setSeverity(String severity) {
 		this.severity = severity;
 	}
 
 	@Column(name = "REAPPEAR", length = 5)
-	public String getReappear()
-	{
+	public String getReappear() {
 		return reappear;
 	}
 
-	public void setReappear(String reappear)
-	{
+	public void setReappear(String reappear) {
 		this.reappear = reappear;
 	}
 
 	@Column(name = "BUG_TYPE", length = 5)
-	public String getBugType()
-	{
+	public String getBugType() {
 		return bugType;
 	}
 
-	public void setBugType(String bugType)
-	{
+	public void setBugType(String bugType) {
 		this.bugType = bugType;
 	}
 
-	@Column(name = "PRIORITY", length = 5)
-	// public String getPriority()
-	// {
-	// return priority;
-	// }
-	//
-	// public void setPriority(String priority)
-	// {
-	// this.priority = priority;
-	// }
 	@Transient
-	public String getStatusName()
-	{
+	public String getStatusName() {
 		return statusName;
 	}
 
-	public void setStatusName(String statusName)
-	{
+	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
 
 	@Transient
-	public String getParentName()
-	{
+	public String getParentName() {
 		return parentName;
 	}
 
-	public void setParentName(String parentName)
-	{
+	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}
 
 	@Transient
-	public String getChildrenName()
-	{
+	public String getChildrenName() {
 		return childrenName;
 	}
 
-	public void setChildrenName(String childrenName)
-	{
+	public void setChildrenName(String childrenName) {
 		this.childrenName = childrenName;
 	}
 
 	@Transient
-	public String getSeverityName()
-	{
+	public String getSeverityName() {
 		return severityName;
 	}
 
-	@Transient
-	public void setSeverityName(String severityName)
-	{
+	public void setSeverityName(String severityName) {
 		this.severityName = severityName;
 	}
 
 	@Transient
-	public String getReappearName()
-	{
+	public String getReappearName() {
 		return reappearName;
 	}
 
-	public void setReappearName(String reappearName)
-	{
+	public void setReappearName(String reappearName) {
 		this.reappearName = reappearName;
 	}
 
 	@Transient
-	public String getBugTypeName()
-	{
+	public String getBugTypeName() {
 		return bugTypeName;
 	}
 
-	public void setBugTypeName(String bugTypeName)
-	{
+	public void setBugTypeName(String bugTypeName) {
 		this.bugTypeName = bugTypeName;
 	}
 }

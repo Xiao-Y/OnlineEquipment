@@ -1,5 +1,7 @@
 package com.xiaoy.base.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,8 +17,10 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "ZIP")
-public class Zip {
+public class Zip implements Serializable{
 
+	private static final long serialVersionUID = 8612608297217687300L;
+	
 	private String id;// 行政码
 	private String name;// 全称
 	private String parentId;// 上级行政码
