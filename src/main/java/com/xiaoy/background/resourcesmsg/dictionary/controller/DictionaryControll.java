@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
 import com.xiaoy.base.entities.Dictionary;
 import com.xiaoy.util.JsonResult;
+import com.xiaoy.util.Tools;
 
 /**
  * 数据字典
@@ -26,12 +27,22 @@ public class DictionaryControll {
 	@Resource
 	private DictionaryService dictionaryService;
 
+	@RequestMapping("/index")
+	public String index() {
+		return "background/resourcesmsg/dictionary/index";
+	}
+
 	@ResponseBody
 	@RequestMapping("/getDictionary")
 	private JsonResult getDictionary(HttpServletRequest request) {
+		String limit = Tools.getStringParameter(request, "limit");
+		String start = Tools.getStringParameter(request, "start");
 		
 		JsonResult json = new JsonResult();
 		Dictionary dictionary = new Dictionary();
+		dictionary.setLimit(limit);
+		dictionary.setStart(start);
+		
 		List<Dictionary> list = dictionaryService.getDictionary(dictionary);
 		json.setRoot(list);
 		json.setSuccess(true);

@@ -149,7 +149,7 @@ Ext.define('AM.controller.BugController', {
 			var form = Ext.getCmp("bugViewForm").getForm();
 			
 			form.load({
-				 url: '../bug/getBugViewById/' + selectedId,
+				url: '../bug/getBugViewById/' + selectedId,
                 waitMsg: '正在载入数据...',
                 waitTitle: '请稍等...',
 //                params: { t: "get", prid: prid },

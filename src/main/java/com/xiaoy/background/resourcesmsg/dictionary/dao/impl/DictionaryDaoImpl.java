@@ -14,12 +14,11 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 
 	@Override
 	public List<Dictionary> getDictionary(Dictionary dictionary) {
-		// String start = dictionary.getStart();
-		// String limit = dictionary.getLimit();
+		String start = dictionary.getStart();
+		String limit = dictionary.getLimit();
 		StringBuffer hqlWhere = new StringBuffer();
 		Map<String, Object> paramsMapValue = this.appendWhere(dictionary, hqlWhere);
-		// return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
-		return null;
+		return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
 	}
 
 	/**
