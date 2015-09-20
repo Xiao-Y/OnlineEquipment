@@ -14,9 +14,9 @@ Ext.define('AM.view.DictionaryList', {
 			id : "topQueryDictionary"
 		},{
 			xtype : 'button',
-			text : '详细信息',
+			text : '数据字典维护',
 			glyph : 0xf0ae,
-			id : "lookDictionary"
+			id : "maintainDictionary"
 		},{
 			xtype : 'button',
 			text : '重置',

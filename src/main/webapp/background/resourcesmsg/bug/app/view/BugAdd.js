@@ -9,7 +9,7 @@ Ext.define('AM.view.BugAdd', {
 	items : [ {
 		xtype : 'form',
 		buttonAlign : 'right',
-		border:0,
+		border:false,
 		id : "bugAddForm",
 		layout : 'fit',
 	    items:[{

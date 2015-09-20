@@ -10,7 +10,7 @@ Ext.define("AM.view.UserAdd",{
 		layout : 'column',
 		items : [{
 			columnWidth : .3, // 该列有整行中所占百分比
-           	layout : "fit", // 从上往下的布局
+           	layout : "fit",
            	items : [{
 				xtype : "panel",
 				height : 300,
