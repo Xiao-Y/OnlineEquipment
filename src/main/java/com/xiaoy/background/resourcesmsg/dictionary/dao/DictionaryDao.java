@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.entities.Dictionary;
+import com.xiaoy.util.CheckBox;
 
 public interface DictionaryDao extends CommonDao<Dictionary> {
 
@@ -15,5 +16,16 @@ public interface DictionaryDao extends CommonDao<Dictionary> {
 	 * @return
 	 */
 	List<Dictionary> getDictionary(Dictionary dictionary);
+
+	/**
+	 * 获取模块的下拉列表
+	 * 
+	 * @param modelName
+	 *            模块名称
+	 * @param fieldName
+	 *            字段名称
+	 * @return
+	 */
+	List<CheckBox> getModelNameCheckBox(String modelName, String fieldName);
 
 }

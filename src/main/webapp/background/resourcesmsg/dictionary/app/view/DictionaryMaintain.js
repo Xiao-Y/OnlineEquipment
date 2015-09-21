@@ -26,21 +26,21 @@ Ext.define("AM.view.DictionaryMaintain",{
 				items : [{
 					fieldLabel : '模块名',
 					xtype : 'combobox',
-					displayField : 'roleName',
+					displayField : 'displayField',
 					allowBlank : false,
 					multiSelect : true,//允许多选
-					valueField : 'id',
+					valueField : 'valueField',
 					queryMode : 'local',
 					forceSelection : true,// 所选择的值必须是列表中的值
 					//store : 'RoleStore',
-					//name : 'roleId',
-					//id : 'roleId',
+					name : 'modelName',
+					id : 'modelName',
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>"
 					}
 				},{
 					fieldLabel : '新模块名',
-					name : 'name'
+					name : 'newModelName'
 				}]
 			},{
 				layout : "column",
@@ -55,21 +55,21 @@ Ext.define("AM.view.DictionaryMaintain",{
 				items : [{
 					fieldLabel : '字段名',
 					xtype : 'combobox',
-					displayField : 'roleName',
+					displayField : 'displayField',
 					allowBlank : false,
 					multiSelect : true,//允许多选
-					valueField : 'id',
+					valueField : 'valueField',
 					queryMode : 'local',
 					forceSelection : true,// 所选择的值必须是列表中的值
 					//store : 'RoleStore',
-					//name : 'roleId',
-					//id : 'roleId',
+					name : 'fieldName',
+					id : 'fieldName',
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>"
 					}
 				},{
 					fieldLabel : '新字段名',
-					name : 'name'
+					name : 'newFieldName'
 				}]
 			}]
 		},{

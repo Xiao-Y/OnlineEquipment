@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
 import com.xiaoy.base.entities.Dictionary;
+import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.Tools;
 
@@ -34,18 +35,30 @@ public class DictionaryControll {
 
 	@ResponseBody
 	@RequestMapping("/getDictionary")
-	private JsonResult getDictionary(HttpServletRequest request) {
+	public JsonResult getDictionary(HttpServletRequest request) {
 		String limit = Tools.getStringParameter(request, "limit");
 		String start = Tools.getStringParameter(request, "start");
-		
+
 		JsonResult json = new JsonResult();
 		Dictionary dictionary = new Dictionary();
 		dictionary.setLimit(limit);
 		dictionary.setStart(start);
-		
+
 		List<Dictionary> list = dictionaryService.getDictionary(dictionary);
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;
+	}
+
+	/**
+	 * 获取模块的下拉列表
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getModelNameCheckBox")
+	public List<CheckBox> getModelNameCheckBox() {
+		//List<CheckBox> list = dictionaryService.getModelNameCheckBox("dic");
+		return null;
 	}
 }

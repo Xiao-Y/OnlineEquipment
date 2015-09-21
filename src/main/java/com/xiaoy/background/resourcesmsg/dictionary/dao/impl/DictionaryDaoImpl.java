@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.xiaoy.background.resourcesmsg.dictionary.dao.DictionaryDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
 import com.xiaoy.base.entities.Dictionary;
+import com.xiaoy.util.CheckBox;
 
 @Repository
 public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements DictionaryDao {
@@ -31,6 +32,12 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 	 * @return
 	 */
 	private Map<String, Object> appendWhere(Dictionary dictionary, StringBuffer hqlWhere) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CheckBox> getModelNameCheckBox(String modelName, String fieldName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
