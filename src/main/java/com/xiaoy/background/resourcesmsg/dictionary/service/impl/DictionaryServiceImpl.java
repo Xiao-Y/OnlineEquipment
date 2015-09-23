@@ -11,7 +11,6 @@ import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
 import com.xiaoy.base.dao.CommonDao;
 import com.xiaoy.base.entities.Dictionary;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
-import com.xiaoy.util.CheckBox;
 
 @Service
 public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> implements DictionaryService {
@@ -32,8 +31,8 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 	}
 
 	@Override
-	public List<CheckBox> getModelNameCheckBox(String modelName, String fieldName) {
-		return dictionaryDao.getModelNameCheckBox(modelName, fieldName);
+	public List<Dictionary> getModelNameCheckBox() {
+		return dictionaryDao.getModelNameCheckBox();
 	}
 
 }

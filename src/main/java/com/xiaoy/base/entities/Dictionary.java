@@ -20,9 +20,13 @@ public class Dictionary extends BaseEntity implements Serializable {
 
 	// 模块的名称
 	private String modelName;
+	// 模块的Code
+	private String modelCode;
 
 	// 字段名称
 	private String fieldName;
+	// 字段Code
+	private String fieldCode;
 
 	// 存储的值
 	private String valueField;
@@ -32,6 +36,14 @@ public class Dictionary extends BaseEntity implements Serializable {
 
 	// 备注
 	private String notice;
+
+	public Dictionary(String modelName, String modelCode) {
+		this.modelName = modelName;
+		this.modelCode = modelCode;
+	}
+
+	public Dictionary() {
+	}
 
 	@Column(name = "MODEL_NAME", nullable = false, length = 100)
 	public String getModelName() {
@@ -76,5 +88,23 @@ public class Dictionary extends BaseEntity implements Serializable {
 
 	public void setNotice(String notice) {
 		this.notice = notice;
+	}
+
+	@Column(name = "MODEL_CODE", nullable = false, length = 100)
+	public String getModelCode() {
+		return modelCode;
+	}
+
+	public void setModelCode(String modelCode) {
+		this.modelCode = modelCode;
+	}
+
+	@Column(name = "FIELD_CODE", nullable = false, length = 100)
+	public String getFieldCode() {
+		return fieldCode;
+	}
+
+	public void setFieldCode(String fieldCode) {
+		this.fieldCode = fieldCode;
 	}
 }

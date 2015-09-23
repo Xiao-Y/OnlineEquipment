@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
 import com.xiaoy.base.entities.Dictionary;
-import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.Tools;
 
@@ -57,8 +56,11 @@ public class DictionaryControll {
 	 */
 	@ResponseBody
 	@RequestMapping("/getModelNameCheckBox")
-	public List<CheckBox> getModelNameCheckBox() {
-		//List<CheckBox> list = dictionaryService.getModelNameCheckBox("dic");
-		return null;
+	public JsonResult getModelNameCheckBox() {
+		JsonResult json = new JsonResult();
+		List<Dictionary> list = dictionaryService.getModelNameCheckBox();
+		json.setSuccess(true);
+		json.setRoot(list);
+		return json;
 	}
 }

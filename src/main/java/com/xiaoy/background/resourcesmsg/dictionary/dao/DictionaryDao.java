@@ -18,14 +18,19 @@ public interface DictionaryDao extends CommonDao<Dictionary> {
 	List<Dictionary> getDictionary(Dictionary dictionary);
 
 	/**
-	 * 获取模块的下拉列表
+	 * 获取下拉列表
 	 * 
-	 * @param modelName
-	 *            模块名称
-	 * @param fieldName
-	 *            字段名称
+	 * @param dictionary
+	 *            模块名，字段名
 	 * @return
 	 */
-	List<CheckBox> getModelNameCheckBox(String modelName, String fieldName);
+	List<CheckBox> getCheckBox(Dictionary dictionary);
+
+	/**
+	 * 获取数据字典模块的下拉列表
+	 * 
+	 * @return
+	 */
+	List<Dictionary> getModelNameCheckBox();
 
 }

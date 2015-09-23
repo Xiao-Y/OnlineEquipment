@@ -2,7 +2,7 @@ Ext.define("AM.controller.DictionaryController",{
 	extend : "Ext.app.Controller",
 	views : ["DictionaryList","DictionaryMaintain"],
 	models : ["DictionaryModel"],
-	stores : ["DictionaryStore"],
+	stores : ["DictionaryStore","ModelBoxStore"],
 	init : function() {
 		this.control({
 			"dictionaryList button[id=maintainDictionary]":{//数据字典维护

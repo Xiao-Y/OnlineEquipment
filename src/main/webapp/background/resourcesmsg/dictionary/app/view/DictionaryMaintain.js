@@ -4,7 +4,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 	id : "dictionaryMaintainWindow",
 	modal : true,
 	resizable : false,//是否可调整 
-	width : 570,
+	width : 600,
 	height : 420,
 	layout : "fit",
 	items : [{
@@ -19,25 +19,28 @@ Ext.define("AM.view.DictionaryMaintain",{
 				defaults : {
 					labelWidth : 80,
 					labelAlign : 'right',
-					columnWidth : .5
+					columnWidth : .33
 				},
 				defaultType : 'textfield',
 				bodyPadding : 3,
 				items : [{
 					fieldLabel : '模块名',
 					xtype : 'combobox',
-					displayField : 'displayField',
+					displayField : 'modelName',
 					allowBlank : false,
-					multiSelect : true,//允许多选
-					valueField : 'valueField',
+					valueField : 'modelCode',
 					queryMode : 'local',
 					forceSelection : true,// 所选择的值必须是列表中的值
-					//store : 'RoleStore',
-					name : 'modelName',
-					id : 'modelName',
+					store : 'ModelBoxStore',
+					name : 'modelCode',
+					id : 'modelCode',
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>"
 					}
+				},{
+					fieldLabel : '模块CODE',
+					readOnly : true,
+					name : 'modelCode'
 				},{
 					fieldLabel : '新模块名',
 					name : 'newModelName'
@@ -48,7 +51,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 				defaults : {
 					labelWidth : 80,
 					labelAlign : 'right',
-					columnWidth : .5
+					columnWidth : .33
 				},
 				defaultType : 'textfield',
 				bodyPadding : 3,
@@ -67,6 +70,10 @@ Ext.define("AM.view.DictionaryMaintain",{
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>"
 					}
+				},{
+					fieldLabel : '字段CODE',
+					readOnly : true,
+					name : 'fieldCode'
 				},{
 					fieldLabel : '新字段名',
 					name : 'newFieldName'
@@ -91,10 +98,13 @@ Ext.define("AM.view.DictionaryMaintain",{
 					width : 50
 				}, {
 					header : '传送值',
-					dataIndex : 'id'
+					dataIndex : 'valueField'
 				}, {
 					header : '显示值',
-					dataIndex : 'modelName'
+					dataIndex : 'displayField'
+				}, {
+					header : '类型',
+					dataIndex : 'notice'
 				}],
 				dockedItems : [ {
 					xtype : 'pagingtoolbar',// 分页组件

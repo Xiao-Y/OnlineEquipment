@@ -1,8 +1,11 @@
 package com.xiaoy.background.resourcesmsg.dictionary.dao.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.resourcesmsg.dictionary.dao.DictionaryDao;
@@ -32,14 +35,46 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 	 * @return
 	 */
 	private Map<String, Object> appendWhere(Dictionary dictionary, StringBuffer hqlWhere) {
-		// TODO Auto-generated method stub
+		if (dictionary != null) {
+			Map<String, Object> map = new HashMap<>();
+			if (!StringUtils.isEmpty(dictionary.getModelCode())) {
+				hqlWhere.append(" and modelCode = :modelCode");
+				map.put("modelCode", dictionary.getModelCode());
+			}
+
+			if (!StringUtils.isEmpty(dictionary.getFieldCode())) {
+				hqlWhere.append(" and fieldCode = :fieldCode");
+				map.put("fieldCode", dictionary.getFieldCode());
+			}
+
+			return map;
+		}
 		return null;
 	}
 
 	@Override
-	public List<CheckBox> getModelNameCheckBox(String modelName, String fieldName) {
-		// TODO Auto-generated method stub
+	public List<CheckBox> getCheckBox(Dictionary dictionary) {
+		StringBuffer hqlWhere = new StringBuffer("");
+		Map<String, Object> map = this.appendWhere(dictionary, hqlWhere);
+		List<Dictionary> list = super.findCollectionByCondition(hqlWhere.toString(), map);
+		if (list != null && list.size() > 0) {
+			List<CheckBox> checkList = new ArrayList<CheckBox>();
+			for (Dictionary d : list) {
+				CheckBox box = new CheckBox();
+				box.setDisplayField(d.getDisplayField());
+				box.setValueField(d.getValueField());
+				checkList.add(box);
+			}
+			return checkList;
+		}
 		return null;
+	}
+
+	@Override
+	public List<Dictionary> getModelNameCheckBox() {
+		String hql = "select distinct new Dictionary(modelName, modelCode) from Dictionary";
+		List<Dictionary> list = super.find(hql, null, null, null);
+		return list;
 	}
 
 }

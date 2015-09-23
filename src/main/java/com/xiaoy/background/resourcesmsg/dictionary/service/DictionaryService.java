@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.xiaoy.base.entities.Dictionary;
 import com.xiaoy.base.service.CommonService;
-import com.xiaoy.util.CheckBox;
 
 public interface DictionaryService extends CommonService<Dictionary> {
 
@@ -20,12 +19,8 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	/**
 	 * 获取模块的下拉列表
 	 * 
-	 * @param modelName
-	 *            模块名称
-	 * @param fieldName
-	 *            字段名称
 	 * @return
 	 */
-	List<CheckBox> getModelNameCheckBox(String modelName, String fieldName);
+	List<Dictionary> getModelNameCheckBox();
 
 }

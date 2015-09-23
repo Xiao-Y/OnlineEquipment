@@ -55,7 +55,7 @@ Ext.define('AM.view.DictionaryList', {
 			header : '传送值',
 			dataIndex : 'valueField'
 		}, {
-			header : '备注',
+			header : '类型',
 			dataIndex : 'notice'
 		}, {
 			header : '创建时间',
