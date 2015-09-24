@@ -44,10 +44,12 @@ Ext.define("AM.view.DictionaryMaintain",{
 		    	   			Ext.getCmp('fieldCode').store.load({
 		    	   				params : {
 		    	   					fieldCode:combo.getValue()
+		    	   				},
+		    	   				callback: function(records, options, success){ 
+				        			var modelBoxStore = Ext.getCmp("fieldCode").getStore();
+									modelBoxStore.insert(0,{"fieldName":"新增","fieldCode":""});
 		    	   				}
 		    	   			});// 刷新子模块下拉框
-		        			var modelBoxStore = Ext.getCmp("fieldCode").getStore();
-							modelBoxStore.insert(0,{"fieldName":"新增","fieldCode":""});
 		        		}
 		        	}
 				},{
