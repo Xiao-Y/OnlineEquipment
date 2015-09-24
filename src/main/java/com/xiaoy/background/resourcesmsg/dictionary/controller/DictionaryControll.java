@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
@@ -59,6 +60,21 @@ public class DictionaryControll {
 	public JsonResult getModelNameCheckBox() {
 		JsonResult json = new JsonResult();
 		List<Dictionary> list = dictionaryService.getModelNameCheckBox();
+		json.setSuccess(true);
+		json.setRoot(list);
+		return json;
+	}
+
+	/**
+	 * 获取字段的下拉列表
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getFieldNameCheckBox")
+	public JsonResult getFieldNameCheckBox(@RequestParam(value = "modelCode", required = false) String modelCode) {
+		JsonResult json = new JsonResult();
+		List<Dictionary> list = dictionaryService.getFieldNameCheckBox(modelCode);
 		json.setSuccess(true);
 		json.setRoot(list);
 		return json;

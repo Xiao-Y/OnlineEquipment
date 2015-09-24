@@ -77,4 +77,16 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 		return list;
 	}
 
+	@Override
+	public List<Dictionary> getFieldNameCheckBox(String modelCode) {
+		StringBuffer hql = new StringBuffer("select distinct new Dictionary(fieldName, fieldCode, notice) from Dictionary where 1=1 ");
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (!StringUtils.isEmpty(modelCode)) {
+			hql.append(" and modelCode = :modelCode ");
+			map.put("modelCode", modelCode);
+		}
+		List<Dictionary> list = super.find(hql.toString(), map, null, null);
+		return list;
+	}
+
 }

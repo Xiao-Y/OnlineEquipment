@@ -33,4 +33,13 @@ public interface DictionaryDao extends CommonDao<Dictionary> {
 	 */
 	List<Dictionary> getModelNameCheckBox();
 
+	/**
+	 * 通过模块Code获取字段的下拉列表
+	 * 
+	 * @param modelCode
+	 *            模块Code
+	 * @return
+	 */
+	List<Dictionary> getFieldNameCheckBox(String modelCode);
+
 }

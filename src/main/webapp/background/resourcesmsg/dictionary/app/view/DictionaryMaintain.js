@@ -36,10 +36,24 @@ Ext.define("AM.view.DictionaryMaintain",{
 					id : 'modelCode',
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>"
-					}
+					},
+					listeners: {
+		        		select:function(combo){
+		        			Ext.getCmp("modelCodeReadOnly").setValue(combo.getValue());
+		        			Ext.getCmp('fieldCode').store.removeAll();
+		    	   			Ext.getCmp('fieldCode').store.load({
+		    	   				params : {
+		    	   					fieldCode:combo.getValue()
+		    	   				}
+		    	   			});// 刷新子模块下拉框
+		        			var modelBoxStore = Ext.getCmp("fieldCode").getStore();
+							modelBoxStore.insert(0,{"fieldName":"新增","fieldCode":""});
+		        		}
+		        	}
 				},{
 					fieldLabel : '模块CODE',
 					readOnly : true,
+					id : "modelCodeReadOnly",
 					name : 'modelCode'
 				},{
 					fieldLabel : '新模块名',
@@ -58,21 +72,26 @@ Ext.define("AM.view.DictionaryMaintain",{
 				items : [{
 					fieldLabel : '字段名',
 					xtype : 'combobox',
-					displayField : 'displayField',
+					displayField : 'fieldName',
 					allowBlank : false,
-					multiSelect : true,//允许多选
-					valueField : 'valueField',
+					valueField : 'fieldCode',
 					queryMode : 'local',
 					forceSelection : true,// 所选择的值必须是列表中的值
-					//store : 'RoleStore',
-					name : 'fieldName',
-					id : 'fieldName',
+					store : 'FieldBoxStore',
+					name : 'fieldCode',
+					id : 'fieldCode',
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>"
-					}
+					},
+					listeners: {
+		        		select:function(combo){
+		        			Ext.getCmp("fieldCodeReadOnly").setValue(combo.getValue());
+		        		}
+		        	}
 				},{
 					fieldLabel : '字段CODE',
 					readOnly : true,
+					id : "fieldCodeReadOnly",
 					name : 'fieldCode'
 				},{
 					fieldLabel : '新字段名',

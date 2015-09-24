@@ -35,4 +35,9 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 		return dictionaryDao.getModelNameCheckBox();
 	}
 
+	@Override
+	public List<Dictionary> getFieldNameCheckBox(String modelCode) {
+		return dictionaryDao.getFieldNameCheckBox(modelCode);
+	}
+
 }
