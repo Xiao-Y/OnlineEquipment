@@ -39,15 +39,24 @@ Ext.define("AM.view.DictionaryMaintain",{
 					},
 					listeners: {
 		        		select:function(combo){
-		        			Ext.getCmp("modelCodeReadOnly").setValue(combo.getValue());
-		        			Ext.getCmp('fieldCode').store.removeAll();
-		    	   			Ext.getCmp('fieldCode').store.load({
+		        			var moCode = combo.getValue();
+		        			//当为空（新增）时去掉只读
+		        			if(moCode == ""){
+		        				Ext.getCmp("modelCodeReadOnly").setReadOnly(false);
+		        			}else{
+		        				Ext.getCmp("modelCodeReadOnly").setReadOnly(true);
+		        			}
+		        			Ext.getCmp("modelCodeReadOnly").setValue(moCode);
+		        			Ext.getCmp('fieldCode').getStore().removeAll();
+		        			//级联字段选项
+		    	   			Ext.getCmp('fieldCode').getStore().load({
 		    	   				params : {
 		    	   					fieldCode:combo.getValue()
 		    	   				},
+		    	   				//在已有的store中添加一列
 		    	   				callback: function(records, options, success){ 
-				        			var modelBoxStore = Ext.getCmp("fieldCode").getStore();
-									modelBoxStore.insert(0,{"fieldName":"新增","fieldCode":""});
+				        			var fieldBoxStore = Ext.getCmp("fieldCode").getStore();
+									fieldBoxStore.insert(0,{"fieldName":"新增","fieldCode":""});
 		    	   				}
 		    	   			});// 刷新子模块下拉框
 		        		}
@@ -56,6 +65,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 					fieldLabel : '模块CODE',
 					readOnly : true,
 					id : "modelCodeReadOnly",
+					emptyText : "填写模块CODE",
 					name : 'modelCode'
 				},{
 					fieldLabel : '新模块名',
@@ -78,6 +88,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 					allowBlank : false,
 					valueField : 'fieldCode',
 					queryMode : 'local',
+					value : "",
 					forceSelection : true,// 所选择的值必须是列表中的值
 					store : 'FieldBoxStore',
 					name : 'fieldCode',
@@ -87,13 +98,32 @@ Ext.define("AM.view.DictionaryMaintain",{
 					},
 					listeners: {
 		        		select:function(combo){
-		        			Ext.getCmp("fieldCodeReadOnly").setValue(combo.getValue());
+		        			var fiCode = combo.getValue();
+		        			if(fiCode == ""){
+		        				Ext.getCmp("fieldCodeReadOnly").setReadOnly(false);
+		        			}else{
+		        				Ext.getCmp("fieldCodeReadOnly").setReadOnly(true);
+		        			}
+		        			Ext.getCmp("fieldCodeReadOnly").setValue(fiCode);
+		        			var modelCode = Ext.getCmp("modelCode").getValue();
+		        			//如果字段和模块中有一个为空，不加载keyValue列表
+		        			if(fiCode == "" || modelCode == ""){
+		        				return;
+		        			}
+		        			//加载keyValue列表
+		        			Ext.getCmp("keyValueList").getStore().load({
+		        				params : {
+		    	   					fieldCode : fiCode,
+		    	   					modelCode : modelCode
+		    	   				}
+		        			});
 		        		}
 		        	}
 				},{
 					fieldLabel : '字段CODE',
 					readOnly : true,
 					id : "fieldCodeReadOnly",
+					emptyText : "填写字段CODE",
 					name : 'fieldCode'
 				},{
 					fieldLabel : '新字段名',
@@ -109,27 +139,23 @@ Ext.define("AM.view.DictionaryMaintain",{
 				xtype: 'gridpanel',
 				autoScroll:true,
 				forceFit : true,//让每列自动填充满表格
-				store : 'DictionaryStore',// 加载数据
+				store : 'KeyValueStore',// 加载数据
 				selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
 					mode: 'SINGLE'//单选模式
 				}),
 				columns : [{
-					xtype : 'rownumberer',
-					header : '序号',
-					width : 50
-				}, {
-					header : '传送值',
-					dataIndex : 'valueField'
-				}, {
-					header : '显示值',
+					header : 'DisplayField',
 					dataIndex : 'displayField'
+				}, {
+					header : 'ValueField',
+					dataIndex : 'valueField'
 				}, {
 					header : '类型',
 					dataIndex : 'notice'
 				}],
 				dockedItems : [ {
 					xtype : 'pagingtoolbar',// 分页组件
-					store : 'DictionaryStore',// 数据
+					store : 'KeyValueStore',// 数据
 					dock : 'top',// 指定位置top,bottom
 					displayInfo : true// 展示信息
 				}]
@@ -145,16 +171,16 @@ Ext.define("AM.view.DictionaryMaintain",{
 			glyph:0xf0fe
 		},{
 			xtype : 'button',
-			text : '删除键值',
-			glyph:0xf1f8
-		},{
-			xtype : 'button',
 			text : '删除模块',
 			glyph:0xf1f8
 		},{
 			xtype : 'button',
 			text : '删除字段',
 			id : 'EditUserImg',
+			glyph:0xf1f8
+		},{
+			xtype : 'button',
+			text : '删除键值',
 			glyph:0xf1f8
 		},'->', {
 			xtype : 'button',

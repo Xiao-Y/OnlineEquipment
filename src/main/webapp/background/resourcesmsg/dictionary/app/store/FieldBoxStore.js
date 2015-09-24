@@ -8,6 +8,5 @@ Ext.define("AM.store.FieldBoxStore",{
 			type : "json",
 			rootProperty : "root"
 		}
-	},
-	autoLoad : true
+	}
 });

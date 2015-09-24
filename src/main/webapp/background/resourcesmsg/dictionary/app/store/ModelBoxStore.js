@@ -8,6 +8,5 @@ Ext.define("AM.store.ModelBoxStore",{
 			type : "json",
 			rootProperty : "root"
 		}
-	},
-	autoLoad : true
+	}
 });

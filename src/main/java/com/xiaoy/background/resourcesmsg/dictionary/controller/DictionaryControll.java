@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,6 +78,25 @@ public class DictionaryControll {
 		List<Dictionary> list = dictionaryService.getFieldNameCheckBox(modelCode);
 		json.setSuccess(true);
 		json.setRoot(list);
+		return json;
+	}
+
+	@ResponseBody
+	@RequestMapping("/getKeyValue")
+	public JsonResult getKeyValue(@RequestParam(value = "modelCode", required = false) String modelCode,
+			@RequestParam(value = "fieldCode", required = false) String fieldCode) {
+		JsonResult json = new JsonResult();
+		json.setSuccess(true);
+		if (StringUtils.isEmpty(modelCode) || StringUtils.isEmpty(fieldCode)) {
+			json.setRoot(null);
+			return json;
+		} else {
+			Dictionary dictionary = new Dictionary();
+			dictionary.setModelCode(modelCode);
+			dictionary.setFieldCode(fieldCode);
+			List<Dictionary> list = dictionaryService.getDictionary(dictionary);
+			json.setRoot(list);
+		}
 		return json;
 	}
 }
