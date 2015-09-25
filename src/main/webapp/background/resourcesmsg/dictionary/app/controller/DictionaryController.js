@@ -46,6 +46,7 @@ Ext.define("AM.controller.DictionaryController",{
 	            'valueField': '',
 	            'notice': ''
 	        }];
+	        //在最后一行后插入
 			keyValueStore.insert(keyValueStore.getCount(), rec);
 		}
 	},
@@ -57,8 +58,8 @@ Ext.define("AM.controller.DictionaryController",{
 		}
 		var records = sm.getSelection();
 		var keyValueStore = Ext.getCmp("keyValueList").getStore();
+		//先通过ajax从后台删除数据，删除成功后再从页面删除数据
 		Ext.each(records,function(record){
-			//先通过ajax从后台删除数据，删除成功后再从页面删除数据
 			keyValueStore.remove(record);
 		})
 	},
