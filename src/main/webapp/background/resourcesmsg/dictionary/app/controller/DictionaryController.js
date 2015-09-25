@@ -10,6 +10,12 @@ Ext.define("AM.controller.DictionaryController",{
 			},
 			"dictionaryMaintain button[id=cancel]":{//关闭操作
 				click:this.cancelOrReset
+			},
+			"dictionaryMaintain button[id=addKeyValue]" : {//添加键值
+				click : this.addKeyValue
+			},
+			"dictionaryMaintain button[id=removeKeyValue]" : {//删除键值
+				click : this.removeKeyValue
 			}
 		});
 	},
@@ -31,6 +37,30 @@ Ext.define("AM.controller.DictionaryController",{
 			baseFormWindow.setTitle("维护数据字典");
 			baseFormWindow.show();
 		});
+	},
+	addKeyValue : function(){
+		var keyValueStore = Ext.getCmp("keyValueList").getStore();
+		if(keyValueStore.last() == null || (keyValueStore.last().get("displayField") && keyValueStore.last().get("valueField") && keyValueStore.last().get("notice"))){
+			var rec = [{  //实例化Record对象，并赋予各字段初始值
+	            'displayField': '',
+	            'valueField': '',
+	            'notice': ''
+	        }];
+			keyValueStore.insert(keyValueStore.getCount(), rec);
+		}
+	},
+	removeKeyValue : function(){
+		var sm = Ext.getCmp('keyValueList').getSelectionModel();
+		if (!sm.hasSelection()) {
+			Ext.Msg.alert('提示', '请选择要删除的行');
+			return;
+		}
+		var records = sm.getSelection();
+		var keyValueStore = Ext.getCmp("keyValueList").getStore();
+		Ext.each(records,function(record){
+			//先通过ajax从后台删除数据，删除成功后再从页面删除数据
+			keyValueStore.remove(record);
+		})
 	},
 	cancelOrReset : function(btn){
 		if(btn.getId() == "cancel"){

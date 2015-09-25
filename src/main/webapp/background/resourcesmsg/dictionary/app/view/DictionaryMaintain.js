@@ -131,35 +131,52 @@ Ext.define("AM.view.DictionaryMaintain",{
 				}]
 			}]
 		},{
-			xtype : 'panel',
-			border : false,
-			items : [{
-				id : 'keyValueList',
-				region: 'center',
-				xtype: 'gridpanel',
-				autoScroll:true,
-				forceFit : true,//让每列自动填充满表格
-				store : 'KeyValueStore',// 加载数据
-				selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
-					mode: 'SINGLE'//单选模式
-				}),
-				columns : [{
-					header : 'DisplayField',
-					dataIndex : 'displayField'
-				}, {
-					header : 'ValueField',
-					dataIndex : 'valueField'
-				}, {
-					header : '类型',
-					dataIndex : 'notice'
-				}],
-				dockedItems : [ {
-					xtype : 'pagingtoolbar',// 分页组件
-					store : 'KeyValueStore',// 数据
-					dock : 'top',// 指定位置top,bottom
-					displayInfo : true// 展示信息
-				}]
-			}]
+			id : 'keyValueList',
+			autoScroll:true,
+			height : 270,
+			region: 'center',
+			xtype: 'gridpanel',
+			forceFit : true,//让每列自动填充满表格
+			store : 'KeyValueStore',// 加载数据
+			selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
+				//mode: 'SINGLE'//单选模式
+				mode: 'MULTI'//多选选模式（默认）
+			}),
+			columns : [{
+				header : 'DisplayField',
+				dataIndex : 'displayField',
+				emptyText : "双击编辑",
+				//双击编辑
+				field : {
+					xtype : 'textfield',
+					allowBlank : false
+				}
+			}, {
+				header : 'ValueField',
+				dataIndex : 'valueField',
+				//双击编辑
+				field : {
+					xtype : 'textfield',
+					allowBlank : false
+				}
+			}, {
+				header : '类型',
+				dataIndex : 'notice',
+				//双击编辑
+				field : {
+					xtype : 'textfield',
+					allowBlank : false
+				}
+			}],
+			dockedItems : [ {
+				xtype : 'pagingtoolbar',// 分页组件
+				store : 'KeyValueStore',// 数据
+				dock : 'top',// 指定位置top,bottom
+				displayInfo : true// 展示信息
+			}],// 一个对象或者对象数组, 组件将提供自定义功能
+			plugins : [ Ext.create('Ext.grid.plugin.CellEditing', {// 单元格编辑
+				clicksToEdit : 2	// 双击进行编辑，默认双击
+			}) ]
 		}]
 	}],
 	dockedItems : [ {
@@ -168,7 +185,13 @@ Ext.define("AM.view.DictionaryMaintain",{
 		items : [ {
 			xtype : 'button',
 			text : '添加键值',
+			id : "addKeyValue",
 			glyph:0xf0fe
+		},{
+			xtype : 'button',
+			text : '删除键值',
+			id : "removeKeyValue",
+			glyph:0xf1f8
 		},{
 			xtype : 'button',
 			text : '删除模块',
@@ -177,10 +200,6 @@ Ext.define("AM.view.DictionaryMaintain",{
 			xtype : 'button',
 			text : '删除字段',
 			id : 'EditUserImg',
-			glyph:0xf1f8
-		},{
-			xtype : 'button',
-			text : '删除键值',
 			glyph:0xf1f8
 		},'->', {
 			xtype : 'button',
