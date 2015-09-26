@@ -16,6 +16,9 @@ Ext.define("AM.controller.DictionaryController",{
 			},
 			"dictionaryMaintain button[id=removeKeyValue]" : {//删除键值
 				click : this.removeKeyValue
+			},
+			"dictionaryMaintain button[id=saveDictionary]" : {//保存维护数据字典
+				click : this.saveDictionary
 			}
 		});
 	},
@@ -25,7 +28,7 @@ Ext.define("AM.controller.DictionaryController",{
 			if (null == baseFormWindow) {
 				Ext.create('AM.view.DictionaryMaintain', {});// 第一次创建添加显示窗口
 			}
-			var modelBoxStore = Ext.getCmp("modelCode").getStore();
+			var modelBoxStore = Ext.getCmp("modelCodeBox").getStore();
 			//在已有的store中添加一列
 			modelBoxStore.load({
    				callback: function(records, options, success){ 
@@ -41,7 +44,8 @@ Ext.define("AM.controller.DictionaryController",{
 	addKeyValue : function(){
 		var keyValueStore = Ext.getCmp("keyValueList").getStore();
 		if(keyValueStore.last() == null || (keyValueStore.last().get("displayField") && keyValueStore.last().get("valueField") && keyValueStore.last().get("notice"))){
-			var rec = [{  //实例化Record对象，并赋予各字段初始值
+			//实例化Record对象，并赋予各字段初始值
+			var rec = [{
 	            'displayField': '',
 	            'valueField': '',
 	            'notice': ''
@@ -62,6 +66,16 @@ Ext.define("AM.controller.DictionaryController",{
 		Ext.each(records,function(record){
 			keyValueStore.remove(record);
 		})
+	},
+	saveDictionary : function(){
+		var form = Ext.getCmp("dictionaryMaintainForm").getForm();
+		var keyValueStore = Ext.getCmp("keyValueList").getStore();
+		var model = keyValueStore.getModifiedRecords();//获取所有更改的
+		if(form.isValid()){
+			var fv = form.getValues();
+			console.info(fv);
+			console.info(model);
+		}
 	},
 	cancelOrReset : function(btn){
 		if(btn.getId() == "cancel"){

@@ -10,6 +10,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 	items : [{
 		id : "dictionaryMaintainForm",
 		border : false,
+		xtype : 'form',
 		items : [{
 			xtype : "panel",
 			bodyPadding : 5,
@@ -32,8 +33,8 @@ Ext.define("AM.view.DictionaryMaintain",{
 					queryMode : 'local',
 					forceSelection : true,// 所选择的值必须是列表中的值
 					store : 'ModelBoxStore',
-					name : 'modelCode',
-					id : 'modelCode',
+					name : 'modelCodeBox',
+					id : 'modelCodeBox',
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>"
 					},
@@ -47,15 +48,15 @@ Ext.define("AM.view.DictionaryMaintain",{
 		        				Ext.getCmp("modelCodeReadOnly").setReadOnly(true);
 		        			}
 		        			Ext.getCmp("modelCodeReadOnly").setValue(moCode);
-		        			Ext.getCmp('fieldCode').getStore().removeAll();
+		        			Ext.getCmp('fieldCodeBox').getStore().removeAll();
 		        			//级联字段选项
-		    	   			Ext.getCmp('fieldCode').getStore().load({
+		    	   			Ext.getCmp('fieldCodeBox').getStore().load({
 		    	   				params : {
 		    	   					fieldCode:combo.getValue()
 		    	   				},
 		    	   				//在已有的store中添加一列
 		    	   				callback: function(records, options, success){ 
-				        			var fieldBoxStore = Ext.getCmp("fieldCode").getStore();
+				        			var fieldBoxStore = Ext.getCmp("fieldCodeBox").getStore();
 									fieldBoxStore.insert(0,{"fieldName":"新增","fieldCode":""});
 		    	   				}
 		    	   			});// 刷新子模块下拉框
@@ -91,8 +92,8 @@ Ext.define("AM.view.DictionaryMaintain",{
 					value : "",
 					forceSelection : true,// 所选择的值必须是列表中的值
 					store : 'FieldBoxStore',
-					name : 'fieldCode',
-					id : 'fieldCode',
+					name : 'fieldCodeBox',
+					id : 'fieldCodeBox',
 					listConfig : {// 下拉列表的样式
 						emptyText : "<font color='red'>没有找到匹配项</font>"
 					},
@@ -105,7 +106,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 		        				Ext.getCmp("fieldCodeReadOnly").setReadOnly(true);
 		        			}
 		        			Ext.getCmp("fieldCodeReadOnly").setValue(fiCode);
-		        			var modelCode = Ext.getCmp("modelCode").getValue();
+		        			var modelCode = Ext.getCmp("modelCodeBox").getValue();
 		        			//如果字段和模块中有一个为空，不加载keyValue列表
 		        			if(fiCode == "" || modelCode == ""){
 		        				return;
@@ -143,11 +144,14 @@ Ext.define("AM.view.DictionaryMaintain",{
 				mode: 'MULTI'//多选选模式（默认）
 			}),
 			columns : [{
+				xtype : 'rownumberer',
+				header : '序号',
+				width : 50
+			},{
 				header : 'DisplayField',
 				dataIndex : 'displayField',
-				emptyText : "双击编辑",
 				//双击编辑
-				field : {
+				editor : {
 					xtype : 'textfield',
 					allowBlank : false
 				}
@@ -155,7 +159,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 				header : 'ValueField',
 				dataIndex : 'valueField',
 				//双击编辑
-				field : {
+				editor : {
 					xtype : 'textfield',
 					allowBlank : false
 				}
@@ -163,17 +167,17 @@ Ext.define("AM.view.DictionaryMaintain",{
 				header : '类型',
 				dataIndex : 'notice',
 				//双击编辑
-				field : {
+				editor : {
 					xtype : 'textfield',
 					allowBlank : false
 				}
 			}],
-			dockedItems : [ {
-				xtype : 'pagingtoolbar',// 分页组件
-				store : 'KeyValueStore',// 数据
-				dock : 'top',// 指定位置top,bottom
-				displayInfo : true// 展示信息
-			}],// 一个对象或者对象数组, 组件将提供自定义功能
+//			dockedItems : [ {
+//				xtype : 'pagingtoolbar',// 分页组件
+//				store : 'KeyValueStore',// 数据
+//				dock : 'top',// 指定位置top,bottom
+//				displayInfo : true// 展示信息
+//			}],// 一个对象或者对象数组, 组件将提供自定义功能
 			plugins : [ Ext.create('Ext.grid.plugin.CellEditing', {// 单元格编辑
 				clicksToEdit : 2	// 双击进行编辑，默认双击
 			}) ]
@@ -204,7 +208,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 		},'->', {
 			xtype : 'button',
 			text : '保存',
-			id : 'saveUser',
+			id : 'saveDictionary',
 			glyph:0xf0c7
 		}, {
 			xtype : 'button',

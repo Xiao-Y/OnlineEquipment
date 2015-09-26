@@ -48,8 +48,7 @@ Ext.define("AM.view.BugList",{
 		selModel: new Ext.selection.CheckboxModel({// 复选框选择模式
 			mode: 'SINGLE'//单选模式
 		}),
-		columns : [ 
-		 {
+		columns : [ {
 			xtype : 'rownumberer',
 			header : '序号',
 			width : 50
