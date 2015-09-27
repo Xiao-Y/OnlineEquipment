@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
 import com.xiaoy.base.entities.Dictionary;
 import com.xiaoy.util.JsonResult;
@@ -102,7 +103,7 @@ public class DictionaryControll {
 
 	/**
 	 * 维护数据<br/>
-	 * createTime" : "AAAA" 用于标识，是新添加的行
+	 * 可以使用createTime来判断是否是新添加的
 	 */
 	@ResponseBody
 	@RequestMapping("/saveDictionary")
@@ -113,7 +114,11 @@ public class DictionaryControll {
 		String fieldCodeBox = Tools.getStringParameter(request, "fieldCodeBox");
 		String fieldCode = Tools.getStringParameter(request, "fieldCode");
 		String newFieldName = Tools.getStringParameter(request, "newFieldName");
-		String[] keyValues = request.getParameterValues("keyValues");
+		String keyValues = Tools.getStringParameter(request, "keyValues");
+		List<Dictionary> dictionaryList = JSONArray.parseArray(keyValues, Dictionary.class);
+		for (Dictionary d : dictionaryList) {
+			System.out.println(d);
+		}
 
 		return null;
 	}

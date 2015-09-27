@@ -114,4 +114,11 @@ public class Dictionary extends BaseEntity implements Serializable {
 	public void setFieldCode(String fieldCode) {
 		this.fieldCode = fieldCode;
 	}
+
+	@Override
+	public String toString() {
+		return "Dictionary [modelName=" + modelName + ", modelCode=" + modelCode + ", fieldName=" + fieldName + ", fieldCode=" + fieldCode + ", valueField="
+				+ valueField + ", displayField=" + displayField + ", notice=" + notice + "] -----> " + "BaseEntity [id=" + this.getId() + ", createTime="
+				+ this.getCreateTime() + ", updateTime=" + this.getUpdateTime() + ", limit=" + this.getLimit() + ", start=" + this.getStart() + "]";
+	}
 }

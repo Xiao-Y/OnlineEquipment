@@ -43,7 +43,7 @@ Ext.define("AM.controller.DictionaryController",{
 	            'displayField': '',
 	            'valueField': '',
 	            'notice': '',
-	            "createTime" : "AAAA"//用于标识，是新添加的行
+	            "createTime" : ""//用于标识，是新添加的行
 	        }];
 	        //在最后一行后插入
 			keyValueStore.insert(keyValueStore.getCount(), rec);
@@ -113,7 +113,7 @@ Ext.define("AM.controller.DictionaryController",{
 		}
 		var keyValues = new Array();
 		for(var i = 0; i < models.length; i++){
-			keyValues[i] = Ext.JSON.encode(models[i].getData());
+			keyValues[i] = models[i].getData();
 		}
 		
 		//校验键值对是否填写完整-------end
@@ -126,7 +126,7 @@ Ext.define("AM.controller.DictionaryController",{
 				"fieldCodeBox" : fieldCodeBox,
 				"fieldCode" : fieldCode,
 				"newFieldName" : newFieldName,
-				"keyValues" : keyValues
+				"keyValues" : Ext.JSON.encode(keyValues)
 			},
 			method : 'POST',
 			async : false,

@@ -83,4 +83,9 @@ public abstract class BaseEntity {
 	public void setStart(String start) {
 		this.start = start;
 	}
+
+	@Override
+	public String toString() {
+		return "BaseEntity [id=" + id + ", createTime=" + createTime + ", updateTime=" + updateTime + ", limit=" + limit + ", start=" + start + "]";
+	}
 }
