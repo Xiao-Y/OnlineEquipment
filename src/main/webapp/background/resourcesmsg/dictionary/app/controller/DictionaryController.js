@@ -102,6 +102,7 @@ Ext.define("AM.controller.DictionaryController",{
 			var displayField = model.get("displayField");
 			var valueField = model.get("valueField");
 			var notice = model.get("notice");
+			//判断keyValue中是否有空值
 			if(displayField == "" || valueField == "" || notice == ""){
 				flag = true;
 				return false;
@@ -109,27 +110,28 @@ Ext.define("AM.controller.DictionaryController",{
 		});
 		if(flag){
 			Ext.Msg.alert('提示', '请填写完整后提交');
-			return;
+			return false;
 		}
 		var keyValues = new Array();
 		for(var i = 0; i < models.length; i++){
+			//model中的数据放入到数组
 			keyValues[i] = models[i].getData();
 		}
-		
 		//校验键值对是否填写完整-------end
+		
 		Ext.Ajax.request({
 			url : "../dictionary/saveDictionary",
 			params : {
-				"modelCodeBox" : modelCodeBox,
-				"modelCode" : modelCode,
-				"newModelName" : newModelName,
-				"fieldCodeBox" : fieldCodeBox,
-				"fieldCode" : fieldCode,
-				"newFieldName" : newFieldName,
-				"keyValues" : Ext.JSON.encode(keyValues)
+				"modelCodeBox" : modelCodeBox,//模块下拉列表的值
+				"modelCode" : modelCode,//模块CODE
+				"newModelName" : newModelName,//新的模块名
+				"fieldCodeBox" : fieldCodeBox,//字段下拉列表中的值
+				"fieldCode" : fieldCode,//字段CODE
+				"newFieldName" : newFieldName,//新字段名
+				"keyValues" : Ext.JSON.encode(keyValues)//修改的keyvalue值
 			},
 			method : 'POST',
-			async : false,
+			async : false,//异步
 			success : function(response) {
 				var jsonObj = Ext.JSON.decode(response.responseText);
 				if (jsonObj.success) {
@@ -146,6 +148,7 @@ Ext.define("AM.controller.DictionaryController",{
 		});
 	},
 	cancelOrReset : function(btn){
+		//修改窗口销毁为隐藏
 		Ext.getCmp("dictionaryMaintainWindow").hide();
 	}
 });

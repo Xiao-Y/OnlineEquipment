@@ -117,8 +117,8 @@ public class Dictionary extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
+		System.out.println(super.toString());
 		return "Dictionary [modelName=" + modelName + ", modelCode=" + modelCode + ", fieldName=" + fieldName + ", fieldCode=" + fieldCode + ", valueField="
-				+ valueField + ", displayField=" + displayField + ", notice=" + notice + "] -----> " + "BaseEntity [id=" + this.getId() + ", createTime="
-				+ this.getCreateTime() + ", updateTime=" + this.getUpdateTime() + ", limit=" + this.getLimit() + ", start=" + this.getStart() + "]";
+				+ valueField + ", displayField=" + displayField + ", notice=" + notice + "]";
 	}
 }
