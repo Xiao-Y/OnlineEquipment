@@ -8,5 +8,12 @@ Ext.define("AM.store.ModelBoxStore",{
 			type : "json",
 			rootProperty : "root"
 		}
+	},
+	listeners:{
+	    load : function( store, records, successful, operation){
+		    if(successful){
+		        store.insert(0,{"modelName":"新增","modelCode":""});
+		    }
+		}
 	}
 });

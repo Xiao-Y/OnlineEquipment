@@ -8,5 +8,12 @@ Ext.define("AM.store.FieldBoxStore",{
 			type : "json",
 			rootProperty : "root"
 		}
+	},
+	listeners:{
+	    load : function(store, records, successful, operation){
+		    if(successful){
+		        store.insert(0,{"fieldName":"新增","fieldCode":""});
+		    }
+		}
 	}
 });

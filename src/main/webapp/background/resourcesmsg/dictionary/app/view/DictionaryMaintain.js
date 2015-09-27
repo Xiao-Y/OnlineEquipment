@@ -7,6 +7,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 	width : 600,
 	height : 420,
 	layout : "fit",
+	closeAction : "hide",//设置关闭按钮为隐藏，默认为销毁
 	items : [{
 		id : "dictionaryMaintainForm",
 		border : false,
@@ -43,21 +44,26 @@ Ext.define("AM.view.DictionaryMaintain",{
 		        			var moCode = combo.getValue();
 		        			//当为空（新增）时去掉只读
 		        			if(moCode == ""){
+		        				//设置modelCode为可读写
 		        				Ext.getCmp("modelCodeReadOnly").setReadOnly(false);
+		        				//移除列表中的数据
+		        				Ext.getCmp("keyValueList").getStore().removeAll();
 		        			}else{
+		        				//设置modelCode为只读
 		        				Ext.getCmp("modelCodeReadOnly").setReadOnly(true);
 		        			}
+		        			//填充modelCode
 		        			Ext.getCmp("modelCodeReadOnly").setValue(moCode);
+		        			//清除fieldCodel
+		        			Ext.getCmp("fieldCodeReadOnly").setValue("");
+		        			//移除fieldCodeBox的store
 		        			Ext.getCmp('fieldCodeBox').getStore().removeAll();
+		        			//清除fieldCodeBox中的值
+		        			Ext.getCmp('fieldCodeBox').setValue("");
 		        			//级联字段选项
 		    	   			Ext.getCmp('fieldCodeBox').getStore().load({
 		    	   				params : {
-		    	   					fieldCode:combo.getValue()
-		    	   				},
-		    	   				//在已有的store中添加一列
-		    	   				callback: function(records, options, success){ 
-				        			var fieldBoxStore = Ext.getCmp("fieldCodeBox").getStore();
-									fieldBoxStore.insert(0,{"fieldName":"新增","fieldCode":""});
+		    	   					modelCode:combo.getValue()
 		    	   				}
 		    	   			});// 刷新子模块下拉框
 		        		}
@@ -89,7 +95,6 @@ Ext.define("AM.view.DictionaryMaintain",{
 					allowBlank : false,
 					valueField : 'fieldCode',
 					queryMode : 'local',
-					value : "",
 					forceSelection : true,// 所选择的值必须是列表中的值
 					store : 'FieldBoxStore',
 					name : 'fieldCodeBox',
@@ -102,6 +107,8 @@ Ext.define("AM.view.DictionaryMaintain",{
 		        			var fiCode = combo.getValue();
 		        			if(fiCode == ""){
 		        				Ext.getCmp("fieldCodeReadOnly").setReadOnly(false);
+		        				//移除列表中的数据
+		        				Ext.getCmp("keyValueList").getStore().removeAll();
 		        			}else{
 		        				Ext.getCmp("fieldCodeReadOnly").setReadOnly(true);
 		        			}

@@ -99,4 +99,22 @@ public class DictionaryControll {
 		}
 		return json;
 	}
+
+	/**
+	 * 维护数据<br/>
+	 * createTime" : "AAAA" 用于标识，是新添加的行
+	 */
+	@ResponseBody
+	@RequestMapping("/saveDictionary")
+	public JsonResult saveDictionary(HttpServletRequest request) {
+		String modelCodeBox = Tools.getStringParameter(request, "modelCodeBox");
+		String modelCode = Tools.getStringParameter(request, "modelCode");
+		String newModelName = Tools.getStringParameter(request, "newModelName");
+		String fieldCodeBox = Tools.getStringParameter(request, "fieldCodeBox");
+		String fieldCode = Tools.getStringParameter(request, "fieldCode");
+		String newFieldName = Tools.getStringParameter(request, "newFieldName");
+		String[] keyValues = request.getParameterValues("keyValues");
+
+		return null;
+	}
 }

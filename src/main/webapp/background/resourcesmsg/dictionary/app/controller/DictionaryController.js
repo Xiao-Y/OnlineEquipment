@@ -28,13 +28,7 @@ Ext.define("AM.controller.DictionaryController",{
 			if (null == baseFormWindow) {
 				Ext.create('AM.view.DictionaryMaintain', {});// 第一次创建添加显示窗口
 			}
-			var modelBoxStore = Ext.getCmp("modelCodeBox").getStore();
-			//在已有的store中添加一列
-			modelBoxStore.load({
-   				callback: function(records, options, success){ 
-					modelBoxStore.insert(0,{"modelName":"新增","modelCode":""});
-   				}
-   			});// 刷新子模块下拉框
+			Ext.getCmp("modelCodeBox").getStore().load();// 刷新子模块下拉框;
 			//当点击时加载
 			baseFormWindow = Ext.getCmp("dictionaryMaintainWindow");
 			baseFormWindow.setTitle("维护数据字典");
@@ -48,7 +42,8 @@ Ext.define("AM.controller.DictionaryController",{
 			var rec = [{
 	            'displayField': '',
 	            'valueField': '',
-	            'notice': ''
+	            'notice': '',
+	            "createTime" : "AAAA"//用于标识，是新添加的行
 	        }];
 	        //在最后一行后插入
 			keyValueStore.insert(keyValueStore.getCount(), rec);
@@ -69,19 +64,88 @@ Ext.define("AM.controller.DictionaryController",{
 	},
 	saveDictionary : function(){
 		var form = Ext.getCmp("dictionaryMaintainForm").getForm();
-		var keyValueStore = Ext.getCmp("keyValueList").getStore();
-		var model = keyValueStore.getModifiedRecords();//获取所有更改的
-		if(form.isValid()){
-			var fv = form.getValues();
-			console.info(fv);
-			console.info(model);
+		//模块的
+		var modelCodeBox = form.findField("modelCodeBox").getValue();//获取模块下拉列表中选种的值
+		var modelCode = form.findField("modelCode").getValue();//获取模块Code值
+		var newModelName = form.findField("newModelName").getValue();//获取新的模块名字
+		//字段的
+		var fieldCodeBox = form.findField("fieldCodeBox").getValue();//获取字段下拉列表中选种的值
+		var fieldCode = form.findField("fieldCode").getValue();//获取字段Code值
+		var newFieldName = form.findField("newFieldName").getValue();//获取新的字段名字
+	
+		if(modelCodeBox == "" || modelCodeBox == null){//添加模块
+			if(modelCode == ""){
+				Ext.Msg.alert('提示', '请填写模块CODE');
+				return false;
+			}
+			if(newModelName == ""){
+				Ext.Msg.alert('提示', '请填写模块名称');
+				return false;
+			}
 		}
+		
+		if(fieldCodeBox == "" || fieldCodeBox == null){//添加新字段
+			if(fieldCode == ""){
+			Ext.Msg.alert('提示', '请填写字段CODE');
+			return false;
+			}
+			if(newFieldName == ""){
+				Ext.Msg.alert('提示', '请填写字段名称');
+				return false;
+			}
+		}
+		//校验键值对是否填写完整-------start
+		var keyValueStore = Ext.getCmp("keyValueList").getStore();
+		var models = keyValueStore.getModifiedRecords();//获取所有更改的
+		var flag = false;
+		Ext.each(models,function(model){
+			var displayField = model.get("displayField");
+			var valueField = model.get("valueField");
+			var notice = model.get("notice");
+			if(displayField == "" || valueField == "" || notice == ""){
+				flag = true;
+				return false;
+			}
+		});
+		if(flag){
+			Ext.Msg.alert('提示', '请填写完整后提交');
+			return;
+		}
+		var keyValues = new Array();
+		for(var i = 0; i < models.length; i++){
+			keyValues[i] = Ext.JSON.encode(models[i].getData());
+		}
+		
+		//校验键值对是否填写完整-------end
+		Ext.Ajax.request({
+			url : "../dictionary/saveDictionary",
+			params : {
+				"modelCodeBox" : modelCodeBox,
+				"modelCode" : modelCode,
+				"newModelName" : newModelName,
+				"fieldCodeBox" : fieldCodeBox,
+				"fieldCode" : fieldCode,
+				"newFieldName" : newFieldName,
+				"keyValues" : keyValues
+			},
+			method : 'POST',
+			async : false,
+			success : function(response) {
+				var jsonObj = Ext.JSON.decode(response.responseText);
+				if (jsonObj.success) {
+					var gridPanel = Ext.getCmp("keyValueList");
+					var store = gridPanel.getStore();
+					store.reload();
+				}
+				Ext.Msg.alert('提示', jsonObj.message);
+			},
+			failure : function(response) {
+				var jsonObj = Ext.JSON.decode(response.responseText);
+				Ext.Msg.alert('提示', jsonObj.message);
+			}
+		});
 	},
 	cancelOrReset : function(btn){
-		if(btn.getId() == "cancel"){
-			Ext.getCmp("cancel").up("window").destroy();
-		}else if(btn.getId() == "reset"){
-			Ext.getCmp("reset").up("window").down("form").getForm().reset()
-		}
+		Ext.getCmp("dictionaryMaintainWindow").hide();
 	}
 });
