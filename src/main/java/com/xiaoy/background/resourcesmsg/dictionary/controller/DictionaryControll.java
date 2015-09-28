@@ -1,6 +1,8 @@
 package com.xiaoy.background.resourcesmsg.dictionary.controller;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
 import com.xiaoy.base.entities.Dictionary;
 import com.xiaoy.util.JsonResult;
+import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
 
 /**
@@ -102,24 +105,91 @@ public class DictionaryControll {
 	}
 
 	/**
-	 * 维护数据<br/>
-	 * 可以使用createTime来判断是否是新添加的
+	 * 维护数据字典
 	 */
 	@ResponseBody
 	@RequestMapping("/saveDictionary")
 	public JsonResult saveDictionary(HttpServletRequest request) {
+		// 模块选中的下拉列表Code
 		String modelCodeBox = Tools.getStringParameter(request, "modelCodeBox");
+		// 修改的模块Code
 		String modelCode = Tools.getStringParameter(request, "modelCode");
+		// 选中的模块名称
+		String modelName = Tools.getStringParameter(request, "modelName");
+		// 新模块名称
 		String newModelName = Tools.getStringParameter(request, "newModelName");
+		// 选中的字段下拉列表Code
 		String fieldCodeBox = Tools.getStringParameter(request, "fieldCodeBox");
+		// 修改的字段Code
 		String fieldCode = Tools.getStringParameter(request, "fieldCode");
+		// 选中的字段名称
+		String fieldName = Tools.getStringParameter(request, "fieldName");
+		// 新字段名称
 		String newFieldName = Tools.getStringParameter(request, "newFieldName");
-		String keyValues = Tools.getStringParameter(request, "keyValues");
-		List<Dictionary> dictionaryList = JSONArray.parseArray(keyValues, Dictionary.class);
-		for (Dictionary d : dictionaryList) {
-			System.out.println(d);
-		}
 
-		return null;
+		// 所有修改和添加新的键值对
+		String keyValues = Tools.getStringParameter(request, "keyValues");
+
+		List<Dictionary> dictionaryList = JSONArray.parseArray(keyValues, Dictionary.class);
+
+		JsonResult json = new JsonResult();
+		if (dictionaryList != null && dictionaryList.size() > 1) {// 更改了键值对
+			for (Dictionary d : dictionaryList) {
+				// 判断是否是新添加的
+				if (d.getCreateTime() == null) {
+					d.setId(UUID.randomUUID().toString());
+					d.setCreateTime(new Date());
+				}
+
+				if (StringUtils.isEmpty(modelCodeBox) || !StringUtils.isEmpty(newModelName)) {
+					d.setModelName(newModelName);
+				} else {
+					d.setModelName(modelName);
+				}
+
+				if (StringUtils.isEmpty(fieldCodeBox) || !StringUtils.isEmpty(newFieldName)) {
+					d.setFieldName(newFieldName);
+				} else {
+					d.setFieldName(fieldName);
+				}
+
+				d.setModelCode(modelCode);
+				d.setFieldCode(fieldCode);
+				d.setUpdateTime(new Date());
+			}
+			try {
+				dictionaryService.saveObjectCollection(dictionaryList);
+				json.setMessage(MessageTips.SAVE_SUCCESS);
+				json.setSuccess(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+				json.setMessage(MessageTips.SERVICE_ERRER);
+			}
+		} else {// 没有更改键值对
+			Dictionary d = new Dictionary();
+
+			if (StringUtils.isEmpty(modelCodeBox) || !StringUtils.isEmpty(newModelName)) {
+				d.setModelName(newModelName);
+			} else {
+				d.setModelName(modelName);
+			}
+			d.setModelCode(modelCode);
+			if (StringUtils.isEmpty(fieldCodeBox) || !StringUtils.isEmpty(newFieldName)) {
+				d.setFieldName(newFieldName);
+			} else {
+				d.setFieldName(fieldName);
+			}
+			d.setFieldCode(fieldCode);
+
+			try {
+				dictionaryService.updateDictionary(d);
+				json.setMessage(MessageTips.SAVE_SUCCESS);
+				json.setSuccess(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+				json.setMessage(MessageTips.SERVICE_ERRER);
+			}
+		}
+		return json;
 	}
 }

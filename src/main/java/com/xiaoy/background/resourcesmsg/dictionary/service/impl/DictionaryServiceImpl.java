@@ -40,4 +40,9 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 		return dictionaryDao.getFieldNameCheckBox(modelCode);
 	}
 
+	@Override
+	public void updateDictionary(Dictionary dictionary) {
+		dictionaryDao.updateDictionary(dictionary);
+	}
+
 }

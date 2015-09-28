@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.resourcesmsg.dictionary.dao.DictionaryDao;
@@ -18,8 +20,8 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 
 	@Override
 	public List<Dictionary> getDictionary(Dictionary dictionary) {
-//		String start = dictionary.getStart();
-//		String limit = dictionary.getLimit();
+		// String start = dictionary.getStart();
+		// String limit = dictionary.getLimit();
 		StringBuffer hqlWhere = new StringBuffer();
 		Map<String, Object> paramsMapValue = this.appendWhere(dictionary, hqlWhere);
 		return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, "", "");
@@ -79,7 +81,7 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 
 	@Override
 	public List<Dictionary> getFieldNameCheckBox(String modelCode) {
-		StringBuffer hql = new StringBuffer("select distinct new Dictionary(fieldName, fieldCode, notice) from Dictionary where 1=1 ");
+		StringBuffer hql = new StringBuffer("select distinct new Dictionary(fieldName, fieldCode, modelCode) from Dictionary where 1=1 ");
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (!StringUtils.isEmpty(modelCode)) {
 			hql.append(" and modelCode = :modelCode ");
@@ -89,4 +91,15 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 		return list;
 	}
 
+	@Override
+	public void updateDictionary(Dictionary dictionary) {
+		String hql = "update Dictionary set modelName = :modelName, fieldName = :fieldName where modelCode = :modelCode and fieldCode = :fieldCode";
+		Session session = this.getSession();
+		Query query = session.createQuery(hql);
+		query.setString("modelName", dictionary.getModelName());
+		query.setString("fieldName", dictionary.getFieldName());
+		query.setString("modelCode", dictionary.getModelCode());
+		query.setString("fieldCode", dictionary.getFieldCode());
+		query.executeUpdate();
+	}
 }

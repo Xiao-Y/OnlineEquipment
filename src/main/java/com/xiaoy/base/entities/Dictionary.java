@@ -42,11 +42,11 @@ public class Dictionary extends BaseEntity implements Serializable {
 		this.modelCode = modelCode;
 	}
 
-	public Dictionary(String fieldName, String fieldCode, String notice) {
+	public Dictionary(String fieldName, String fieldCode, String modelCode) {
 		super();
 		this.fieldName = fieldName;
 		this.fieldCode = fieldCode;
-		this.notice = notice;
+		this.modelCode = modelCode;
 	}
 
 	public Dictionary() {

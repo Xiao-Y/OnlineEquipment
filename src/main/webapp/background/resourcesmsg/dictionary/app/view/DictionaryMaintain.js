@@ -41,6 +41,8 @@ Ext.define("AM.view.DictionaryMaintain",{
 					},
 					listeners: {
 		        		select:function(combo){
+		        			Ext.getCmp("newModelName").setValue();
+		        			Ext.getCmp("newFieldName").setValue();
 		        			var moCode = combo.getValue();
 		        			//当为空（新增）时去掉只读
 		        			if(moCode == ""){
@@ -76,7 +78,8 @@ Ext.define("AM.view.DictionaryMaintain",{
 					name : 'modelCode'
 				},{
 					fieldLabel : '新模块名',
-					name : 'newModelName'
+					name : 'newModelName',
+					id : 'newModelName'
 				}]
 			},{
 				layout : "column",
@@ -104,6 +107,7 @@ Ext.define("AM.view.DictionaryMaintain",{
 					},
 					listeners: {
 		        		select:function(combo){
+		        			Ext.getCmp("newFieldName").setValue();
 		        			var fiCode = combo.getValue();
 		        			if(fiCode == ""){
 		        				Ext.getCmp("fieldCodeReadOnly").setReadOnly(false);
@@ -135,7 +139,8 @@ Ext.define("AM.view.DictionaryMaintain",{
 					name : 'fieldCode'
 				},{
 					fieldLabel : '新字段名',
-					name : 'newFieldName'
+					name : 'newFieldName',
+					id : 'newFieldName'
 				}]
 			}]
 		},{

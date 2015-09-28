@@ -32,4 +32,14 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 */
 	List<Dictionary> getFieldNameCheckBox(String modelCode);
 
+	/**
+	 * 更新数据字典的模块和字段
+	 * 
+	 * @param dictionary
+	 * <br/>
+	 *            更新模块名和Code<br/>
+	 *            更新字段名和Code<br/>
+	 */
+	void updateDictionary(Dictionary dictionary);
+
 }
