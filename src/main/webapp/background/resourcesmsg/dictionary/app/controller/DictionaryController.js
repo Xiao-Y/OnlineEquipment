@@ -145,9 +145,8 @@ Ext.define("AM.controller.DictionaryController",{
 			success : function(response) {
 				var jsonObj = Ext.JSON.decode(response.responseText);
 				if (jsonObj.success) {
-					var gridPanel = Ext.getCmp("keyValueList");
-					var store = gridPanel.getStore();
-					store.reload();
+					keyValueStore.reload();
+					Ext.getCmp("dictionaryList").getStore().load();
 				}
 				Ext.Msg.alert('提示', jsonObj.message);
 			},

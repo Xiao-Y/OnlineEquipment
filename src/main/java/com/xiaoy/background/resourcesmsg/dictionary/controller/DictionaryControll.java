@@ -133,7 +133,7 @@ public class DictionaryControll {
 		List<Dictionary> dictionaryList = JSONArray.parseArray(keyValues, Dictionary.class);
 
 		JsonResult json = new JsonResult();
-		if (dictionaryList != null && dictionaryList.size() > 1) {// 更改了键值对
+		if (dictionaryList != null && dictionaryList.size() > 0) {// 更改了键值对
 			for (Dictionary d : dictionaryList) {
 				// 判断是否是新添加的
 				if (d.getCreateTime() == null) {
