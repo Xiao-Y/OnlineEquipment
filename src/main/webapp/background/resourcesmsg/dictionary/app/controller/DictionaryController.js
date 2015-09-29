@@ -17,6 +17,12 @@ Ext.define("AM.controller.DictionaryController",{
 			"dictionaryMaintain button[id=removeKeyValue]" : {//删除键值
 				click : this.removeKeyValue
 			},
+			"dictionaryMaintain button[id=removeField]" : {//删除字段
+				click : this.removeField
+			},
+			"dictionaryMaintain button[id=removeModel]" : {//删除模块
+				click : this.removeModel
+			},
 			"dictionaryMaintain button[id=saveDictionary]" : {//保存维护数据字典
 				click : this.saveDictionary
 			}
@@ -28,7 +34,7 @@ Ext.define("AM.controller.DictionaryController",{
 			if (null == baseFormWindow) {
 				Ext.create('AM.view.DictionaryMaintain', {});// 第一次创建添加显示窗口
 			}
-			Ext.getCmp("modelCodeBox").getStore().load();// 刷新子模块下拉框;
+			Ext.getCmp("modelCodeBox").getStore().load();// 刷新模块下拉框;
 			//当点击时加载
 			baseFormWindow = Ext.getCmp("dictionaryMaintainWindow");
 			baseFormWindow.setTitle("维护数据字典");
@@ -93,6 +99,88 @@ Ext.define("AM.controller.DictionaryController",{
 				}
 			}
 		});
+	},
+	removeField : function(){
+		var form = Ext.getCmp("dictionaryMaintainForm").getForm();
+		var modelCodeBox = form.findField("modelCodeBox").getValue();//获取模块下拉列表中选种的值
+		var fieldCodeBox = form.findField("fieldCodeBox").getValue();//获取字段下拉列表中选种的值
+		if(modelCodeBox != "" && modelCodeBox != null && fieldCodeBox != "" && fieldCodeBox != null){
+			Ext.Msg.confirm('提示', '删除所选字段的同时会删除其下的键值对，确定要删除所选的字段？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : '../dictionary/deleteDictionaryField',
+						params : {
+							"modelCodeBox" : modelCodeBox,
+							"fieldCodeBox" : fieldCodeBox
+						},
+						method : 'POST',
+						async : false,
+						success : function(resopnse) {
+							var jsonObj = Ext.JSON.decode(resopnse.responseText);
+							Ext.Msg.alert('提示', jsonObj.message);
+							if (jsonObj.success == true) {
+								// 刷新模块下拉框;
+								Ext.getCmp("modelCodeBox").getStore().load();
+								//刷新键值对列表
+								Ext.getCmp("keyValueList").getStore().reload();
+								//刷新数据字典列表
+								Ext.getCmp("dictionaryList").getStore().load();
+								//清除modelCode
+					        	Ext.getCmp("modelCodeReadOnly").setValue();
+								//清除fieldCodel
+					        	Ext.getCmp("fieldCodeReadOnly").setValue();
+					        	//清除新model名称
+					        	Ext.getCmp("newModelName").setValue();
+					        	//清除新field名称
+					        	Ext.getCmp("newFieldName").setValue();
+							}
+						}
+					});	
+				}
+			});
+		}else{
+			Ext.Msg.alert('提示', "请选择某个模块下要删除的字段！");	
+		}
+	},
+	removeModel : function(){
+		var form = Ext.getCmp("dictionaryMaintainForm").getForm();
+		var modelCodeBox = form.findField("modelCodeBox").getValue();//获取模块下拉列表中选种的值
+		if(modelCodeBox != "" && modelCodeBox != null){
+			Ext.Msg.confirm('提示', '删除所选模块的同时会删除其下的字段和键值对，确定要删除所选的字段？', function(btn) {
+				if (btn == 'yes') {
+					Ext.Ajax.request({
+						url : '../dictionary/deleteDictionaryModel',
+						params : {
+							"modelCodeBox" : modelCodeBox
+						},
+						method : 'POST',
+						async : false,
+						success : function(resopnse) {
+							var jsonObj = Ext.JSON.decode(resopnse.responseText);
+							Ext.Msg.alert('提示', jsonObj.message);
+							if (jsonObj.success == true) {
+								// 刷新模块下拉框;
+								Ext.getCmp("modelCodeBox").getStore().load();
+								//刷新键值对列表
+								Ext.getCmp("keyValueList").getStore().reload();
+								//刷新数据字典列表
+								Ext.getCmp("dictionaryList").getStore().load();
+								//清除modelCode
+					        	Ext.getCmp("modelCodeReadOnly").setValue();
+								//清除fieldCodel
+					        	Ext.getCmp("fieldCodeReadOnly").setValue();
+					        	//清除新model名称
+					        	Ext.getCmp("newModelName").setValue();
+					        	//清除新field名称
+					        	Ext.getCmp("newFieldName").setValue();
+							}
+						}
+					});	
+				}
+			});
+		}else{
+			Ext.Msg.alert('提示', "请选择要删除的模块！");	
+		}
 	},
 	saveDictionary : function(){
 		var form = Ext.getCmp("dictionaryMaintainForm").getForm();
@@ -177,8 +265,23 @@ Ext.define("AM.controller.DictionaryController",{
 			success : function(response) {
 				var jsonObj = Ext.JSON.decode(response.responseText);
 				if (jsonObj.success) {
-					keyValueStore.reload();
+					// 刷新模块下拉框;
+					Ext.getCmp("modelCodeBox").setValue();
+					Ext.getCmp("modelCodeBox").getStore().load();
+					//刷新键值对列表
+					keyValueStore.load();
+					//刷新数据字典列表
 					Ext.getCmp("dictionaryList").getStore().load();
+//					//移除列表中的数据
+//		        	Ext.getCmp("keyValueList").getStore().removeAll();
+					//清除modelCode
+		        	Ext.getCmp("modelCodeReadOnly").setValue();
+					//清除fieldCodel
+		        	Ext.getCmp("fieldCodeReadOnly").setValue();
+		        	//清除model名称
+		        	Ext.getCmp("newModelName").setValue();
+		        	//清除field名称
+		        	Ext.getCmp("newFieldName").setValue();
 				}
 				Ext.Msg.alert('提示', jsonObj.message);
 			},

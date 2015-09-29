@@ -63,4 +63,15 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 		}
 		return false;
 	}
+
+	@Override
+	public boolean deleteDictionaryModelOrField(Dictionary dictionary) {
+		try {
+			dictionaryDao.deleteDictionaryModelOrField(dictionary);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

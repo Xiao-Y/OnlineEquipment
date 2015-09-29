@@ -215,4 +215,55 @@ public class DictionaryControll {
 		}
 		return json;
 	}
+
+	/**
+	 * 删除字段（跟模块名和字段名）
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/deleteDictionaryField")
+	public JsonResult deleteDictionaryField(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		// 模块选中的下拉列表Code
+		String modelCodeBox = Tools.getStringParameter(request, "modelCodeBox");
+		// 选中的字段下拉列表Code
+		String fieldCodeBox = Tools.getStringParameter(request, "fieldCodeBox");
+		Dictionary dictionary = new Dictionary();
+		dictionary.setModelCode(modelCodeBox);
+		dictionary.setFieldCode(fieldCodeBox);
+		boolean flag = dictionaryService.deleteDictionaryModelOrField(dictionary);
+		json.setSuccess(flag);
+		if (flag) {
+			json.setMessage(MessageTips.DELETE_SUCCESS);
+		} else {
+			json.setMessage(MessageTips.DELETE_FAILURE);
+		}
+		return json;
+	}
+
+	/**
+	 * 删除模块（跟模块名）
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/deleteDictionaryModel")
+	public JsonResult deleteDictionaryModel(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		// 模块选中的下拉列表Code
+		String modelCodeBox = Tools.getStringParameter(request, "modelCodeBox");
+		Dictionary dictionary = new Dictionary();
+		dictionary.setModelCode(modelCodeBox);
+		boolean flag = dictionaryService.deleteDictionaryModelOrField(dictionary);
+		json.setSuccess(flag);
+		if (flag) {
+			json.setMessage(MessageTips.DELETE_SUCCESS);
+		} else {
+			json.setMessage(MessageTips.DELETE_FAILURE);
+		}
+		return json;
+	}
 }

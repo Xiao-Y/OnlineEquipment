@@ -112,4 +112,22 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 			super.deleteObjectByCollectionIds(where, map);
 		}
 	}
+
+	@Override
+	public void deleteDictionaryModelOrField(Dictionary dictionary) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		String modelCode = dictionary.getModelCode();
+		String fieldCode = dictionary.getFieldCode();
+		StringBuffer where = new StringBuffer();
+		if (!StringUtils.isEmpty(modelCode)) {
+			where.append(" and modelCode = :modelCode ");
+			map.put("modelCode", modelCode);
+		}
+		if (!StringUtils.isEmpty(fieldCode)) {
+			where.append(" and fieldCode = :fieldCode ");
+			map.put("fieldCode", fieldCode);
+		}
+		super.deleteObjectByCollectionIds(where.toString(), map);
+	}
 }

@@ -59,4 +59,14 @@ public interface DictionaryDao extends CommonDao<Dictionary> {
 	 */
 	void deleteDictionaryIds(List<String> ids);
 
+	/**
+	 * 跟根据模块codet和fieldCode删除数据字典
+	 * 
+	 * @param modelCodeBox
+	 *            模块code
+	 * @param fieldCodeBox
+	 *            字段code
+	 * @return
+	 */
+	void deleteDictionaryModelOrField(Dictionary dictionary);
 }

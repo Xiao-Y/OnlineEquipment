@@ -210,12 +210,13 @@ Ext.define("AM.view.DictionaryMaintain",{
 			glyph:0xf1f8
 		},{
 			xtype : 'button',
-			text : '删除模块',
+			text : '删除字段',
+			id : "removeField",
 			glyph:0xf1f8
 		},{
 			xtype : 'button',
-			text : '删除字段',
-			id : 'EditUserImg',
+			text : '删除模块',
+			id : 'removeModel',
 			glyph:0xf1f8
 		},'->', {
 			xtype : 'button',

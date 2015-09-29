@@ -49,4 +49,15 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 */
 	boolean deleteDictionaryIds(List<Dictionary> dictionaryList);
 
+	/**
+	 * 跟根据模块codet和fieldCode删除数据字典
+	 * 
+	 * @param modelCode
+	 *            模块code
+	 * @param fieldCode
+	 *            字段code
+	 * @return
+	 */
+	boolean deleteDictionaryModelOrField(Dictionary dictionary);
+
 }
