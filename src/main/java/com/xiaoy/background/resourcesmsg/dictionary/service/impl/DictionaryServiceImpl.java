@@ -1,5 +1,6 @@
 package com.xiaoy.background.resourcesmsg.dictionary.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -45,4 +46,21 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 		dictionaryDao.updateDictionary(dictionary);
 	}
 
+	@Override
+	public boolean deleteDictionaryIds(List<Dictionary> dictionaryList) {
+		if (dictionaryList != null && dictionaryList.size() > 0) {
+			List<String> ids = new ArrayList<String>();
+			for (Dictionary d : dictionaryList) {
+				ids.add(d.getId());
+			}
+			try {
+				dictionaryDao.deleteDictionaryIds(ids);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return false;
+	}
 }

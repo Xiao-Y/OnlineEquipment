@@ -52,4 +52,11 @@ public interface DictionaryDao extends CommonDao<Dictionary> {
 	 */
 	void updateDictionary(Dictionary dictionary);
 
+	/**
+	 * 根据一组id删除对应对象
+	 * 
+	 * @param dictionaryList
+	 */
+	void deleteDictionaryIds(List<String> ids);
+
 }

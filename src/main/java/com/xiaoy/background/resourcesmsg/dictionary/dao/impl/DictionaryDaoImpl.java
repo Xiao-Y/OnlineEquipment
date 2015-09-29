@@ -102,4 +102,14 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 		query.setString("fieldCode", dictionary.getFieldCode());
 		query.executeUpdate();
 	}
+
+	@Override
+	public void deleteDictionaryIds(List<String> ids) {
+		if (ids != null && ids.size() > 0) {
+			String where = " and id in (:ids) ";
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("ids", ids);
+			super.deleteObjectByCollectionIds(where, map);
+		}
+	}
 }

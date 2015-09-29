@@ -42,4 +42,11 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 */
 	void updateDictionary(Dictionary dictionary);
 
+	/**
+	 * 根据一组id删除对应对象
+	 * 
+	 * @param dictionaryList
+	 */
+	boolean deleteDictionaryIds(List<Dictionary> dictionaryList);
+
 }

@@ -37,6 +37,7 @@ Ext.define("AM.controller.DictionaryController",{
 	},
 	addKeyValue : function(){
 		var keyValueStore = Ext.getCmp("keyValueList").getStore();
+		//如果最后一个为空或者最后一个中的某个为空
 		if(keyValueStore.last() == null || (keyValueStore.last().get("displayField") && keyValueStore.last().get("valueField") && keyValueStore.last().get("notice"))){
 			//实例化Record对象，并赋予各字段初始值
 			var rec = [{
@@ -55,12 +56,43 @@ Ext.define("AM.controller.DictionaryController",{
 			Ext.Msg.alert('提示', '请选择要删除的行');
 			return;
 		}
-		var records = sm.getSelection();
-		var keyValueStore = Ext.getCmp("keyValueList").getStore();
-		//先通过ajax从后台删除数据，删除成功后再从页面删除数据
-		Ext.each(records,function(record){
-			keyValueStore.remove(record);
-		})
+		Ext.Msg.confirm('提示', '确定要删除所选的行？', function(btn) {
+			if (btn == 'yes') {
+				var records = sm.getSelection();
+				var keyValueStore = Ext.getCmp("keyValueList").getStore();
+				
+				var i = 0;
+				var keyValues = new Array();
+				Ext.each(records,function(record){
+					//如果不是新添加的加入到数组中使用ajax删除，否则新添加的直接删除
+					if(record.get("createTime") != "" && record.get("createTime") != null){
+						keyValues[i] = record.getData();
+						i++;
+					}else{
+						keyValueStore.remove(record);
+					}
+				});
+
+				//如果keyValue不为空后台删除
+				if(keyValues != null && keyValues != ""){
+					Ext.Ajax.request({
+						url : '../dictionary/deleteDictionaryKeyValue',
+						params : {
+							"keyValues" : Ext.JSON.encode(keyValues)//删除的keyvalue值
+						},
+						method : 'POST',
+						async : false,
+						success : function(resopnse) {
+							var jsonObj = Ext.JSON.decode(resopnse.responseText);
+							Ext.Msg.alert('提示', jsonObj.message);
+							if (jsonObj.success == true) {
+								Ext.getCmp('keyValueList').getStore().reload();// 刷新表格
+							}
+						}
+					});
+				}
+			}
+		});
 	},
 	saveDictionary : function(){
 		var form = Ext.getCmp("dictionaryMaintainForm").getForm();

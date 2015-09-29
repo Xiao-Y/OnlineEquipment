@@ -192,4 +192,27 @@ public class DictionaryControll {
 		}
 		return json;
 	}
+
+	/**
+	 * 删除键值对
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/deleteDictionaryKeyValue")
+	public JsonResult deleteDictionaryKeyValue(HttpServletRequest request) {
+		JsonResult json = new JsonResult();
+		// 所有要删除的键值对
+		String keyValues = Tools.getStringParameter(request, "keyValues");
+
+		List<Dictionary> dictionaryList = JSONArray.parseArray(keyValues, Dictionary.class);
+		boolean flag = dictionaryService.deleteDictionaryIds(dictionaryList);
+		json.setSuccess(flag);
+		if (flag) {
+			json.setMessage(MessageTips.DELETE_SUCCESS);
+		} else {
+			json.setMessage(MessageTips.DELETE_FAILURE);
+		}
+		return json;
+	}
 }
