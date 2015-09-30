@@ -20,11 +20,11 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 
 	@Override
 	public List<Dictionary> getDictionary(Dictionary dictionary) {
-		// String start = dictionary.getStart();
-		// String limit = dictionary.getLimit();
+		String start = dictionary.getStart();
+		String limit = dictionary.getLimit();
 		StringBuffer hqlWhere = new StringBuffer();
 		Map<String, Object> paramsMapValue = this.appendWhere(dictionary, hqlWhere);
-		return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, "", "");
+		return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
 	}
 
 	/**
@@ -129,5 +129,12 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 			map.put("fieldCode", fieldCode);
 		}
 		super.deleteObjectByCollectionIds(where.toString(), map);
+	}
+
+	@Override
+	public long getDictionaryCount(Dictionary dictionary) {
+		StringBuffer hqlWhere = new StringBuffer();
+		Map<String, Object> paramsMapValue = this.appendWhere(dictionary, hqlWhere);
+		return this.countByCollection(hqlWhere.toString(), paramsMapValue);
 	}
 }

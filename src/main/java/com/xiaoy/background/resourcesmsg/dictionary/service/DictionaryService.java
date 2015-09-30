@@ -60,4 +60,12 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 */
 	boolean deleteDictionaryModelOrField(Dictionary dictionary);
 
+	/**
+	 * 根据条件统计出现记录数
+	 * 
+	 * @param dictionary
+	 * @return
+	 */
+	long getDictionaryCount(Dictionary dictionary);
+
 }

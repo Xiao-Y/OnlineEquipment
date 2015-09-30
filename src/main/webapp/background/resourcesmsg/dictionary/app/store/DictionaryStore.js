@@ -1,7 +1,7 @@
 Ext.define("AM.store.DictionaryStore",{
 	extend : "Ext.data.Store",
 	model : "AM.model.DictionaryModel",
-	pageSize : 12,
+	pageSize : 15,
 	proxy : {
 		url : "../dictionary/getDictionary",
 		type : "ajax",

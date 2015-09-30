@@ -69,4 +69,12 @@ public interface DictionaryDao extends CommonDao<Dictionary> {
 	 * @return
 	 */
 	void deleteDictionaryModelOrField(Dictionary dictionary);
+
+	/**
+	 * 根据条件统计出现记录数
+	 * 
+	 * @param dictionary
+	 * @return
+	 */
+	long getDictionaryCount(Dictionary dictionary);
 }

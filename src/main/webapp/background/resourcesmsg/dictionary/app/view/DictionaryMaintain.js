@@ -44,12 +44,12 @@ Ext.define("AM.view.DictionaryMaintain",{
 		        			Ext.getCmp("newModelName").setValue();
 		        			Ext.getCmp("newFieldName").setValue();
 		        			var moCode = combo.getValue();
+		        			Ext.getCmp("keyValueList").getStore().removeAll();
 		        			//当为空（新增）时去掉只读
 		        			if(moCode == ""){
 		        				//设置modelCode为可读写
 		        				Ext.getCmp("modelCodeReadOnly").setReadOnly(false);
 		        				//移除列表中的数据
-		        				Ext.getCmp("keyValueList").getStore().removeAll();
 		        			}else{
 		        				//设置modelCode为只读
 		        				Ext.getCmp("modelCodeReadOnly").setReadOnly(true);

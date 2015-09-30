@@ -50,7 +50,9 @@ public class DictionaryControll {
 		dictionary.setStart(start);
 
 		List<Dictionary> list = dictionaryService.getDictionary(dictionary);
+		long count = dictionaryService.getDictionaryCount(dictionary);
 		json.setRoot(list);
+		json.setTotal(count);
 		json.setSuccess(true);
 		return json;
 	}

@@ -74,4 +74,9 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 			return false;
 		}
 	}
+
+	@Override
+	public long getDictionaryCount(Dictionary dictionary) {
+		return dictionaryDao.getDictionaryCount(dictionary);
+	}
 }
