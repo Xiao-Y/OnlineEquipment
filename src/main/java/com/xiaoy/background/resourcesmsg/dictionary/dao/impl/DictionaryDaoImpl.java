@@ -49,6 +49,10 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 				map.put("fieldCode", dictionary.getFieldCode());
 			}
 
+			if (!StringUtils.isEmpty(dictionary.getValueField())) {
+				hqlWhere.append(" and valueField = :valueField ");
+				map.put("valueField", dictionary.getValueField());
+			}
 			return map;
 		}
 		return null;

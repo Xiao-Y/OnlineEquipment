@@ -18,6 +18,7 @@ import org.dom4j.Element;
  * @author XiaoY
  * @date: 2015年8月31日 下午11:07:28
  */
+@Deprecated
 public class ReadPropertyXML {
 
 	/**
@@ -26,6 +27,7 @@ public class ReadPropertyXML {
 	 * @param request
 	 * @return
 	 */
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public static List<PropertyModel> getReadPropertyXML(HttpServletRequest request) {
 		ServletContext servletContext = request.getServletContext();
@@ -70,6 +72,7 @@ public class ReadPropertyXML {
 	 * 
 	 * @date 2015年8月31日上午9:02:15
 	 */
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public static PropertyModel getReadPropertyXML(HttpServletRequest request, String modelStr) {
 		ServletContext servletContext = request.getServletContext();
@@ -118,6 +121,7 @@ public class ReadPropertyXML {
 	 * 
 	 * @date 2015年8月31日上午9:01:56
 	 */
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public static PropertyModel getReadPropertyXML(HttpServletRequest request, String modelStr, String fieldStr) {
 		ServletContext servletContext = request.getServletContext();
@@ -170,6 +174,7 @@ public class ReadPropertyXML {
 	 * 
 	 * @date 2015年8月31日上午9:02:44
 	 */
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public static PropertyModel getReadPropertyXML(HttpServletRequest request, String modelStr, String fieldStr, String keyStr) {
 		ServletContext servletContext = request.getServletContext();

@@ -17,6 +17,7 @@ import org.dom4j.io.SAXReader;
  * @author XiaoY
  * @date: 2015年8月29日 下午10:43:59
  */
+@Deprecated
 public class LoadPropertyListenter implements ServletContextListener {
 
 	public final static String PROPERTY = "property.xml";

@@ -9,6 +9,7 @@ import java.util.TreeMap;
  * @author XiaoY
  * @date: 2015年8月29日 下午11:01:23
  */
+@Deprecated
 public class PropertyModel {
 
 	private String model;

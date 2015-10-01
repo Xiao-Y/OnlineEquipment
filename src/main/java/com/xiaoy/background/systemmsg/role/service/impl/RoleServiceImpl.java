@@ -12,17 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
+import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
 import com.xiaoy.background.systemmsg.role.dao.RoleDao;
 import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.background.usermsg.user.service.UserService;
 import com.xiaoy.base.dao.CommonDao;
+import com.xiaoy.base.entities.Dictionary;
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.base.entities.Role;
 import com.xiaoy.base.entities.User;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
-import com.xiaoy.util.PropertyModel;
-import com.xiaoy.util.ReadPropertyXML;
+import com.xiaoy.util.Tools;
 
 /**
  * 角色实现类
@@ -32,6 +33,10 @@ import com.xiaoy.util.ReadPropertyXML;
  */
 @Service
 public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleService {
+
+	// 工具服务
+	@Resource
+	private Tools tools;
 
 	@Resource
 	private UserService userService;
@@ -79,11 +84,19 @@ public class RoleServiceImpl extends CommonServiceImpl<Role> implements RoleServ
 	public List<Role> getRoleList(HttpServletRequest request, Role role, String start, String limit) {
 		List<Role> list = roleDao.getRoleList(role, start, limit);
 		for (Role r : list) {
-			PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "role", "authorizeStatus", r.getAuthorizeStatus());
-			Map<String, Map<String, String>> datas = propertyModel.getDatas();
-			Map<String, String> map = datas.get("authorizeStatus");
-			String authorizeStatusName = map.get(r.getAuthorizeStatus());
-			r.setAuthorizeStatusName(authorizeStatusName);
+			// 2015-10-01 by XiaoY 修改：废弃的方法-----start
+			// PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "role", "authorizeStatus", r.getAuthorizeStatus());
+			// Map<String, Map<String, String>> datas = propertyModel.getDatas();
+			// Map<String, String> map = datas.get("authorizeStatus");
+			// String authorizeStatusName = map.get(r.getAuthorizeStatus());
+			String authorizeStatus = r.getAuthorizeStatus();
+			Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.ROLE_MODEL_CODE_ROLE,
+					DictionaryType.ROLE_FIELD_CODE_AUTHORIZESTATUS, authorizeStatus);
+			if (dictionary != null) {
+				authorizeStatus = dictionary.getDisplayField();
+			}
+			// 2015-10-01 by XiaoY 修改：废弃的方法-----end
+			r.setAuthorizeStatusName(authorizeStatus);
 		}
 		return list;
 	}

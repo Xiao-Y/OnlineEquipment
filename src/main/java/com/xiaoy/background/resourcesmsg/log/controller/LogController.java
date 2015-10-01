@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaoy.aop.log.HandleTyepEnum;
+import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.resourcesmsg.log.service.LogService;
 import com.xiaoy.background.usermsg.user.service.UserService;
 import com.xiaoy.base.entities.Log;
@@ -23,6 +24,11 @@ import com.xiaoy.util.Tools;
 @Controller
 @RequestMapping("/background/resourcesmsg/log")
 public class LogController {
+
+	// 工具服务
+	@Resource
+	private Tools tools;
+
 	@Resource
 	private LogService logService;
 	@Resource
@@ -82,7 +88,10 @@ public class LogController {
 	public @ResponseBody
 	JsonResult getHandleType(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		List<CheckBox> list = Tools.getCheckBox(request, "log", "operation");
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
+		// List<CheckBox> list = Tools.getCheckBox(request, "log", "operation");
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.LOG_MODEL_CODE_LOG, DictionaryType.LOG_FIELD_CODE_OPERATION);
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;

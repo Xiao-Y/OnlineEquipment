@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xiaoy.background.resourcesmsg.bug.service.BugService;
+import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
 import com.xiaoy.base.entities.Bug;
+import com.xiaoy.base.entities.Dictionary;
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
-import com.xiaoy.util.PropertyModel;
-import com.xiaoy.util.ReadPropertyXML;
 import com.xiaoy.util.Tools;
 
 /**
@@ -38,6 +38,10 @@ import com.xiaoy.util.Tools;
 @Controller
 @RequestMapping("background/resourcesmsg/bug")
 public class BugController {
+
+	// 工具服务
+	@Resource
+	private Tools tools;
 
 	@Resource
 	private BugService bugService;
@@ -271,7 +275,10 @@ public class BugController {
 	public @ResponseBody
 	JsonResult getBugType(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		List<CheckBox> list = Tools.getCheckBox(request, "bug", "bugType");
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
+		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "bugType");
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_BUGTYPE);
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;
@@ -289,7 +296,10 @@ public class BugController {
 	public @ResponseBody
 	JsonResult getPriority(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		List<CheckBox> list = Tools.getCheckBox(request, "bug", "priority");
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
+		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "priority");
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_PRIORITY);
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;
@@ -307,7 +317,10 @@ public class BugController {
 	public @ResponseBody
 	JsonResult getReappear(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		List<CheckBox> list = Tools.getCheckBox(request, "bug", "reappear");
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
+		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "reappear");
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_REAPPEAR);
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;
@@ -325,7 +338,10 @@ public class BugController {
 	public @ResponseBody
 	JsonResult getSeverity(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		List<CheckBox> list = Tools.getCheckBox(request, "bug", "severity");
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
+		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "severity");
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_SEVERITY);
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;
@@ -343,51 +359,91 @@ public class BugController {
 	public @ResponseBody
 	JsonResult getStatus(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
-		List<CheckBox> list = Tools.getCheckBox(request, "bug", "status");
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
+		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "status");
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_STATUS);
+		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;
 	}
 
+	/**
+	 * 查看bug详细信息
+	 * 
+	 * @param request
+	 * @param id
+	 *            bugid
+	 * @return
+	 * @date 2015年10月2日 上午12:07:45
+	 */
 	@ResponseBody
 	@RequestMapping("/getBugViewById/{id}")
-	public Map<String,Object> getBugViewById(HttpServletRequest request, @PathVariable("id") String id) {
+	public Map<String, Object> getBugViewById(HttpServletRequest request, @PathVariable("id") String id) {
 		Bug bug = bugService.findObjectById(id);
-		Map<String,Object> mapResult = new HashMap<String, Object>();
+		Map<String, Object> mapResult = new HashMap<String, Object>();
 		if (bug != null) {
 			String status = bug.getStatus();
 			if (!StringUtils.isEmpty(status)) {
-				PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "status", status);
-				Map<String, Map<String, String>> map = propertyModel.getDatas();
-				Map<String, String> map2 = map.get("status");
-				status = map2.get(status);
+				// 2015-10-01 by XiaoY 修改：废弃的方法-----start
+				// PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "status", status);
+				// Map<String, Map<String, String>> map = propertyModel.getDatas();
+				// Map<String, String> map2 = map.get("status");
+				// status = map2.get(status);
+				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.BUG_MODEL_CODE_BUG,
+						DictionaryType.BUG_FIELD_CODE_STATUS, status);
+				if (dictionary != null) {
+					status = dictionary.getDisplayField();
+				}
+				// 2015-10-01 by XiaoY 修改：废弃的方法-----end
 				bug.setStatus(status);
 			}
 
 			String severity = bug.getSeverity();
 			if (!StringUtils.isEmpty(severity)) {
-				PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "severity", severity);
-				Map<String, Map<String, String>> map = propertyModel.getDatas();
-				Map<String, String> map2 = map.get("severity");
-				severity = map2.get(severity);
+				// 2015-10-01 by XiaoY 修改：废弃的方法-----start
+				// PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "severity", severity);
+				// Map<String, Map<String, String>> map = propertyModel.getDatas();
+				// Map<String, String> map2 = map.get("severity");
+				// severity = map2.get(severity);
+				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.BUG_MODEL_CODE_BUG,
+						DictionaryType.BUG_FIELD_CODE_SEVERITY, severity);
+				if (dictionary != null) {
+					severity = dictionary.getDisplayField();
+				}
+				// 2015-10-01 by XiaoY 修改：废弃的方法-----end
 				bug.setSeverity(severity);
 			}
 
 			String reappear = bug.getReappear();
 			if (!StringUtils.isEmpty(reappear)) {
-				PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "reappear", reappear);
-				Map<String, Map<String, String>> map = propertyModel.getDatas();
-				Map<String, String> map2 = map.get("reappear");
-				reappear = map2.get(reappear);
+				// 2015-10-01 by XiaoY 修改：废弃的方法-----start
+				// PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "reappear", reappear);
+				// Map<String, Map<String, String>> map = propertyModel.getDatas();
+				// Map<String, String> map2 = map.get("reappear");
+				// reappear = map2.get(reappear);
+				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.BUG_MODEL_CODE_BUG,
+						DictionaryType.BUG_FIELD_CODE_REAPPEAR, reappear);
+				if (dictionary != null) {
+					reappear = dictionary.getDisplayField();
+				}
+				// 2015-10-01 by XiaoY 修改：废弃的方法-----end
 				bug.setReappear(reappear);
 			}
 
 			String bugType = bug.getBugType();
 			if (!StringUtils.isEmpty(bugType)) {
-				PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "bugType", bugType);
-				Map<String, Map<String, String>> map = propertyModel.getDatas();
-				Map<String, String> map2 = map.get("bugType");
-				bugType = map2.get(bugType);
+				// 2015-10-01 by XiaoY 修改：废弃的方法-----start
+				// PropertyModel propertyModel = ReadPropertyXML.getReadPropertyXML(request, "bug", "bugType", bugType);
+				// Map<String, Map<String, String>> map = propertyModel.getDatas();
+				// Map<String, String> map2 = map.get("bugType");
+				// bugType = map2.get(bugType);
+				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.BUG_MODEL_CODE_BUG,
+						DictionaryType.BUG_FIELD_CODE_BUGTYPE, bugType);
+				if (dictionary != null) {
+					bugType = dictionary.getDisplayField();
+				}
+				// 2015-10-01 by XiaoY 修改：废弃的方法-----end
 				bug.setBugType(bugType);
 			}
 			String parentId = bug.getParentId();
@@ -396,7 +452,7 @@ public class BugController {
 			String childrenId = bug.getChildrenId();
 			String childrenName = menuService.findObjectById(childrenId).getMenuName();
 			bug.setChildrenName(childrenName);
-			mapResult.put("success",true);
+			mapResult.put("success", true);
 			mapResult.put("data", bug);
 		}
 		return mapResult;
