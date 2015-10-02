@@ -5,12 +5,14 @@
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
 	<!-- 开启spring缓存 -->
-	<cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
+	<cache:annotation-driven cache-manager="cacheManager"
+		proxy-target-class="true" />
 
 	<bean id="cacheManagerFactory"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:ehcache.xml" />
-		<property name="shared" value="false" />
+		<!-- 由于hibernate也使用了Ehcache, 保证双方都使用同一个缓存管理器 -->
+		<property name="shared" value="true" />
 	</bean>
 
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
