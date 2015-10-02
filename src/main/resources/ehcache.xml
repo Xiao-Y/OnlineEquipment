@@ -27,24 +27,9 @@
 		maxElementsOnDisk="10000000" diskPersistent="false"
 		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU" />
 
-	<cache name="resourceTypeServiceCache" maxElementsInMemory="10000"
+	<cache name="commonServiceCache" maxElementsInMemory="10000"
 		maxElementsOnDisk="1000" eternal="false" overflowToDisk="true"
 		diskSpoolBufferSizeMB="20" timeToIdleSeconds="300" timeToLiveSeconds="600"
 		memoryStoreEvictionPolicy="LFU" />
-		
-	<cache name="resourceTypeDaoCache" maxElementsInMemory="10000"
-		maxElementsOnDisk="1000" eternal="false" overflowToDisk="true"
-		diskSpoolBufferSizeMB="20" timeToIdleSeconds="300" timeToLiveSeconds="600"
-		memoryStoreEvictionPolicy="LFU" />
-		
-	<cache name="bugTypeServiceCache" maxElementsInMemory="10000"
-		maxElementsOnDisk="1000" eternal="false" overflowToDisk="true"
-		diskSpoolBufferSizeMB="20" timeToIdleSeconds="300" timeToLiveSeconds="600"
-		memoryStoreEvictionPolicy="LFU" />
-		
-	<cache name="bugTypeDaoCache" maxElementsInMemory="10000"
-		maxElementsOnDisk="1000" eternal="false" overflowToDisk="true"
-		diskSpoolBufferSizeMB="20" timeToIdleSeconds="300" timeToLiveSeconds="600"
-		memoryStoreEvictionPolicy="LFU" />
-		
+
 </ehcache>

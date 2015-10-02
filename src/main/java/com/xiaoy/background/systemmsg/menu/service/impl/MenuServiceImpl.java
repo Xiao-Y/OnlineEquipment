@@ -14,47 +14,40 @@ import com.xiaoy.base.entities.Menu;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 
 @Service
-public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuService
-{
+public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuService {
 
 	private MenuDao menuDao;
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<Menu> commonDao)
-	{
+	public void setCommonDao(CommonDao<Menu> commonDao) {
 		this.menuDao = (MenuDao) commonDao;
 		super.commonDao = commonDao;
 	}
 
 	@Override
-	public List<Menu> getParentMenuList()
-	{
+	public List<Menu> getParentMenuList() {
 		return menuDao.getParentMenuList();
 	}
 
 	@Override
-	public List<Menu> getChildMenuList()
-	{
+	public List<Menu> getChildMenuList() {
 		return menuDao.getChildMenuList();
 	}
 
 	@Override
-	public List<Menu> findCollectionByCondition(Menu menu, String start, String limit)
-	{
+	public List<Menu> findCollectionByCondition(Menu menu, String start, String limit) {
 		List<Menu> list = menuDao.findCollectionByCondition(menu, start, limit);
 		return list;
 	}
 
 	@Override
-	public long countByCollection(Menu menu)
-	{
+	public long countByCollection(Menu menu) {
 		return menuDao.countByCollection(menu);
 	}
 
 	@Override
-	public void updateMenu(Menu menu)
-	{
+	public void updateMenu(Menu menu) {
 		Menu obj = menuDao.findObjectById(menu.getId());
 		obj.setMenuName(menu.getMenuName());
 		obj.setMenuType(menu.getMenuType());
@@ -66,10 +59,8 @@ public class MenuServiceImpl extends CommonServiceImpl<Menu> implements MenuServ
 	}
 
 	@Override
-	public List<Menu> getChildMenuListByParentId(String parentId)
-	{
-		if (!StringUtils.isEmpty(parentId))
-		{
+	public List<Menu> getChildMenuListByParentId(String parentId) {
+		if (!StringUtils.isEmpty(parentId)) {
 			List<Menu> menus = menuDao.getChildMenuListByParentId(parentId);
 			return menus;
 		}

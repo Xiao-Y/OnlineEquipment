@@ -96,7 +96,7 @@ public class Bug extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "REVISE_EXPLAIN", length = 3000)
+	@Column(name = "REVISE_EXPLAIN", length = 8000)
 	public String getReviseExplain() {
 		return reviseExplain;
 	}
