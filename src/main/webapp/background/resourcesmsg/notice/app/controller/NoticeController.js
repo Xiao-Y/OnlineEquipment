@@ -68,7 +68,7 @@ Ext.define('AM.controller.NoticeController', {
 			//当点击添加时加载
 			baseFormWindow = Ext.getCmp("noticeViewWindow");
 			baseFormWindow.show();
-			var form = Ext.getCmp("noticeViewForm").getForm();
+			var form = Ext.getCmp("noitceViewForm").getForm();
 			form.loadRecord(records);// 将reocrd填充到表单中
 		});
 	},

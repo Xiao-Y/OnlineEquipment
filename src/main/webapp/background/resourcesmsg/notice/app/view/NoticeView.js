@@ -23,20 +23,22 @@ Ext.define('AM.view.NoticeView', {
 		},
 		defaultType : 'displayfield',
 		items : [ {
+			fieldLabel : '公告人',
+			name : 'noticeName'
+		},{
 			fieldLabel : '公告标题',
 			name : 'noticeTit'
 		},{
 			fieldLabel : '公告内容',
 			name : 'notice'
 		},{
-			fieldLabel : '公告人',
-			name : 'noticeName'
-		},{
 			fieldLabel : '创建时间',
-			name : 'createTime'
+			name : 'createTime',
+			renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')
 		}, {
 			fieldLabel : '更新时间',
-			name : 'updateTime'
+			name : 'updateTime',
+			renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')
 		}]
 	} ],
 	dockedItems : [ {

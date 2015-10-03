@@ -74,7 +74,8 @@ Ext.define('AM.view.NoticeList', {
 			renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')
 		}, {
 			header : '更新时间',
-			dataIndex : 'updateTime'
+			dataIndex : 'updateTime',
+			renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')
 		}],
 		dockedItems : [ {
 			xtype : 'pagingtoolbar',// 分页组件

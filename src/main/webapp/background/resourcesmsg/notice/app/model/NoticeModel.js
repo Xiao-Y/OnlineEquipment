@@ -12,7 +12,7 @@ Ext.define("AM.model.NoticeModel",{
 		sortable : true
 	},{
 		name : "updateTime",
-		type : "string",
+		type : "date",
 		sortable : true
 	},{
 		name : "notice",

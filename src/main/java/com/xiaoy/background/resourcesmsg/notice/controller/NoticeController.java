@@ -8,12 +8,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaoy.background.resourcesmsg.notice.service.NoticeService;
 import com.xiaoy.base.entities.Notice;
+import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.LoginHelper;
 import com.xiaoy.util.MessageTips;
@@ -47,10 +49,20 @@ public class NoticeController {
 	public JsonResult getnNoticeList(HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
+		String noticeTit = Tools.getStringParameter(request, "noticeTit", "");
+		String noticeStr = Tools.getStringParameter(request, "notice", "");
+		String noticeName = Tools.getStringParameter(request, "noticeName", "");
+		String createTime = Tools.getStringParameter(request, "createTime", "");
+		String updateTime = Tools.getStringParameter(request, "updateTime", "");
 
 		Notice notice = new Notice();
 		notice.setStart(start);
 		notice.setLimit(limit);
+		notice.setNoticeTit(noticeTit);
+		notice.setNoticeName(noticeName);
+		notice.setNotice(noticeStr);
+		notice.setCreateTime(createTime == "" ? null : DateHelper.stringConverDate(createTime));
+		notice.setUpdateTime(updateTime == "" ? null : DateHelper.stringConverDate(updateTime));
 
 		List<Notice> list = noticeService.getNoticeList(notice);
 		long total = noticeService.getTotal(notice);
@@ -95,6 +107,22 @@ public class NoticeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			json.setMessage(MessageTips.SERVICE_ERRER);
+			json.setSuccess(false);
+		}
+		return json;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/deleteNoticeById/{id}", method = RequestMethod.POST)
+	public JsonResult deleteNoticeById(@PathVariable("id") String id) {
+		JsonResult json = new JsonResult();
+		try {
+			noticeService.deleteObjectByid(id);
+			json.setMessage(MessageTips.DELETE_SUCCESS);
+			json.setSuccess(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.setMessage(MessageTips.DELETE_FAILURE);
 			json.setSuccess(false);
 		}
 		return json;
