@@ -164,7 +164,7 @@ public class UserController {
 			zip.setLevelType("1");
 		}
 		JsonResult json = new JsonResult();
-		List<Zip> list = zipService.getZipCondition(zip);
+		List<Zip> list = zipService.getZipCondition(zip, "", "");
 		json.setSuccess(true);
 		json.setRoot(list);
 		return json;

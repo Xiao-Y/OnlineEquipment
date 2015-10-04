@@ -15,11 +15,18 @@ import com.xiaoy.base.entities.Zip;
 public class ZipDaoImpl extends CommonDaoImpl<Zip> implements ZipDao {
 
 	@Override
-	public List<Zip> getZipCondition(Zip zip) {
+	public List<Zip> getZipCondition(Zip zip, String start, String limit) {
 
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appendWhere(hqlWhere, zip);
-		return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue);
+		return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
+	}
+
+	@Override
+	public long getTotal(Zip zip) {
+		StringBuffer hqlWhere = new StringBuffer("");
+		Map<String, Object> paramsMapValue = this.appendWhere(hqlWhere, zip);
+		return super.countByCollection(hqlWhere.toString(), paramsMapValue);
 	}
 
 	/**
@@ -38,7 +45,7 @@ public class ZipDaoImpl extends CommonDaoImpl<Zip> implements ZipDao {
 				hqlWhere.append(" and levelType = :levelType ");
 				map.put("levelType", zip.getLevelType());
 			}
-			if(!StringUtils.isEmpty(zip.getParentId())){
+			if (!StringUtils.isEmpty(zip.getParentId())) {
 				hqlWhere.append(" and parentId = :parentId ");
 				map.put("parentId", zip.getParentId());
 			}

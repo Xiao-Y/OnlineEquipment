@@ -60,11 +60,11 @@ Ext.define('AM.view.NoticeList', {
 		}, {
 			header : '公告标题',
 			dataIndex : 'noticeTit',
-			width : 300
+			width : 150
 		}, {
 			header : '公告内容',
 			dataIndex : 'notice',
-			width : 500
+			width : 260
 		}, {
 			header : '公告人',
 			dataIndex : 'noticeName'

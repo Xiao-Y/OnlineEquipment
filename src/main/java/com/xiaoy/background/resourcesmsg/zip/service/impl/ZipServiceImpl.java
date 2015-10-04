@@ -25,7 +25,12 @@ public class ZipServiceImpl extends CommonServiceImpl<Zip> implements ZipService
 	}
 
 	@Override
-	public List<Zip> getZipCondition(Zip zip) {
-		return zipDao.getZipCondition(zip);
+	public List<Zip> getZipCondition(Zip zip, String start, String limit) {
+		return zipDao.getZipCondition(zip, start, limit);
+	}
+
+	@Override
+	public long getTotal(Zip zip) {
+		return zipDao.getTotal(zip);
 	}
 }

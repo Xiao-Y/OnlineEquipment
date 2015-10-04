@@ -2,6 +2,16 @@ package com.xiaoy.util;
 
 public class MessageTips {
 	/**
+	 * 导出成功
+	 */
+	public static final String EXPORT_SUCCESS = "导出成功!";
+
+	/**
+	 * 导出失败
+	 */
+	public static final String EXPORT_FAILURE = "导出失败!";
+
+	/**
 	 * 服务器错误，请稍后再试！
 	 */
 	public static String SERVICE_ERRER = "服务器错误，请稍后再试！";
@@ -20,12 +30,12 @@ public class MessageTips {
 	 * 保存成功！
 	 */
 	public static String SAVE_SUCCESS = "保存成功！";
-	
+
 	/**
 	 * 更新成功！
 	 */
 	public static String UPDATE_SUCCESS = "更新成功！";
-	
+
 	/**
 	 * 提示
 	 */

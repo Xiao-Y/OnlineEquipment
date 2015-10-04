@@ -19,6 +19,15 @@ public interface ZipDao extends CommonDao<Zip> {
 	 * @param zip
 	 * @return
 	 */
-	List<Zip> getZipCondition(Zip zip);
+	List<Zip> getZipCondition(Zip zip, String start, String limit);
 
+	/**
+	 * 根据条件统计记录数
+	 * 
+	 * @param zip
+	 *            查询条件
+	 * @return
+	 * @date 2015年10月4日 下午9:06:25
+	 */
+	long getTotal(Zip zip);
 }
