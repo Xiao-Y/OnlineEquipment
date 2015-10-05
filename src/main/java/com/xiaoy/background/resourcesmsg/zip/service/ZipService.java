@@ -2,6 +2,10 @@ package com.xiaoy.background.resourcesmsg.zip.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.xiaoy.base.entities.Zip;
 import com.xiaoy.base.service.CommonService;
 
@@ -30,5 +34,21 @@ public interface ZipService extends CommonService<Zip> {
 	 * @date 2015年10月4日 下午9:06:25
 	 */
 	long getTotal(Zip zip);
+
+	/**
+	 * 导出数据
+	 * 
+	 * @param response
+	 * @date 2015年10月5日 下午10:39:36
+	 */
+	void exportZip(HttpServletResponse response);
+
+	/**
+	 * 导入数据
+	 * 
+	 * @param multipartFile
+	 * @date 2015年10月5日 下午10:47:54
+	 */
+	void importZip(MultipartFile multipartFile);
 
 }

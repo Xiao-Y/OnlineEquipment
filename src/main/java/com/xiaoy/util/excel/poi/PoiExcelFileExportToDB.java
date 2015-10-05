@@ -152,7 +152,7 @@ public class PoiExcelFileExportToDB {
 	 * @param groups
 	 *            导入分组
 	 */
-	public List<Object[]> getDataList() throws InstantiationException, IllegalAccessException {
+	public List<Object[]> getDataList() {
 		List<Object[]> dataList = new ArrayList<Object[]>();
 		// 获取数据行号
 		int rowNum = this.getDataRowNum();

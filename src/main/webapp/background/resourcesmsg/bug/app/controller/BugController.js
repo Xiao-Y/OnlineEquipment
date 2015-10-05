@@ -6,7 +6,7 @@ Ext.define('AM.controller.BugController', {
 	init : function() {
 		this.control({
 			"bugList button[id=addBug]" : {
-				click : this.bugList
+				click : this.addBug
 			},
 			"bugAdd button[id=saveBug]":{//保存操作
 				click:this.saveBug
@@ -49,7 +49,7 @@ Ext.define('AM.controller.BugController', {
 			}
 		});
 	},
-	bugList : 
+	addBug : 
 		function() {//添加窗口
 			Ext.require('AM.view.BugAdd', function() {
 				var baseFormWindow = Ext.getCmp("bugAddWindow");

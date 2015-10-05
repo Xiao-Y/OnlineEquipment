@@ -1,6 +1,12 @@
 package com.xiaoy.util;
 
 public class MessageTips {
+	
+	/**
+	 * 导入的不是Excel文件
+	 */
+	public static final String FILE_TYPE_EXECEL = "导入的不是Excel文件";
+	
 	/**
 	 * 导出成功
 	 */
@@ -10,6 +16,16 @@ public class MessageTips {
 	 * 导出失败
 	 */
 	public static final String EXPORT_FAILURE = "导出失败!";
+
+	/**
+	 * 导入成功
+	 */
+	public static final String IMPORT_SUCCESS = "导入成功";
+
+	/**
+	 * 导入失败
+	 */
+	public static final String IMPORT_FAILURE = "导入失败";
 
 	/**
 	 * 服务器错误，请稍后再试！

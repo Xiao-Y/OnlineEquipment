@@ -151,7 +151,7 @@ public class PoiDBExportToExcelFile {
 		// 设置数据列的宽度
 		for (int i = 0; i < headerList.size(); i++) {
 			int colWidth = sheet.getColumnWidth(i) * 2;
-			sheet.setColumnWidth(i, colWidth < 2000 ? 2000 : colWidth);
+			sheet.setColumnWidth(i, colWidth < 2000 ? 4000 : colWidth);
 		}
 
 		// 将数据插入行中
