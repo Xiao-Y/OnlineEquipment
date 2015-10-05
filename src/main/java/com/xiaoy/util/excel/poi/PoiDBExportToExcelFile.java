@@ -1,8 +1,10 @@
 package com.xiaoy.util.excel.poi;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -98,24 +100,38 @@ public class PoiDBExportToExcelFile {
 	private void initialize(String title, List<String> headerList, List<List<String>> dataList) {
 		this.wb = new SXSSFWorkbook(500);
 		this.sheet = wb.createSheet("Export");
-		this.styles = createStyles(wb);
-		// Create title
+		this.styles = this.createStyles(wb);
+		// 创建标题
 		if (StringUtils.isNotBlank(title)) {
+			// 创建行
 			Row titleRow = sheet.createRow(rownum++);
+			// 设置行高
 			titleRow.setHeightInPoints(30);
+			// 创建单元格
 			Cell titleCell = titleRow.createCell(0);
+			// 设置标题的样式
 			titleCell.setCellStyle(styles.get("title"));
+			// 设置标题
 			titleCell.setCellValue(title);
-			sheet.addMergedRegion(new CellRangeAddress(titleRow.getRowNum(), titleRow.getRowNum(), titleRow.getRowNum(), headerList.size() - 1));
+			// 参数：起始行号，终止行号， 起始列号，终止列号
+			CellRangeAddress rangeAddress = new CellRangeAddress(titleRow.getRowNum(), titleRow.getRowNum(), titleRow.getRowNum(), headerList.size() - 1);
+			// 单元格合并
+			sheet.addMergedRegion(rangeAddress);
 		}
-		// Create header
+
+		// 判断表头
 		if (headerList == null) {
 			throw new RuntimeException("headerList not null!");
 		}
+		// 创建行
 		Row headerRow = sheet.createRow(rownum++);
+		// 设置行高
 		headerRow.setHeightInPoints(16);
+		// 创建表头
 		for (int i = 0; i < headerList.size(); i++) {
+			// 创建单元格
 			Cell cell = headerRow.createCell(i);
+			// 设置表头样式
 			cell.setCellStyle(styles.get("header"));
 			String[] ss = StringUtils.split(headerList.get(i), "**", 2);
 			if (ss.length == 2) {
@@ -126,17 +142,24 @@ public class PoiDBExportToExcelFile {
 			} else {
 				cell.setCellValue(headerList.get(i));
 			}
+			// 列宽只自动适应
 			sheet.autoSizeColumn(i);
 		}
+
 		System.out.println("Excel构建完成...");
+
+		// 设置数据列的宽度
 		for (int i = 0; i < headerList.size(); i++) {
 			int colWidth = sheet.getColumnWidth(i) * 2;
-			sheet.setColumnWidth(i, colWidth < 3000 ? 3000 : colWidth);
+			sheet.setColumnWidth(i, colWidth < 2000 ? 2000 : colWidth);
 		}
 
+		// 将数据插入行中
 		for (int i = 0; i < dataList.size(); i++) {
+			// 添加一行
 			Row row = this.addRow();
 			for (int j = 0; j < dataList.get(i).size(); j++) {
+				// 数据插入到单元格中
 				this.addCell(row, j, dataList.get(i).get(j));
 			}
 		}
@@ -181,7 +204,9 @@ public class PoiDBExportToExcelFile {
 	 * @return 单元格对象
 	 */
 	private Cell addCell(Row row, int column, Object val, int align, Class<?> fieldType) {
+		// 创建一个单元格
 		Cell cell = row.createCell(column);
+		// 添加单元格样式
 		CellStyle style = styles.get("data" + (align >= 1 && align <= 3 ? align : ""));
 		try {
 			if (val == null) {
@@ -228,6 +253,7 @@ public class PoiDBExportToExcelFile {
 	private Map<String, CellStyle> createStyles(Workbook wb) {
 		Map<String, CellStyle> styles = new HashMap<String, CellStyle>();
 
+		// 设置标题样式
 		CellStyle style = wb.createCellStyle();
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
@@ -238,6 +264,7 @@ public class PoiDBExportToExcelFile {
 		style.setFont(titleFont);
 		styles.put("title", style);
 
+		// 设置数据样式
 		style = wb.createCellStyle();
 		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 		style.setBorderRight(CellStyle.BORDER_THIN);
@@ -254,21 +281,25 @@ public class PoiDBExportToExcelFile {
 		style.setFont(dataFont);
 		styles.put("data", style);
 
+		// 设置数据样式1
 		style = wb.createCellStyle();
 		style.cloneStyleFrom(styles.get("data"));
 		style.setAlignment(CellStyle.ALIGN_LEFT);
 		styles.put("data1", style);
 
+		// 设置数据样式2
 		style = wb.createCellStyle();
 		style.cloneStyleFrom(styles.get("data"));
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		styles.put("data2", style);
 
+		// 设置数据样式3
 		style = wb.createCellStyle();
 		style.cloneStyleFrom(styles.get("data"));
 		style.setAlignment(CellStyle.ALIGN_RIGHT);
 		styles.put("data3", style);
 
+		// 设置表头样式
 		style = wb.createCellStyle();
 		style.cloneStyleFrom(styles.get("data"));
 		// style.setWrapText(true);
@@ -337,33 +368,33 @@ public class PoiDBExportToExcelFile {
 		System.out.println("Excel导出完成...");
 	}
 
-	// /**
-	// * 导出测试
-	// */
-	// public static void main(String[] args) throws Throwable {
-	//
-	// List<String> headerList = new ArrayList<String>();
-	// for (int i = 1; i <= 10; i++) {
-	// headerList.add("表头" + i);
-	// }
-	//
-	// List<String> dataRowList = new ArrayList<String>();
-	// for (int i = 1; i <= headerList.size(); i++) {
-	// dataRowList.add("数据" + i);
-	// }
-	//
-	// List<List<String>> dataList = new ArrayList<List<String>>();
-	// for (int i = 1; i <= 1000000; i++) {
-	// dataList.add(dataRowList);
-	// }
-	//
-	// PoiDBExportToExcelFile ex = new PoiDBExportToExcelFile("title", headerList, dataList);
-	// // OutputStream out = new FileOutputStream("d:\\workbook.xls");
-	// OutputStream out = new FileOutputStream("d:\\workbook.xlsx");
-	// ex.expordExcel(out);
-	// if (out != null) {
-	// out.flush();
-	// out.close();
-	// }
-	// }
+	/**
+	 * 导出测试
+	 */
+	public static void main(String[] args) throws Throwable {
+
+		List<String> headerList = new ArrayList<String>();
+		for (int i = 1; i <= 10; i++) {
+			headerList.add("表头" + i);
+		}
+
+		List<String> dataRowList = new ArrayList<String>();
+		for (int i = 1; i <= headerList.size(); i++) {
+			dataRowList.add("数据" + i);
+		}
+
+		List<List<String>> dataList = new ArrayList<List<String>>();
+		for (int i = 1; i <= 1000000; i++) {
+			dataList.add(dataRowList);
+		}
+
+		PoiDBExportToExcelFile ex = new PoiDBExportToExcelFile("title444", headerList, dataList);
+		// OutputStream out = new FileOutputStream("d:\\workbook.xls");
+		OutputStream out = new FileOutputStream("d:\\workbook.xlsx");
+		ex.expordExcel(out);
+		if (out != null) {
+			out.flush();
+			out.close();
+		}
+	}
 }
