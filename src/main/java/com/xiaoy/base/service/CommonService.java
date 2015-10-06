@@ -6,33 +6,41 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *	 公接口<br>
- *	所有的Dao接口必须extends<br>
- *	方法：<br>
- *根据id删除一个对<br>
- *	public void deleteObjectByid(Serializable id);<p>
- *
- *根据一个集合删除一组对象,可以通过hqlWhere添加查询条件，paramMapValue设置查询参数 <br>
- *	public void deleteObjectByCollectionIds(String hqlWhere,Map<String, Object> paramsMapValue);<p>
- *
- *更新一个对象<br>
- *	public void updateObject(T entity);<p>
- *
- *根据一个集合更新一组对象<br>
- *	public void updateObjectCollection(Collection&ltT&gt entities);<p>
- *
- *保存一个对象<br>
- *	public void saveObject(T entity);<p>
- *
- *根据一个集合对象保存一组对象<br>
- *	public void saveObjectCollection(Collection&ltSerializable&gt entities);<p>
- *
- *根据一个id查询出一个对象<br>
- *	public T findObjectById(Serializable id);<p>
- *
- *根据条件查询出一个集合（不分页）,可以通过hqlWhere添加查询条件，paramMapValue设置查询参数<br>
- *	List&ltT&gt findCollectionByCondition(String hqlWhere,Map<String, Object> paramsMapValue);<p>
- *
+ * 公接口<br>
+ * 所有的Dao接口必须extends<br>
+ * 方法：<br>
+ * 根据id删除一个对<br>
+ * public void deleteObjectByid(Serializable id);
+ * <p>
+ * 
+ * 根据一个集合删除一组对象,可以通过hqlWhere添加查询条件，paramMapValue设置查询参数 <br>
+ * public void deleteObjectByCollectionIds(String hqlWhere,Map<String, Object> paramsMapValue);
+ * <p>
+ * 
+ * 更新一个对象<br>
+ * public void updateObject(T entity);
+ * <p>
+ * 
+ * 根据一个集合更新一组对象<br>
+ * public void updateObjectCollection(Collection&ltT&gt entities);
+ * <p>
+ * 
+ * 保存一个对象<br>
+ * public void saveObject(T entity);
+ * <p>
+ * 
+ * 根据一个集合对象保存一组对象<br>
+ * public void saveObjectCollection(Collection&ltSerializable&gt entities);
+ * <p>
+ * 
+ * 根据一个id查询出一个对象<br>
+ * public T findObjectById(Serializable id);
+ * <p>
+ * 
+ * 根据条件查询出一个集合（不分页）,可以通过hqlWhere添加查询条件，paramMapValue设置查询参数<br>
+ * List&ltT&gt findCollectionByCondition(String hqlWhere,Map<String, Object> paramsMapValue);
+ * <p>
+ * 
  * @author XiaoY
  * @date 2015年8月10日下午6:20:16
  */
@@ -74,7 +82,7 @@ public interface CommonService<T> {
 	 * 
 	 * @param entities
 	 *            将要更新的集合
-	 *
+	 * 
 	 * @author XiaoY
 	 * @date: 2014年12月13日 下午5:01:24
 	 */
@@ -89,15 +97,31 @@ public interface CommonService<T> {
 	public void saveObject(T entity);
 
 	/**
+	 * 根据一个集合对象保存或更新一组对象
+	 * 
+	 * @param entities
+	 * 
+	 * @author XiaoY
+	 * @date: 2014年12月13日 下午5:03:47
+	 */
+	public void saveOrUpdateObjectCollection(Collection<T> entities);
+
+	/**
 	 * 根据一个集合对象保存一组对象
 	 * 
 	 * @param entities
-	 *
+	 * 
 	 * @author XiaoY
 	 * @date: 2014年12月13日 下午5:03:47
 	 */
 	public void saveObjectCollection(Collection<T> entities);
 
+	/**
+	 * 保存或更新一个对象
+	 * 
+	 * @param t
+	 * @date 2015年10月6日 下午1:55:44
+	 */
 	public void saveOrUpdate(T t);
 
 	/**
@@ -106,7 +130,7 @@ public interface CommonService<T> {
 	 * @param id
 	 *            任意类型
 	 * @return 对象（泛型）
-	 *
+	 * 
 	 * @author XiaoY
 	 * @date: 2014年11月5日 下午10:04:01
 	 */
@@ -120,7 +144,7 @@ public interface CommonService<T> {
 	 * @param paramsMapValue
 	 *            设置查询参数
 	 * @return List&ltT&gt
-	 *
+	 * 
 	 * @author XiaoY
 	 * @date: 2014年12月13日 下午11:22:52
 	 */

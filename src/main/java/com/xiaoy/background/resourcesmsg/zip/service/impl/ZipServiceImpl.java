@@ -107,8 +107,12 @@ public class ZipServiceImpl extends CommonServiceImpl<Zip> implements ZipService
 	}
 
 	@Override
-	public void importZip(MultipartFile multipartFile) {
+	public void saveImportZip(MultipartFile multipartFile) {
+		// obj转换成zip对象
 		List<Zip> zips = this.ListObjToListZip(multipartFile);
+		// 选删除原数据
+		zipDao.deleteAll();
+		// 添加新数据
 		zipDao.saveObjectCollection(zips);
 	}
 

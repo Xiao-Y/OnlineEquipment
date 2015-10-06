@@ -65,6 +65,13 @@ public class ZipController {
 		zipService.exportZip(response);
 	}
 
+	/**
+	 * 导入地区信息保存在数据库中
+	 * 
+	 * @param multipartFile
+	 * @return
+	 * @date 2015年10月6日 下午2:04:01
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/importZip", method = RequestMethod.POST)
 	public JsonResult importZip(MultipartFile multipartFile) {
@@ -78,7 +85,8 @@ public class ZipController {
 		}
 
 		try {
-			zipService.importZip(multipartFile);
+			// 保存信息
+			zipService.saveImportZip(multipartFile);
 			json.setMessage(MessageTips.IMPORT_SUCCESS);
 			json.setSuccess(true);
 		} catch (Exception e) {

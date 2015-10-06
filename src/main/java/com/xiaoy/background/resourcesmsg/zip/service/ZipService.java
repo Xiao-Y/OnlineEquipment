@@ -49,6 +49,6 @@ public interface ZipService extends CommonService<Zip> {
 	 * @param multipartFile
 	 * @date 2015年10月5日 下午10:47:54
 	 */
-	void importZip(MultipartFile multipartFile);
+	void saveImportZip(MultipartFile multipartFile);
 
 }

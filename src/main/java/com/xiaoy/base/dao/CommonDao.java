@@ -108,15 +108,29 @@ public interface CommonDao<T> {
 	public void saveObject(T entity);
 
 	/**
-	 * 根据一个集合对象保存一组对象
+	 * 根据一个集合对象保存或更新一组对象
 	 * 
 	 * @param entities
 	 * 
 	 * @author XiaoY
 	 * @date: 2014年12月13日 下午5:03:47
 	 */
+	public void saveOrUpdateObjectCollection(Collection<T> entities);
+
+	/**
+	 * 根据一个集合对象保存一组对象
+	 * 
+	 * @param entities
+	 * @date 2015年10月6日 下午1:53:23
+	 */
 	public void saveObjectCollection(Collection<T> entities);
 
+	/**
+	 * 保存或更新一个对象
+	 * 
+	 * @param t
+	 * @date 2015年10月6日 下午1:53:37
+	 */
 	public void saveOrUpdate(T t);
 
 	/**

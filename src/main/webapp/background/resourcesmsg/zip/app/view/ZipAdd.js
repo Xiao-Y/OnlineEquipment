@@ -2,7 +2,7 @@ Ext.define('AM.view.ZipAdd', {
 	extend : 'Ext.window.Window',
 	alias : "widget.zipAdd",
 	id : 'zipAddWindow',
-	height : 150,
+	height : 180,
 	width : 450,
 	layout : 'fit',
 	modal:true,//模态框
@@ -15,16 +15,23 @@ Ext.define('AM.view.ZipAdd', {
 		autoScroll : true,
 		layout : 'anchor',
 		border:false,
+		defaults : {
+			labelAlign : 'right',
+			labelWidth : 80,
+			anchor : '90%'
+			
+		},
 		items : [{
 			xtype : 'filefield',
-			labelWidth : 80,
-			labelAlign : 'right',
 			name: 'multipartFile',
 			fieldLabel: '导入Excel',
 			allowBlank : false,
 			blankText : "请选择导入的Excel文件",
-    		buttonText: '上传',
-			anchor : '90%'
+    		buttonText: '上传'
+		},{
+			xtype: 'displayfield',
+			fieldLabel: '提示',
+			value: "<font color='red'>导入新数据时，会删除所有的旧数据！</font>"
 		}]
 	} ],
 	dockedItems : [ {

@@ -160,7 +160,7 @@ public class DictionaryControll {
 				d.setUpdateTime(new Date());
 			}
 			try {
-				dictionaryService.saveObjectCollection(dictionaryList);
+				dictionaryService.saveOrUpdateObjectCollection(dictionaryList);
 				json.setMessage(MessageTips.SAVE_SUCCESS);
 				json.setSuccess(true);
 			} catch (Exception e) {

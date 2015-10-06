@@ -119,13 +119,12 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 
 	}
 
-	public void saveObjectCollection(Collection<T> entities) {
+	public void saveOrUpdateObjectCollection(Collection<T> entities) {
 		if (entities != null && entities.size() > 0) {
 			for (T t : entities) {
 				this.getSession().saveOrUpdate(t);
 			}
 		}
-
 	}
 
 	public void saveOrUpdate(T t) {
@@ -200,5 +199,14 @@ public class CommonDaoImpl<T> implements CommonDao<T> {
 			query.setMaxResults(Integer.parseInt(limit));
 		}
 		return query.list();
+	}
+
+	@Override
+	public void saveObjectCollection(Collection<T> entities) {
+		if (entities != null && entities.size() > 0) {
+			for (T t : entities) {
+				this.getSession().save(t);
+			}
+		}
 	}
 }

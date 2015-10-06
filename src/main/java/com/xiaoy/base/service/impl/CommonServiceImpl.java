@@ -11,7 +11,7 @@ import com.xiaoy.base.service.CommonService;
 public abstract class CommonServiceImpl<T> implements CommonService<T> {
 
 	protected CommonDao<T> commonDao;
-	
+
 	public abstract void setCommonDao(CommonDao<T> commonDao);
 
 	@Override
@@ -42,6 +42,11 @@ public abstract class CommonServiceImpl<T> implements CommonService<T> {
 	@Override
 	public void saveObject(T entity) {
 		commonDao.saveObject(entity);
+	}
+
+	@Override
+	public void saveOrUpdateObjectCollection(Collection<T> entities) {
+		commonDao.saveOrUpdateObjectCollection(entities);
 	}
 
 	@Override
