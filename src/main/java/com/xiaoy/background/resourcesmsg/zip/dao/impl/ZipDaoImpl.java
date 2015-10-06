@@ -41,13 +41,35 @@ public class ZipDaoImpl extends CommonDaoImpl<Zip> implements ZipDao {
 	private Map<String, Object> appendWhere(StringBuffer hqlWhere, Zip zip) {
 		if (zip != null) {
 			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(zip.getId())) {
+				hqlWhere.append(" and id = :id");
+				map.put("id", zip.getId());
+			}
+			// 城市等级
 			if (!StringUtils.isEmpty(zip.getLevelType())) {
 				hqlWhere.append(" and levelType = :levelType ");
 				map.put("levelType", zip.getLevelType());
 			}
+			// 上级行政码
 			if (!StringUtils.isEmpty(zip.getParentId())) {
 				hqlWhere.append(" and parentId = :parentId ");
 				map.put("parentId", zip.getParentId());
+			}
+			// 地区名称(简称或全称)
+			if (!StringUtils.isEmpty(zip.getName())) {
+				hqlWhere.append(" and ( name like :name or shortName like :shortName )");
+				map.put("name", "%" + zip.getName() + "%");
+				map.put("shortName", "%" + zip.getName() + "%");
+			}
+			// 邮编
+			if (!StringUtils.isEmpty(zip.getZipCode())) {
+				hqlWhere.append(" and zipCode = :zipCode");
+				map.put("zipCode", zip.getZipCode());
+			}
+			// 城市CODE
+			if (!StringUtils.isEmpty(zip.getCityCode())) {
+				hqlWhere.append(" and cityCode = :cityCode");
+				map.put("cityCode", zip.getCityCode());
 			}
 			return map;
 		}

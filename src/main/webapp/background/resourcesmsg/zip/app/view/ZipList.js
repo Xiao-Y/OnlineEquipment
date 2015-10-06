@@ -42,25 +42,25 @@ Ext.define('AM.view.ZipList', {
 			header : '行政码',
 			dataIndex : 'id'
 		}, {
-			header : '全称',
+			header : '地区全称',
 			dataIndex : 'name'
 		}, {
 			header : '上级行政码',
 			dataIndex : 'parentId'
 		}, {
-			header : '简称',
+			header : '地区简称',
 			dataIndex : 'shortName'
 		}, {
-			header : '等级',
+			header : '地区等级',
 			dataIndex : 'levelType'
 		}, {
-			header : '城市Code',
+			header : '城市CODE',
 			dataIndex : 'cityCode'
 		}, {
 			header : '邮编',
 			dataIndex : 'zipCode'
 		}, {
-			header : '完整名称',
+			header : '地区完整名称',
 			dataIndex : 'mergerName',
 			width : 200
 		}, {

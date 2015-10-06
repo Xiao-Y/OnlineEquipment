@@ -19,7 +19,6 @@ Ext.define('AM.view.ZipAdd', {
 			labelAlign : 'right',
 			labelWidth : 80,
 			anchor : '90%'
-			
 		},
 		items : [{
 			xtype : 'filefield',

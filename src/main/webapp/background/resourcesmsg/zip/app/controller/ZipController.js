@@ -1,7 +1,7 @@
 Ext.define('AM.controller.ZipController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'ZipList',"ZipAdd"],
-	stores : [ 'ZipStore'],
+	views : [ 'ZipList',"ZipAdd","ZipQuery"],
+	stores : [ 'ZipStore',"AreaStore","CityStore","ProvinceStore"],
 	models : [ 'ZipModel' ],
 	init : function() {
 		this.control({
@@ -14,21 +14,27 @@ Ext.define('AM.controller.ZipController', {
 			"zipList button[id=listResetZip]" : {
 				click : this.listResetZip
 			},
+			"zipList button[id=topQueryZip]" : {//高级查询
+				click : this.topQueryZip
+			},
 			"zipAdd button[id=saveZip]" : {//保存导入数据
 				click : this.saveZip
 			},
 			"zipAdd button[id=cancel]" : {
 				click : this.cancelOrReset
+			},
+			"zipQuery button[id=queryZip]" : {
+				click : this.queryZip
 			}
 		})
 	},
-//	queryNotice : function(){
-//		var fv = Ext.getCmp("noticeQueryForm").getValues();
-//		var store = Ext.getCmp("noticeList").getStore();
-//		store.load({
-//			params : fv
-//		});
-//	},
+	queryZip : function(){
+		var fv = Ext.getCmp("zipQueryForm").getValues();
+		var store = Ext.getCmp("zipList").getStore();
+		store.reload({
+			params : fv
+		});
+	},
 	listResetZip : function(){
 		var gridPanel = Ext.getCmp("zipList");
 		var store = gridPanel.getStore();
@@ -44,6 +50,19 @@ Ext.define('AM.controller.ZipController', {
 			}
 			baseFormWindow = Ext.getCmp("zipAddWindow");
 			baseFormWindow.setTitle("导入Excel");
+			baseFormWindow.show();
+		});
+	},
+	topQueryZip : function(){
+		Ext.require('AM.view.ZipQuery', function() {
+			var baseFormWindow = Ext.getCmp("zipQueryWindow");
+			if (null == baseFormWindow) {
+				Ext.create('AM.view.ZipQuery', {});// 第一次创建添加显示窗口
+			}
+			//当点击添加时加载
+			Ext.getCmp("province").getStore().reload();
+			baseFormWindow = Ext.getCmp("zipQueryWindow");
+			baseFormWindow.setTitle("高级查询");
 			baseFormWindow.show();
 		});
 	},

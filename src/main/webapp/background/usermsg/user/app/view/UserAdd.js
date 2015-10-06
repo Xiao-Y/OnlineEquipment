@@ -67,7 +67,7 @@ Ext.define("AM.view.UserAdd",{
 					emptyText : "<font color='red'>没有找到匹配项</font>"
 				}
 			}, {
-				fieldLabel : '省市/直辖市',
+				fieldLabel : '省/直辖市',
 				xtype : 'combobox',
 				displayField : 'name',
 				allowBlank : false,

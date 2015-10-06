@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,7 +43,17 @@ public class ZipController {
 	public JsonResult getZipList(HttpServletRequest request, Zip zip) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
+		String province = Tools.getStringParameter(request, "province");
+		String city = Tools.getStringParameter(request, "city");
+		String area = Tools.getStringParameter(request, "area");
 
+		if (!StringUtils.isEmpty(area)) {
+			zip.setId(area);
+		} else if (!StringUtils.isEmpty(city)) {
+			zip.setId(city);
+		} else if (!StringUtils.isEmpty(province)) {
+			zip.setId(province);
+		}
 		JsonResult json = new JsonResult();
 		List<Zip> list = zipService.getZipCondition(zip, start, limit);
 		long total = zipService.getTotal(zip);
@@ -93,6 +104,31 @@ public class ZipController {
 			json.setMessage(MessageTips.IMPORT_FAILURE);
 			e.printStackTrace();
 		}
+		return json;
+	}
+
+	/**
+	 * 获取省名称（levelType为1的为省直辖市）
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getZip")
+	public JsonResult getZip(HttpServletRequest request) {
+		Zip zip = new Zip();
+		String city = Tools.getStringParameter(request, "city");
+		String province = Tools.getStringParameter(request, "province");
+		if (!StringUtils.isEmpty(city)) {
+			zip.setParentId(city);
+		} else if (!StringUtils.isEmpty(province)) {
+			zip.setParentId(province);
+		} else {
+			zip.setLevelType("1");
+		}
+		JsonResult json = new JsonResult();
+		List<Zip> list = zipService.getZipCondition(zip, "", "");
+		json.setSuccess(true);
+		json.setRoot(list);
 		return json;
 	}
 }
