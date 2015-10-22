@@ -143,6 +143,7 @@
 		<url-pattern>*.svg</url-pattern>
 		<url-pattern>*.eot</url-pattern>
 		<url-pattern>*.otf</url-pattern>
+		<url-pattern>*.map</url-pattern>
 	</servlet-mapping>
 
 	<!-- 配置session超时时间，单位分钟 -->
