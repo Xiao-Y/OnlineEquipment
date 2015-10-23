@@ -1,4 +1,4 @@
-package com.xiaoy.foreground.systemmsg.menu;
+package com.xiaoy.foreground.systemmsg.menu.controller;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
 import com.xiaoy.base.entities.Menu;
 
-@Controller(value = "com.xiaoy.foreground.systemmsg.menu.MenuController")
+@Controller(value = "com.xiaoy.foreground.systemmsg.menu.controller.MenuController")
 @RequestMapping("/foreground/systemmsg/menu")
 public class MenuController {
 
@@ -31,13 +31,13 @@ public class MenuController {
 					m.setParentName(mu.getMenuName());
 				}
 			}
-			if("0".equals(m.getMenuType())){
+			if ("0".equals(m.getMenuType())) {
 				m.setMenuTypeName("树枝节点");
-			}else{
+			} else {
 				m.setMenuTypeName("叶子节点");
 			}
 		}
 		model.addAttribute("menus", menuList);
-		return "foreground/resourcesmsg/menu/menuList";
+		return "foreground/systemmsg/menu/menuList";
 	}
 }

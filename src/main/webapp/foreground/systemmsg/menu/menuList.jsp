@@ -15,15 +15,16 @@
 				<i class="halflings-icon align-justify"></i><span class="break"></span>菜单列表
 			</h2>
 			<div class="box-icon">
-				<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-				<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a> 
-				<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+				<a href="#" class="btn-setting"><span class="label label-info">高级查询</span></a>
+				<a href="#" class="btn-setting"><span class="label label-info">添加菜单</span></a>
+				<a href="#" class="btn-setting"><span class="label label-info">批量删除</span></a>
 			</div>
 		</div>
 		<div class="box-content">
-			<table class="table table-bordered">
+			<table class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					<tr>
+						<th><input type="checkbox"></th>
 						<th>菜单名称</th>
 						<th>请求路径</th>
 						<th>所在位置</th>
@@ -31,7 +32,7 @@
 						<th>节点类型</th>
 						<th>创建时间</th>
 						<th>更新时间</th>
-						<th>备注</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -40,6 +41,7 @@
 							<input type="hidden" value="${menu.id }" name="id">
 							<input type="hidden" value="${menu.parentId }" name="parentId">
 							<input type="hidden" value="${menu.menuType }" name="menuType">
+							<td><input type="checkbox"></td>
 							<td>${menu.menuName }</td>
 							<td class="center">${menu.menuUrl }</td>
 							<td class="center">${menu.seq }</td>
@@ -54,22 +56,14 @@
 							</c:choose>
 							<td class="center">${menu.createTime }</td>
 							<td class="center">${menu.updateTime }</td>
-							<td class="center"><span class="label label-success">${menu.remark }</span>
+							<td class="center">
+								<a class="btn btn-info" href="#"><i class="halflings-icon white edit"></i></a>
+								<a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a>
 							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class="pagination pagination-centered">
-				<ul>
-					<li><a href="#">Prev</a></li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>
 	<!--/span-->

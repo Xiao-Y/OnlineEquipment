@@ -21,7 +21,7 @@ import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
 
-@Controller
+@Controller("com.xiaoy.background.resourcesmsg.log.controller.LogController")
 @RequestMapping("/background/resourcesmsg/log")
 public class LogController {
 

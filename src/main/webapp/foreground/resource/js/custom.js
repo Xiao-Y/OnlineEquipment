@@ -383,8 +383,19 @@ function template_functions(){
 	$('.datatable').dataTable({
 			"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 			"sPaginationType": "bootstrap",
+			"searching":false,
 			"oLanguage": {
-			"sLengthMenu": "_MENU_ records per page"
+				"sProcessing": "正在加载中......",
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sEmptyTable": "表中无数据存在！",
+				"sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+				"sSearch": "搜索",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "上一页",
+					"sNext": "下一页",
+					"sLast": "末页"
+				}
 			}
 		} );
 	$('.btn-close').click(function(e){
