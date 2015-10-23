@@ -1,4 +1,4 @@
-package com.xiaoy.background.home.service.impl;
+package com.xiaoy.foreground.home.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import com.xiaoy.background.home.service.HomeService;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
 import com.xiaoy.base.entities.Menu;
 
-@Service(value = "com.xiaoy.background.home.service.impl.HomeServiceImpl")
+@Service(value="com.xiaoy.foreground.home.service.impl.HomeServiceImpl")
 public class HomeServiceImpl implements HomeService {
 
 	@Resource
@@ -52,10 +52,8 @@ public class HomeServiceImpl implements HomeService {
 		for (Menu parent : parentMenu) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", parent.getId());
-			map.put("expandabl", false);// 菜单折叠状态
 			map.put("text", parent.getMenuName());// 菜单名称
 			map.put("index", parent.getSeq());
-			map.put("leaf", false);
 			List<Object> list = new ArrayList<Object>();
 			for (Menu child : childMenu) {
 				if (parent.getId().equals(child.getParentId())) {
@@ -64,8 +62,7 @@ public class HomeServiceImpl implements HomeService {
 					childMap.put("text", child.getMenuName());// 菜单名称
 					childMap.put("index", child.getSeq());
 					childMap.put("parentId", child.getParentId());
-					childMap.put("url", "../" + child.getMenuUrl());
-					childMap.put("leaf", true);
+					childMap.put("url", child.getMenuUrl());
 					list.add(childMap);
 				}
 			}

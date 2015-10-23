@@ -15,11 +15,11 @@ import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.Tools;
 
-@Controller
+@Controller(value = "com.xiaoy.background.home.controller.HomeController")
 @RequestMapping("/background/home")
 public class HomeController {
 
-	@Resource
+	@Resource(name = "com.xiaoy.background.home.service.impl.HomeServiceImpl")
 	private HomeService homeService;
 	// 工具服务
 	@Resource

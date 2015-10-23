@@ -31,6 +31,8 @@ public class Menu extends BaseEntity implements Serializable {
 	private String remark;
 	// 菜单类型。1表示叶子节点，0表示树枝节点
 	private String menuType;
+	// 菜单类型名称
+	private String menuTypeName;
 	// 排序号（显示位置）
 	private int seq;
 
@@ -99,5 +101,14 @@ public class Menu extends BaseEntity implements Serializable {
 
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
+	}
+
+	@Transient
+	public String getMenuTypeName() {
+		return menuTypeName;
+	}
+
+	public void setMenuTypeName(String menuTypeName) {
+		this.menuTypeName = menuTypeName;
 	}
 }
