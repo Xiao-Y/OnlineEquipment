@@ -17,10 +17,10 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "ZIP")
-public class Zip implements Serializable{
+public class Zip implements Serializable {
 
 	private static final long serialVersionUID = 8612608297217687300L;
-	
+
 	private String id;// 行政码
 	private String name;// 全称
 	private String parentId;// 上级行政码

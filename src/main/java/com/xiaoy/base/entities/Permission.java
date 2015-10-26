@@ -41,6 +41,11 @@ public class Permission extends BaseEntity implements Serializable {
 		this.url = url;
 	}
 
+	@Override
+	public String toString() {
+		return "Permission [permissionName=" + permissionName + ", url=" + url + "]";
+	}
+
 	// //@ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)
 	// @ManyToMany(cascade = CascadeType.ALL)
 	// public Set<Role> getRoles() {

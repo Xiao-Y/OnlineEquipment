@@ -203,4 +203,12 @@ public class Bug extends BaseEntity implements Serializable {
 	public void setBugTypeName(String bugTypeName) {
 		this.bugTypeName = bugTypeName;
 	}
+
+	@Override
+	public String toString() {
+		return "Bug [title=" + title + ", note=" + note + ", imgUrl=" + imgUrl + ", status=" + status + ", reviseExplain=" + reviseExplain + ", parentId="
+				+ parentId + ", childrenId=" + childrenId + ", severity=" + severity + ", reappear=" + reappear + ", bugType=" + bugType + ", statusName="
+				+ statusName + ", parentName=" + parentName + ", childrenName=" + childrenName + ", severityName=" + severityName + ", reappearName="
+				+ reappearName + ", bugTypeName=" + bugTypeName + "]";
+	}
 }

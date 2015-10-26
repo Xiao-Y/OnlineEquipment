@@ -1,6 +1,7 @@
 package com.xiaoy.base.entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -160,5 +161,12 @@ public class User extends BaseEntity implements Serializable {
 
 	public void setRoleId(String[] roleId) {
 		this.roleId = roleId;
+	}
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", birthday=" + birthday + ", imageUrl=" + imageUrl + ", address=" + address
+				+ ", roles=" + roles + ", roleName=" + roleName + ", area=" + area + ", province=" + province + ", city=" + city + ", roleId="
+				+ Arrays.toString(roleId) + "]";
 	}
 }

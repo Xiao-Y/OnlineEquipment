@@ -97,4 +97,10 @@ public class Role extends BaseEntity implements Serializable {
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
 	}
+
+	@Override
+	public String toString() {
+		return "Role [roleName=" + roleName + ", roleCode=" + roleCode + ", authorizeStatus=" + authorizeStatus + ", authorizeStatusName="
+				+ authorizeStatusName + ", users=" + users + ", permissions=" + permissions + "]";
+	}
 }

@@ -111,4 +111,10 @@ public class Menu extends BaseEntity implements Serializable {
 	public void setMenuTypeName(String menuTypeName) {
 		this.menuTypeName = menuTypeName;
 	}
+
+	@Override
+	public String toString() {
+		return "Menu [menuName=" + menuName + ", menuUrl=" + menuUrl + ", parentId=" + parentId + ", parentName=" + parentName + ", remark=" + remark
+				+ ", menuType=" + menuType + ", menuTypeName=" + menuTypeName + ", seq=" + seq + "]";
+	}
 }
