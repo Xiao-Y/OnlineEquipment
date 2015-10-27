@@ -16,8 +16,9 @@
 				<i class="halflings-icon align-justify"></i><span class="break"></span>BUG列表
 			</h2>
 			<div class="box-icon">
-				<a href="#" class="btn-setting"><span class="label label-info">高级查询</span></a>
-				<a href="#" class="btn-setting"><span class="label label-success">添加BUG</span></a>
+				<a href="#" class="btn-setting" id="queryModal"><span class="label label-info">高级查询</span></a>
+				<a href="#" class="btn-setting" id="addModal"><span class="label label-success">添加BUG</span></a>
+				<a href="#" class="btn-setting" id="clearModal"><span class="label">重置查询</span></a>
 			</div>
 		</div>
 		<div class="box-content">
@@ -111,16 +112,176 @@
 </div>
 <!--/row-->
 
-<div class="modal hide fade" id="myModal">
+<!-- 高级查询模态框 start -->
+<div class="modal hide fade queryModal">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h3>Settings</h3>
+		<h3>高级查询</h3>
 	</div>
 	<div class="modal-body">
-		<p>Here settings can be configured...</p>
+		<div class="box-content">
+			<form class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">BUG标题</label>
+						<div class="controls">
+ 							<input id="title" type="text" name="title">
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">BUG状态</label>
+						<div class="controls">
+ 							<select id="status" name="status">
+								<option value=""></option>
+								<option value="1">已修改</option>
+								<option value="2">未修改</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">BUG出现的父模块</label>
+						<div class="controls">
+ 							<select id="parentId" name="parentId">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">BUG出现的子模块</label>
+						<div class="controls">
+ 							<select id="childrenId" name="childrenId">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">严重程度</label>
+						<div class="controls">
+ 							<select id="severity" name="severity">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">重现规律</label>
+						<div class="controls">
+ 							<select id="reappear" name="reappear">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">BUG类型</label>
+						<div class="controls">
+ 							<select id="bugType" name="bugType">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 				</fieldset>
+			</form>
+		</div>
 	</div>
 	<div class="modal-footer">
+		<a href="#" class="btn btn-primary">查询</a>
 		<a href="#" class="btn" data-dismiss="modal">关闭</a>
-		<a href="#" class="btn btn-primary">保存</a>
 	</div>
 </div>
+<!-- 高级查询模态框 end -->
+
+<!-- 添加模态框 start -->
+<div class="modal hide fade addModal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>高级查询</h3>
+	</div>
+	<div class="modal-body">
+		<div class="box-content">
+			<form class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">BUG标题</label>
+						<div class="controls">
+ 							<input id="title" type="text" name="title">
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">BUG状态</label>
+						<div class="controls">
+ 							<select id="status" name="status">
+								<option value=""></option>
+								<option value="1">已修改</option>
+								<option value="2">未修改</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">BUG出现的父模块</label>
+						<div class="controls">
+ 							<select id="parentId" name="parentId">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">BUG出现的子模块</label>
+						<div class="controls">
+ 							<select id="childrenId" name="childrenId">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">严重程度</label>
+						<div class="controls">
+ 							<select id="severity" name="severity">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">重现规律</label>
+						<div class="controls">
+ 							<select id="reappear" name="reappear">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 					<div class="control-group">
+						<label class="control-label">BUG类型</label>
+						<div class="controls">
+ 							<select id="bugType" name="bugType">
+								<option value=""></option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+							</select>
+						</div>
+ 					</div>
+ 				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn btn-primary">保存</a>
+		<a href="#" class="btn" data-dismiss="modal">关闭</a>
+	</div>
+</div>
+<!-- 添加模态框 end -->

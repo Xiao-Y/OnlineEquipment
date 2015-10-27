@@ -431,6 +431,7 @@ function template_functions(){
 		"bDestroy": true//用于当要在同一个元素上执行新的dataTable绑定时，将之前的那个数据对象清除掉，换以新的对象设置
 	});
 
+	//关闭模态窗口
 	$('.btn-close').click(function(e){
 		e.preventDefault();
 		$(this).parent().parent().parent().fadeOut();
@@ -442,9 +443,15 @@ function template_functions(){
 		else 					   $('i',$(this)).removeClass('chevron-down').addClass('chevron-up');
 		$target.slideToggle();
 	});
-	$('.btn-setting').click(function(e){
+	//查询的模态框
+	$('#queryModal').click(function(e){
 		e.preventDefault();
-		$('#myModal').modal('show');
+		$('.queryModal').modal('show');
+	});
+	//添加的模态框
+	$('#addModal').click(function(e){
+		e.preventDefault();
+		$('.addModal').modal('show');
 	});
 	
 	
