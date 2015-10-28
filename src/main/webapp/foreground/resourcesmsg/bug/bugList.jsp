@@ -132,9 +132,6 @@
 						<label class="control-label">BUG状态</label>
 						<div class="controls">
  							<select id="status" name="status">
-								<option value=""></option>
-								<option value="1">已修改</option>
-								<option value="2">未修改</option>
 							</select>
 						</div>
  					</div>
@@ -142,9 +139,6 @@
 						<label class="control-label">BUG出现的父模块</label>
 						<div class="controls">
  							<select id="parentId" name="parentId">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -152,9 +146,6 @@
 						<label class="control-label">BUG出现的子模块</label>
 						<div class="controls">
  							<select id="childrenId" name="childrenId">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -162,9 +153,6 @@
 						<label class="control-label">严重程度</label>
 						<div class="controls">
  							<select id="severity" name="severity">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -172,9 +160,6 @@
 						<label class="control-label">重现规律</label>
 						<div class="controls">
  							<select id="reappear" name="reappear">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -182,9 +167,6 @@
 						<label class="control-label">BUG类型</label>
 						<div class="controls">
  							<select id="bugType" name="bugType">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -193,7 +175,7 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn-primary">查询</a>
+		<a href="#" class="btn btn-primary querySubmit">查询</a>
 		<a href="#" class="btn" data-dismiss="modal">关闭</a>
 	</div>
 </div>
@@ -219,9 +201,6 @@
 						<label class="control-label">BUG状态</label>
 						<div class="controls">
  							<select id="status" name="status">
-								<option value=""></option>
-								<option value="1">已修改</option>
-								<option value="2">未修改</option>
 							</select>
 						</div>
  					</div>
@@ -229,9 +208,6 @@
 						<label class="control-label">BUG出现的父模块</label>
 						<div class="controls">
  							<select id="parentId" name="parentId">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -239,9 +215,6 @@
 						<label class="control-label">BUG出现的子模块</label>
 						<div class="controls">
  							<select id="childrenId" name="childrenId">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -249,9 +222,6 @@
 						<label class="control-label">严重程度</label>
 						<div class="controls">
  							<select id="severity" name="severity">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -259,9 +229,6 @@
 						<label class="control-label">重现规律</label>
 						<div class="controls">
  							<select id="reappear" name="reappear">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -269,9 +236,6 @@
 						<label class="control-label">BUG类型</label>
 						<div class="controls">
  							<select id="bugType" name="bugType">
-								<option value=""></option>
-								<option value="1">a</option>
-								<option value="2">b</option>
 							</select>
 						</div>
  					</div>
@@ -285,3 +249,55 @@
 	</div>
 </div>
 <!-- 添加模态框 end -->
+<script type="text/javascript">
+	$(function(){
+		//加载查询的下拉列表-----start
+		selectQuery("../foreground/resourcesmsg/bug/getSeverity","severity");
+		selectQuery("../foreground/resourcesmsg/bug/getBugType","bugType");
+		selectQuery("../foreground/resourcesmsg/bug/getSeverity","severity");
+		selectQuery("../foreground/resourcesmsg/bug/getReappear","reappear");
+		selectQuery("../foreground/resourcesmsg/bug/getStatus","status");
+		//加载查询的下拉列表-----end
+
+		//加载添加的下拉列表-----start
+		selectAdd("../foreground/resourcesmsg/bug/getSeverity","severity");
+		selectAdd("../foreground/resourcesmsg/bug/getBugType","bugType");
+		selectAdd("../foreground/resourcesmsg/bug/getSeverity","severity");
+		selectAdd("../foreground/resourcesmsg/bug/getReappear","reappear");
+		selectAdd("../foreground/resourcesmsg/bug/getStatus","status");
+		//加载添加的下拉列表-----end
+
+		//查询BUG
+		$(".querySubmit").bind("click",function(){
+			var data = $(".queryModal form").serialize();
+			var url = "../foreground/resourcesmsg/bug/index";
+			$("#content").load(url,data);
+		});
+	});
+	
+	//查询的公用加载下拉列表
+	function selectQuery(url,selectName){
+		var data = {"date":new Date()};
+		var html = "<option value=\"\">ALL--所有</option>";
+		$.getJSON(url,data,function(data){
+			$.each(data,function(index,value){
+				html = html + "<option value=\"" + value.valueField 
+				+ "\">"+ value.valueField + "--" +value.displayField + "</option>";
+			});
+			$(".queryModal select[name='"+selectName+"']").html(html);
+		});
+	}
+
+	//添加的公用加载下拉列表
+	function selectAdd(url,selectName){
+		var data = {"date":new Date()};
+		var html = "<option value=\"\">--请选择--</option>";
+		$.getJSON(url,data,function(data){
+			$.each(data,function(index,value){
+				html = html + "<option value=\"" + value.valueField 
+				+ "\">"+ value.valueField + "--" +value.displayField + "</option>";
+			});
+			$(".addModal select[name='"+selectName+"']").html(html);
+		});
+	}
+</script>

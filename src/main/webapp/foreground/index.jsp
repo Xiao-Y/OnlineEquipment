@@ -85,7 +85,6 @@
 		function clickLoad(url){
 			$("div[id='sidebar-left'] li").attr("class","");
 			$(this).attr("class","active");
-			$("#content").empty();
 			$("#content").load(url);
 		}
 	</script>
