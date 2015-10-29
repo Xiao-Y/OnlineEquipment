@@ -271,7 +271,9 @@
 		$(".querySubmit").bind("click",function(){
 			var data = $(".queryModal form").serialize();
 			var url = "../foreground/resourcesmsg/bug/index";
-			$("#content").load(url,data);
+			$("#content").load(url,data,function(){
+				$(".modal-backdrop").remove();
+			});
 		});
 	});
 	

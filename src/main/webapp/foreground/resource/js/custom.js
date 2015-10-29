@@ -399,13 +399,13 @@ function template_functions(){
 //			}
 //		} );
 		
-	$(".datatable").dataTable({
+	var fvTable = $(".datatable").dataTable({
 		//"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 		"bPaginate": false, //是否显示（使用）分页器
 		"sPaginationType": "bootstrap",//用于指定分页器风格
 		"bPaginate": true, //翻页功能
 		"bLengthChange": false, //改变每页显示数据数量
-		"iDisplayLength": 15,//指定页面大小
+		"iDisplayLength": 10,//指定页面大小
 		"oLanguage": {
 			"sProcessing": "正在加载中......",
 			"sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -425,7 +425,7 @@ function template_functions(){
 		"sScrollY": "100%", 
 		"sScrollX": "100%",
 		"bFilter": true, //是否显示搜索
-		"bProcessing": false,//是否显示“正在处理”这个提示信息
+		"bProcessing": true,//是否显示“正在处理”这个提示信息
 		"bScrollInfinite": false,//以指定是否无限滚动（与sScrollY配合使用），在大数据量的时候很有用。当这个标志为true的时候，分页器就默认关闭
 		"bInfo": true, //是否打印信息
 		"bDestroy": true//用于当要在同一个元素上执行新的dataTable绑定时，将之前的那个数据对象清除掉，换以新的对象设置
