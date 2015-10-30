@@ -82,10 +82,70 @@
 		
 	<!-- start: JavaScript-->
 	<script type="text/javascript">
+	/**
 		function clickLoad(url){
 			$("div[id='sidebar-left'] li").attr("class","");
 			$(this).attr("class","active");
 			$("#content").load(url);
+		}*/
+		function clickLoad(url){
+			$.ajax({
+				//发送请求前
+				beforeSend : function(){
+					showWaitDiv();
+					run();
+				},
+				url : url,//url
+				async : true,//异步
+				type : "POST",//请求方式
+				dataType : "html",//返回数据格式
+				complete : function(){//请求完成时
+					hidenWaitDiv();
+					stop();
+				},
+				success : function(data, textStatus){//请求成功
+					$("#content").empty();
+					$("#content").html(data);
+				},
+				error : function(){//请求错误
+					$("#content").empty();
+					$("#content").html("数据显示错误，请重试！");
+				}
+			});
+		}
+
+		//进度条
+		var div = '<div class="progress progress-striped progress-success active">'
+					+ '<div class="bar"></div>'
+				+ '</div>'; 
+		//隐藏div
+		function hidenWaitDiv(){
+			$(".progress").css("display","none")
+		}
+		
+		//显示div
+		function showWaitDiv(){
+			$("#content").html(div);
+			$(".progress").css("display","")
+		}
+
+		var p = 0;
+		var timer;
+		//开始运行
+		function run(){
+	        p += 10;
+	        $('.bar').css('width',p+"%");//将数值赋值给main的width
+	        if(p >= 90){
+	        	p = 85;
+	        }
+			timer =setTimeout("run()",100);
+	   	}
+		
+		//停止运行
+		function stop(){
+			p = 0;
+	        $('.bar').css('width',"100%");//将数值赋值给main的width
+			clearTimeout(timer) 
 		}
 	</script>
 	<!-- end: JavaScript-->
