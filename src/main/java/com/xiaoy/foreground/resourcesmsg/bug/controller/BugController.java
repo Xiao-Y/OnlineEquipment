@@ -64,7 +64,8 @@ public class BugController {
 	@ResponseBody
 	@RequestMapping(value = "/getSeverity", method = RequestMethod.GET)
 	public List<CheckBox> getSeverity() {
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_SEVERITY);
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG,
+				DictionaryType.BUG_FIELD_CODE_SEVERITY);
 		Collections.sort(list, new MySortASC());
 		return list;
 	}
@@ -78,7 +79,8 @@ public class BugController {
 	@ResponseBody
 	@RequestMapping(value = "/getBugType", method = RequestMethod.GET)
 	public List<CheckBox> getBugType() {
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_BUGTYPE);
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG,
+				DictionaryType.BUG_FIELD_CODE_BUGTYPE);
 		Collections.sort(list, new MySortASC());
 		return list;
 	}
@@ -93,7 +95,8 @@ public class BugController {
 	@ResponseBody
 	@RequestMapping("/getReappear")
 	public List<CheckBox> getReappear() {
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_REAPPEAR);
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG,
+				DictionaryType.BUG_FIELD_CODE_REAPPEAR);
 		Collections.sort(list, new MySortASC());
 		return list;
 	}
@@ -109,7 +112,8 @@ public class BugController {
 	@ResponseBody
 	@RequestMapping("/getStatus")
 	public List<CheckBox> getStatus() {
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_STATUS);
+		List<CheckBox> list = tools
+				.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_STATUS);
 		Collections.sort(list, new MySortASC());
 		return list;
 	}
