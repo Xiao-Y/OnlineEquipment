@@ -31,7 +31,9 @@ public class LogParamType {
 	 * 导入操作
 	 */
 	public final static String IMPORT = "导入操作";
+	// -------------操作---end---------------
 
+	// -------------备注操作---start---------------
 	/**
 	 * 数据字典：删除键值对
 	 */
@@ -46,7 +48,7 @@ public class LogParamType {
 	 * 数据字典：删除模块
 	 */
 	public final static String DELETE_MODEL = "数据字典：删除模块";
-	// -------------操作---end---------------
+	// -------------备注操作---end---------------
 
 	// -----------模块管理------start------------
 	/**

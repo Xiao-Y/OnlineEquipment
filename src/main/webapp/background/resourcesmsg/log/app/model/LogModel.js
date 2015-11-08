@@ -22,5 +22,14 @@ Ext.define("AM.model.LogModel",{
 	},{
 		name : "ipAddr",
 		type : "string"
+	},{
+		name : "modal",
+		type : "string"
+	},{
+		name : "function",
+		type : "string"
+	},{
+		name : "note",
+		type : "string"
 	}]
 });

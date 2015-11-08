@@ -4,7 +4,7 @@ Ext.define('AM.view.LogView', {
 	id : 'logViewWindow',
 	resizable   : false,//是否可调整 
 	maximizable : true, //显示最大化
-	height : 350,
+	height : 400,
 	width : 600,
 	layout : 'fit',
 	modal:true,//模态框
@@ -26,11 +26,20 @@ Ext.define('AM.view.LogView', {
 			fieldLabel : '操作用户',
 			name : 'userName'
 		},{
-			fieldLabel : '运行类名',
-			name : 'runClass'
+			fieldLabel : '模块名',
+			name : 'modal'
+		},{
+			fieldLabel : '功能',
+			name : 'function'
 		},{
 			fieldLabel : '操作类型',
 			name : 'operation'
+		},{
+			fieldLabel : '运行类名',
+			name : 'runClass'
+		},{
+			fieldLabel : '备注',
+			name : 'note'
 		},{
 			fieldLabel : '执行时间',
 			name : 'createTime'

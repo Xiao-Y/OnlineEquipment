@@ -43,9 +43,11 @@ Ext.define('AM.view.LogList', {
 			hidden : true,
 			dataIndex : 'id'
 		}, {
-			header : '处理类',
-			dataIndex : 'runClass',
-			width : 450
+			header : '模块名',
+			dataIndex : 'modal'
+		}, {
+			header : '功能',
+			dataIndex : 'function'
 		}, {
 			header : '操作',
 			dataIndex : 'operation'
