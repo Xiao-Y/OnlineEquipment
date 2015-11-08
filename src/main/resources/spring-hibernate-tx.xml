@@ -43,34 +43,27 @@
 	</tx:advice>
 
 	<aop:config>
-		<!-- 3.1  配置事务切点  start-->
-		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.*(..))" id="transactionPointcut" />
-		<!-- 3.1  配置事务切点  end-->
-		
-		<!-- 3.2 配置系统操作日志   start -->
-		<!-- 保存操作的切点 -->
-		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.save*(..))" id="saveHandleLogPointcut" />
-		<!-- 更新操作的切点 -->
-		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.update*(..))" id="updateHandleLogPointcut" />
-		<!-- 删除操作的切点 -->
-		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.delete*(..))" id="deleteHandleLogPointcut" />
-		<!-- 3.2 配置系统操作日志   end -->
-		
-		<!-- 4.1  配置事务切面  start -->
-		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
-		<!-- 4.1 配置事务切面  end -->
-		
+		<!-- 3.1 配置事务切点 start -->
+		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.*(..))"
+			id="transactionPointcut" />
+		<!-- 3.1 配置事务切点 end -->
+
+		<!-- 3.2 配置系统操作日志 start -->
+		<aop:pointcut expression="execution(* com.xiaoy..controller..*Controller.*(..))"
+			id="controllerLogPointcut" />
+		<!-- 3.2 配置系统操作日志 end -->
+
+		<!-- 4.1 配置事务切面 start -->
+		<aop:advisor pointcut-ref="transactionPointcut"
+			advice-ref="transactionAdvice" />
+		<!-- 4.1 配置事务切面 end -->
+
 		<!-- 4.2 配置日志切面 start -->
 		<aop:aspect id="logAsp" ref="logAopImpl">
-			<!-- 前置通知 <aop:before method="log" pointcut-ref="logPointcut" />  -->
-			<!-- 有返回值的前置通知 
-			<aop:after-returning method="logArgAndReturn" returning="returnObj" pointcut-ref="logPointcut" />
-			-->
-			<aop:after method="logArgSave" pointcut-ref="saveHandleLogPointcut" />
-			<aop:after method="logArgUpdate" pointcut-ref="updateHandleLogPointcut" />
-			<aop:after method="logArgDelete" pointcut-ref="deleteHandleLogPointcut" />
+			<aop:after method="logArgSave" pointcut-ref="controllerLogPointcut" />
 		</aop:aspect>
 		<!-- 4.2 配置日志切面 end -->
+
 	</aop:config>
 </beans>
 

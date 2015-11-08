@@ -31,6 +31,10 @@ public class Log extends BaseEntity implements Serializable {
 	private String content;
 	// 用户所做的操作(主要是"添加"、"修改"、"删除")
 	private String operation;
+	// 模块名
+	private String modal;
+	// 功能
+	private String function;
 
 	// 用于存放用户的id
 	private List<Object> userIds = new ArrayList<>();
@@ -67,6 +71,33 @@ public class Log extends BaseEntity implements Serializable {
 		return runClass;
 	}
 
+	@Column(name = "IPADDR", length = 150)
+	public String getIpAddr() {
+		return ipAddr;
+	}
+
+	public void setIpAddr(String ipAddr) {
+		this.ipAddr = ipAddr;
+	}
+
+	@Column(name = "MODAL", length = 150)
+	public String getModal() {
+		return modal;
+	}
+
+	public void setModal(String modal) {
+		this.modal = modal;
+	}
+
+	@Column(name = "FUNCTION", length = 150)
+	public String getFunction() {
+		return function;
+	}
+
+	public void setFunction(String function) {
+		this.function = function;
+	}
+
 	public void setRunClass(String runClass) {
 		this.runClass = runClass;
 	}
@@ -80,17 +111,10 @@ public class Log extends BaseEntity implements Serializable {
 		this.userIds = userIds;
 	}
 
-	public String getIpAddr() {
-		return ipAddr;
-	}
-
-	public void setIpAddr(String ipAddr) {
-		this.ipAddr = ipAddr;
-	}
-
 	@Override
 	public String toString() {
-		return "Log [userId=" + userId + ", ipAddr=" + ipAddr + ", runClass=" + runClass + ", content=" + content + ", operation=" + operation + ", userIds="
-				+ userIds + "]";
+		return "Log [userId=" + userId + ", ipAddr=" + ipAddr + ", runClass=" + runClass + ", content=" + content
+				+ ", operation=" + operation + ", modal=" + modal + ", function=" + function + ", userIds=" + userIds
+				+ "]";
 	}
 }

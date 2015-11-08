@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xiaoy.annotations.SystemControllerLog;
 import com.xiaoy.background.resourcesmsg.bug.service.BugService;
 import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
@@ -61,9 +62,9 @@ public class BugController {
 	 * 
 	 * @date 2015年8月12日下午6:00:49
 	 */
+	@ResponseBody
 	@RequestMapping("/getBugList")
-	public @ResponseBody
-	JsonResult getBugList(Bug bug, HttpServletRequest request) {
+	public JsonResult getBugList(Bug bug, HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
 
@@ -97,9 +98,9 @@ public class BugController {
 	 * 
 	 * @date 2015年8月13日上午11:04:34
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/parentMenuList")
-	public @ResponseBody
-	JsonResult parentMenuList(HttpServletRequest request) {
+	public JsonResult parentMenuList(HttpServletRequest request) {
 		Menu menu = new Menu();
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
 
@@ -118,9 +119,9 @@ public class BugController {
 	 * 
 	 * @date 2015年8月13日上午11:04:34
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getChildMenuListByParentId")
-	public @ResponseBody
-	JsonResult getChildMenuListByParentId(HttpServletRequest request) {
+	public JsonResult getChildMenuListByParentId(HttpServletRequest request) {
 		String parentId = Tools.getStringParameter(request, "parentId");
 		List<Menu> menus = menuService.getChildMenuListByParentId(parentId);
 		JsonResult json = new JsonResult();
@@ -135,9 +136,11 @@ public class BugController {
 	 * @param bug
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/svaeBug", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
+	@SystemControllerLog(module = "资源管理", function = "BUG管理", operation = "保存BUG")
+	public JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls,
+			HttpServletRequest request) {
 		// 获取bug图片的路径
 		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
@@ -185,9 +188,11 @@ public class BugController {
 	 * @param bug
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/updateBug", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls, HttpServletRequest request) {
+	@SystemControllerLog(module = "资源管理", function = "BUG管理", operation = "更新BUG")
+	public JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls,
+			HttpServletRequest request) {
 		// 获取bug图片的路径
 		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
@@ -216,9 +221,10 @@ public class BugController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/deleteBug/{id}", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult deleteBug(@PathVariable("id") String id, HttpServletRequest request) {
+	@SystemControllerLog(module = "资源管理", function = "BUG管理", operation = "删除BUG")
+	public JsonResult deleteBug(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		try {
 			String imgUrls = bugService.findObjectById(id).getImgUrl();
@@ -271,13 +277,14 @@ public class BugController {
 	 * 
 	 * @date 2015年9月1日上午11:16:37
 	 */
+	@ResponseBody
 	@RequestMapping("/getBugType")
-	public @ResponseBody
-	JsonResult getBugType(HttpServletRequest request) {
+	public JsonResult getBugType(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
 		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "bugType");
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_BUGTYPE);
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG,
+				DictionaryType.BUG_FIELD_CODE_BUGTYPE);
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
@@ -298,7 +305,8 @@ public class BugController {
 		JsonResult json = new JsonResult();
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
 		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "priority");
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_PRIORITY);
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG,
+				DictionaryType.BUG_FIELD_CODE_PRIORITY);
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
@@ -319,7 +327,8 @@ public class BugController {
 		JsonResult json = new JsonResult();
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
 		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "reappear");
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_REAPPEAR);
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG,
+				DictionaryType.BUG_FIELD_CODE_REAPPEAR);
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
@@ -340,7 +349,8 @@ public class BugController {
 		JsonResult json = new JsonResult();
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
 		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "severity");
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_SEVERITY);
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG,
+				DictionaryType.BUG_FIELD_CODE_SEVERITY);
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
@@ -361,7 +371,8 @@ public class BugController {
 		JsonResult json = new JsonResult();
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
 		// List<CheckBox> list = Tools.getCheckBox(request, "bug", "status");
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_STATUS);
+		List<CheckBox> list = tools
+				.getCheckBox(DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_STATUS);
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
@@ -390,8 +401,8 @@ public class BugController {
 				// Map<String, Map<String, String>> map = propertyModel.getDatas();
 				// Map<String, String> map2 = map.get("status");
 				// status = map2.get(status);
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.BUG_MODEL_CODE_BUG,
-						DictionaryType.BUG_FIELD_CODE_STATUS, status);
+				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+						DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_STATUS, status);
 				if (dictionary != null) {
 					status = dictionary.getDisplayField();
 				}
@@ -406,8 +417,8 @@ public class BugController {
 				// Map<String, Map<String, String>> map = propertyModel.getDatas();
 				// Map<String, String> map2 = map.get("severity");
 				// severity = map2.get(severity);
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.BUG_MODEL_CODE_BUG,
-						DictionaryType.BUG_FIELD_CODE_SEVERITY, severity);
+				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+						DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_SEVERITY, severity);
 				if (dictionary != null) {
 					severity = dictionary.getDisplayField();
 				}
@@ -422,8 +433,8 @@ public class BugController {
 				// Map<String, Map<String, String>> map = propertyModel.getDatas();
 				// Map<String, String> map2 = map.get("reappear");
 				// reappear = map2.get(reappear);
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.BUG_MODEL_CODE_BUG,
-						DictionaryType.BUG_FIELD_CODE_REAPPEAR, reappear);
+				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+						DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_REAPPEAR, reappear);
 				if (dictionary != null) {
 					reappear = dictionary.getDisplayField();
 				}
@@ -438,8 +449,8 @@ public class BugController {
 				// Map<String, Map<String, String>> map = propertyModel.getDatas();
 				// Map<String, String> map2 = map.get("bugType");
 				// bugType = map2.get(bugType);
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(DictionaryType.BUG_MODEL_CODE_BUG,
-						DictionaryType.BUG_FIELD_CODE_BUGTYPE, bugType);
+				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+						DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_BUGTYPE, bugType);
 				if (dictionary != null) {
 					bugType = dictionary.getDisplayField();
 				}
