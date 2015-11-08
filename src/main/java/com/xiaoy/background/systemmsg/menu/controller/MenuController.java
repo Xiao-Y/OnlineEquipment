@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoy.annotations.SystemControllerLog;
+import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
 import com.xiaoy.base.entities.Menu;
@@ -89,9 +91,10 @@ public class MenuController {
 	 * 
 	 * @date 2015年8月11日上午11:11:18
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult saveMenu(@RequestBody Menu menu) {
+	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_MENU, operation = LogParamType.SAVE)
+	public JsonResult saveMenu(@RequestBody Menu menu) {
 		JsonResult json = new JsonResult();
 		try {
 			// 保存时，添加uuid
@@ -126,9 +129,10 @@ public class MenuController {
 	 * 
 	 * @date 2015年8月11日上午11:14:58
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/updateMenu", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult updateMenu(@RequestBody Menu menu) {
+	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_MENU, operation = LogParamType.UPDATE)
+	public JsonResult updateMenu(@RequestBody Menu menu) {
 		JsonResult json = new JsonResult();
 		try {
 			String menuType = menu.getMenuType();
@@ -148,9 +152,10 @@ public class MenuController {
 		return json;
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/deleteMenu/{id}", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult deleteMenu(@PathVariable("id") String id) {
+	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_MENU, operation = LogParamType.DELETE)
+	public JsonResult deleteMenu(@PathVariable("id") String id) {
 		JsonResult json = new JsonResult();
 		try {
 			menuService.deleteObjectByid(id);
@@ -171,13 +176,14 @@ public class MenuController {
 	 * 
 	 * @date 2015年9月1日上午11:52:48
 	 */
+	@ResponseBody
 	@RequestMapping("/getMenuType")
-	public @ResponseBody
-	JsonResult getMenuType(HttpServletRequest request) {
+	public JsonResult getMenuType(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
 		// List<CheckBox> checkBox = Tools.getCheckBox(request, "menu", "menuType");
-		List<CheckBox> checkBox = tools.getCheckBox(DictionaryType.MENU_MODEL_CODE_MENU, DictionaryType.MENU_FIELD_CODE_MENUTYPE);
+		List<CheckBox> checkBox = tools.getCheckBox(DictionaryType.MENU_MODEL_CODE_MENU,
+				DictionaryType.MENU_FIELD_CODE_MENUTYPE);
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(checkBox);
 		json.setSuccess(true);

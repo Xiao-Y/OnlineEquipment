@@ -41,4 +41,12 @@ public @interface SystemControllerLog {
 	 * @date 2015年10月26日 下午5:20:26
 	 */
 	String operation();
+
+	/**
+	 * 备注
+	 * 
+	 * @return
+	 * @date 2015年11月8日 下午2:56:05
+	 */
+	String note() default "";
 }

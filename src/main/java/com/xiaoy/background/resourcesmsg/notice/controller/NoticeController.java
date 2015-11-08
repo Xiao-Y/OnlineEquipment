@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoy.annotations.SystemControllerLog;
+import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.notice.service.NoticeService;
 import com.xiaoy.base.entities.Notice;
 import com.xiaoy.util.DateHelper;
@@ -76,6 +78,7 @@ public class NoticeController {
 
 	@ResponseBody
 	@RequestMapping(value = "/saveNotice", method = RequestMethod.POST)
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_NOTICE, operation = LogParamType.SAVE)
 	public JsonResult saveNotice(Notice notice) {
 		notice.setId(UUID.randomUUID().toString());
 		notice.setNoticeName(LoginHelper.getLoginUserId());
@@ -96,6 +99,7 @@ public class NoticeController {
 
 	@ResponseBody
 	@RequestMapping(value = "/updateNotice", method = RequestMethod.POST)
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_NOTICE, operation = LogParamType.UPDATE)
 	public JsonResult updateNotice(Notice notice) {
 		notice.setNoticeName(LoginHelper.getLoginUserId());
 		notice.setUpdateTime(new Date());
@@ -114,6 +118,7 @@ public class NoticeController {
 
 	@ResponseBody
 	@RequestMapping(value = "/deleteNoticeById/{id}", method = RequestMethod.POST)
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_NOTICE, operation = LogParamType.DELETE)
 	public JsonResult deleteNoticeById(@PathVariable("id") String id) {
 		JsonResult json = new JsonResult();
 		try {

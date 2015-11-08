@@ -35,6 +35,8 @@ public class Log extends BaseEntity implements Serializable {
 	private String modal;
 	// 功能
 	private String function;
+	// 备注
+	private String note;
 
 	// 用于存放用户的id
 	private List<Object> userIds = new ArrayList<>();
@@ -102,6 +104,15 @@ public class Log extends BaseEntity implements Serializable {
 		this.runClass = runClass;
 	}
 
+	@Column(name = "NOTE", length = 150)
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	@Transient
 	public List<Object> getUserIds() {
 		return userIds;
@@ -114,7 +125,7 @@ public class Log extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Log [userId=" + userId + ", ipAddr=" + ipAddr + ", runClass=" + runClass + ", content=" + content
-				+ ", operation=" + operation + ", modal=" + modal + ", function=" + function + ", userIds=" + userIds
-				+ "]";
+				+ ", operation=" + operation + ", modal=" + modal + ", function=" + function + ", note=" + note
+				+ ", userIds=" + userIds + "]";
 	}
 }

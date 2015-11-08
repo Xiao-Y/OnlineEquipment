@@ -68,6 +68,7 @@ public class LogAopImpl implements LogAop {
 		log.setModal(map.get("module"));
 		log.setFunction(map.get("function"));
 		log.setOperation(map.get("operation"));
+		log.setNote(map.get("note"));
 		log.setCreateTime(new Date());
 		log.setUserId(LoginHelper.getLoginUserId());
 
@@ -152,6 +153,7 @@ public class LogAopImpl implements LogAop {
 						map.put("module", method.getAnnotation(SystemControllerLog.class).module());
 						map.put("function", method.getAnnotation(SystemControllerLog.class).function());
 						map.put("operation", method.getAnnotation(SystemControllerLog.class).operation());
+						map.put("note", method.getAnnotation(SystemControllerLog.class).note());
 						return map;
 					}
 				}

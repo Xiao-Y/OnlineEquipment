@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xiaoy.annotations.SystemControllerLog;
+import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.bug.service.BugService;
 import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
@@ -138,7 +139,7 @@ public class BugController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/svaeBug", method = RequestMethod.POST)
-	@SystemControllerLog(module = "资源管理", function = "BUG管理", operation = "保存BUG")
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_BUG, operation = LogParamType.SAVE)
 	public JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls,
 			HttpServletRequest request) {
 		// 获取bug图片的路径
@@ -190,7 +191,7 @@ public class BugController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateBug", method = RequestMethod.POST)
-	@SystemControllerLog(module = "资源管理", function = "BUG管理", operation = "更新BUG")
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_BUG, operation = LogParamType.UPDATE)
 	public JsonResult updateBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls,
 			HttpServletRequest request) {
 		// 获取bug图片的路径
@@ -223,7 +224,7 @@ public class BugController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/deleteBug/{id}", method = RequestMethod.POST)
-	@SystemControllerLog(module = "资源管理", function = "BUG管理", operation = "删除BUG")
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_BUG, operation = LogParamType.DELETE)
 	public JsonResult deleteBug(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		try {

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
+import com.xiaoy.annotations.SystemControllerLog;
+import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
 import com.xiaoy.base.entities.Dictionary;
 import com.xiaoy.util.JsonResult;
@@ -28,7 +30,7 @@ import com.xiaoy.util.Tools;
  */
 @Controller
 @RequestMapping("background/resourcesmsg/dictionary")
-public class DictionaryControll {
+public class DictionaryController {
 
 	@Resource
 	private DictionaryService dictionaryService;
@@ -111,6 +113,7 @@ public class DictionaryControll {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveDictionary")
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_DICTIONARY, operation = LogParamType.SAVE)
 	public JsonResult saveDictionary(HttpServletRequest request) {
 		// 模块选中的下拉列表Code
 		String modelCodeBox = Tools.getStringParameter(request, "modelCodeBox");
@@ -202,6 +205,7 @@ public class DictionaryControll {
 	 */
 	@ResponseBody
 	@RequestMapping("/deleteDictionaryKeyValue")
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_DICTIONARY, operation = LogParamType.DELETE, note = LogParamType.DELETE_KEY_VALUE)
 	public JsonResult deleteDictionaryKeyValue(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		// 所有要删除的键值对
@@ -226,6 +230,7 @@ public class DictionaryControll {
 	 */
 	@ResponseBody
 	@RequestMapping("/deleteDictionaryField")
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_DICTIONARY, operation = LogParamType.DELETE, note = LogParamType.DELETE_KEY_VALUE)
 	public JsonResult deleteDictionaryField(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		// 模块选中的下拉列表Code
@@ -253,6 +258,7 @@ public class DictionaryControll {
 	 */
 	@ResponseBody
 	@RequestMapping("/deleteDictionaryModel")
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_DICTIONARY, operation = LogParamType.DELETE, note = LogParamType.DELETE_MODEL)
 	public JsonResult deleteDictionaryModel(HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		// 模块选中的下拉列表Code

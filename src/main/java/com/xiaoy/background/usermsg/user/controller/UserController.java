@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoy.annotations.SystemControllerLog;
+import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.zip.service.ZipService;
 import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.background.usermsg.user.service.UserService;
@@ -191,9 +193,10 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/saveUser")
-	public @ResponseBody
-	JsonResult saveUser(HttpServletRequest request) {
+	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_USER, operation = LogParamType.SAVE)
+	public JsonResult saveUser(HttpServletRequest request) {
 		String username = Tools.getStringParameter(request, "username");
 		String password = Tools.getStringParameter(request, "password");
 		String birthday = Tools.getStringParameter(request, "birthday");
@@ -244,9 +247,10 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/deleteUserById/{id}", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult deleteUserById(@PathVariable("id") String id) {
+	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_USER, operation = LogParamType.DELETE)
+	public JsonResult deleteUserById(@PathVariable("id") String id) {
 		JsonResult json = new JsonResult();
 		try {
 			userService.deleteUserById(id);
@@ -268,6 +272,7 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_USER, operation = LogParamType.UPDATE)
 	public JsonResult updateUser(HttpServletRequest request) {
 		String username = Tools.getStringParameter(request, "username");
 		String id = Tools.getStringParameter(request, "id");

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xiaoy.annotations.SystemControllerLog;
+import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.zip.service.ZipService;
 import com.xiaoy.base.entities.Zip;
 import com.xiaoy.util.JsonResult;
@@ -72,6 +74,7 @@ public class ZipController {
 	 * @date 2015年10月4日 下午9:32:50
 	 */
 	@RequestMapping(value = "/exportZip", method = RequestMethod.GET)
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_ZIP, operation = LogParamType.EXPORT)
 	public void exportZip(HttpServletResponse response) {
 		zipService.exportZip(response);
 	}
@@ -85,6 +88,7 @@ public class ZipController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/importZip", method = RequestMethod.POST)
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_ZIP, operation = LogParamType.IMPORT)
 	public JsonResult importZip(MultipartFile multipartFile) {
 		JsonResult json = new JsonResult();
 
