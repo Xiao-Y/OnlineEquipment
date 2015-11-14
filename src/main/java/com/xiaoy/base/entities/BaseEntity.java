@@ -39,7 +39,7 @@ public abstract class BaseEntity {
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
+	@Column(name = "ID", nullable = false, length = 100)
 	public String getId() {
 		return id;
 	}
