@@ -292,23 +292,23 @@
 		<hr>
 		<div class="content">
 			<div class="browserStat big">
-				<img src="resource/img/browser-chrome-big.png" alt="Chrome">
+				<img src="${pageContext.request.contextPath }/foreground/resource/img/browser-chrome-big.png" alt="Chrome">
 				<span>34%</span>
 			</div>
 			<div class="browserStat big">
-				<img src="resource/img/browser-firefox-big.png" alt="Firefox">
+				<img src="${pageContext.request.contextPath }/foreground/resource/img/browser-firefox-big.png" alt="Firefox">
 				<span>34%</span>
 			</div>
 			<div class="browserStat">
-				<img src="resource/img/browser-ie.png" alt="Internet Explorer">
+				<img src="${pageContext.request.contextPath }/foreground/resource/img/browser-ie.png" alt="Internet Explorer">
 				<span>34%</span>
 			</div>
 			<div class="browserStat">
-				<img src="resource/img/browser-safari.png" alt="Safari">
+				<img src="${pageContext.request.contextPath }/foreground/resource/img/browser-safari.png" alt="Safari">
 				<span>34%</span>
 			</div>
 			<div class="browserStat">
-				<img src="resource/img/browser-opera.png" alt="Opera">
+				<img src="${pageContext.request.contextPath }/foreground/resource/img/browser-opera.png" alt="Opera">
 				<span>34%</span>
 			</div>	
 		</div>
@@ -406,7 +406,7 @@
 			<ul class="dashboard-list metro">
 				<li class="green">
 					<a href="#">
-						<img class="avatar" alt="Dennis Ji" src="resource/img/avatar.jpg">
+						<img class="avatar" alt="Dennis Ji" src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg">
 					</a>
 					<strong>Name:</strong> Dennis Ji<br>
 					<strong>Since:</strong> Jul 25, 2012 11:09<br>
@@ -414,7 +414,7 @@
 				</li>
 				<li class="yellow">
 					<a href="#">
-						<img class="avatar" alt="Dennis Ji" src="resource/img/avatar.jpg">
+						<img class="avatar" alt="Dennis Ji" src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg">
 					</a>
 					<strong>Name:</strong> Dennis Ji<br>
 					<strong>Since:</strong> Jul 25, 2012 11:09<br>
@@ -422,7 +422,7 @@
 				</li>
 				<li class="red">
 					<a href="#">
-						<img class="avatar" alt="Dennis Ji" src="resource/img/avatar.jpg">
+						<img class="avatar" alt="Dennis Ji" src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg">
 					</a>
 					<strong>Name:</strong> Dennis Ji<br>
 					<strong>Since:</strong> Jul 25, 2012 11:09<br>
@@ -430,7 +430,7 @@
 				</li>
 				<li class="blue">
 					<a href="#">
-						<img class="avatar" alt="Dennis Ji" src="resource/img/avatar.jpg">
+						<img class="avatar" alt="Dennis Ji" src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg">
 					</a>
 					<strong>Name:</strong> Dennis Ji<br>
 					<strong>Since:</strong> Jul 25, 2012 11:09<br>

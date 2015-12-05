@@ -8,7 +8,7 @@
 		<!-- 
 			<li onclick="clickLoad('index')"><a href="javascript:void(0)"><i class="icon-home"></i><span class="hidden-tablet">首页</span></a></li>
 		 -->
-			<c:forEach items="${trees }" var="tree">
+			<c:forEach items="${trees }" var="tree" varStatus="num">
 				<li>
 					<a class="dropmenu" href="#">
 						<i class="icon-folder-close-alt"></i>
@@ -17,9 +17,9 @@
 					</a>
 					<c:if test="${!empty tree.children }">
 						<ul>
-							<c:forEach items="${tree.children }" var="children">
-								<li onclick="clickLoad('${children.url }')">
-									<a class="submenu" href="#">
+							<c:forEach items="${tree.children }" var="children" varStatus="numb">
+								<li onclick="clickLoad('${children.url }')" style="background: #3A3A3A">
+									<a class="submenu" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<i class="icon-file-alt"></i>
 										<span class="hidden-tablet">${children.text }</span>
 									</a>
@@ -29,8 +29,35 @@
 					</c:if>
 				</li>
 			</c:forEach>
-			<li><a href="icon.html"><i class="icon-star"></i><span class="hidden-tablet">图标icons</span></a></li>
-			<li><a href="login.html"><i class="icon-lock"></i><span class="hidden-tablet">重新登陆</span></a></li>
+			<li><a href="${pageContext.request.contextPath }/icon.html"><i class="icon-star"></i><span class="hidden-tablet">图标icons</span></a></li>
+			<li><a href="${pageContext.request.contextPath }/login.html"><i class="icon-lock"></i><span class="hidden-tablet">重新登陆</span></a></li>
 		</ul>
 	</div>
 </div>
+<script type="text/javascript">
+$(function(){
+	$('.dropmenu').click(function(e){
+		$this = $(this);
+		e.preventDefault();
+		$(this).parent().find('ul').slideToggle();
+		
+		removeClasee();
+		$this.parent().addClass('active');
+	});
+	$(".submenu").click(function(){
+		$this = $(this);
+		removeClasee();
+		$this.parent().parent().parent().addClass('active');
+		$this.parent().addClass('active');
+	});
+	
+	function removeClasee(){
+		$('ul.main-menu li a').each(function(){
+			$(this).parent().removeClass("active");
+		});
+		$('ul.main-menu li ul li a').each(function(){
+			$(this).parent().removeClass("active");
+		});
+	}
+});
+</script>

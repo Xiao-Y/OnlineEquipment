@@ -172,7 +172,7 @@
 									</li>	
 	                            	<li>
 	                                    <a href="#">
-											<span class="avatar"><img src="resource/img/avatar.jpg" alt="Avatar"></span>
+											<span class="avatar"><img src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg" alt="Avatar"></span>
 											<span class="header">
 												<span class="from">
 											    	
@@ -188,7 +188,7 @@
 	                                </li>
 	                                <li>
 	                                    <a href="#">
-											<span class="avatar"><img src="resource/img/avatar.jpg" alt="Avatar"></span>
+											<span class="avatar"><img src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg" alt="Avatar"></span>
 											<span class="header">
 												<span class="from">
 											    	Billow
@@ -204,7 +204,7 @@
 	                                </li>
 	                                <li>
 	                                    <a href="#">
-											<span class="avatar"><img src="resource/img/avatar.jpg" alt="Avatar"></span>
+											<span class="avatar"><img src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg" alt="Avatar"></span>
 											<span class="header">
 												<span class="from">
 											    	Billow
@@ -220,7 +220,7 @@
 	                                </li>
 									<li>
 	                                    <a href="#">
-											<span class="avatar"><img src="resource/img/avatar.jpg" alt="Avatar"></span>
+											<span class="avatar"><img src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg" alt="Avatar"></span>
 											<span class="header">
 												<span class="from">
 											    	Billow
@@ -236,7 +236,7 @@
 	                                </li>
 	                                <li>
 	                                    <a href="#">
-											<span class="avatar"><img src="resource/img/avatar.jpg" alt="Avatar"></span>
+											<span class="avatar"><img src="${pageContext.request.contextPath }/foreground/resource/img/avatar.jpg" alt="Avatar"></span>
 											<span class="header">
 												<span class="from">
 											    	Billow
@@ -272,7 +272,7 @@
 	 									<span>Account Settings</span>
 									</li>
 									<li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>
-									<li><a href="login.html"><i class="halflings-icon off"></i> Logout</a></li>
+									<li><a href="${pageContext.request.contextPath }/login.html"><i class="halflings-icon off"></i> Logout</a></li>
 								</ul>
 							</li>
 							<!-- end: User Dropdown -->

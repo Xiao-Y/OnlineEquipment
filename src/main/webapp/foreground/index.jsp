@@ -89,6 +89,15 @@
 			$("#content").load(url);
 		}*/
 		function clickLoad(url){
+			/* var leng = url.length;
+			var str = url.substr(leng - 4,4);//从那开始，截取多长
+			console.info(str);
+			if(str == "html"){
+				$("#content").empty();
+				$("#content").load(url);
+				return false;
+			} */
+			
 			$.ajax({
 				//发送请求前
 				beforeSend : function(){
@@ -113,7 +122,6 @@
 				}
 			});
 		}
-
 		//进度条
 		var div = '<div class="progress progress-striped progress-success active">'
 					+ '<div class="bar"></div>'
@@ -128,7 +136,6 @@
 			$("#content").html(div);
 			$(".progress").css("display","")
 		}
-
 		var p = 0;
 		var timer;
 		//开始运行
@@ -145,7 +152,7 @@
 		function stop(){
 			p = 0;
 	        $('.bar').css('width',"100%");//将数值赋值给main的width
-			clearTimeout(timer) 
+			clearTimeout(timer);
 		}
 	</script>
 	<!-- end: JavaScript-->

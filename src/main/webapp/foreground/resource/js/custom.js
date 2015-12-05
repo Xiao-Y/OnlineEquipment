@@ -74,7 +74,7 @@ $(document).ready(function(){
 	
 				
 	/* ---------- Add class .active to current link  ---------- */
-	$('ul.main-menu li a').each(function(){
+	/*$('ul.main-menu li a').each(function(){
 		
 			if($($(this))[0].href==String(window.location)) {
 				
@@ -93,18 +93,16 @@ $(document).ready(function(){
 				
 			}
 	
-	});
+	});*/
 	
 	/* ---------- Submenu  ---------- */
-	
+	/*
 	$('.dropmenu').click(function(e){
-
 		e.preventDefault();
-
 		$(this).parent().find('ul').slideToggle();
 	
-	});
-			
+	});*/
+	
 	/* ---------- Acivate Functions ---------- */
 	template_functions();
 	init_masonry();
