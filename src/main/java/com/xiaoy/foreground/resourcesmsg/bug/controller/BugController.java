@@ -61,6 +61,7 @@ public class BugController {
 	 * @return
 	 * @date 2015年10月27日 下午11:38:04
 	 */
+	@Deprecated
 	@ResponseBody
 	@RequestMapping(value = "/getSeverity", method = RequestMethod.GET)
 	public List<CheckBox> getSeverity() {
@@ -76,6 +77,7 @@ public class BugController {
 	 * @return
 	 * @date 2015年10月28日 下午9:54:40
 	 */
+	@Deprecated
 	@ResponseBody
 	@RequestMapping(value = "/getBugType", method = RequestMethod.GET)
 	public List<CheckBox> getBugType() {
@@ -92,6 +94,7 @@ public class BugController {
 	 * @return
 	 * @date 2015年10月28日 下午9:56:53
 	 */
+	@Deprecated
 	@ResponseBody
 	@RequestMapping("/getReappear")
 	public List<CheckBox> getReappear() {
@@ -109,6 +112,7 @@ public class BugController {
 	 * 
 	 * @date 2015年9月1日上午11:21:45
 	 */
+	@Deprecated
 	@ResponseBody
 	@RequestMapping("/getStatus")
 	public List<CheckBox> getStatus() {

@@ -131,7 +131,7 @@
  					<div class="control-group">
 						<label class="control-label">BUG状态</label>
 						<div class="controls">
- 							<select id="status" name="status">
+ 							<select id="status" name="status" dataType="allWith" modelCode="bug" fieldCode="status">
 							</select>
 						</div>
  					</div>
@@ -152,21 +152,21 @@
  					<div class="control-group">
 						<label class="control-label">严重程度</label>
 						<div class="controls">
- 							<select id="severity" name="severity">
+ 							<select id="severity" name="severity" name="severity" dataType="allWith"  modelCode="bug" fieldCode="severity">
 							</select>
 						</div>
  					</div>
  					<div class="control-group">
 						<label class="control-label">重现规律</label>
 						<div class="controls">
- 							<select id="reappear" name="reappear">
+ 							<select id="reappear" name="reappear" dataType="allWith" modelCode="bug" fieldCode="reappear">
 							</select>
 						</div>
  					</div>
  					<div class="control-group">
 						<label class="control-label">BUG类型</label>
 						<div class="controls">
- 							<select id="bugType" name="bugType">
+ 							<select id="bugType" name="bugType" dataType="allWith" modelCode="bug" fieldCode="bugType">
 							</select>
 						</div>
  					</div>
@@ -185,7 +185,7 @@
 <div class="modal hide fade addModal">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h3>高级查询</h3>
+		<h3>添加BUG</h3>
 	</div>
 	<div class="modal-body">
 		<div class="box-content">
@@ -200,7 +200,7 @@
  					<div class="control-group">
 						<label class="control-label">BUG状态</label>
 						<div class="controls">
- 							<select id="status" name="status">
+ 							<select id="status" name="status" dataType="selectWith" modelCode="bug" fieldCode="status">
 							</select>
 						</div>
  					</div>
@@ -221,21 +221,21 @@
  					<div class="control-group">
 						<label class="control-label">严重程度</label>
 						<div class="controls">
- 							<select id="severity" name="severity">
+ 							<select id="severity" name="severity" dataType="selectWith"  modelCode="bug" fieldCode="severity">
 							</select>
 						</div>
  					</div>
  					<div class="control-group">
 						<label class="control-label">重现规律</label>
 						<div class="controls">
- 							<select id="reappear" name="reappear">
+ 							<select id="reappear" name="reappear" dataType="selectWith"  modelCode="bug" fieldCode="reappear">
 							</select>
 						</div>
  					</div>
  					<div class="control-group">
 						<label class="control-label">BUG类型</label>
 						<div class="controls">
- 							<select id="bugType" name="bugType">
+ 							<select id="bugType" name="bugType" dataType="selectWith" modelCode="bug" fieldCode="bugType">
 							</select>
 						</div>
  					</div>
@@ -249,57 +249,4 @@
 	</div>
 </div>
 <!-- 添加模态框 end -->
-<script type="text/javascript">
-	$(function(){
-		//加载查询的下拉列表-----start
-		selectQuery("../foreground/resourcesmsg/bug/getSeverity","severity");
-		selectQuery("../foreground/resourcesmsg/bug/getBugType","bugType");
-		selectQuery("../foreground/resourcesmsg/bug/getSeverity","severity");
-		selectQuery("../foreground/resourcesmsg/bug/getReappear","reappear");
-		selectQuery("../foreground/resourcesmsg/bug/getStatus","status");
-		//加载查询的下拉列表-----end
-
-		//加载添加的下拉列表-----start
-		selectAdd("../foreground/resourcesmsg/bug/getSeverity","severity");
-		selectAdd("../foreground/resourcesmsg/bug/getBugType","bugType");
-		selectAdd("../foreground/resourcesmsg/bug/getSeverity","severity");
-		selectAdd("../foreground/resourcesmsg/bug/getReappear","reappear");
-		selectAdd("../foreground/resourcesmsg/bug/getStatus","status");
-		//加载添加的下拉列表-----end
-
-		//查询BUG
-		$(".querySubmit").bind("click",function(){
-			var data = $(".queryModal form").serialize();
-			var url = "../foreground/resourcesmsg/bug/index";
-			$("#content").load(url,data,function(){
-				$(".modal-backdrop").remove();
-			});
-		});
-	});
-	
-	//查询的公用加载下拉列表
-	function selectQuery(url,selectName){
-		var data = {"date":new Date()};
-		var html = "<option value=\"\">ALL--所有</option>";
-		$.getJSON(url,data,function(data){
-			$.each(data,function(index,value){
-				html = html + "<option value=\"" + value.valueField 
-				+ "\">"+ value.valueField + "--" +value.displayField + "</option>";
-			});
-			$(".queryModal select[name='"+selectName+"']").html(html);
-		});
-	}
-
-	//添加的公用加载下拉列表
-	function selectAdd(url,selectName){
-		var data = {"date":new Date()};
-		var html = "<option value=\"\">--请选择--</option>";
-		$.getJSON(url,data,function(data){
-			$.each(data,function(index,value){
-				html = html + "<option value=\"" + value.valueField 
-				+ "\">"+ value.valueField + "--" +value.displayField + "</option>";
-			});
-			$(".addModal select[name='"+selectName+"']").html(html);
-		});
-	}
-</script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/foreground/resourcesmsg/bug/bugList.js"></script>

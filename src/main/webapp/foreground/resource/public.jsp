@@ -39,3 +39,7 @@
 	<script src="<%=request.getContextPath() %>/foreground/resource/js/retina.js"></script>
 	<script src="<%=request.getContextPath() %>/foreground/resource/js/custom.js"></script>
 	<!-- end: JavaScript-->
+	
+	<!-- start: 自定义工具类 -->
+	<script type="text/javascript" src="${pageContext.request.contextPath }/foreground/resource/select.js"></script>
+	<!-- end: 自定义工具类 -->
