@@ -22,21 +22,21 @@
 			</div>
 		</div>
 		<div class="box-content">
-			<table class="table table-striped table-bordered bootstrap-datatable datatable">
+			<table url="${pageContext.request.contextPath }/foreground/resourcesmsg/bug/getBugList" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					<tr>
-						<th>BUG标题</th>
-						<th>BUG状态</th>
-						<th>父模块</th>
-						<th>子模块</th>
-						<th>严重程度</th>
-						<th>重现规律</th>
-						<th>BUG类型</th>
-						<th>操作</th>
+						<th style="text-align: center;">BUG标题</th>
+						<th style="text-align: center;">BUG状态</th>
+						<th style="text-align: center;">父模块</th>
+						<th style="text-align: center;">子模块</th>
+						<th style="text-align: center;">严重程度</th>
+						<th style="text-align: center;">重现规律</th>
+						<th style="text-align: center;">BUG类型</th>
+						<th style="text-align: center;">操作</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${bugs }" var="bug">
+					<%-- <c:forEach items="${bugs }" var="bug">
 						<tr>
 							<input type="hidden" value="${bug.id }" name="id">
 							<td class="center">${bug.title }</td>
@@ -103,7 +103,7 @@
 								<a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a>
 							</td>
 						</tr>
-					</c:forEach>
+					</c:forEach> --%>
 				</tbody>
 			</table>
 		</div>

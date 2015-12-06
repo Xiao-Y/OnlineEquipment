@@ -1,9 +1,12 @@
 package com.xiaoy.foreground.resourcesmsg.bug.controller;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,13 +36,20 @@ public class BugController {
 	// 工具服务
 	@Resource
 	private Tools tools;
-
+	
 	@RequestMapping("/index")
-	public String getBugList(@ModelAttribute("bug") Bug bug, Model model) {
+	public String index(){
+		return "foreground/resourcesmsg/bug/bugList";
+	}
 
-		// Bug bug = new Bug();
-		String start = bug.getStart();
-		String limit = bug.getLimit();
+	@ResponseBody
+	@RequestMapping("/getBugList")
+	public Map<String, Object> getBugList(@ModelAttribute("bug") Bug bug, Model model,HttpServletRequest request) {
+		String start = Tools.getStringParameter(request, "iDisplayStart");
+		String limit = Tools.getStringParameter(request, "iDisplayLength");
+		String sEcho = Tools.getStringParameter(request, "sEcho");
+		//String start = bug.getStart();
+		//String limit = bug.getLimit();
 
 		List<Bug> bugs = bugService.findCollectionByCondition(bug, start, limit);
 		for (Bug b : bugs) {
@@ -50,8 +60,12 @@ public class BugController {
 				b.setChildrenName(menuService.findObjectById(b.getChildrenId()).getMenuName());
 			}
 		}
-		model.addAttribute("bugs", bugs);
-		return "foreground/resourcesmsg/bug/bugList";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sEcho", sEcho);//总记录数
+		map.put("iTotalRecords", 20);//总记录数
+		map.put("iTotalDisplayRecords", 12);//过滤后的总记录数
+		map.put("aaData", bugs);//具体的数据对象数组
+		return map;
 	}
 
 	/**

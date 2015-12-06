@@ -42,4 +42,5 @@
 	
 	<!-- start: 自定义工具类 -->
 	<script type="text/javascript" src="${pageContext.request.contextPath }/foreground/resource/select.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/foreground/resource/dataTable.js"></script>
 	<!-- end: 自定义工具类 -->
