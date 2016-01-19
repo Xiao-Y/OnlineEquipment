@@ -1,4 +1,4 @@
-package com.xiaoy.shiro.service.impl;
+package com.xiaoy.shiro;
 
 import java.util.Set;
 
@@ -14,7 +14,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.springframework.stereotype.Service;
 
 import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.background.usermsg.user.service.UserService;
@@ -27,8 +26,7 @@ import com.xiaoy.permission.service.PermissionService;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:19:02
  */
-@Service
-public class MyRealm extends AuthorizingRealm {
+public class MonitorRealm extends AuthorizingRealm {
 
 	@Resource
 	private UserService userService;
@@ -65,7 +63,8 @@ public class MyRealm extends AuthorizingRealm {
 	 * 登录认证
 	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
+			throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 		User user = userService.findByName(token.getUsername());
 		if (user != null) {

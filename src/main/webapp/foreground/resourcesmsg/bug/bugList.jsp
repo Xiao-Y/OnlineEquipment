@@ -131,7 +131,7 @@
  					<div class="control-group">
 						<label class="control-label">BUG状态</label>
 						<div class="controls">
- 							<select id="status" name="status" dataType="allWith" modelCode="bug" fieldCode="status">
+ 							<select id="status" name="status" dataType="allSelect" modelCode="bug" fieldCode="status">
 							</select>
 						</div>
  					</div>
@@ -152,21 +152,21 @@
  					<div class="control-group">
 						<label class="control-label">严重程度</label>
 						<div class="controls">
- 							<select id="severity" name="severity" name="severity" dataType="allWith"  modelCode="bug" fieldCode="severity">
+ 							<select id="severity" name="severity" name="severity" dataType="allSelect"  modelCode="bug" fieldCode="severity">
 							</select>
 						</div>
  					</div>
  					<div class="control-group">
 						<label class="control-label">重现规律</label>
 						<div class="controls">
- 							<select id="reappear" name="reappear" dataType="allWith" modelCode="bug" fieldCode="reappear">
+ 							<select id="reappear" name="reappear" dataType="allSelect" modelCode="bug" fieldCode="reappear">
 							</select>
 						</div>
  					</div>
  					<div class="control-group">
 						<label class="control-label">BUG类型</label>
 						<div class="controls">
- 							<select id="bugType" name="bugType" dataType="allWith" modelCode="bug" fieldCode="bugType">
+ 							<select id="bugType" name="bugType" dataType="allSelect" modelCode="bug" fieldCode="bugType">
 							</select>
 						</div>
  					</div>
@@ -200,7 +200,7 @@
  					<div class="control-group">
 						<label class="control-label">BUG状态</label>
 						<div class="controls">
- 							<select id="status" name="status" dataType="selectWith" modelCode="bug" fieldCode="status">
+ 							<select id="status" name="status" dataType="withSelect" modelCode="bug" fieldCode="status">
 							</select>
 						</div>
  					</div>
@@ -221,21 +221,21 @@
  					<div class="control-group">
 						<label class="control-label">严重程度</label>
 						<div class="controls">
- 							<select id="severity" name="severity" dataType="selectWith"  modelCode="bug" fieldCode="severity">
+ 							<select id="severity" name="severity" dataType="withSelect"  modelCode="bug" fieldCode="severity">
 							</select>
 						</div>
  					</div>
  					<div class="control-group">
 						<label class="control-label">重现规律</label>
 						<div class="controls">
- 							<select id="reappear" name="reappear" dataType="selectWith"  modelCode="bug" fieldCode="reappear">
+ 							<select id="reappear" name="reappear" dataType="withSelect"  modelCode="bug" fieldCode="reappear">
 							</select>
 						</div>
  					</div>
  					<div class="control-group">
 						<label class="control-label">BUG类型</label>
 						<div class="controls">
- 							<select id="bugType" name="bugType" dataType="selectWith" modelCode="bug" fieldCode="bugType">
+ 							<select id="bugType" name="bugType" dataType="withSelect" modelCode="bug" fieldCode="bugType">
 							</select>
 						</div>
  					</div>

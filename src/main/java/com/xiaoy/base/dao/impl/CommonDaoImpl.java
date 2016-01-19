@@ -13,7 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.util.GenericSuperclass;
+import com.xiaoy.base.dao.GenericSuperclass;
 
 /**
  * @author XiaoY

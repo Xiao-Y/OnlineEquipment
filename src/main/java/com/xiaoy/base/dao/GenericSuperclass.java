@@ -1,4 +1,4 @@
-package com.xiaoy.util;
+package com.xiaoy.base.dao;
 
 import java.lang.reflect.ParameterizedType;
 

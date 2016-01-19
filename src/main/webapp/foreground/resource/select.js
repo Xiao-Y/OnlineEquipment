@@ -18,9 +18,9 @@ $(function(){
 		var defaultValue = $this.attr("defaultValue");//默认值
 		var html = "";
 		if(modelCode && fieldCode){
-			if(dataType == "allWith"){
+			if(dataType == "allSelect"){
 				html = "<option value=\"\">ALL -- 所有</option>";
-			}else if(dataType == "selectWith"){
+			}else if(dataType == "withSelect"){
 				html = "<option value=\"\">-- 请选择 --</option>";
 			}
 			var data = {"date":new Date(),"modelCode":modelCode,"fieldCode":fieldCode};

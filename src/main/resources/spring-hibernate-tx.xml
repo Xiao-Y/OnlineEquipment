@@ -43,26 +43,22 @@
 	</tx:advice>
 
 	<aop:config>
-		<!-- 3.1 配置事务切点 start -->
+		<!-- 3.1 配置事务切点 -->
 		<aop:pointcut expression="execution(* com.xiaoy..service..*Impl.*(..))"
 			id="transactionPointcut" />
-		<!-- 3.1 配置事务切点 end -->
 
-		<!-- 3.2 配置系统操作日志 start -->
+		<!-- 3.2 配置系统操作日志 -->
 		<aop:pointcut expression="execution(* com.xiaoy..controller..*Controller.*(..))"
 			id="controllerLogPointcut" />
-		<!-- 3.2 配置系统操作日志 end -->
 
-		<!-- 4.1 配置事务切面 start -->
+		<!-- 4.1 配置事务切面 -->
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
-		<!-- 4.1 配置事务切面 end -->
 
 		<!-- 4.2 配置日志切面 start -->
 		<aop:aspect id="logAsp" ref="logAopImpl">
 			<aop:after method="logArgSave" pointcut-ref="controllerLogPointcut" />
 		</aop:aspect>
-		<!-- 4.2 配置日志切面 end -->
 
 	</aop:config>
 </beans>
