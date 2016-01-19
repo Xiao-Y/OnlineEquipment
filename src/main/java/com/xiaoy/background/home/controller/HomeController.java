@@ -26,6 +26,17 @@ public class HomeController {
 	private Tools tools;
 
 	/**
+	 * 登陆
+	 * 
+	 * @return
+	 * @date 2016年1月19日 下午10:52:27
+	 */
+	@RequestMapping("/login")
+	public String login() {
+		return "background/login";
+	}
+
+	/**
 	 * 进入主页面
 	 * 
 	 * @return
@@ -58,7 +69,8 @@ public class HomeController {
 		JsonResult json = new JsonResult();
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------start
 		// List<CheckBox> list = Tools.getCheckBox(request, "home", "theme");
-		List<CheckBox> list = tools.getCheckBox(DictionaryType.HOME_MODEL_CODE_HOME, DictionaryType.HOME_FIELD_CODE_THEME);
+		List<CheckBox> list = tools.getCheckBox(DictionaryType.HOME_MODEL_CODE_HOME,
+				DictionaryType.HOME_FIELD_CODE_THEME);
 		// 2015-10-01 by XiaoY 修改：废弃的方法-------end
 		json.setRoot(list);
 		json.setSuccess(true);
