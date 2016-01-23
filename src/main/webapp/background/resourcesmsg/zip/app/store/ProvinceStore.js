@@ -8,5 +8,6 @@ Ext.define("AM.store.ProvinceStore",{
 			type : "json",
 			rootProperty : "root"
 		}
-	}
+	},
+	autoLoad : true
 });

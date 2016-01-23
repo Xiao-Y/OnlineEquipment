@@ -11,5 +11,11 @@ Ext.define("AM.store.ZipStore",{
 			totalProperty : "total"
 		}
 	},
-	autoLoad : true
+	autoLoad : true,
+	listeners:{//用于翻页查询
+	    beforeload : function (store, options) {    
+	        var fv = Ext.getCmp("zipQueryForm").getValues(); 
+	        Ext.apply(store.proxy.extraParams, fv);    
+	    }
+	}
 });
