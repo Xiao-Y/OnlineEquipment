@@ -28,7 +28,8 @@ Ext.define('AM.controller.ZipController', {
 	queryZip : function(){
 		var fv = Ext.getCmp("zipQueryForm").getValues();
 		var store = Ext.getCmp("zipList").getStore();
-		store.reload({
+		store.currentPage = 1;//页面从头开始
+		store.load({
 			params : fv
 		});
 	},
@@ -36,8 +37,9 @@ Ext.define('AM.controller.ZipController', {
 		Ext.getCmp("zipQueryForm").getForm().reset();
 		var gridPanel = Ext.getCmp("zipList");
 		var store = gridPanel.getStore();
+		store.currentPage = 1;//页面从头开始
 		store.load({
-			params:{}
+			params:{}//查询参数
 		});
 	}, 
 	importZip : function(){

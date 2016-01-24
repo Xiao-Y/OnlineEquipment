@@ -11,25 +11,13 @@ Ext.define('AM.view.ZipList', {
 			xtype: 'toolbar',
 			border:false,
 			items:[{
-				xtype : 'button',
-				text : '导入地区',
-				glyph : 0xf0fe,
-				id : 'importZip'
+				xtype : 'button', text : '导入地区', glyph : 0xf0fe, id : 'importZip'
 			},{
-				xtype : 'button',
-				id : 'exportZip',
-				glyph : 0xf1f8,
-				text : '导出地区'
+				xtype : 'button', text : '导出地区', glyph : 0xf1f8, id : 'exportZip'
 			},{
-				xtype : 'button',
-				text : '查询',
-				id : 'queryZip',
-				glyph : 0xf002
-			}, {
-				xtype : 'button',
-				text : '重置',
-				id : 'listResetZip',
-				glyph : 0xf021
+				xtype : 'button', text : '查询', id : 'queryZip', glyph : 0xf002
+			},{
+				xtype : 'button', text : '重置', id : 'listResetZip', glyph : 0xf021
 			}]
 		},{
 			region: 'center',
