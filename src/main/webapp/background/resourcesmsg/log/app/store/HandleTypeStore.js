@@ -8,5 +8,6 @@ Ext.define("AM.store.HandleTypeStore",{
 			type : "json",
 			rootProperty : "root"
 		}
-	}
+	},
+	autoLoad : true
 });
