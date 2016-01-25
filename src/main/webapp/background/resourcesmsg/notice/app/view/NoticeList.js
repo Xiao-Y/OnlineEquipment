@@ -32,12 +32,14 @@ Ext.define('AM.view.NoticeList', {
 			text : '详细信息',
 			glyph : 0xf0ae,
 			id : "lookNotice"
-		}, {
-			xtype : 'button',
-			text : '重置',
-			glyph : 0xf021,
-			id : "listResetNotice"
-		} ]
+		}
+//		, {
+//			xtype : 'button',
+//			text : '重置',
+//			glyph : 0xf021,
+//			id : "listResetNotice"
+//		} 
+		]
 	},{
 		id : 'noticeList',
 		region: 'center',

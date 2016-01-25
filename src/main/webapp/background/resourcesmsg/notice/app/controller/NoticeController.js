@@ -14,22 +14,22 @@ Ext.define('AM.controller.NoticeController', {
 			"noticeList button[id=editNotice]" : {//打开查询窗口
 				click : this.editNatice
 			},
-			"noticeList button[id=listResetNotice]" : {
-				click : this.listResetNotice
-			},
+//			"noticeList button[id=listResetNotice]" : {
+//				click : this.listResetNotice
+//			},
 			"noticeList button[id=lookNotice]" : {//查看详细信息
 				click : this.lookNotice
 			},
 			"noticeList button[id=delNotice]" : {//删除公告
 				click : this.delNotice
 			},
-			"noticeView button[id=cancel]" : {
+			"noticeView button[id=destroy]" : {
 				click : this.cancelOrReset
 			},
 			"noticeQuery button[id=queryNotice]" : {//高级查询
 				click : this.queryNotice
 			},
-			"noticeQuery button[id=cancel]" : {
+			"noticeQuery button[id=hide]" : {
 				click : this.cancelOrReset
 			},
 			"noticeQuery button[id=reset]" : {
@@ -38,7 +38,7 @@ Ext.define('AM.controller.NoticeController', {
 			"noticeAdd button[id=reset]" : {
 				click : this.cancelOrReset
 			},
-			"noticeAdd button[id=cancel]" : {
+			"noticeAdd button[id=destroy]" : {
 				click : this.cancelOrReset
 			},
 			"noticeAdd button[id=saveNotice]" : {
@@ -49,6 +49,7 @@ Ext.define('AM.controller.NoticeController', {
 	queryNotice : function(){
 		var fv = Ext.getCmp("noticeQueryForm").getValues();
 		var store = Ext.getCmp("noticeList").getStore();
+		store.currentPage = 1;//页面从头开始
 		store.load({
 			params : fv
 		});
@@ -72,13 +73,13 @@ Ext.define('AM.controller.NoticeController', {
 			form.loadRecord(records);// 将reocrd填充到表单中
 		});
 	},
-	listResetNotice : function(){
-		var gridPanel = Ext.getCmp("noticeList");
-		var store = gridPanel.getStore();
-		store.load({
-			params:{}
-		});
-	}, 
+//	listResetNotice : function(){
+//		var gridPanel = Ext.getCmp("noticeList");
+//		var store = gridPanel.getStore();
+//		store.load({
+//			params:{}
+//		});
+//	}, 
 	topQueryNotice : function(){
 		Ext.require('AM.view.NoticeQuery', function() {
 			var baseFormWindow = Ext.getCmp("noticeQueryWindow");
@@ -183,10 +184,12 @@ Ext.define('AM.controller.NoticeController', {
 		});
 	},
 	cancelOrReset : function(btn){
-		if(btn.getId() == "cancel"){
-			Ext.getCmp("cancel").up("window").destroy();
+		if(btn.getId() == "hide"){
+			Ext.getCmp("hide").up("window").hide();
 		}else if(btn.getId() == "reset"){
 			Ext.getCmp("reset").up("window").down("form").getForm().reset()
+		}else if(btn.getId() == 'destroy'){
+			Ext.getCmp("destroy").up("window").destroy();
 		}
 	}
 });

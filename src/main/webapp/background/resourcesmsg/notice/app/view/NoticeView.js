@@ -46,7 +46,7 @@ Ext.define('AM.view.NoticeView', {
 		dock : 'bottom',
 		items : [ '->', {
 			xtype : 'button',
-			id : 'cancel',
+			id : 'destroy',
 			text : '关闭',
 			glyph:0xf00d
 		} ]

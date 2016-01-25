@@ -102,7 +102,7 @@ Ext.define('AM.view.ZipList', {
 					fieldLabel : '行政码',
 					name : 'id'
 				},{
-					fieldLabel : '地区名称',
+					fieldLabel : '地区全称',
 					name : 'name'
 				},{
 					fieldLabel : '上级行政码',

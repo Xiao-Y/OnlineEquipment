@@ -11,5 +11,14 @@ Ext.define("AM.store.NoticeStore",{
 			totalProperty : "total"
 		}
 	},
-	autoLoad : true
+	autoLoad : true,
+	listeners:{//用于翻页查询
+	    beforeload : function (store, options) {    
+	    	var noticeQueryForm = Ext.getCmp("noticeQueryForm");
+	    	if(noticeQueryForm){
+		        var fv = noticeQueryForm.getValues(); 
+		        Ext.apply(store.proxy.extraParams, fv);    
+	    	}
+	    }
+	}
 });

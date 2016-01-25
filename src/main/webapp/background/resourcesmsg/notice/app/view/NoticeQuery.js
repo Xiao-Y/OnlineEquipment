@@ -5,6 +5,7 @@ Ext.define('AM.view.NoticeQuery', {
 	height : 280,
 	width : 450,
 	layout : 'fit',
+	closable: false,//不显示关闭的叉
 	modal:true,//模态框
 	title:"高级查询",
 	items : [ {
@@ -62,7 +63,7 @@ Ext.define('AM.view.NoticeQuery', {
 			glyph : 0xf021
 		}, {
 			xtype : 'button',
-			id : 'cancel',
+			id : 'hide',
 			text : '关闭',
 			glyph:0xf00d
 		} ]
