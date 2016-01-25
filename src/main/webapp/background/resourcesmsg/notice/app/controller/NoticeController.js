@@ -14,9 +14,9 @@ Ext.define('AM.controller.NoticeController', {
 			"noticeList button[id=editNotice]" : {//打开查询窗口
 				click : this.editNatice
 			},
-//			"noticeList button[id=listResetNotice]" : {
-//				click : this.listResetNotice
-//			},
+			"noticeList button[id=listResetNotice]" : {
+				click : this.listResetNotice
+			},
 			"noticeList button[id=lookNotice]" : {//查看详细信息
 				click : this.lookNotice
 			},
@@ -73,13 +73,18 @@ Ext.define('AM.controller.NoticeController', {
 			form.loadRecord(records);// 将reocrd填充到表单中
 		});
 	},
-//	listResetNotice : function(){
-//		var gridPanel = Ext.getCmp("noticeList");
-//		var store = gridPanel.getStore();
-//		store.load({
-//			params:{}
-//		});
-//	}, 
+	listResetNotice : function(){
+		var noticeQueryForm = Ext.getCmp("noticeQueryForm");
+		if(noticeQueryForm){
+			noticeQueryForm.getForm().reset();
+		}
+		var gridPanel = Ext.getCmp("noticeList");
+		var store = gridPanel.getStore();
+		store.currentPage = 1;
+		store.load({
+			params:{}
+		});
+	}, 
 	topQueryNotice : function(){
 		Ext.require('AM.view.NoticeQuery', function() {
 			var baseFormWindow = Ext.getCmp("noticeQueryWindow");

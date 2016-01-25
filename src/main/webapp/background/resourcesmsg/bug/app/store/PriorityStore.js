@@ -4,9 +4,9 @@ Ext.define('AM.store.PriorityStore', {
 	fields : ['displayField', 'valueField'],
 	proxy : {
 		type : "ajax",
+		url : "../bug/getPriority",
 		reader : {
 			type : "json",
-			url : "../bug/getPriority",
 			rootProperty : "root"
 		}
 	}

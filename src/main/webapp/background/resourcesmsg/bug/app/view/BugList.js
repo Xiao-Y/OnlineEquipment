@@ -32,14 +32,12 @@ Ext.define("AM.view.BugList",{
 			text : '详细信息',
 			glyph : 0xf0ae,
 			id : "lookBug"
-		}
-//		, {
-//			xtype : 'button',
-//			text : '重置',
-//			glyph : 0xf021,
-//			id : "listResetBug"
-//		} 
-		]
+		}, {
+			xtype : 'button',
+			text : '重置',
+			glyph : 0xf021,
+			id : "listResetBug"
+		}]
 	},{
 		id : 'bugList',
 		region: 'center',

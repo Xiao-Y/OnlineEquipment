@@ -26,9 +26,9 @@ Ext.define('AM.controller.BugController', {
 			"bugList button[id=lookBug]" : {//查看详细信息
 				click:this.lookBug
 			},
-//			"bugList button[id=listResetBug]" : {//清除查询条件，刷新列表
-//				click:this.listResetBug
-//			},
+			"bugList button[id=listResetBug]" : {//清除查询条件，刷新列表
+				click:this.listResetBug
+			},
 			"bugList button[id=topQueryBug]" : {//高级查询窗口
 				click:this.topQueryBug
 			},
@@ -219,12 +219,17 @@ Ext.define('AM.controller.BugController', {
 			}
 		});
 	},
-//	listResetBug : function(but){//重置，清空查询条件
-//		var store = Ext.getCmp("bugList").getStore();
-//		store.load({
-//			params:{}
-//		});
-//	},
+	listResetBug : function(but){//重置，清空查询条件
+		var bugQueryForm = Ext.getCmp("bugQueryForm")
+		if(bugQueryForm){
+			bugQueryForm.getForm().reset();
+		}
+		var store = Ext.getCmp("bugList").getStore();
+		store.currentPage = 1;
+		store.load({
+			params:{}
+		});
+	},
 	topQueryBug : function(){//高级查询窗口
 		Ext.require('AM.view.BugQuery', function() {
 			var baseFormWindow = Ext.getCmp("bugQueryWindow");
