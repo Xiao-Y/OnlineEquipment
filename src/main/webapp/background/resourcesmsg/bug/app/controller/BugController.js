@@ -14,7 +14,7 @@ Ext.define('AM.controller.BugController', {
 			"bugAdd button[id=reset]":{//重置操作
 				click:this.cancelOrReset
 			},
-			"bugAdd button[id=cancel]":{//关闭操作
+			"bugAdd button[id=destroy]":{//关闭操作
 				click:this.cancelOrReset
 			},
 			"bugList button[id=editBug]":{//编辑操作
@@ -26,9 +26,9 @@ Ext.define('AM.controller.BugController', {
 			"bugList button[id=lookBug]" : {//查看详细信息
 				click:this.lookBug
 			},
-			"bugList button[id=listResetBug]" : {//清除查询条件，刷新列表
-				click:this.listResetBug
-			},
+//			"bugList button[id=listResetBug]" : {//清除查询条件，刷新列表
+//				click:this.listResetBug
+//			},
 			"bugList button[id=topQueryBug]" : {//高级查询窗口
 				click:this.topQueryBug
 			},
@@ -41,10 +41,10 @@ Ext.define('AM.controller.BugController', {
 			"bugQuery button[id=reset]" : {//高级查询时，重置查询条件
 				click:this.cancelOrReset
 			},
-			'bugQuery button[id=cancel]' : {// 查询关闭
+			'bugQuery button[id=hide]' : {// 查询关闭
 				click:this.cancelOrReset
 			},
-			'bugView button[id=cancel]' : {// 查询关闭
+			'bugView button[id=destroy]' : {// 查看关闭
 				click:this.cancelOrReset
 			}
 		});
@@ -219,12 +219,12 @@ Ext.define('AM.controller.BugController', {
 			}
 		});
 	},
-	listResetBug : function(but){//重置，清空查询条件
-		var store = Ext.getCmp("bugList").getStore();
-		store.load({
-			params:{}
-		});
-	},
+//	listResetBug : function(but){//重置，清空查询条件
+//		var store = Ext.getCmp("bugList").getStore();
+//		store.load({
+//			params:{}
+//		});
+//	},
 	topQueryBug : function(){//高级查询窗口
 		Ext.require('AM.view.BugQuery', function() {
 			var baseFormWindow = Ext.getCmp("bugQueryWindow");
@@ -247,6 +247,7 @@ Ext.define('AM.controller.BugController', {
 		var fv = form.getValues();
 		//Ext.getCmp('bugQueryWindow').destroy();
 		var store = Ext.getCmp("bugList").getStore();
+		store.currentPage = 1;
 		store.load({
 			params:fv
 		});
@@ -286,12 +287,13 @@ Ext.define('AM.controller.BugController', {
 			}
 		}
 	},
-	cancelOrReset : 
-		function(btn){
-			if(btn.getId() == "cancel"){
-				Ext.getCmp("cancel").up("window").destroy();
-			}else if(btn.getId() == "reset"){
-				Ext.getCmp("reset").up("window").down("form").getForm().reset()
-			}
+	cancelOrReset : function(btn){
+		if(btn.getId() == "hide"){
+			Ext.getCmp("hide").up("window").hide();
+		}else if(btn.getId() == "reset"){
+			Ext.getCmp("reset").up("window").down("form").getForm().reset()
+		}else if(btn.getId() == 'destroy'){
+			Ext.getCmp("destroy").up("window").destroy();
 		}
+	}
 });

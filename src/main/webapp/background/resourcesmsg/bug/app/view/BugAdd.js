@@ -192,7 +192,7 @@ Ext.define('AM.view.BugAdd', {
 			glyph : 0xf021
 		}, {
 			xtype : 'button',
-			id : 'cancel',
+			id : 'destroy',
 			text : '关闭',
 			glyph : 0xf00d
 		} ]

@@ -11,5 +11,15 @@ Ext.define("AM.store.BugStore",{
 			totalProperty:"total"
 		}
 	},
-	autoLoad:true
+	autoLoad:true,
+	listeners:{//用于翻页查询
+	    beforeload : function (store, options) {    
+	    	var bugQueryForm = Ext.getCmp("bugQueryForm");
+	    	if(bugQueryForm){
+		        var fv = bugQueryForm.getValues(); 
+		        //store.proxy.extraParams = fv;
+		        Ext.apply(store.proxy.extraParams, fv);    
+	    	}
+	    }
+	}
 });

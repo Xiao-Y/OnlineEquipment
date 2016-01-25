@@ -6,6 +6,7 @@ Ext.define('AM.view.BugQuery', {
 	width : 550,
 	layout : 'fit',
 	modal:true,
+	closable: false,//不显示关闭的叉
 	title:"高级查询",
 	items : [ {
 		xtype : 'form',
@@ -140,7 +141,7 @@ Ext.define('AM.view.BugQuery', {
 			glyph : 0xf021
 		}, {
 			xtype : 'button',
-			id : 'cancel',
+			id : 'hide',
 			text : '关闭',
 			glyph : 0xf00d
 		} ]

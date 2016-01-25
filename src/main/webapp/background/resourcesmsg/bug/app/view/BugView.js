@@ -76,7 +76,7 @@ Ext.define('AM.view.BugView', {
 		dock : 'bottom',
 		items : [ '->', {
 			xtype : 'button',
-			id : 'cancel',
+			id : 'destroy',
 			text : '关闭',
 			glyph:0xf00d
 		} ]
