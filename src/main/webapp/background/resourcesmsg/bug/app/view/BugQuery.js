@@ -38,12 +38,12 @@ Ext.define('AM.view.BugQuery', {
 				emptyText : "<font color='red'>没有找到匹配项</font>",
 				maxHeight : 100
 			},
-			id : 'parentId',
+			id : 'parentIdQ',
 			listeners: {
     	   			//刷新子模块下拉框
         		select:function(combo){
-        			Ext.getCmp('childrenId').store.removeAll();
-    	   			Ext.getCmp('childrenId').store.load({
+        			Ext.getCmp('childrenIdQ').store.removeAll();
+    	   			Ext.getCmp('childrenIdQ').store.load({
     	   				params : {
     	   					parentId:combo.getValue()
     	   				}
@@ -64,7 +64,7 @@ Ext.define('AM.view.BugQuery', {
 				emptyText : "<font color='red'>没有找到匹配项</font>",
 				maxHeight : 100// 最大宽度
 			},
-			id : 'childrenId'
+			id : 'childrenIdQ'
 		},{
 			fieldLabel : '严重程度',
 			xtype : 'combobox',
@@ -80,13 +80,13 @@ Ext.define('AM.view.BugQuery', {
 				emptyText : "<font color='red'>没有找到匹配项</font>",
 				maxHeight : 100
 			},
-			id : 'severity'
+			id : 'severityQ'
 		},{
 			fieldLabel : 'BUG状态',
 			xtype : 'combobox',
 			displayField : 'displayField',
 			valueField : 'valueField',
-			id : 'status',
+			id : 'statusQ',
 			store : 'StatusStore',
 			forceSelection : true,// 所选择的值必须是列表中的值
 			editable : true,
@@ -107,7 +107,7 @@ Ext.define('AM.view.BugQuery', {
 				emptyText : "<font color='red'>没有找到匹配项</font>",
 				maxHeight : 100
 			},
-			id : 'reappear'
+			id : 'reappearQ'
 		}, {
 			fieldLabel : 'BUG类型',
 			xtype : 'combobox',
@@ -123,7 +123,7 @@ Ext.define('AM.view.BugQuery', {
 				emptyText : "<font color='red'>没有找到匹配项</font>",
 				maxHeight : 100
 			},
-			id : 'bugType'
+			id : 'bugTypeQ'
 		}]
 	} ],
 	dockedItems : [ {
@@ -137,7 +137,7 @@ Ext.define('AM.view.BugQuery', {
 		}, {
 			xtype : 'button',
 			text : '重置',
-			id : 'reset',
+			id : 'resetQ',
 			glyph : 0xf021
 		}, {
 			xtype : 'button',

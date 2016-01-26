@@ -38,7 +38,7 @@ Ext.define('AM.controller.BugController', {
 			"bugQuery button[id=queryBug]" : {//高级查询
 				click:this.queryBug
 			},
-			"bugQuery button[id=reset]" : {//高级查询时，重置查询条件
+			"bugQuery button[id=resetQ]" : {//高级查询时，重置查询条件
 				click:this.cancelOrReset
 			},
 			'bugQuery button[id=hide]' : {// 查询关闭
@@ -238,11 +238,11 @@ Ext.define('AM.controller.BugController', {
 				console.log('创建窗口');
 			}
 			//当点击查询时加载
-			Ext.getCmp("parentId").getStore().reload();
-			Ext.getCmp("bugType").getStore().reload();
-			Ext.getCmp("reappear").getStore().reload();
-			Ext.getCmp("severity").getStore().reload();
-			Ext.getCmp("status").getStore().reload();
+			Ext.getCmp("parentIdQ").getStore().reload();
+			Ext.getCmp("bugTypeQ").getStore().reload();
+			Ext.getCmp("reappearQ").getStore().reload();
+			Ext.getCmp("severityQ").getStore().reload();
+			Ext.getCmp("statusQ").getStore().reload();
 			baseFormWindow = Ext.getCmp("bugQueryWindow");
 			baseFormWindow.show();
 		});
@@ -299,6 +299,8 @@ Ext.define('AM.controller.BugController', {
 			Ext.getCmp("reset").up("window").down("form").getForm().reset()
 		}else if(btn.getId() == 'destroy'){
 			Ext.getCmp("destroy").up("window").destroy();
+		}else if(btn.getId() == "resetQ"){
+			Ext.getCmp("resetQ").up("window").down("form").getForm().reset()
 		}
 	}
 });
