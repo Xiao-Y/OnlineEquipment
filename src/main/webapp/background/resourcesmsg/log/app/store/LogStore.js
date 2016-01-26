@@ -14,8 +14,11 @@ Ext.define("AM.store.LogStore",{
 	autoLoad : true,
 	listeners:{//用于翻页查询
 	    beforeload : function (store, options) {    
-	        var fv = Ext.getCmp("logQueryForm").getValues(); 
-	        Ext.apply(store.proxy.extraParams, fv);    
+	        var logQueryForm = Ext.getCmp("logQueryForm")
+	        if(logQueryForm){
+		        var fv = logQueryForm.getValues(); 
+		        Ext.apply(store.proxy.extraParams, fv);    
+	        }
 	    }
 	}
 });

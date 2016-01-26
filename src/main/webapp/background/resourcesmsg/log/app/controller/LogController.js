@@ -1,6 +1,6 @@
 Ext.define('AM.controller.LogController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'LogList',"LogView"],
+	views : [ 'LogList',"LogQuery","LogView"],
 	stores : [ 'LogStore',"HandleTypeStore"],
 	models : [ 'LogModel' ],
 	init : function() {
@@ -17,10 +17,10 @@ Ext.define('AM.controller.LogController', {
 			"logView button[id=cancel]" : {
 				click : this.cancelOrReset
 			},
-			"logList button[id=queryLog]" : {//高级查询
+			"logQuery button[id=queryLog]" : {//高级查询
 				click : this.queryLog
 			},
-			"logQuery button[id=cancel]" : {
+			"logQuery button[id=hide]" : {
 				click : this.cancelOrReset
 			},
 			"logQuery button[id=reset]" : {
@@ -67,24 +67,28 @@ Ext.define('AM.controller.LogController', {
 			params:{}
 		});
 	}, 
-//	topQueryLog : function(){
-//		Ext.require('AM.view.LogQuery', function() {
-//			var baseFormWindow = Ext.getCmp("logQueryWindow");
-//			if (null == baseFormWindow) {
-//				Ext.create('AM.view.LogQuery', {});// 第一次创建添加显示窗口
-//			}
-//			//当点击查询时加载
-//			Ext.getCmp("operation").getStore().reload();
-//			baseFormWindow = Ext.getCmp("logQueryWindow");
-//			baseFormWindow.setTitle("高级查询");
-//			baseFormWindow.show();
-//		});
-//	},
+	topQueryLog : function(){
+		Ext.require('AM.view.LogQuery', function() {
+			var baseFormWindow = Ext.getCmp("logQueryWindow");
+			if (null == baseFormWindow) {
+				Ext.create('AM.view.LogQuery', {});// 第一次创建添加显示窗口
+			}
+			//当点击查询时加载
+			Ext.getCmp("operation").getStore().reload();
+			baseFormWindow = Ext.getCmp("logQueryWindow");
+			baseFormWindow.setTitle("高级查询");
+			baseFormWindow.show();
+		});
+	},
 	cancelOrReset : function(btn){
-		if(btn.getId() == "cancel"){
-			Ext.getCmp("cancel").up("window").destroy();
+		if(btn.getId() == "hide"){
+			Ext.getCmp("hide").up("window").hide();
 		}else if(btn.getId() == "reset"){
 			Ext.getCmp("reset").up("window").down("form").getForm().reset()
+		}else if(btn.getId() == "destroy"){
+			Ext.getCmp("destroy").up("window").destroy();
+		}else if(btn.getId() == "cancel"){
+			Ext.getCmp("destroy").up("cancel").destroy();
 		}
 	}
 });
