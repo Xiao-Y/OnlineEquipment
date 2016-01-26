@@ -1,6 +1,6 @@
 Ext.define('AM.controller.LogController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'LogList',"LogQuery","LogView"],
+	views : [ 'LogList',"LogView"],
 	stores : [ 'LogStore',"HandleTypeStore"],
 	models : [ 'LogModel' ],
 	init : function() {
@@ -14,16 +14,16 @@ Ext.define('AM.controller.LogController', {
 			"logList button[id=lookLog]" : {//查看详细信息
 				click : this.lookLog
 			},
-			"logView button[id=cancel]" : {
+			"logView button[id=destroyV]" : {
 				click : this.cancelOrReset
 			},
-			"logQuery button[id=queryLog]" : {//高级查询
+			"logList button[id=queryLog]" : {//高级查询
 				click : this.queryLog
 			},
-			"logQuery button[id=hide]" : {
+			"logList button[id=hideQ]" : {
 				click : this.cancelOrReset
 			},
-			"logQuery button[id=reset]" : {
+			"logList button[id=resetQ]" : {
 				click : this.cancelOrReset
 			}
 		})
@@ -67,28 +67,26 @@ Ext.define('AM.controller.LogController', {
 			params:{}
 		});
 	}, 
-	topQueryLog : function(){
-		Ext.require('AM.view.LogQuery', function() {
-			var baseFormWindow = Ext.getCmp("logQueryWindow");
-			if (null == baseFormWindow) {
-				Ext.create('AM.view.LogQuery', {});// 第一次创建添加显示窗口
-			}
-			//当点击查询时加载
-			Ext.getCmp("operation").getStore().reload();
-			baseFormWindow = Ext.getCmp("logQueryWindow");
-			baseFormWindow.setTitle("高级查询");
-			baseFormWindow.show();
-		});
-	},
+//	topQueryLog : function(){
+//		Ext.require('AM.view.LogQuery', function() {
+//			var baseFormWindow = Ext.getCmp("logQueryWindow");
+//			if (null == baseFormWindow) {
+//				Ext.create('AM.view.LogQuery', {});// 第一次创建添加显示窗口
+//			}
+//			//当点击查询时加载
+//			Ext.getCmp("operationQ").getStore().reload();
+//			baseFormWindow = Ext.getCmp("logQueryWindow");
+//			baseFormWindow.setTitle("高级查询");
+//			baseFormWindow.show();
+//		});
+//	},
 	cancelOrReset : function(btn){
-		if(btn.getId() == "hide"){
-			Ext.getCmp("hide").up("window").hide();
-		}else if(btn.getId() == "reset"){
-			Ext.getCmp("reset").up("window").down("form").getForm().reset()
-		}else if(btn.getId() == "destroy"){
-			Ext.getCmp("destroy").up("window").destroy();
-		}else if(btn.getId() == "cancel"){
-			Ext.getCmp("destroy").up("cancel").destroy();
+		if(btn.getId() == "hideQ"){
+			Ext.getCmp("hideQ").up("window").hide();
+		}else if(btn.getId() == "resetQ"){
+			Ext.getCmp("resetQ").up("window").down("form").getForm().reset()
+		}else if(btn.getId() == "destroyV"){
+			Ext.getCmp("destroyV").up("window").destroy();
 		}
 	}
 });
