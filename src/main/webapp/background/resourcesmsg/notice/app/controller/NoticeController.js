@@ -32,7 +32,7 @@ Ext.define('AM.controller.NoticeController', {
 			"noticeQuery button[id=hide]" : {
 				click : this.cancelOrReset
 			},
-			"noticeQuery button[id=reset]" : {
+			"noticeQuery button[id=resetQ]" : {
 				click : this.cancelOrReset
 			},
 			"noticeAdd button[id=reset]" : {
@@ -195,6 +195,8 @@ Ext.define('AM.controller.NoticeController', {
 			Ext.getCmp("reset").up("window").down("form").getForm().reset()
 		}else if(btn.getId() == 'destroy'){
 			Ext.getCmp("destroy").up("window").destroy();
+		}else if(btn.getId() == "resetQ"){
+			Ext.getCmp("resetQ").up("window").down("form").getForm().reset()
 		}
 	}
 });

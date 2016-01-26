@@ -59,7 +59,7 @@ Ext.define('AM.view.NoticeQuery', {
 		}, {
 			xtype : 'button',
 			text : '重置',
-			id : 'reset',
+			id : 'resetQ',
 			glyph : 0xf021
 		}, {
 			xtype : 'button',
