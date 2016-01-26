@@ -8,5 +8,6 @@ Ext.define("AM.store.RoleStore",{
 			type : "json",
 			rootProperty : "root"
 		}
-	}
+	},
+	autoLoad : true
 });

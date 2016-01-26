@@ -1,6 +1,6 @@
 Ext.define("AM.controller.UserController",{
 	extend : "Ext.app.Controller",
-	views : ["UserList","UserAdd","UserQuery"],
+	views : ["UserList","UserAdd"],
 	models : ["UserModel","ZipModel","RoleModel"],
 	stores : ["UserStore","ProvinceStore","CityStore","AreaStore","RoleStore"],
 	init : function(){
@@ -11,11 +11,15 @@ Ext.define("AM.controller.UserController",{
 			"userAdd button[id=saveUser]" : {
 				click : this.saveUser
 			},
-			"userAdd button[id=cancel]" : {
-				click : this.cancelOrReset
+			"userAdd button[id=destroyAdd]" : {
+				click : function(btn){
+					Ext.getCmp("destroyAdd").up("window").destroy();
+				}
 			},
-			"userAdd button[id=reset]" : {
-				click : this.cancelOrReset
+			"userAdd button[id=resetAdd]" : {
+				click : function(btn){
+					Ext.getCmp("resetAdd").up("window").down("form").getForm().reset()
+				}
 			},
 			"userAdd button[id=saveUser]" : {
 				click : this.saveUser
@@ -29,35 +33,38 @@ Ext.define("AM.controller.UserController",{
 			"userList button[id=listResetUser]" : {
 				click : this.listResetUser
 			},
-			"userList button[id=topQueryUser]" : {
-				click : this.topQueryUser
+//			"userList button[id=topQueryUser]" : {
+//				click : this.topQueryUser
+//			},
+//			"userList button[id=hideQuery]" : {
+//				click : function(btn){
+//					Ext.getCmp("hideQuery").up("window").hide();
+//				}
+//			},
+			"userList button[id=resetQuery]" : {
+				click : function(btn){
+					Ext.getCmp("resetQuery").up("window").down("form").getForm().reset()
+				}
 			},
-			"userQuery button[id=cancel]" : {
-				click : this.cancelOrReset
-			},
-			"userQuery button[id=reset]" : {
-				click : this.cancelOrReset
-			},
-			"userQuery button[id=queryUser]" : {
+			"userList button[id=queryUser]" : {
 				click : this.queryUser
 			}
 		});
 	},
-	addUser : 
-		function() {
-			Ext.require('AM.view.UserAdd', function() {
-				var baseFormWindow = Ext.getCmp("userAddWindow");
-				if (null == baseFormWindow) {
-					Ext.create('AM.view.UserAdd', {});// 第一次创建添加显示窗口
-				}
-				//当点击添加时加载
-				Ext.getCmp("province").getStore().reload();
-				Ext.getCmp("roleId").getStore().reload();
-				baseFormWindow = Ext.getCmp("userAddWindow");
-				baseFormWindow.setTitle("添加用户信息");
-				baseFormWindow.show();
-			});
-		},
+	addUser : function() {
+		Ext.require('AM.view.UserAdd', function() {
+			var baseFormWindow = Ext.getCmp("userAddWindow");
+			if (null == baseFormWindow) {
+				Ext.create('AM.view.UserAdd', {});// 第一次创建添加显示窗口
+			}
+			//当点击添加时加载
+			Ext.getCmp("province").getStore().reload();
+			Ext.getCmp("roleId").getStore().reload();
+			baseFormWindow = Ext.getCmp("userAddWindow");
+			baseFormWindow.setTitle("添加用户信息");
+			baseFormWindow.show();
+		});
+	},
 	saveUser : function(){
 		var form = Ext.getCmp("userAddForm").getForm();
 		if(form.isValid()){
@@ -158,7 +165,12 @@ Ext.define("AM.controller.UserController",{
 		});
 	},
 	listResetUser : function(){
+		var userQueryForm = Ext.getCmp("userQueryForm");
+		if(userQueryForm){
+			userQueryForm.reset();
+		}
 		var store = Ext.getCmp("userList").getStore();
+		store.currentPage = 1;
 		store.load({
 			params : {}
 		});
@@ -181,15 +193,9 @@ Ext.define("AM.controller.UserController",{
 		var form = Ext.getCmp('userQueryForm').getForm();
 		var fv = form.getValues();
 		var store = Ext.getCmp("userList").getStore();
+		store.currentPage = 1;
 		store.load({
 			params:fv
 		});	
-	},
-	cancelOrReset : function(btn){
-		if(btn.getId() == "cancel"){
-			Ext.getCmp("cancel").up("window").destroy();
-		}else if(btn.getId() == "reset"){
-			Ext.getCmp("reset").up("window").down("form").getForm().reset()
-		}
 	}
 });

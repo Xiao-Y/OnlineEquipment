@@ -11,5 +11,14 @@ Ext.define("AM.store.UserStore",{
 			totalProperty : "total"
 		}
 	},
-	autoLoad : true
+	autoLoad : true,
+	listeners : {//用于翻页查询
+	    beforeload : function (store, options) {    
+	    	var userQueryForm = Ext.getCmp("userQueryForm");
+	    	if(userQueryForm){
+		        var fv = userQueryForm.getValues(); 
+		        Ext.apply(store.proxy.extraParams, fv);    
+	    	}
+	    }
+	}
 });

@@ -149,11 +149,11 @@ Ext.define("AM.view.UserAdd",{
 		}, {
 			xtype : 'button',
 			text : '重置',
-			id : 'reset',
+			id : 'resetAdd',
 			glyph : 0xf021
 		}, {
 			xtype : 'button',
-			id : 'cancel',
+			id : 'destroyAdd',
 			text : '关闭',
 			glyph : 0xf00d
 		} ]
