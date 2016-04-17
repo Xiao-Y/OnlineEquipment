@@ -30,7 +30,7 @@ Ext.define('AM.view.Viewport',{
 	        displayField: 'displayField',
 	        valueField: 'valueField',
 	        queryMode: 'local',
-	        value : "Crisp主题",
+	        value : "Neptune主题",
 	        store: "ThemeStore"
 		},{
 			border:false,

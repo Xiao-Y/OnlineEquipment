@@ -20,6 +20,8 @@ home
 
 系统后台入口：
 http://localhost:9080/OnlineEquipment/background/home/index
+系统前台入口：
+http://localhost:9080/OnlineEquipment/foreground/index
 
 
 1.每个入口jsp中都要引入公用js和css

@@ -39,6 +39,14 @@ public class LogController {
 		return "background/resourcesmsg/log/index";
 	}
 
+	/**
+	 * 获取日志列表
+	 * @param request
+	 * @return
+	 * @author XiaoY
+	 * @date: 
+	 * 2016年4月17日 下午5:51:04
+	 */
 	@RequestMapping("/getLogList")
 	public @ResponseBody
 	JsonResult getLogList(HttpServletRequest request) {

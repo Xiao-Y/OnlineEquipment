@@ -93,7 +93,7 @@ public class MenuController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
-	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_MENU, operation = LogParamType.SAVE)
+	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_MENU, operation = LogParamType.ADD)
 	public JsonResult saveMenu(@RequestBody Menu menu) {
 		JsonResult json = new JsonResult();
 		try {
@@ -152,6 +152,14 @@ public class MenuController {
 		return json;
 	}
 
+	/**
+	 * 删除菜单
+	 * @param id
+	 * @return
+	 * @author XiaoY
+	 * @date: 
+	 * 2016年4月17日 下午5:16:18
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/deleteMenu/{id}", method = RequestMethod.POST)
 	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_MENU, operation = LogParamType.DELETE)

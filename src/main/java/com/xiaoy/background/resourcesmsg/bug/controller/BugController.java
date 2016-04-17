@@ -139,7 +139,7 @@ public class BugController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/svaeBug", method = RequestMethod.POST)
-	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_BUG, operation = LogParamType.SAVE)
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_BUG, operation = LogParamType.ADD)
 	public JsonResult svaeBug(@RequestParam(value = "imgUrls", required = false) MultipartFile[] imgUrls,
 			HttpServletRequest request) {
 		// 获取bug图片的路径

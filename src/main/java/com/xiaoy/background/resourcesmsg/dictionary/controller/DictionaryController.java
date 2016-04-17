@@ -113,7 +113,7 @@ public class DictionaryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveDictionary")
-	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_DICTIONARY, operation = LogParamType.SAVE)
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_DICTIONARY, operation = LogParamType.ADD)
 	public JsonResult saveDictionary(HttpServletRequest request) {
 		// 模块选中的下拉列表Code
 		String modelCodeBox = Tools.getStringParameter(request, "modelCodeBox");

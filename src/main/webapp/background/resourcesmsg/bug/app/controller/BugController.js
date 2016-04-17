@@ -184,7 +184,7 @@ Ext.define('AM.controller.BugController', {
 					(function(imageId){
 						//创建image对象
 						var changingImage = Ext.create('Ext.Img', {
-							src: '../../../resource/upload/image/'+imgArray[i]
+							src: '../../../../resource/upload/image/'+imgArray[i]
 						});
 						//添加到面板上
 						Ext.getCmp('bugViewImagePanel').add(changingImage);
@@ -284,7 +284,7 @@ Ext.define('AM.controller.BugController', {
 					var changingImage = Ext.create('Ext.Img', {
 						width:800,
 						height:600,
-						src: '../../../resource/upload/image/'+imgArray[i]
+						src: '../../../../resource/upload/image/'+imgArray[i]
 					});
 					//添加到面板上
 					Ext.getCmp('bugImagePanel').add(changingImage);

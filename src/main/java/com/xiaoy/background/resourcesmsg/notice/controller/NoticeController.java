@@ -78,7 +78,7 @@ public class NoticeController {
 
 	@ResponseBody
 	@RequestMapping(value = "/saveNotice", method = RequestMethod.POST)
-	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_NOTICE, operation = LogParamType.SAVE)
+	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_NOTICE, operation = LogParamType.ADD)
 	public JsonResult saveNotice(Notice notice) {
 		notice.setId(UUID.randomUUID().toString());
 		notice.setNoticeName(LoginHelper.getLoginUserId());

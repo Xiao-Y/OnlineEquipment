@@ -165,8 +165,8 @@ public class User extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", birthday=" + birthday + ", imageUrl=" + imageUrl + ", address=" + address
-				+ ", roles=" + roles + ", roleName=" + roleName + ", area=" + area + ", province=" + province + ", city=" + city + ", roleId="
-				+ Arrays.toString(roleId) + "]";
+		return "User [username=" + username + ", password=" + password + ", birthday=" + birthday + ", imageUrl="
+				+ imageUrl + ", address=" + address + ", roles=" + roles + ", roleName=" + roleName + ", area=" + area
+				+ ", province=" + province + ", city=" + city + ", roleId=" + Arrays.toString(roleId) + "]";
 	}
 }

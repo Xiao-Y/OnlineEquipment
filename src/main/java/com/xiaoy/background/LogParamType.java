@@ -17,7 +17,7 @@ public class LogParamType {
 	/**
 	 * 保存操作
 	 */
-	public final static String SAVE = "保存操作";
+	public final static String ADD = "添加操作";
 
 	/**
 	 * 更新操作

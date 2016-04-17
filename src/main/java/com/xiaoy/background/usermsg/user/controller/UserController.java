@@ -195,7 +195,7 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveUser")
-	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_USER, operation = LogParamType.SAVE)
+	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_USER, operation = LogParamType.ADD)
 	public JsonResult saveUser(HttpServletRequest request) {
 		String username = Tools.getStringParameter(request, "username");
 		String password = Tools.getStringParameter(request, "password");
