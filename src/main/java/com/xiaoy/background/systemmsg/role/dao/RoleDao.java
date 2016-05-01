@@ -3,9 +3,9 @@ package com.xiaoy.background.systemmsg.role.dao;
 import java.util.List;
 
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.Role;
+import com.xiaoy.base.entities.RoleDto;
 
-public interface RoleDao extends CommonDao<Role> {
+public interface RoleDao extends CommonDao<RoleDto> {
 
 	/**
 	 * 通过角色 id集合，获取角色信息
@@ -16,7 +16,7 @@ public interface RoleDao extends CommonDao<Role> {
 	 *
 	 * @date 2015年8月20日下午6:06:01
 	 */
-	List<Role> getRoleListByRoleIds(List<String> roleIds);
+	List<RoleDto> getRoleListByRoleIds(List<String> roleIds);
 
 	/**
 	 * 根据条件查询角色信息
@@ -27,6 +27,6 @@ public interface RoleDao extends CommonDao<Role> {
 	 *
 	 * @date 2015年8月26日下午12:20:01
 	 */
-	List<Role> getRoleList(Role role, String start, String limit);
+	List<RoleDto> getRoleList(RoleDto role, String start, String limit);
 
 }

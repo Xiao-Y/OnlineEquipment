@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.xiaoy.background.home.service.HomeService;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
-import com.xiaoy.base.entities.Menu;
+import com.xiaoy.base.entities.MenuDto;
 
 @Service(value="com.xiaoy.foreground.home.service.impl.HomeServiceImpl")
 public class HomeServiceImpl implements HomeService {
@@ -25,8 +25,8 @@ public class HomeServiceImpl implements HomeService {
 	 * @return
 	 * @date 2015年10月2日 上午11:42:15
 	 */
-	private List<Menu> getParentMenuList() {
-		List<Menu> parentMenus = menuService.getParentMenuList();
+	private List<MenuDto> getParentMenuList() {
+		List<MenuDto> parentMenus = menuService.getParentMenuList();
 		return parentMenus;
 	}
 
@@ -36,26 +36,26 @@ public class HomeServiceImpl implements HomeService {
 	 * @return
 	 * @date 2015年10月2日 上午11:42:26
 	 */
-	private List<Menu> getChildMenuList() {
-		List<Menu> childMenus = menuService.getChildMenuList();
+	private List<MenuDto> getChildMenuList() {
+		List<MenuDto> childMenus = menuService.getChildMenuList();
 		return childMenus;
 	}
 
 	@Override
 	public List<Object> buildTree() {
 		// 获取父级菜单
-		List<Menu> parentMenu = this.getParentMenuList();
+		List<MenuDto> parentMenu = this.getParentMenuList();
 		// 获取所有的子菜单
-		List<Menu> childMenu = this.getChildMenuList();
+		List<MenuDto> childMenu = this.getChildMenuList();
 
 		List<Object> json = new ArrayList<Object>();
-		for (Menu parent : parentMenu) {
+		for (MenuDto parent : parentMenu) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", parent.getId());
 			map.put("text", parent.getMenuName());// 菜单名称
 			map.put("index", parent.getSeq());
 			List<Object> list = new ArrayList<Object>();
-			for (Menu child : childMenu) {
+			for (MenuDto child : childMenu) {
 				if (parent.getId().equals(child.getParentId())) {
 					Map<String, Object> childMap = new HashMap<>();
 					childMap.put("id", child.getId());

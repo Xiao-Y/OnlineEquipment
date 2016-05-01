@@ -1,10 +1,11 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
+
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 公告信息的实体类<br/>
@@ -13,11 +14,10 @@ import javax.persistence.Table;
  * @author XiaoY
  * @date: 2015年10月3日 下午8:29:50
  */
-@Entity
-@Table(name = "NOTICE")
+@MappedSuperclass
 public class Notice extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -6893743710713977635L;
+	private static final long serialVersionUID = -6627051339970171543L;
 
 	/* 公告标题 */
 	private String noticeTit;

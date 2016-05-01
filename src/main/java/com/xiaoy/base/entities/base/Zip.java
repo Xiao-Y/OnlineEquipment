@@ -1,11 +1,10 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -15,11 +14,10 @@ import org.hibernate.annotations.GenericGenerator;
  * @author XiaoY
  * @date: 2015年9月5日 下午2:33:39
  */
-@Entity
-@Table(name = "ZIP")
+@MappedSuperclass
 public class Zip implements Serializable {
 
-	private static final long serialVersionUID = 8612608297217687300L;
+	private static final long serialVersionUID = -7605054405118556852L;
 
 	private String id;// 行政码
 	private String name;// 全称
@@ -136,7 +134,9 @@ public class Zip implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Zip [id=" + id + ", name=" + name + ", parentId=" + parentId + ", shortName=" + shortName + ", levelType=" + levelType + ", cityCode="
-				+ cityCode + ", zipCode=" + zipCode + ", mergerName=" + mergerName + ", lng=" + lng + ", lat=" + lat + ", pinyin=" + pinyin + "]";
+		return "Zip [id=" + id + ", name=" + name + ", parentId=" + parentId + ", shortName=" + shortName
+				+ ", levelType=" + levelType + ", cityCode=" + cityCode + ", zipCode=" + zipCode + ", mergerName="
+				+ mergerName + ", lng=" + lng + ", lat=" + lat + ", pinyin=" + pinyin + ", toString()="
+				+ super.toString() + "]";
 	}
 }

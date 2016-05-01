@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.resourcesmsg.zip.dao.ZipDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
-import com.xiaoy.base.entities.Zip;
+import com.xiaoy.base.entities.ZipDto;
 
 @Repository
-public class ZipDaoImpl extends CommonDaoImpl<Zip> implements ZipDao {
+public class ZipDaoImpl extends CommonDaoImpl<ZipDto> implements ZipDao {
 
 	@Override
-	public List<Zip> getZipCondition(Zip zip, String start, String limit) {
+	public List<ZipDto> getZipCondition(ZipDto zip, String start, String limit) {
 
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appendWhere(hqlWhere, zip);
@@ -23,7 +23,7 @@ public class ZipDaoImpl extends CommonDaoImpl<Zip> implements ZipDao {
 	}
 
 	@Override
-	public long getTotal(Zip zip) {
+	public long getTotal(ZipDto zip) {
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appendWhere(hqlWhere, zip);
 		return super.countByCollection(hqlWhere.toString(), paramsMapValue);
@@ -38,7 +38,7 @@ public class ZipDaoImpl extends CommonDaoImpl<Zip> implements ZipDao {
 	 *            查询条件
 	 * @return
 	 */
-	private Map<String, Object> appendWhere(StringBuffer hqlWhere, Zip zip) {
+	private Map<String, Object> appendWhere(StringBuffer hqlWhere, ZipDto zip) {
 		if (zip != null) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (!StringUtils.isEmpty(zip.getId())) {

@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xiaoy.background.resourcesmsg.log.service.LogService;
-import com.xiaoy.base.entities.Log;
+import com.xiaoy.base.entities.LogDto;
 
 @Controller(value = "com.xiaoy.foreground.resourcesmsg.log.controller.LogController")
 @RequestMapping("/foreground/resourcesmsg/log")
@@ -20,10 +20,10 @@ public class LogController {
 
 	@RequestMapping("/index")
 	public String getLogList(Model model) {
-		Log log = new Log();
+		LogDto log = new LogDto();
 		String start = log.getStart();
 		String limit = log.getLimit();
-		List<Log> list = logService.findCollectionByCondition(log, start, limit);
+		List<LogDto> list = logService.findCollectionByCondition(log, start, limit);
 		model.addAttribute("logs", list);
 		return "foreground/resourcesmsg/log/logList";
 	}

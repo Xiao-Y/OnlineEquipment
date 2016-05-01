@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xiaoy.annotations.SystemControllerLog;
 import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.systemmsg.role.service.RoleService;
-import com.xiaoy.base.entities.Menu;
-import com.xiaoy.base.entities.Role;
+import com.xiaoy.base.entities.RoleDto;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
@@ -51,9 +50,9 @@ public class RoleController {
 	JsonResult getRoleList(HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
-		Role role = new Role();
+		RoleDto role = new RoleDto();
 		JsonResult json = new JsonResult();
-		List<Role> roles = roleService.getRoleList(request, role, start, limit);
+		List<RoleDto> roles = roleService.getRoleList(request, role, start, limit);
 		json.setRoot(roles);
 		json.setSuccess(true);
 		return json;
@@ -83,7 +82,7 @@ public class RoleController {
 	@ResponseBody
 	@RequestMapping(value = "/saveRole")
 	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_ROLE, operation = LogParamType.ADD)
-	public JsonResult saveRole(Role role) {
+	public JsonResult saveRole(RoleDto role) {
 		JsonResult json = new JsonResult();
 		json.setSuccess(true);
 		try {

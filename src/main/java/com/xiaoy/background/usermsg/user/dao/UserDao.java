@@ -3,9 +3,9 @@ package com.xiaoy.background.usermsg.user.dao;
 import java.util.List;
 
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.User;
+import com.xiaoy.base.entities.UserDto;
 
-public interface UserDao extends CommonDao<User>
+public interface UserDao extends CommonDao<UserDto>
 {
 
 	/**
@@ -25,7 +25,7 @@ public interface UserDao extends CommonDao<User>
 	 * 
 	 * @date 2015年8月20日下午5:27:49
 	 */
-	User findByName(String loginName);
+	UserDto findByName(String loginName);
 
 	/**
 	 * 根据条件查询用户信息
@@ -33,7 +33,7 @@ public interface UserDao extends CommonDao<User>
 	 * @param user
 	 * @return
 	 */
-	List<User> findUsersByCondition(User user, String start, String limit);
+	List<UserDto> findUsersByCondition(UserDto user, String start, String limit);
 
 	/**
 	 * 根据条件查询用户记录总数
@@ -41,6 +41,6 @@ public interface UserDao extends CommonDao<User>
 	 * @param user
 	 * @return
 	 */
-	long countByCollection(User user);
+	long countByCollection(UserDto user);
 
 }

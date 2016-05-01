@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xiaoy.annotations.SystemControllerLog;
 import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.notice.service.NoticeService;
-import com.xiaoy.base.entities.Notice;
+import com.xiaoy.base.entities.NoticeDto;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.LoginHelper;
@@ -57,7 +57,7 @@ public class NoticeController {
 		String createTime = Tools.getStringParameter(request, "createTime", "");
 		String updateTime = Tools.getStringParameter(request, "updateTime", "");
 
-		Notice notice = new Notice();
+		NoticeDto notice = new NoticeDto();
 		notice.setStart(start);
 		notice.setLimit(limit);
 		notice.setNoticeTit(noticeTit);
@@ -66,7 +66,7 @@ public class NoticeController {
 		notice.setCreateTime(createTime == "" ? null : DateHelper.stringConverDate(createTime));
 		notice.setUpdateTime(updateTime == "" ? null : DateHelper.stringConverDate(updateTime));
 
-		List<Notice> list = noticeService.getNoticeList(notice);
+		List<NoticeDto> list = noticeService.getNoticeList(notice);
 		long total = noticeService.getTotal(notice);
 
 		JsonResult json = new JsonResult();
@@ -79,7 +79,7 @@ public class NoticeController {
 	@ResponseBody
 	@RequestMapping(value = "/saveNotice", method = RequestMethod.POST)
 	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_NOTICE, operation = LogParamType.ADD)
-	public JsonResult saveNotice(Notice notice) {
+	public JsonResult saveNotice(NoticeDto notice) {
 		notice.setId(UUID.randomUUID().toString());
 		notice.setNoticeName(LoginHelper.getLoginUserId());
 		notice.setCreateTime(new Date());
@@ -100,7 +100,7 @@ public class NoticeController {
 	@ResponseBody
 	@RequestMapping(value = "/updateNotice", method = RequestMethod.POST)
 	@SystemControllerLog(module = LogParamType.RESOURCES_MODAL, function = LogParamType.RESOURCES_FUNCTION_NOTICE, operation = LogParamType.UPDATE)
-	public JsonResult updateNotice(Notice notice) {
+	public JsonResult updateNotice(NoticeDto notice) {
 		notice.setNoticeName(LoginHelper.getLoginUserId());
 		notice.setUpdateTime(new Date());
 		JsonResult json = new JsonResult();

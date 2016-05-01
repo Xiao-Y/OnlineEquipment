@@ -2,10 +2,10 @@ package com.xiaoy.background.resourcesmsg.dictionary.service;
 
 import java.util.List;
 
-import com.xiaoy.base.entities.Dictionary;
+import com.xiaoy.base.entities.DictionaryDto;
 import com.xiaoy.base.service.CommonService;
 
-public interface DictionaryService extends CommonService<Dictionary> {
+public interface DictionaryService extends CommonService<DictionaryDto> {
 
 	/**
 	 * 根据条件查询出现所能符合条件的数据字典
@@ -14,14 +14,14 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 *            查询条件
 	 * @return
 	 */
-	List<Dictionary> getDictionary(Dictionary dictionary);
+	List<DictionaryDto> getDictionary(DictionaryDto dictionary);
 
 	/**
 	 * 获取模块的下拉列表
 	 * 
 	 * @return
 	 */
-	List<Dictionary> getModelNameCheckBox();
+	List<DictionaryDto> getModelNameCheckBox();
 
 	/**
 	 * 通过模块Code获取字段的下拉列表
@@ -30,7 +30,7 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 *            模块Code
 	 * @return
 	 */
-	List<Dictionary> getFieldNameCheckBox(String modelCode);
+	List<DictionaryDto> getFieldNameCheckBox(String modelCode);
 
 	/**
 	 * 更新数据字典的模块和字段
@@ -40,14 +40,14 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 *            更新模块名和Code<br/>
 	 *            更新字段名和Code<br/>
 	 */
-	void updateDictionary(Dictionary dictionary);
+	void updateDictionary(DictionaryDto dictionary);
 
 	/**
 	 * 根据一组id删除对应对象
 	 * 
 	 * @param dictionaryList
 	 */
-	boolean deleteDictionaryIds(List<Dictionary> dictionaryList);
+	boolean deleteDictionaryIds(List<DictionaryDto> dictionaryList);
 
 	/**
 	 * 跟根据模块codet和fieldCode删除数据字典
@@ -58,7 +58,7 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 *            字段code
 	 * @return
 	 */
-	boolean deleteDictionaryModelOrField(Dictionary dictionary);
+	boolean deleteDictionaryModelOrField(DictionaryDto dictionary);
 
 	/**
 	 * 根据条件统计出现记录数
@@ -66,6 +66,6 @@ public interface DictionaryService extends CommonService<Dictionary> {
 	 * @param dictionary
 	 * @return
 	 */
-	long getDictionaryCount(Dictionary dictionary);
+	long getDictionaryCount(DictionaryDto dictionary);
 
 }

@@ -23,9 +23,9 @@ import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.bug.service.BugService;
 import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
-import com.xiaoy.base.entities.Bug;
-import com.xiaoy.base.entities.Dictionary;
-import com.xiaoy.base.entities.Menu;
+import com.xiaoy.base.entities.BugDto;
+import com.xiaoy.base.entities.DictionaryDto;
+import com.xiaoy.base.entities.MenuDto;
 import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
@@ -65,15 +65,15 @@ public class BugController {
 	 */
 	@ResponseBody
 	@RequestMapping("/getBugList")
-	public JsonResult getBugList(Bug bug, HttpServletRequest request) {
+	public JsonResult getBugList(BugDto bug, HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
 
 		JsonResult json = new JsonResult();
 		try {
-			List<Bug> bugs = bugService.findCollectionByCondition(bug, start, limit);
+			List<BugDto> bugs = bugService.findCollectionByCondition(bug, start, limit);
 			long total = bugService.countByCollection(bug);
-			for (Bug b : bugs) {
+			for (BugDto b : bugs) {
 				if (menuService.findObjectById(b.getParentId()) != null) {
 					b.setParentName(menuService.findObjectById(b.getParentId()).getMenuName());
 				}
@@ -102,10 +102,10 @@ public class BugController {
 	@ResponseBody
 	@RequestMapping(value = "/parentMenuList")
 	public JsonResult parentMenuList(HttpServletRequest request) {
-		Menu menu = new Menu();
+		MenuDto menu = new MenuDto();
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
 
-		List<Menu> menus = menuService.findCollectionByCondition(menu, "", "");
+		List<MenuDto> menus = menuService.findCollectionByCondition(menu, "", "");
 		JsonResult json = new JsonResult();
 		json.setSuccess(true);
 		json.setRoot(menus);
@@ -124,7 +124,7 @@ public class BugController {
 	@RequestMapping(value = "/getChildMenuListByParentId")
 	public JsonResult getChildMenuListByParentId(HttpServletRequest request) {
 		String parentId = Tools.getStringParameter(request, "parentId");
-		List<Menu> menus = menuService.getChildMenuListByParentId(parentId);
+		List<MenuDto> menus = menuService.getChildMenuListByParentId(parentId);
 		JsonResult json = new JsonResult();
 		json.setSuccess(true);
 		json.setRoot(menus);
@@ -145,7 +145,7 @@ public class BugController {
 		// 获取bug图片的路径
 		String bugRealPath = Tools.getSystemConfigString(request, "bugRealPath");
 		String imgUrl = Tools.uploadFile(imgUrls, request, bugRealPath);
-		Bug bug = this.setParamBug(request);
+		BugDto bug = this.setParamBug(request);
 		bug.setImgUrl(imgUrl);
 		bug.setId(UUID.randomUUID().toString());
 		bug.setCreateTime(new Date());
@@ -169,8 +169,8 @@ public class BugController {
 	 * @param request
 	 * @return
 	 */
-	private Bug setParamBug(HttpServletRequest request) {
-		Bug bug = new Bug();
+	private BugDto setParamBug(HttpServletRequest request) {
+		BugDto bug = new BugDto();
 		bug.setParentId(Tools.getStringParameter(request, "parentId"));
 		bug.setChildrenId(Tools.getStringParameter(request, "childrenId"));
 		bug.setSeverity(Tools.getStringParameter(request, "severity"));
@@ -200,7 +200,7 @@ public class BugController {
 		// 拼接图片名
 		JsonResult json = new JsonResult();
 		try {
-			Bug bug = this.setParamBug(request);
+			BugDto bug = this.setParamBug(request);
 			bug.setId(Tools.getStringParameter(request, "id"));
 			bug.setImgUrl(imgUrl);
 			bug.setUpdateTime(new Date());
@@ -253,7 +253,7 @@ public class BugController {
 	JsonResult getImage(@PathVariable("id") String id, HttpServletRequest request) {
 		JsonResult json = new JsonResult();
 		try {
-			Bug bug = bugService.findObjectById(id);
+			BugDto bug = bugService.findObjectById(id);
 			if (bug != null) {
 				String strImg = bug.getImgUrl();
 				if (!StringUtils.isEmpty(strImg)) {
@@ -392,7 +392,7 @@ public class BugController {
 	@ResponseBody
 	@RequestMapping("/getBugViewById/{id}")
 	public Map<String, Object> getBugViewById(HttpServletRequest request, @PathVariable("id") String id) {
-		Bug bug = bugService.findObjectById(id);
+		BugDto bug = bugService.findObjectById(id);
 		Map<String, Object> mapResult = new HashMap<String, Object>();
 		if (bug != null) {
 			String status = bug.getStatus();
@@ -402,7 +402,7 @@ public class BugController {
 				// Map<String, Map<String, String>> map = propertyModel.getDatas();
 				// Map<String, String> map2 = map.get("status");
 				// status = map2.get(status);
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+				DictionaryDto dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
 						DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_STATUS, status);
 				if (dictionary != null) {
 					status = dictionary.getDisplayField();
@@ -418,7 +418,7 @@ public class BugController {
 				// Map<String, Map<String, String>> map = propertyModel.getDatas();
 				// Map<String, String> map2 = map.get("severity");
 				// severity = map2.get(severity);
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+				DictionaryDto dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
 						DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_SEVERITY, severity);
 				if (dictionary != null) {
 					severity = dictionary.getDisplayField();
@@ -434,7 +434,7 @@ public class BugController {
 				// Map<String, Map<String, String>> map = propertyModel.getDatas();
 				// Map<String, String> map2 = map.get("reappear");
 				// reappear = map2.get(reappear);
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+				DictionaryDto dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
 						DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_REAPPEAR, reappear);
 				if (dictionary != null) {
 					reappear = dictionary.getDisplayField();
@@ -450,7 +450,7 @@ public class BugController {
 				// Map<String, Map<String, String>> map = propertyModel.getDatas();
 				// Map<String, String> map2 = map.get("bugType");
 				// bugType = map2.get(bugType);
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+				DictionaryDto dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
 						DictionaryType.BUG_MODEL_CODE_BUG, DictionaryType.BUG_FIELD_CODE_BUGTYPE, bugType);
 				if (dictionary != null) {
 					bugType = dictionary.getDisplayField();

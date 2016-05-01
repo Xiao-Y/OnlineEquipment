@@ -10,23 +10,23 @@ import org.springframework.stereotype.Service;
 import com.xiaoy.background.usermsg.user.dao.UserDao;
 import com.xiaoy.background.usermsg.user.service.UserService;
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.User;
+import com.xiaoy.base.entities.UserDto;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 
 @Service
-public class UserServiceImpl extends CommonServiceImpl<User> implements UserService {
+public class UserServiceImpl extends CommonServiceImpl<UserDto> implements UserService {
 	private UserDao userDao;
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<User> commonDao) {
+	public void setCommonDao(CommonDao<UserDto> commonDao) {
 		this.userDao = (UserDao) commonDao;
 		super.commonDao = commonDao;
 	}
 
 	@Override
-	public User findByName(String loginName) {
-		User user = userDao.findByName(loginName);
+	public UserDto findByName(String loginName) {
+		UserDto user = userDao.findByName(loginName);
 		return user;
 	}
 
@@ -42,12 +42,12 @@ public class UserServiceImpl extends CommonServiceImpl<User> implements UserServ
 	}
 
 	@Override
-	public List<User> findCollectionByCondition(User user, String start, String limit) {
+	public List<UserDto> findCollectionByCondition(UserDto user, String start, String limit) {
 		return userDao.findUsersByCondition(user, start, limit);
 	}
 
 	@Override
-	public long countByCollection(User user) {
+	public long countByCollection(UserDto user) {
 		return userDao.countByCollection(user);
 	}
 
@@ -57,9 +57,9 @@ public class UserServiceImpl extends CommonServiceImpl<User> implements UserServ
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void updateUser(UserDto user) {
 		if (user != null && !StringUtils.isEmpty(user.getId())) {
-			User userObj = userDao.findObjectById(user.getId());
+			UserDto userObj = userDao.findObjectById(user.getId());
 			userObj.setUsername(user.getUsername());
 			userObj.setPassword(user.getPassword());
 			userObj.setAddress(user.getAddress());

@@ -14,30 +14,30 @@ import org.springframework.web.multipart.MultipartFile;
 import com.xiaoy.background.resourcesmsg.zip.dao.ZipDao;
 import com.xiaoy.background.resourcesmsg.zip.service.ZipService;
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.Zip;
+import com.xiaoy.base.entities.ZipDto;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.util.excel.poi.PoiDBExportToExcelFile;
 import com.xiaoy.util.excel.poi.PoiExcelFileExportToDB;
 
 @Service
-public class ZipServiceImpl extends CommonServiceImpl<Zip> implements ZipService {
+public class ZipServiceImpl extends CommonServiceImpl<ZipDto> implements ZipService {
 
 	private ZipDao zipDao;
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<Zip> commonDao) {
+	public void setCommonDao(CommonDao<ZipDto> commonDao) {
 		this.zipDao = (ZipDao) commonDao;
 		super.commonDao = commonDao;
 	}
 
 	@Override
-	public List<Zip> getZipCondition(Zip zip, String start, String limit) {
+	public List<ZipDto> getZipCondition(ZipDto zip, String start, String limit) {
 		return zipDao.getZipCondition(zip, start, limit);
 	}
 
 	@Override
-	public long getTotal(Zip zip) {
+	public long getTotal(ZipDto zip) {
 		return zipDao.getTotal(zip);
 	}
 
@@ -80,11 +80,11 @@ public class ZipServiceImpl extends CommonServiceImpl<Zip> implements ZipService
 	 * @return
 	 */
 	private ArrayList<List<String>> getExcelFieldDataList() {
-		List<Zip> zips = this.getZipCondition(null, "", "");
+		List<ZipDto> zips = this.getZipCondition(null, "", "");
 		ArrayList<List<String>> fieldData = null;
 		if (zips != null && zips.size() > 0) {
 			fieldData = new ArrayList<List<String>>();
-			for (Zip zip : zips) {
+			for (ZipDto zip : zips) {
 				ArrayList<String> dataList = new ArrayList<String>();
 				// id,name,parent_Id,short_name,level_Type,city_code,zip_code,merger_name,lng,lat,pinyin
 				dataList.add(zip.getId());
@@ -109,7 +109,7 @@ public class ZipServiceImpl extends CommonServiceImpl<Zip> implements ZipService
 	@Override
 	public void saveImportZip(MultipartFile multipartFile) {
 		// obj转换成zip对象
-		List<Zip> zips = this.ListObjToListZip(multipartFile);
+		List<ZipDto> zips = this.ListObjToListZip(multipartFile);
 		// 选删除原数据
 		zipDao.deleteAll();
 		// 添加新数据
@@ -123,14 +123,14 @@ public class ZipServiceImpl extends CommonServiceImpl<Zip> implements ZipService
 	 * @return
 	 * @date 2015年10月5日 下午11:00:18
 	 */
-	private List<Zip> ListObjToListZip(MultipartFile multipartFile) {
-		List<Zip> zipList = new ArrayList<Zip>();
+	private List<ZipDto> ListObjToListZip(MultipartFile multipartFile) {
+		List<ZipDto> zipList = new ArrayList<ZipDto>();
 		try {
 			PoiExcelFileExportToDB ef = new PoiExcelFileExportToDB(multipartFile, 1, 0);
 			List<Object[]> dataList = ef.getDataList();
 			// id,name,parent_Id,short_name,level_Type,city_code,zip_code,merger_name,lng,lat,pinyin
 			for (Object[] objs : dataList) {
-				Zip zip = new Zip();
+				ZipDto zip = new ZipDto();
 				zip.setId((String) objs[0]);
 				zip.setName((String) objs[1]);
 				zip.setParentId((String) objs[2]);

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.resourcesmsg.bug.dao.BugDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
-import com.xiaoy.base.entities.Bug;
+import com.xiaoy.base.entities.BugDto;
 
 /**
  * 
@@ -17,10 +17,10 @@ import com.xiaoy.base.entities.Bug;
  * @date 2015年8月12日下午5:54:45
  */
 @Repository
-public class BugDaoImpl extends CommonDaoImpl<Bug> implements BugDao
+public class BugDaoImpl extends CommonDaoImpl<BugDto> implements BugDao
 {
 	@Override
-	public long countByCollection(Bug bug)
+	public long countByCollection(BugDto bug)
 	{
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, bug);
@@ -28,11 +28,11 @@ public class BugDaoImpl extends CommonDaoImpl<Bug> implements BugDao
 	}
 
 	@Override
-	public List<Bug> findCollectionByCondition(Bug bug, String start, String limit)
+	public List<BugDto> findCollectionByCondition(BugDto bug, String start, String limit)
 	{
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, bug);
-		List<Bug> list = this.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
+		List<BugDto> list = this.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
 		return list;
 	}
 
@@ -45,7 +45,7 @@ public class BugDaoImpl extends CommonDaoImpl<Bug> implements BugDao
 	 * 
 	 * @date 2015年8月14日上午9:04:10
 	 */
-	private Map<String, Object> appHql(StringBuffer hqlWhwere, Bug bug)
+	private Map<String, Object> appHql(StringBuffer hqlWhwere, BugDto bug)
 	{
 		if (bug != null)
 		{

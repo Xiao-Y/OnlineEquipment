@@ -1,4 +1,4 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base.base;
 
 import java.util.Date;
 

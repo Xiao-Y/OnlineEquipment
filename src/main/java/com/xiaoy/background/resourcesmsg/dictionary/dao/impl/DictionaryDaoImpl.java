@@ -12,14 +12,14 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.resourcesmsg.dictionary.dao.DictionaryDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
-import com.xiaoy.base.entities.Dictionary;
+import com.xiaoy.base.entities.DictionaryDto;
 import com.xiaoy.util.CheckBox;
 
 @Repository
-public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements DictionaryDao {
+public class DictionaryDaoImpl extends CommonDaoImpl<DictionaryDto> implements DictionaryDao {
 
 	@Override
-	public List<Dictionary> getDictionary(Dictionary dictionary) {
+	public List<DictionaryDto> getDictionary(DictionaryDto dictionary) {
 		String start = dictionary.getStart();
 		String limit = dictionary.getLimit();
 		StringBuffer hqlWhere = new StringBuffer();
@@ -36,7 +36,7 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 	 *            查询条件
 	 * @return
 	 */
-	private Map<String, Object> appendWhere(Dictionary dictionary, StringBuffer hqlWhere) {
+	private Map<String, Object> appendWhere(DictionaryDto dictionary, StringBuffer hqlWhere) {
 		if (dictionary != null) {
 			Map<String, Object> map = new HashMap<>();
 			if (!StringUtils.isEmpty(dictionary.getModelCode())) {
@@ -59,13 +59,13 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 	}
 
 	@Override
-	public List<CheckBox> getCheckBox(Dictionary dictionary) {
+	public List<CheckBox> getCheckBox(DictionaryDto dictionary) {
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> map = this.appendWhere(dictionary, hqlWhere);
-		List<Dictionary> list = super.findCollectionByCondition(hqlWhere.toString(), map);
+		List<DictionaryDto> list = super.findCollectionByCondition(hqlWhere.toString(), map);
 		if (list != null && list.size() > 0) {
 			List<CheckBox> checkList = new ArrayList<CheckBox>();
-			for (Dictionary d : list) {
+			for (DictionaryDto d : list) {
 				CheckBox box = new CheckBox();
 				box.setDisplayField(d.getDisplayField());
 				box.setValueField(d.getValueField());
@@ -77,26 +77,26 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 	}
 
 	@Override
-	public List<Dictionary> getModelNameCheckBox() {
+	public List<DictionaryDto> getModelNameCheckBox() {
 		String hql = "select distinct new Dictionary(modelName, modelCode) from Dictionary";
-		List<Dictionary> list = super.find(hql, null, null, null);
+		List<DictionaryDto> list = super.find(hql, null, null, null);
 		return list;
 	}
 
 	@Override
-	public List<Dictionary> getFieldNameCheckBox(String modelCode) {
+	public List<DictionaryDto> getFieldNameCheckBox(String modelCode) {
 		StringBuffer hql = new StringBuffer("select distinct new Dictionary(fieldName, fieldCode, modelCode) from Dictionary where 1=1 ");
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (!StringUtils.isEmpty(modelCode)) {
 			hql.append(" and modelCode = :modelCode ");
 			map.put("modelCode", modelCode);
 		}
-		List<Dictionary> list = super.find(hql.toString(), map, null, null);
+		List<DictionaryDto> list = super.find(hql.toString(), map, null, null);
 		return list;
 	}
 
 	@Override
-	public void updateDictionary(Dictionary dictionary) {
+	public void updateDictionary(DictionaryDto dictionary) {
 		String hql = "update Dictionary set modelName = :modelName, fieldName = :fieldName where modelCode = :modelCode and fieldCode = :fieldCode";
 		Session session = this.getSession();
 		Query query = session.createQuery(hql);
@@ -118,7 +118,7 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 	}
 
 	@Override
-	public void deleteDictionaryModelOrField(Dictionary dictionary) {
+	public void deleteDictionaryModelOrField(DictionaryDto dictionary) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		String modelCode = dictionary.getModelCode();
@@ -136,7 +136,7 @@ public class DictionaryDaoImpl extends CommonDaoImpl<Dictionary> implements Dict
 	}
 
 	@Override
-	public long getDictionaryCount(Dictionary dictionary) {
+	public long getDictionaryCount(DictionaryDto dictionary) {
 		StringBuffer hqlWhere = new StringBuffer();
 		Map<String, Object> paramsMapValue = this.appendWhere(dictionary, hqlWhere);
 		return this.countByCollection(hqlWhere.toString(), paramsMapValue);

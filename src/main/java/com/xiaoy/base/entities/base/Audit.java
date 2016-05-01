@@ -1,6 +1,11 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.MappedSuperclass;
+
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 审核申报信息表
@@ -8,8 +13,15 @@ import java.util.Date;
  * @author XiaoY
  * @date 2015年4月14日
  */
-public class Audit extends BaseEntity {
+@MappedSuperclass
+public class Audit extends BaseEntity implements Serializable {
 
+	/**
+	 * 
+	 * @author XiaoY
+	 * @date: 2016年5月1日 上午11:24:54
+	 */
+	private static final long serialVersionUID = 8385707097844850853L;
 	/* 审核状态 */
 	private String auditStatCode;
 	/* 审核时间 */

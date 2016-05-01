@@ -1,10 +1,11 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
+
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 权限实体类
@@ -12,12 +13,10 @@ import javax.persistence.Table;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:57:21
  */
-@Entity
-@Table(name = "PERMISSION")
+@MappedSuperclass
 public class Permission extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -5265798075097339678L;
-
+	private static final long serialVersionUID = -196653281293955434L;
 	// 权限名称
 	private String permissionName;
 	// 菜单url
@@ -98,7 +97,8 @@ public class Permission extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Permission [permissionName=" + permissionName + ", url=" + url + ", menuCode=" + menuCode + "]";
+		return "Permission [permissionName=" + permissionName + ", url=" + url + ", menuCode=" + menuCode
+				+ ", toString()=" + super.toString() + "]";
 	}
 
 	// //@ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)

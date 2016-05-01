@@ -9,14 +9,14 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.resourcesmsg.notice.dao.NoticeDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
-import com.xiaoy.base.entities.Notice;
+import com.xiaoy.base.entities.NoticeDto;
 import com.xiaoy.util.DateHelper;
 
 @Repository
-public class NoticeDaoImpl extends CommonDaoImpl<Notice> implements NoticeDao {
+public class NoticeDaoImpl extends CommonDaoImpl<NoticeDto> implements NoticeDao {
 
 	@Override
-	public List<Notice> getNoticeList(Notice notice) {
+	public List<NoticeDto> getNoticeList(NoticeDto notice) {
 		String start = notice.getStart();
 		String limit = notice.getLimit();
 		StringBuffer hqlWhere = new StringBuffer();
@@ -25,7 +25,7 @@ public class NoticeDaoImpl extends CommonDaoImpl<Notice> implements NoticeDao {
 	}
 
 	@Override
-	public long getTotal(Notice notice) {
+	public long getTotal(NoticeDto notice) {
 		StringBuffer hqlWhere = new StringBuffer();
 		Map<String, Object> paramsMapValue = this.appendWhere(notice, hqlWhere);
 		return super.countByCollection(hqlWhere.toString(), paramsMapValue);
@@ -39,7 +39,7 @@ public class NoticeDaoImpl extends CommonDaoImpl<Notice> implements NoticeDao {
 	 * @return
 	 * @date 2015年10月3日 下午9:26:53
 	 */
-	private Map<String, Object> appendWhere(Notice notice, StringBuffer hqlWhere) {
+	private Map<String, Object> appendWhere(NoticeDto notice, StringBuffer hqlWhere) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 公告内容
 		if (!StringUtils.isEmpty(notice.getNotice())) {

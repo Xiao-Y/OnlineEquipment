@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.Permission;
-import com.xiaoy.base.entities.Role;
+import com.xiaoy.base.entities.PermissionDto;
+import com.xiaoy.base.entities.RoleDto;
+import com.xiaoy.base.entities.base.Permission;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.permission.dao.PermissionDao;
 import com.xiaoy.permission.service.PermissionService;
 
 @Service
-public class PermissionServiceImpl extends CommonServiceImpl<Permission> implements PermissionService
-{
+public class PermissionServiceImpl extends CommonServiceImpl<PermissionDto> implements PermissionService {
 
 	@Resource
 	private RoleService roleService;
@@ -28,23 +28,19 @@ public class PermissionServiceImpl extends CommonServiceImpl<Permission> impleme
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<Permission> commonDao)
-	{
+	public void setCommonDao(CommonDao<PermissionDto> commonDao) {
 		this.permissonDao = (PermissionDao) commonDao;
 		super.commonDao = commonDao;
 	}
 
 	@Override
-	public Set<String> getPermissionNames(String id)
-	{
+	public Set<String> getPermissionNames(String id) {
 		List<String> roleIds = roleService.getRoleIdByUserId(id);
-		List<Role> roles = roleService.getRoleListByRoleIds(roleIds);
+		List<RoleDto> roles = roleService.getRoleListByRoleIds(roleIds);
 		Set<String> set = new HashSet<String>();
-		for (Role r : roles)
-		{
-			Set<Permission> ps = r.getPermissions();
-			for (Permission p : ps)
-			{
+		for (RoleDto r : roles) {
+			Set<PermissionDto> ps = r.getPermissions();
+			for (Permission p : ps) {
 				set.add(p.getUrl());
 			}
 		}

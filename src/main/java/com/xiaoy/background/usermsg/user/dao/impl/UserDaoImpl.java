@@ -12,12 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.usermsg.user.dao.UserDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
-import com.xiaoy.base.entities.Role;
-import com.xiaoy.base.entities.User;
+import com.xiaoy.base.entities.RoleDto;
+import com.xiaoy.base.entities.UserDto;
+import com.xiaoy.base.entities.base.Role;
 import com.xiaoy.util.DateHelper;
 
 @Repository
-public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao {
+public class UserDaoImpl extends CommonDaoImpl<UserDto> implements UserDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -31,16 +32,16 @@ public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao {
 	}
 
 	@Override
-	public User findByName(String loginName) {
+	public UserDto findByName(String loginName) {
 		String hql = "select User from User where username = :username";
 		Session session = this.getSession();
 		Query query = session.createQuery(hql);
 		query.setParameter("username", loginName);
-		return (User) query.uniqueResult();
+		return (UserDto) query.uniqueResult();
 	}
 
 	@Override
-	public List<User> findUsersByCondition(User user, String start, String limit) {
+	public List<UserDto> findUsersByCondition(UserDto user, String start, String limit) {
 		StringBuffer hql = new StringBuffer("");
 		if (user != null && user.getRoles() != null && !user.getRoles().isEmpty()) {
 			hql.append("from User u left join fetch u.roles role where 1=1 ");
@@ -48,12 +49,12 @@ public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao {
 			hql.append("from User u where 1=1 ");
 		}
 		Map<String, Object> paramsMapValue = this.appendWher(hql, user);
-		List<User> users = this.find(hql.toString(), paramsMapValue, start, limit);
+		List<UserDto> users = this.find(hql.toString(), paramsMapValue, start, limit);
 		return users;
 	}
 
 	@Override
-	public long countByCollection(User user) {
+	public long countByCollection(UserDto user) {
 		StringBuffer hql = new StringBuffer("select count(*) ");
 		if (user != null && user.getRoles() != null && !user.getRoles().isEmpty()) {
 			hql.append("from User u left join u.roles role where 1=1 ");
@@ -71,7 +72,7 @@ public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao {
 	 * @param user
 	 * @return
 	 */
-	private Map<String, Object> appendWher(StringBuffer hqlWhere, User user) {
+	private Map<String, Object> appendWher(StringBuffer hqlWhere, UserDto user) {
 		if (user != null) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (!StringUtils.isEmpty(user.getUsername())) {
@@ -83,7 +84,7 @@ public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao {
 				map.put("address", "%" + user.getAddress() + "%");
 			}
 			if (user.getRoles() != null && user.getRoles().size() > 0) {
-				Set<Role> roles = user.getRoles();
+				Set<RoleDto> roles = user.getRoles();
 				StringBuffer str = new StringBuffer("");
 				str.append(" and ( ");
 				int i = 0;
@@ -96,8 +97,7 @@ public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao {
 					++i;
 				}
 				String hqlw = "";
-				if(str.toString().endsWith(" or"))
-				{
+				if (str.toString().endsWith(" or")) {
 					str.append("or");
 					hqlw = str.toString().replace("oror", "");
 				}

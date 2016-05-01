@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import com.xiaoy.annotations.SystemControllerLog;
 import com.xiaoy.aop.log.LogAop;
 import com.xiaoy.background.resourcesmsg.log.service.LogService;
-import com.xiaoy.base.entities.Log;
+import com.xiaoy.base.entities.LogDto;
 import com.xiaoy.util.LoginHelper;
 
 @Component
@@ -24,7 +24,7 @@ public class LogAopImpl implements LogAop {
 
 	@Override
 	public void logArgSave(JoinPoint joinPoint) {
-		Log log = new Log();
+		LogDto log = new LogDto();
 		this.saveLog(joinPoint, log);
 	}
 
@@ -35,7 +35,7 @@ public class LogAopImpl implements LogAop {
 	 * @param log
 	 * @throws Exception
 	 */
-	private void saveLog(JoinPoint joinPoint, Log log) {
+	private void saveLog(JoinPoint joinPoint, LogDto log) {
 		// 此方法返回的是一个数组，数组中包括request以及ActionCofig等类对象
 		Object[] args = joinPoint.getArgs();
 		// 判断参数

@@ -1,8 +1,13 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.MappedSuperclass;
+
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 设备信息实体类
@@ -11,8 +16,14 @@ import java.util.Set;
  * @explain 用于存放设备的信息
  * @date: 2015年3月31日 下午11:25:24
  */
-public class DeviceInfo
-{
+@MappedSuperclass
+public class DeviceInfo extends BaseEntity implements Serializable {
+	/**
+	 * 
+	 * @author XiaoY
+	 * @date: 2016年5月1日 上午11:25:19
+	 */
+	private static final long serialVersionUID = -8111421051020799070L;
 	/* 设备信息uuid */
 	private String deviceTypeUuid;
 	/* 设备名 */
@@ -31,12 +42,12 @@ public class DeviceInfo
 	private String devicePicUrl;
 	/* 备注 */
 	private String remark;
-	
-	/*创建时间*/
+
+	/* 创建时间 */
 	private Date creatTime;
-	/*设备故障次数*/
+	/* 设备故障次数 */
 	private Integer deviceNum;
-	
+
 	Set<DeviceState> deviceState = new HashSet<DeviceState>();
 
 	public DeviceInfo() {
@@ -51,113 +62,91 @@ public class DeviceInfo
 		this.version = version;
 	}
 
-	public Integer getDeviceNum()
-	{
+	public Integer getDeviceNum() {
 		return deviceNum;
 	}
 
-	public void setDeviceNum(Integer deviceNum)
-	{
+	public void setDeviceNum(Integer deviceNum) {
 		this.deviceNum = deviceNum;
 	}
 
-	public Date getCreatTime()
-	{
+	public Date getCreatTime() {
 		return creatTime;
 	}
 
-	public void setCreatTime(Date creatTime)
-	{
+	public void setCreatTime(Date creatTime) {
 		this.creatTime = creatTime;
 	}
 
-	public String getDeviceTypeUuid()
-	{
+	public String getDeviceTypeUuid() {
 		return deviceTypeUuid;
 	}
 
-	public void setDeviceTypeUuid(String deviceTypeUuid)
-	{
+	public void setDeviceTypeUuid(String deviceTypeUuid) {
 		this.deviceTypeUuid = deviceTypeUuid;
 	}
 
-	public String getDeviceName()
-	{
+	public String getDeviceName() {
 		return deviceName;
 	}
 
-	public void setDeviceName(String deviceName)
-	{
+	public void setDeviceName(String deviceName) {
 		this.deviceName = deviceName;
 	}
 
-	public String getVersion()
-	{
+	public String getVersion() {
 		return version;
 	}
 
-	public void setVersion(String version)
-	{
+	public void setVersion(String version) {
 		this.version = version;
 	}
 
-	public String getProducerName()
-	{
+	public String getProducerName() {
 		return producerName;
 	}
 
-	public void setProducerName(String producerName)
-	{
+	public void setProducerName(String producerName) {
 		this.producerName = producerName;
 	}
 
-	public String getProducerPhone()
-	{
+	public String getProducerPhone() {
 		return producerPhone;
 	}
 
-	public void setProducerPhone(String producerPhone)
-	{
+	public void setProducerPhone(String producerPhone) {
 		this.producerPhone = producerPhone;
 	}
 
-	public double getDevicePrice()
-	{
+	public double getDevicePrice() {
 		return devicePrice;
 	}
 
-	public void setDevicePrice(Double devicePrice)
-	{
+	public void setDevicePrice(Double devicePrice) {
 		this.devicePrice = devicePrice;
 	}
 
-	public Integer getDeviceAmount()
-	{
+	public Integer getDeviceAmount() {
 		return deviceAmount;
 	}
 
-	public void setDeviceAmount(Integer deviceAmount)
-	{
+	public void setDeviceAmount(Integer deviceAmount) {
 		this.deviceAmount = deviceAmount;
 	}
 
-	public String getDevicePicUrl()
-	{
+	public String getDevicePicUrl() {
 		return devicePicUrl;
 	}
 
-	public void setDevicePicUrl(String devicePicUrl)
-	{
+	public void setDevicePicUrl(String devicePicUrl) {
 		this.devicePicUrl = devicePicUrl;
 	}
 
-	public String getRemark()
-	{
+	public String getRemark() {
 		return remark;
 	}
 
-	public void setRemark(String remark)
-	{
+	public void setRemark(String remark) {
 		this.remark = remark;
 	}
 
@@ -167,5 +156,14 @@ public class DeviceInfo
 
 	public void setDeviceState(Set<DeviceState> deviceState) {
 		this.deviceState = deviceState;
+	}
+
+	@Override
+	public String toString() {
+		return "DeviceInfo [deviceTypeUuid=" + deviceTypeUuid + ", deviceName=" + deviceName + ", version=" + version
+				+ ", producerName=" + producerName + ", producerPhone=" + producerPhone + ", devicePrice="
+				+ devicePrice + ", deviceAmount=" + deviceAmount + ", devicePicUrl=" + devicePicUrl + ", remark="
+				+ remark + ", creatTime=" + creatTime + ", deviceNum=" + deviceNum + ", deviceState=" + deviceState
+				+ ", toString()=" + super.toString() + "]";
 	}
 }

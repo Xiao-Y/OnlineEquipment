@@ -1,10 +1,11 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
+
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 数据字典
@@ -12,11 +13,10 @@ import javax.persistence.Table;
  * @author XiaoY
  * @date: 2015年9月20日 下午1:23:15
  */
-@Entity
-@Table(name = "DICTIONARY")
+@MappedSuperclass
 public class Dictionary extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -4272166233799401498L;
+	private static final long serialVersionUID = 8608033491914451977L;
 
 	// 模块的名称
 	private String modelName;
@@ -117,8 +117,8 @@ public class Dictionary extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		System.out.println(super.toString());
-		return "Dictionary [modelName=" + modelName + ", modelCode=" + modelCode + ", fieldName=" + fieldName + ", fieldCode=" + fieldCode + ", valueField="
-				+ valueField + ", displayField=" + displayField + ", notice=" + notice + "]";
+		return "Dictionary [modelName=" + modelName + ", modelCode=" + modelCode + ", fieldName=" + fieldName
+				+ ", fieldCode=" + fieldCode + ", valueField=" + valueField + ", displayField=" + displayField
+				+ ", notice=" + notice + ", toString()=" + super.toString() + "]";
 	}
 }

@@ -1,11 +1,11 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.MappedSuperclass;
+
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 菜单实体类对应表为Menu
@@ -13,12 +13,10 @@ import javax.persistence.Transient;
  * @author XiaoY
  * @date: 2015年8月9日 下午10:20:20
  */
-@Entity
-@Table(name = "MENU")
+@MappedSuperclass
 public class Menu extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 4280720426670786694L;
-
+	private static final long serialVersionUID = -2888396608933971172L;
 	// 菜单名
 	private String menuName;
 	// 菜单URL
@@ -33,14 +31,6 @@ public class Menu extends BaseEntity implements Serializable {
 	private int seq;
 	// 菜单code
 	private String menuCode;
-
-	/********* 临时的***start ****************/
-	// 父级菜单名
-	private String parentName;
-	// 菜单类型名称
-	private String menuTypeName;
-
-	/********* 临时的***end ****************/
 
 	public Menu() {
 		super();
@@ -207,56 +197,10 @@ public class Menu extends BaseEntity implements Serializable {
 		this.menuCode = menuCode;
 	}
 
-	/**
-	 * 父级菜单名
-	 * 
-	 * @return
-	 * @author XiaoY
-	 * @date: 2016年4月24日 下午12:43:39
-	 */
-	@Transient
-	public String getParentName() {
-		return parentName;
-	}
-
-	/**
-	 * 父级菜单名
-	 * 
-	 * @return
-	 * @author XiaoY
-	 * @date: 2016年4月24日 下午12:43:39
-	 */
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
-	}
-
-	/**
-	 * 菜单类型名称
-	 * 
-	 * @return
-	 * @author XiaoY
-	 * @date: 2016年4月24日 下午12:43:58
-	 */
-	@Transient
-	public String getMenuTypeName() {
-		return menuTypeName;
-	}
-
-	/**
-	 * 菜单类型名称
-	 * 
-	 * @return
-	 * @author XiaoY
-	 * @date: 2016年4月24日 下午12:43:58
-	 */
-	public void setMenuTypeName(String menuTypeName) {
-		this.menuTypeName = menuTypeName;
-	}
-
 	@Override
 	public String toString() {
-		return "Menu [menuName=" + menuName + ", menuUrl=" + menuUrl + ", parentId=" + parentId + ", menuCode="
-				+ menuCode + ", parentName=" + parentName + ", remark=" + remark + ", menuType=" + menuType
-				+ ", menuTypeName=" + menuTypeName + ", seq=" + seq + "]";
+		return "Menu [menuName=" + menuName + ", menuUrl=" + menuUrl + ", parentId=" + parentId + ", remark=" + remark
+				+ ", menuType=" + menuType + ", seq=" + seq + ", menuCode=" + menuCode + ", toString()="
+				+ super.toString() + "]";
 	}
 }

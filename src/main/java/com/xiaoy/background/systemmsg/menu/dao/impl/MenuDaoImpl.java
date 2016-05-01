@@ -9,29 +9,29 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.systemmsg.menu.dao.MenuDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
-import com.xiaoy.base.entities.Menu;
+import com.xiaoy.base.entities.MenuDto;
 import com.xiaoy.util.DateHelper;
 
 @Repository
-public class MenuDaoImpl extends CommonDaoImpl<Menu> implements MenuDao
+public class MenuDaoImpl extends CommonDaoImpl<MenuDto> implements MenuDao
 {
-	public List<Menu> getParentMenuList()
+	public List<MenuDto> getParentMenuList()
 	{
 		String hqlWhere = " and parentId = -1 ";
-		List<Menu> parentMenus = this.findCollectionByCondition(hqlWhere, null);
+		List<MenuDto> parentMenus = this.findCollectionByCondition(hqlWhere, null);
 		return parentMenus;
 	}
 
 	@Override
-	public List<Menu> getChildMenuList()
+	public List<MenuDto> getChildMenuList()
 	{
 		String hqlWhere = " and parentId <> -1 ";
-		List<Menu> childMenus = this.findCollectionByCondition(hqlWhere, null);
+		List<MenuDto> childMenus = this.findCollectionByCondition(hqlWhere, null);
 		return childMenus;
 	}
 
 	@Override
-	public long countByCollection(Menu menu)
+	public long countByCollection(MenuDto menu)
 	{
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, menu);
@@ -39,21 +39,21 @@ public class MenuDaoImpl extends CommonDaoImpl<Menu> implements MenuDao
 	}
 
 	@Override
-	public List<Menu> findCollectionByCondition(Menu menu, String start, String limit)
+	public List<MenuDto> findCollectionByCondition(MenuDto menu, String start, String limit)
 	{
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appHql(hqlWhere, menu);
-		List<Menu> list = this.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
+		List<MenuDto> list = this.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
 		return list;
 	}
 
 	@Override
-	public List<Menu> getChildMenuListByParentId(String parentId)
+	public List<MenuDto> getChildMenuListByParentId(String parentId)
 	{
 		String hqlWhere = " and parentId = :parentId ";
 		Map<String, Object> paramsMapValue = new HashMap<String, Object>();
 		paramsMapValue.put("parentId", parentId);
-		List<Menu> menus = this.findCollectionByCondition(hqlWhere, paramsMapValue);
+		List<MenuDto> menus = this.findCollectionByCondition(hqlWhere, paramsMapValue);
 		return menus;
 	}
 
@@ -66,7 +66,7 @@ public class MenuDaoImpl extends CommonDaoImpl<Menu> implements MenuDao
 	 *            查询参数
 	 * @return Map
 	 */
-	private Map<String, Object> appHql(StringBuffer where, Menu menu)
+	private Map<String, Object> appHql(StringBuffer where, MenuDto menu)
 	{
 		Map<String, Object> paramsMapValue = null;
 		if (menu != null)

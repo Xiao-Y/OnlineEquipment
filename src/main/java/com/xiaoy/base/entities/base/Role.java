@@ -1,4 +1,4 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -6,15 +6,16 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.xiaoy.base.entities.PermissionDto;
+import com.xiaoy.base.entities.UserDto;
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 角色实体类
@@ -22,11 +23,15 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:33:16
  */
-@Entity
-@Table(name = "ROLE")
+@MappedSuperclass
 public class Role extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -5600137110830037129L;
+	/**
+	 * 
+	 * @author XiaoY
+	 * @date: 2016年5月1日 上午11:36:03
+	 */
+	private static final long serialVersionUID = 5946503657637297494L;
 	// 角色名称
 	private String roleName;
 	// 角色Code
@@ -37,14 +42,9 @@ public class Role extends BaseEntity implements Serializable {
 	private String authorizeStatus;
 	// 角色持有用户的集合
 	@JsonBackReference
-	private Set<User> users = new HashSet<>();
+	private Set<UserDto> users = new HashSet<>();
 	// 角色持有权限的集合
-	private Set<Permission> permissions = new HashSet<>();
-	/************* 临时的*****start *************/
-	// 授权状态名称
-	private String authorizeStatusName;
-
-	/************* 临时的*****end *************/
+	private Set<PermissionDto> permissions = new HashSet<>();
 
 	/**
 	 * 角色名称
@@ -125,7 +125,7 @@ public class Role extends BaseEntity implements Serializable {
 	// @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
-	public Set<User> getUsers() {
+	public Set<UserDto> getUsers() {
 		return users;
 	}
 
@@ -136,7 +136,7 @@ public class Role extends BaseEntity implements Serializable {
 	 * @author XiaoY
 	 * @date: 2016年4月24日 上午9:01:06
 	 */
-	public void setUsers(Set<User> users) {
+	public void setUsers(Set<UserDto> users) {
 		this.users = users;
 	}
 
@@ -164,29 +164,6 @@ public class Role extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * 授权状态名称
-	 * 
-	 * @return
-	 * @author XiaoY
-	 * @date: 2016年4月24日 上午9:00:34
-	 */
-	@Transient
-	public String getAuthorizeStatusName() {
-		return authorizeStatusName;
-	}
-
-	/**
-	 * 授权状态名称
-	 * 
-	 * @param authorizeStatusName
-	 * @author XiaoY
-	 * @date: 2016年4月24日 上午9:00:40
-	 */
-	public void setAuthorizeStatusName(String authorizeStatusName) {
-		this.authorizeStatusName = authorizeStatusName;
-	}
-
-	/**
 	 * 角色持有权限的集合
 	 * 
 	 * @return
@@ -195,7 +172,7 @@ public class Role extends BaseEntity implements Serializable {
 	 */
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "PERMISSION_ROLE", joinColumns = @JoinColumn(name = "ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "PRO_ID"))
-	public Set<Permission> getPermissions() {
+	public Set<PermissionDto> getPermissions() {
 		return permissions;
 	}
 
@@ -206,14 +183,14 @@ public class Role extends BaseEntity implements Serializable {
 	 * @author XiaoY
 	 * @date: 2016年4月24日 上午9:01:34
 	 */
-	public void setPermissions(Set<Permission> permissions) {
+	public void setPermissions(Set<PermissionDto> permissions) {
 		this.permissions = permissions;
 	}
 
 	@Override
 	public String toString() {
 		return "Role [roleName=" + roleName + ", roleCode=" + roleCode + ", remark=" + remark + ", authorizeStatus="
-				+ authorizeStatus + ", authorizeStatusName=" + authorizeStatusName + ", users=" + users
-				+ ", permissions=" + permissions + "]";
+				+ authorizeStatus + ", users=" + users + ", permissions=" + permissions + ", toString()="
+				+ super.toString() + "]";
 	}
 }

@@ -2,7 +2,7 @@ package com.xiaoy.background.resourcesmsg.bug.service;
 
 import java.util.List;
 
-import com.xiaoy.base.entities.Bug;
+import com.xiaoy.base.entities.BugDto;
 import com.xiaoy.base.service.CommonService;
 
 /**
@@ -10,7 +10,7 @@ import com.xiaoy.base.service.CommonService;
  * @author XiaoY
  * @date 2015年8月12日下午5:55:03
  */
-public interface BugService extends CommonService<Bug>
+public interface BugService extends CommonService<BugDto>
 {
 
 	/**
@@ -18,7 +18,7 @@ public interface BugService extends CommonService<Bug>
 	 * 
 	 * @param bug
 	 */
-	void updateBug(Bug bug);
+	void updateBug(BugDto bug);
 
 	/**
 	 * 根据条件查询
@@ -28,7 +28,7 @@ public interface BugService extends CommonService<Bug>
 	 * @param limit
 	 * @return
 	 */
-	List<Bug> findCollectionByCondition(Bug bug, String start, String limit);
+	List<BugDto> findCollectionByCondition(BugDto bug, String start, String limit);
 
 	/**
 	 * 根据条件统计出现记录数
@@ -36,6 +36,6 @@ public interface BugService extends CommonService<Bug>
 	 * @param bug
 	 * @return
 	 */
-	long countByCollection(Bug bug);
+	long countByCollection(BugDto bug);
 
 }

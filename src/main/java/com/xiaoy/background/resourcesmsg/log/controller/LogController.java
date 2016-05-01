@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.resourcesmsg.log.service.LogService;
 import com.xiaoy.background.usermsg.user.service.UserService;
-import com.xiaoy.base.entities.Dictionary;
-import com.xiaoy.base.entities.Log;
+import com.xiaoy.base.entities.DictionaryDto;
+import com.xiaoy.base.entities.LogDto;
 import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
@@ -60,7 +60,7 @@ public class LogController {
 		if (!StringUtils.isEmpty(userName)) {
 			objs = userService.getUserIdByName(userName);
 		}
-		Log log = new Log();
+		LogDto log = new LogDto();
 		log.setCreateTime(DateHelper.stringConverDate(strCreateTime));
 		log.setOperation(operation);
 		// 2015-11-08--修改：----废弃的---start---
@@ -77,10 +77,10 @@ public class LogController {
 
 		JsonResult json = new JsonResult();
 		try {
-			List<Log> list = logService.findCollectionByCondition(log, start, limit);
+			List<LogDto> list = logService.findCollectionByCondition(log, start, limit);
 			// 2015-11-08--添加---start--
-			for (Log l : list) {
-				Dictionary dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
+			for (LogDto l : list) {
+				DictionaryDto dictionary = tools.getDictionaryByModelCodeAndFieldCodeAndValueFiel(
 						DictionaryType.LOG_MODEL_CODE_LOG, DictionaryType.LOG_FIELD_CODE_OPERATION, l.getOperation());
 				if (dictionary != null) {
 					l.setOperation(dictionary.getDisplayField());

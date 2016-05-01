@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.xiaoy.annotations.SystemControllerLog;
 import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.zip.service.ZipService;
-import com.xiaoy.base.entities.Zip;
+import com.xiaoy.base.entities.ZipDto;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
@@ -42,7 +42,7 @@ public class ZipController {
 
 	@ResponseBody
 	@RequestMapping("/getZipList")
-	public JsonResult getZipList(HttpServletRequest request, Zip zip) {
+	public JsonResult getZipList(HttpServletRequest request, ZipDto zip) {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
 		String province = Tools.getStringParameter(request, "province");
@@ -57,7 +57,7 @@ public class ZipController {
 			zip.setId(province);
 		}
 		JsonResult json = new JsonResult();
-		List<Zip> list = zipService.getZipCondition(zip, start, limit);
+		List<ZipDto> list = zipService.getZipCondition(zip, start, limit);
 		long total = zipService.getTotal(zip);
 		json.setRoot(list);
 		json.setTotal(total);
@@ -119,7 +119,7 @@ public class ZipController {
 	@ResponseBody
 	@RequestMapping("/getZip")
 	public JsonResult getZip(HttpServletRequest request) {
-		Zip zip = new Zip();
+		ZipDto zip = new ZipDto();
 		String city = Tools.getStringParameter(request, "city");
 		String province = Tools.getStringParameter(request, "province");
 		if (!StringUtils.isEmpty(city)) {
@@ -130,7 +130,7 @@ public class ZipController {
 			zip.setLevelType("1");
 		}
 		JsonResult json = new JsonResult();
-		List<Zip> list = zipService.getZipCondition(zip, "", "");
+		List<ZipDto> list = zipService.getZipCondition(zip, "", "");
 		json.setSuccess(true);
 		json.setRoot(list);
 		return json;

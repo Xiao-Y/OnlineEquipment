@@ -10,47 +10,47 @@ import org.springframework.stereotype.Service;
 import com.xiaoy.background.resourcesmsg.dictionary.dao.DictionaryDao;
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.Dictionary;
+import com.xiaoy.base.entities.DictionaryDto;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 
 @Service
-public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> implements DictionaryService {
+public class DictionaryServiceImpl extends CommonServiceImpl<DictionaryDto> implements DictionaryService {
 
 	private DictionaryDao dictionaryDao;
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<Dictionary> commonDao) {
+	public void setCommonDao(CommonDao<DictionaryDto> commonDao) {
 		super.commonDao = commonDao;
 		this.dictionaryDao = (DictionaryDao) commonDao;
 	}
 
 	@Override
-	public List<Dictionary> getDictionary(Dictionary dictionary) {
-		List<Dictionary> list = dictionaryDao.getDictionary(dictionary);
+	public List<DictionaryDto> getDictionary(DictionaryDto dictionary) {
+		List<DictionaryDto> list = dictionaryDao.getDictionary(dictionary);
 		return list;
 	}
 
 	@Override
-	public List<Dictionary> getModelNameCheckBox() {
+	public List<DictionaryDto> getModelNameCheckBox() {
 		return dictionaryDao.getModelNameCheckBox();
 	}
 
 	@Override
-	public List<Dictionary> getFieldNameCheckBox(String modelCode) {
+	public List<DictionaryDto> getFieldNameCheckBox(String modelCode) {
 		return dictionaryDao.getFieldNameCheckBox(modelCode);
 	}
 
 	@Override
-	public void updateDictionary(Dictionary dictionary) {
+	public void updateDictionary(DictionaryDto dictionary) {
 		dictionaryDao.updateDictionary(dictionary);
 	}
 
 	@Override
-	public boolean deleteDictionaryIds(List<Dictionary> dictionaryList) {
+	public boolean deleteDictionaryIds(List<DictionaryDto> dictionaryList) {
 		if (dictionaryList != null && dictionaryList.size() > 0) {
 			List<String> ids = new ArrayList<String>();
-			for (Dictionary d : dictionaryList) {
+			for (DictionaryDto d : dictionaryList) {
 				ids.add(d.getId());
 			}
 			try {
@@ -65,7 +65,7 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 	}
 
 	@Override
-	public boolean deleteDictionaryModelOrField(Dictionary dictionary) {
+	public boolean deleteDictionaryModelOrField(DictionaryDto dictionary) {
 		try {
 			dictionaryDao.deleteDictionaryModelOrField(dictionary);
 			return true;
@@ -76,7 +76,7 @@ public class DictionaryServiceImpl extends CommonServiceImpl<Dictionary> impleme
 	}
 
 	@Override
-	public long getDictionaryCount(Dictionary dictionary) {
+	public long getDictionaryCount(DictionaryDto dictionary) {
 		return dictionaryDao.getDictionaryCount(dictionary);
 	}
 }

@@ -3,14 +3,14 @@ package com.xiaoy.background.systemmsg.menu.dao;
 import java.util.List;
 
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.Menu;
+import com.xiaoy.base.entities.MenuDto;
 
 /**
  * 
  * @author XiaoY
  * @date: 2015年8月18日 下午8:10:27
  */
-public interface MenuDao extends CommonDao<Menu>
+public interface MenuDao extends CommonDao<MenuDto>
 {
 
 	/**
@@ -18,14 +18,14 @@ public interface MenuDao extends CommonDao<Menu>
 	 * 
 	 * @return
 	 */
-	List<Menu> getParentMenuList();
+	List<MenuDto> getParentMenuList();
 
 	/**
 	 * 获取子菜单的集合
 	 * 
 	 * @return
 	 */
-	List<Menu> getChildMenuList();
+	List<MenuDto> getChildMenuList();
 
 	/**
 	 * 根据条件统计菜单记录数
@@ -34,7 +34,7 @@ public interface MenuDao extends CommonDao<Menu>
 	 *            查询条件
 	 * @return long
 	 */
-	long countByCollection(Menu menu);
+	long countByCollection(MenuDto menu);
 
 	/**
 	 * 根据条件查询菜单
@@ -43,7 +43,7 @@ public interface MenuDao extends CommonDao<Menu>
 	 *            查询条件
 	 * @return List
 	 */
-	List<Menu> findCollectionByCondition(Menu menu, String start, String limit);
+	List<MenuDto> findCollectionByCondition(MenuDto menu, String start, String limit);
 
 	/**
 	 * 根据父id获取其下的子菜单集合
@@ -52,5 +52,5 @@ public interface MenuDao extends CommonDao<Menu>
 	 *            父id
 	 * @return
 	 */
-	List<Menu> getChildMenuListByParentId(String parentId);
+	List<MenuDto> getChildMenuListByParentId(String parentId);
 }

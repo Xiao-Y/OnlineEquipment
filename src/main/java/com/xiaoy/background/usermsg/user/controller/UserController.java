@@ -21,9 +21,10 @@ import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.zip.service.ZipService;
 import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.background.usermsg.user.service.UserService;
-import com.xiaoy.base.entities.Role;
-import com.xiaoy.base.entities.User;
-import com.xiaoy.base.entities.Zip;
+import com.xiaoy.base.entities.RoleDto;
+import com.xiaoy.base.entities.UserDto;
+import com.xiaoy.base.entities.ZipDto;
+import com.xiaoy.base.entities.base.Role;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
@@ -79,7 +80,7 @@ public class UserController {
 			address.append(area);
 			address.append(zipSaveSplit);
 		}
-		User user = new User();
+		UserDto user = new UserDto();
 		user.setUsername(username);
 		user.setBirthday(birthday == "" ? null : DateHelper.stringConverDate(birthday));
 		user.setCreateTime(createTime == "" ? null : DateHelper.stringConverDate(createTime));
@@ -90,9 +91,9 @@ public class UserController {
 			user.setAddress(addressStr);
 		}
 		if (roleIdStr != null && roleIdStr.length > 0 && roleIdStr[0] != "") {
-			Set<Role> roles = new HashSet<Role>();
+			Set<RoleDto> roles = new HashSet<RoleDto>();
 			for (String roleId : roleIdStr) {
-				Role role = new Role();
+				RoleDto role = new RoleDto();
 				role.setId(roleId);
 				roles.add(role);
 			}
@@ -100,10 +101,10 @@ public class UserController {
 		}
 
 		String splie = Tools.getSystemConfigString(request, "zipViewSplit");
-		List<User> users = userService.findCollectionByCondition(user, start, limit);
-		for (User u : users) {
+		List<UserDto> users = userService.findCollectionByCondition(user, start, limit);
+		for (UserDto u : users) {
 			StringBuffer str = new StringBuffer("");
-			Set<Role> set = u.getRoles();
+			Set<RoleDto> set = u.getRoles();
 			String[] roleIds = new String[set.size()];
 			int i = 0;
 			for (Role r : set) {
@@ -124,7 +125,7 @@ public class UserController {
 				// 用于页面显示地理信息
 				String areaNum = addresses[addresses.length - 1];
 				if (!StringUtils.isEmpty(areaNum)) {
-					Zip zip = zipService.findObjectById(areaNum);
+					ZipDto zip = zipService.findObjectById(areaNum);
 					u.setAddress(zip.getMergerName());
 
 				} else {
@@ -155,7 +156,7 @@ public class UserController {
 	@RequestMapping("/getZip")
 	public @ResponseBody
 	JsonResult getZip(HttpServletRequest request) {
-		Zip zip = new Zip();
+		ZipDto zip = new ZipDto();
 		String city = Tools.getStringParameter(request, "city");
 		String province = Tools.getStringParameter(request, "province");
 		if (!StringUtils.isEmpty(city)) {
@@ -166,7 +167,7 @@ public class UserController {
 			zip.setLevelType("1");
 		}
 		JsonResult json = new JsonResult();
-		List<Zip> list = zipService.getZipCondition(zip, "", "");
+		List<ZipDto> list = zipService.getZipCondition(zip, "", "");
 		json.setSuccess(true);
 		json.setRoot(list);
 		return json;
@@ -181,7 +182,7 @@ public class UserController {
 	public @ResponseBody
 	JsonResult getRoleList() {
 		JsonResult json = new JsonResult();
-		List<Role> list = roleService.getRoleList();
+		List<RoleDto> list = roleService.getRoleList();
 		json.setRoot(list);
 		json.setSuccess(true);
 		return json;
@@ -213,7 +214,7 @@ public class UserController {
 		address.append(city);
 		address.append(splie);
 		address.append(area);
-		User user = new User();
+		UserDto user = new UserDto();
 		user.setId(UUID.randomUUID().toString());
 		user.setUsername(username);
 		user.setPassword(password);
@@ -221,9 +222,9 @@ public class UserController {
 		user.setAddress(address.toString());
 		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());
-		Set<Role> roles = new HashSet<Role>();
+		Set<RoleDto> roles = new HashSet<RoleDto>();
 		for (String roleId : roleIds) {
-			Role role = new Role();
+			RoleDto role = new RoleDto();
 			role.setId(roleId);
 			roles.add(role);
 		}
@@ -290,16 +291,16 @@ public class UserController {
 		address.append(city);
 		address.append(splie);
 		address.append(area);
-		User user = new User();
+		UserDto user = new UserDto();
 		user.setId(id);
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setBirthday(birthday == "" ? null : DateHelper.stringConverDate(birthday));
 		user.setAddress(address.toString());
 		user.setUpdateTime(new Date());
-		Set<Role> roles = new HashSet<Role>();
+		Set<RoleDto> roles = new HashSet<RoleDto>();
 		for (String roleId : roleIds) {
-			Role role = new Role();
+			RoleDto role = new RoleDto();
 			role.setId(roleId);
 			roles.add(role);
 		}

@@ -1,25 +1,21 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.xiaoy.base.entities.RoleDto;
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 用户实体类
@@ -27,14 +23,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:21:30
  */
-@Entity
-@Table(name = "USER")
-@DynamicInsert(true)
-@DynamicUpdate(true)
+@MappedSuperclass
 public class User extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 6181384115936269946L;
-
+	private static final long serialVersionUID = -5242926587707055553L;
 	// 用户名
 	private String username;
 	// 密码
@@ -48,20 +40,7 @@ public class User extends BaseEntity implements Serializable {
 	private String address;
 	// 用户持有角色集合
 	@JsonManagedReference
-	Set<Role> roles = new HashSet<>();
-
-	/******************** 临时变量***start *****************************/
-	// 角色名称
-	private String roleName;
-	// 区域的代码
-	private String area;
-	// 省代码
-	private String province;
-	// 市代码
-	private String city;
-	private String[] roleId;
-
-	/******************** 临时变量***end *****************************/
+	Set<RoleDto> roles = new HashSet<>();
 
 	@Column(name = "USERNAME", unique = true, nullable = false, length = 20)
 	public String getUsername() {
@@ -110,63 +89,17 @@ public class User extends BaseEntity implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false))
-	public Set<Role> getRoles() {
+	public Set<RoleDto> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(Set<RoleDto> roles) {
 		this.roles = roles;
-	}
-
-	@Transient
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-
-	@Transient
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
-	}
-
-	@Transient
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	@Transient
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	@Transient
-	public String[] getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(String[] roleId) {
-		this.roleId = roleId;
 	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", birthday=" + birthday + ", imageUrl="
-				+ imageUrl + ", address=" + address + ", roles=" + roles + ", roleName=" + roleName + ", area=" + area
-				+ ", province=" + province + ", city=" + city + ", roleId=" + Arrays.toString(roleId) + "]";
+				+ imageUrl + ", address=" + address + ", roles=" + roles + ", toString()=" + super.toString() + "]";
 	}
 }

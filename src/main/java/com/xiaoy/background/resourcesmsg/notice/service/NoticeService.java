@@ -2,7 +2,7 @@ package com.xiaoy.background.resourcesmsg.notice.service;
 
 import java.util.List;
 
-import com.xiaoy.base.entities.Notice;
+import com.xiaoy.base.entities.NoticeDto;
 import com.xiaoy.base.service.CommonService;
 
 /**
@@ -11,7 +11,7 @@ import com.xiaoy.base.service.CommonService;
  * @author XiaoY
  * @date: 2015年10月3日 下午9:13:12
  */
-public interface NoticeService extends CommonService<Notice> {
+public interface NoticeService extends CommonService<NoticeDto> {
 
 	/**
 	 * 根据条件查询出现公告信息
@@ -20,7 +20,7 @@ public interface NoticeService extends CommonService<Notice> {
 	 * @return
 	 * @date 2015年10月3日 下午9:12:08
 	 */
-	List<Notice> getNoticeList(Notice notice);
+	List<NoticeDto> getNoticeList(NoticeDto notice);
 
 	/**
 	 * 根据条件统计公告记录数
@@ -29,6 +29,6 @@ public interface NoticeService extends CommonService<Notice> {
 	 * @return
 	 * @date 2015年10月3日 下午9:12:43
 	 */
-	long getTotal(Notice notice);
+	long getTotal(NoticeDto notice);
 
 }

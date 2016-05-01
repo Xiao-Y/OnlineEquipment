@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
-import com.xiaoy.base.entities.Menu;
+import com.xiaoy.base.entities.MenuDto;
 
 @Controller(value = "com.xiaoy.foreground.systemmsg.menu.controller.MenuController")
 @RequestMapping("/foreground/systemmsg/menu")
@@ -20,13 +20,13 @@ public class MenuController {
 
 	@RequestMapping("/index")
 	public String getMenuList(Model model) {
-		Menu menu = new Menu();
+		MenuDto menu = new MenuDto();
 		String start = menu.getStart();
 		String limit = menu.getLimit();
-		List<Menu> menuList = menuService.findCollectionByCondition(menu, start, limit);
-		for (Menu m : menuList) {
+		List<MenuDto> menuList = menuService.findCollectionByCondition(menu, start, limit);
+		for (MenuDto m : menuList) {
 			if (!"-1".equals(m.getParentId())) {
-				Menu mu = menuService.findObjectById(m.getParentId());
+				MenuDto mu = menuService.findObjectById(m.getParentId());
 				if (mu != null) {
 					m.setParentName(mu.getMenuName());
 				}

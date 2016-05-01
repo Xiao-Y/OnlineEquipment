@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xiaoy.background.resourcesmsg.bug.service.BugService;
 import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
-import com.xiaoy.base.entities.Bug;
+import com.xiaoy.base.entities.BugDto;
 import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.MySortASC;
 import com.xiaoy.util.Tools;
@@ -44,15 +44,15 @@ public class BugController {
 
 	@ResponseBody
 	@RequestMapping("/getBugList")
-	public Map<String, Object> getBugList(@ModelAttribute("bug") Bug bug, Model model,HttpServletRequest request) {
+	public Map<String, Object> getBugList(@ModelAttribute("bug") BugDto bug, Model model,HttpServletRequest request) {
 		String start = Tools.getStringParameter(request, "iDisplayStart");
 		String limit = Tools.getStringParameter(request, "iDisplayLength");
 		String sEcho = Tools.getStringParameter(request, "sEcho");
 		//String start = bug.getStart();
 		//String limit = bug.getLimit();
 
-		List<Bug> bugs = bugService.findCollectionByCondition(bug, start, limit);
-		for (Bug b : bugs) {
+		List<BugDto> bugs = bugService.findCollectionByCondition(bug, start, limit);
+		for (BugDto b : bugs) {
 			if (menuService.findObjectById(b.getParentId()) != null) {
 				b.setParentName(menuService.findObjectById(b.getParentId()).getMenuName());
 			}

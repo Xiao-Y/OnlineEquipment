@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.systemmsg.role.dao.RoleDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
-import com.xiaoy.base.entities.Role;
+import com.xiaoy.base.entities.RoleDto;
 
 @Repository
-public class RoleDaoImpl extends CommonDaoImpl<Role> implements RoleDao {
+public class RoleDaoImpl extends CommonDaoImpl<RoleDto> implements RoleDao {
 
 	@Override
-	public List<Role> getRoleListByRoleIds(List<String> roleIds) {
+	public List<RoleDto> getRoleListByRoleIds(List<String> roleIds) {
 		String hqlWhere = " and id in(:id)";
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", roleIds);
@@ -22,7 +22,7 @@ public class RoleDaoImpl extends CommonDaoImpl<Role> implements RoleDao {
 	}
 
 	@Override
-	public List<Role> getRoleList(Role role, String start, String limit) {
+	public List<RoleDto> getRoleList(RoleDto role, String start, String limit) {
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = null;
 		return super.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);

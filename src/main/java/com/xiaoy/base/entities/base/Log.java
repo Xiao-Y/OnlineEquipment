@@ -1,13 +1,11 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.MappedSuperclass;
+
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * 日志记录
@@ -15,12 +13,10 @@ import javax.persistence.Transient;
  * @author XiaoY
  * @date: 2015年8月16日 下午7:20:09
  */
-@Entity
-@Table(name = "LOG")
+@MappedSuperclass
 public class Log extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 3048622707076335461L;
-
+	private static final long serialVersionUID = 1108971599862710429L;
 	// 用户id
 	private String userId;
 	// ip地址
@@ -37,9 +33,6 @@ public class Log extends BaseEntity implements Serializable {
 	private String function;
 	// 备注
 	private String note;
-
-	// 用于存放用户的id
-	private List<Object> userIds = new ArrayList<>();
 
 	@Column(name = "USER_ID", nullable = false, length = 100)
 	public String getUserId() {
@@ -113,19 +106,10 @@ public class Log extends BaseEntity implements Serializable {
 		this.note = note;
 	}
 
-	@Transient
-	public List<Object> getUserIds() {
-		return userIds;
-	}
-
-	public void setUserIds(List<Object> userIds) {
-		this.userIds = userIds;
-	}
-
 	@Override
 	public String toString() {
 		return "Log [userId=" + userId + ", ipAddr=" + ipAddr + ", runClass=" + runClass + ", content=" + content
 				+ ", operation=" + operation + ", modal=" + modal + ", function=" + function + ", note=" + note
-				+ ", userIds=" + userIds + "]";
+				+ ", toString()=" + super.toString() + "]";
 	}
 }

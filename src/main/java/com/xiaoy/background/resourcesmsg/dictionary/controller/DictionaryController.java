@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.xiaoy.annotations.SystemControllerLog;
 import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
-import com.xiaoy.base.entities.Dictionary;
+import com.xiaoy.base.entities.DictionaryDto;
 import com.xiaoy.util.JsonResult;
 import com.xiaoy.util.MessageTips;
 import com.xiaoy.util.Tools;
@@ -47,11 +47,11 @@ public class DictionaryController {
 		String start = Tools.getStringParameter(request, "start");
 
 		JsonResult json = new JsonResult();
-		Dictionary dictionary = new Dictionary();
+		DictionaryDto dictionary = new DictionaryDto();
 		dictionary.setLimit(limit);
 		dictionary.setStart(start);
 
-		List<Dictionary> list = dictionaryService.getDictionary(dictionary);
+		List<DictionaryDto> list = dictionaryService.getDictionary(dictionary);
 		long count = dictionaryService.getDictionaryCount(dictionary);
 		json.setRoot(list);
 		json.setTotal(count);
@@ -68,7 +68,7 @@ public class DictionaryController {
 	@RequestMapping("/getModelNameCheckBox")
 	public JsonResult getModelNameCheckBox() {
 		JsonResult json = new JsonResult();
-		List<Dictionary> list = dictionaryService.getModelNameCheckBox();
+		List<DictionaryDto> list = dictionaryService.getModelNameCheckBox();
 		json.setSuccess(true);
 		json.setRoot(list);
 		return json;
@@ -83,7 +83,7 @@ public class DictionaryController {
 	@RequestMapping("/getFieldNameCheckBox")
 	public JsonResult getFieldNameCheckBox(@RequestParam(value = "modelCode", required = false) String modelCode) {
 		JsonResult json = new JsonResult();
-		List<Dictionary> list = dictionaryService.getFieldNameCheckBox(modelCode);
+		List<DictionaryDto> list = dictionaryService.getFieldNameCheckBox(modelCode);
 		json.setSuccess(true);
 		json.setRoot(list);
 		return json;
@@ -99,10 +99,10 @@ public class DictionaryController {
 			json.setRoot(null);
 			return json;
 		} else {
-			Dictionary dictionary = new Dictionary();
+			DictionaryDto dictionary = new DictionaryDto();
 			dictionary.setModelCode(modelCode);
 			dictionary.setFieldCode(fieldCode);
-			List<Dictionary> list = dictionaryService.getDictionary(dictionary);
+			List<DictionaryDto> list = dictionaryService.getDictionary(dictionary);
 			json.setRoot(list);
 		}
 		return json;
@@ -135,11 +135,11 @@ public class DictionaryController {
 		// 所有修改和添加新的键值对
 		String keyValues = Tools.getStringParameter(request, "keyValues");
 
-		List<Dictionary> dictionaryList = JSONArray.parseArray(keyValues, Dictionary.class);
+		List<DictionaryDto> dictionaryList = JSONArray.parseArray(keyValues, DictionaryDto.class);
 
 		JsonResult json = new JsonResult();
 		if (dictionaryList != null && dictionaryList.size() > 0) {// 更改了键值对
-			for (Dictionary d : dictionaryList) {
+			for (DictionaryDto d : dictionaryList) {
 				// 判断是否是新添加的
 				if (d.getCreateTime() == null) {
 					d.setId(UUID.randomUUID().toString());
@@ -171,7 +171,7 @@ public class DictionaryController {
 				json.setMessage(MessageTips.SERVICE_ERRER);
 			}
 		} else {// 没有更改键值对
-			Dictionary d = new Dictionary();
+			DictionaryDto d = new DictionaryDto();
 
 			if (StringUtils.isEmpty(modelCodeBox) || !StringUtils.isEmpty(newModelName)) {
 				d.setModelName(newModelName);
@@ -211,7 +211,7 @@ public class DictionaryController {
 		// 所有要删除的键值对
 		String keyValues = Tools.getStringParameter(request, "keyValues");
 
-		List<Dictionary> dictionaryList = JSONArray.parseArray(keyValues, Dictionary.class);
+		List<DictionaryDto> dictionaryList = JSONArray.parseArray(keyValues, DictionaryDto.class);
 		boolean flag = dictionaryService.deleteDictionaryIds(dictionaryList);
 		json.setSuccess(flag);
 		if (flag) {
@@ -237,7 +237,7 @@ public class DictionaryController {
 		String modelCodeBox = Tools.getStringParameter(request, "modelCodeBox");
 		// 选中的字段下拉列表Code
 		String fieldCodeBox = Tools.getStringParameter(request, "fieldCodeBox");
-		Dictionary dictionary = new Dictionary();
+		DictionaryDto dictionary = new DictionaryDto();
 		dictionary.setModelCode(modelCodeBox);
 		dictionary.setFieldCode(fieldCodeBox);
 		boolean flag = dictionaryService.deleteDictionaryModelOrField(dictionary);
@@ -263,7 +263,7 @@ public class DictionaryController {
 		JsonResult json = new JsonResult();
 		// 模块选中的下拉列表Code
 		String modelCodeBox = Tools.getStringParameter(request, "modelCodeBox");
-		Dictionary dictionary = new Dictionary();
+		DictionaryDto dictionary = new DictionaryDto();
 		dictionary.setModelCode(modelCodeBox);
 		boolean flag = dictionaryService.deleteDictionaryModelOrField(dictionary);
 		json.setSuccess(flag);

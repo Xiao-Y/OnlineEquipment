@@ -5,8 +5,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xiaoy.base.entities.Menu;
-import com.xiaoy.base.entities.Role;
+import com.xiaoy.base.entities.MenuDto;
+import com.xiaoy.base.entities.RoleDto;
 import com.xiaoy.base.service.CommonService;
 
 /**
@@ -15,7 +15,7 @@ import com.xiaoy.base.service.CommonService;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:42:22
  */
-public interface RoleService extends CommonService<Role> {
+public interface RoleService extends CommonService<RoleDto> {
 
 	/**
 	 * 通过用户的id查询出现角色Code信息
@@ -45,7 +45,7 @@ public interface RoleService extends CommonService<Role> {
 	 * 
 	 * @date 2015年8月20日下午6:06:01
 	 */
-	List<Role> getRoleListByRoleIds(List<String> roleIds);
+	List<RoleDto> getRoleListByRoleIds(List<String> roleIds);
 
 	/**
 	 * 根据条件查询角色信息
@@ -56,7 +56,7 @@ public interface RoleService extends CommonService<Role> {
 	 * 
 	 * @date 2015年8月26日下午12:20:01
 	 */
-	List<Role> getRoleList(HttpServletRequest request, Role role, String start, String limit);
+	List<RoleDto> getRoleList(HttpServletRequest request, RoleDto role, String start, String limit);
 
 	/**
 	 * 构建菜单树
@@ -72,19 +72,19 @@ public interface RoleService extends CommonService<Role> {
 	 * 
 	 * @return
 	 */
-	List<Menu> getParentMenuList();
+	List<MenuDto> getParentMenuList();
 
 	/**
 	 * 获取子菜单的集合
 	 * 
 	 * @return
 	 */
-	List<Menu> getChildMenuList();
+	List<MenuDto> getChildMenuList();
 
 	/**
 	 * 获取角色信息
 	 * 
 	 * @return
 	 */
-	List<Role> getRoleList();
+	List<RoleDto> getRoleList();
 }

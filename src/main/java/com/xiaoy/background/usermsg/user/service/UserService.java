@@ -2,7 +2,7 @@ package com.xiaoy.background.usermsg.user.service;
 
 import java.util.List;
 
-import com.xiaoy.base.entities.User;
+import com.xiaoy.base.entities.UserDto;
 import com.xiaoy.base.service.CommonService;
 
 /**
@@ -11,7 +11,7 @@ import com.xiaoy.base.service.CommonService;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:21:55
  */
-public interface UserService extends CommonService<User> {
+public interface UserService extends CommonService<UserDto> {
 
 	/**
 	 * 通过用户名查找用户信息
@@ -19,7 +19,7 @@ public interface UserService extends CommonService<User> {
 	 * @param loginName
 	 * @return
 	 */
-	User findByName(String loginName);
+	UserDto findByName(String loginName);
 
 	/**
 	 * 通过名字查询出现用户的id
@@ -36,7 +36,7 @@ public interface UserService extends CommonService<User> {
 	 * @param user
 	 * @return
 	 */
-	List<User> findCollectionByCondition(User user, String start, String limit);
+	List<UserDto> findCollectionByCondition(UserDto user, String start, String limit);
 
 	/**
 	 * 根据条件查询用户记录总数
@@ -44,7 +44,7 @@ public interface UserService extends CommonService<User> {
 	 * @param user
 	 * @return
 	 */
-	long countByCollection(User user);
+	long countByCollection(UserDto user);
 
 	/**
 	 * 通过用户id删除信息，同时删除关联关系
@@ -58,5 +58,5 @@ public interface UserService extends CommonService<User> {
 	 * 
 	 * @param user
 	 */
-	void updateUser(User user);
+	void updateUser(UserDto user);
 }

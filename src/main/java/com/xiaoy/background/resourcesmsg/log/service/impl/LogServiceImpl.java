@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.xiaoy.background.resourcesmsg.log.dao.LogDao;
 import com.xiaoy.background.resourcesmsg.log.service.LogService;
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.Log;
+import com.xiaoy.base.entities.LogDto;
 import com.xiaoy.base.service.impl.CommonServiceImpl;
 import com.xiaoy.util.Tools;
 
@@ -22,7 +22,7 @@ import com.xiaoy.util.Tools;
  * @date: 2015年8月16日 下午11:22:44
  */
 @Service
-public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService {
+public class LogServiceImpl extends CommonServiceImpl<LogDto> implements LogService {
 	private LogDao logDao;
 
 	@Resource
@@ -30,25 +30,25 @@ public class LogServiceImpl extends CommonServiceImpl<Log> implements LogService
 
 	@Resource
 	@Override
-	public void setCommonDao(CommonDao<Log> commonDao) {
+	public void setCommonDao(CommonDao<LogDto> commonDao) {
 		this.logDao = (LogDao) commonDao;
 		super.commonDao = commonDao;
 	}
 
 	@Override
-	public void persistLog(Log log) {
+	public void persistLog(LogDto log) {
 		String ip = Tools.toIpAddr(request);
 		log.setIpAddr(ip);
 		logDao.saveObject(log);
 	}
 
 	@Override
-	public List<Log> findCollectionByCondition(Log log, String start, String limit) {
+	public List<LogDto> findCollectionByCondition(LogDto log, String start, String limit) {
 		return logDao.findCollectionByCondition(log, start, limit);
 	}
 
 	@Override
-	public long countLog(Log log) {
+	public long countLog(LogDto log) {
 		return logDao.countLog(log);
 	}
 }

@@ -9,21 +9,21 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoy.background.resourcesmsg.log.dao.LogDao;
 import com.xiaoy.base.dao.impl.CommonDaoImpl;
-import com.xiaoy.base.entities.Log;
+import com.xiaoy.base.entities.LogDto;
 import com.xiaoy.util.DateHelper;
 
 @Repository
-public class LogDaoImpl extends CommonDaoImpl<Log> implements LogDao {
+public class LogDaoImpl extends CommonDaoImpl<LogDto> implements LogDao {
 
 	@Override
-	public List<Log> findCollectionByCondition(Log log, String start, String limit) {
+	public List<LogDto> findCollectionByCondition(LogDto log, String start, String limit) {
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appendWhere(hqlWhere, log);
 		return this.findCollectionByCondition(hqlWhere.toString(), paramsMapValue, start, limit);
 	}
 
 	@Override
-	public long countLog(Log log) {
+	public long countLog(LogDto log) {
 		StringBuffer hqlWhere = new StringBuffer("");
 		Map<String, Object> paramsMapValue = this.appendWhere(hqlWhere, log);
 		return this.countByCollection(hqlWhere.toString(), paramsMapValue);
@@ -38,7 +38,7 @@ public class LogDaoImpl extends CommonDaoImpl<Log> implements LogDao {
 	 *            查询条件
 	 * @return
 	 */
-	private Map<String, Object> appendWhere(StringBuffer hqlWhere, Log log) {
+	private Map<String, Object> appendWhere(StringBuffer hqlWhere, LogDto log) {
 		if (log != null) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			// 运行的类名

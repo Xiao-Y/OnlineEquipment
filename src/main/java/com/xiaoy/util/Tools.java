@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xiaoy.background.resourcesmsg.dictionary.service.DictionaryService;
-import com.xiaoy.base.entities.Dictionary;
+import com.xiaoy.base.entities.DictionaryDto;
 
 /**
  * 公用工具类
@@ -269,12 +269,12 @@ public class Tools {
 	 * @date 2015年10月1日 下午10:29:05
 	 */
 	public List<CheckBox> getCheckBox(String modelCode, String fieldCode) {
-		Dictionary dictionary = new Dictionary();
+		DictionaryDto dictionary = new DictionaryDto();
 		dictionary.setModelCode(modelCode);
 		dictionary.setFieldCode(fieldCode);
-		List<Dictionary> list = dictionaryService.getDictionary(dictionary);
+		List<DictionaryDto> list = dictionaryService.getDictionary(dictionary);
 		List<CheckBox> checkBoxs = new ArrayList<CheckBox>();
-		for (Dictionary di : list) {
+		for (DictionaryDto di : list) {
 			CheckBox checkBox = new CheckBox();
 			checkBox.setDisplayField(di.getDisplayField());
 			checkBox.setValueField(di.getValueField());
@@ -296,12 +296,12 @@ public class Tools {
 	 * @return
 	 * @date 2015年10月1日 下午11:42:30
 	 */
-	public Dictionary getDictionaryByModelCodeAndFieldCodeAndValueFiel(String modelCode, String fieldCode, String valueField) {
-		Dictionary dictionary = new Dictionary();
+	public DictionaryDto getDictionaryByModelCodeAndFieldCodeAndValueFiel(String modelCode, String fieldCode, String valueField) {
+		DictionaryDto dictionary = new DictionaryDto();
 		dictionary.setModelCode(modelCode);
 		dictionary.setFieldCode(fieldCode);
 		dictionary.setValueField(valueField);
-		List<Dictionary> list = dictionaryService.getDictionary(dictionary);
+		List<DictionaryDto> list = dictionaryService.getDictionary(dictionary);
 		if (list != null && list.size() > 0) {
 			if (list.size() > 1) {
 				RuntimeException exception = new RuntimeException("查询出多个数据字典对象，无法判断具体是那个对象！");

@@ -17,7 +17,7 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 
 import com.xiaoy.background.systemmsg.role.service.RoleService;
 import com.xiaoy.background.usermsg.user.service.UserService;
-import com.xiaoy.base.entities.User;
+import com.xiaoy.base.entities.UserDto;
 import com.xiaoy.permission.service.PermissionService;
 
 /**
@@ -44,7 +44,7 @@ public class MonitorRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		// 获取登录的用户名
 		String loginName = (String) principalCollection.fromRealm(getName()).iterator().next();
-		User user = userService.findByName(loginName);
+		UserDto user = userService.findByName(loginName);
 		if (user != null) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 			// 通过用户id获得角色Code集合
@@ -66,7 +66,7 @@ public class MonitorRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
 			throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-		User user = userService.findByName(token.getUsername());
+		UserDto user = userService.findByName(token.getUsername());
 		if (user != null) {
 			return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
 		}

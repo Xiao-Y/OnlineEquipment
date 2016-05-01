@@ -3,7 +3,7 @@ package com.xiaoy.background.resourcesmsg.notice.dao;
 import java.util.List;
 
 import com.xiaoy.base.dao.CommonDao;
-import com.xiaoy.base.entities.Notice;
+import com.xiaoy.base.entities.NoticeDto;
 
 /**
  * 公告信息Dao层
@@ -11,7 +11,7 @@ import com.xiaoy.base.entities.Notice;
  * @author XiaoY
  * @date: 2015年10月3日 下午9:18:10
  */
-public interface NoticeDao extends CommonDao<Notice> {
+public interface NoticeDao extends CommonDao<NoticeDto> {
 
 	/**
 	 * 根据条件查询出现公告信息
@@ -20,7 +20,7 @@ public interface NoticeDao extends CommonDao<Notice> {
 	 * @return
 	 * @date 2015年10月3日 下午9:12:08
 	 */
-	List<Notice> getNoticeList(Notice notice);
+	List<NoticeDto> getNoticeList(NoticeDto notice);
 
 	/**
 	 * 根据条件统计公告记录数
@@ -29,6 +29,6 @@ public interface NoticeDao extends CommonDao<Notice> {
 	 * @return
 	 * @date 2015年10月3日 下午9:12:43
 	 */
-	long getTotal(Notice notice);
+	long getTotal(NoticeDto notice);
 
 }

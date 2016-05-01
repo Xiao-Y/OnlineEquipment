@@ -19,7 +19,7 @@ import com.xiaoy.annotations.SystemControllerLog;
 import com.xiaoy.background.LogParamType;
 import com.xiaoy.background.resourcesmsg.dictionary.controller.DictionaryType;
 import com.xiaoy.background.systemmsg.menu.service.MenuService;
-import com.xiaoy.base.entities.Menu;
+import com.xiaoy.base.entities.MenuDto;
 import com.xiaoy.util.CheckBox;
 import com.xiaoy.util.DateHelper;
 import com.xiaoy.util.JsonResult;
@@ -56,7 +56,7 @@ public class MenuController {
 	@RequestMapping(value = "/menuList")
 	public @ResponseBody
 	JsonResult menuList(HttpServletRequest request) {
-		Menu menu = new Menu();
+		MenuDto menu = new MenuDto();
 		menu.setId(Tools.getStringParameter(request, "name"));
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
 		menu.setMenuType(Tools.getStringParameter(request, "menuType"));
@@ -67,10 +67,10 @@ public class MenuController {
 		String start = Tools.getStringParameter(request, "start", "");
 		String limit = Tools.getStringParameter(request, "limit", "");
 
-		List<Menu> menuList = menuService.findCollectionByCondition(menu, start, limit);
-		for (Menu m : menuList) {
+		List<MenuDto> menuList = menuService.findCollectionByCondition(menu, start, limit);
+		for (MenuDto m : menuList) {
 			if (!"-1".equals(m.getParentId())) {
-				Menu mu = menuService.findObjectById(m.getParentId());
+				MenuDto mu = menuService.findObjectById(m.getParentId());
 				if (mu != null) {
 					m.setParentName(mu.getMenuName());
 				}
@@ -95,8 +95,9 @@ public class MenuController {
 	@ResponseBody
 	@RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
 	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_MENU, operation = LogParamType.ADD)
-	public JsonResult saveMenu(@RequestBody Menu menu) {
+	public JsonResult saveMenu(@RequestBody MenuDto menu) {
 		JsonResult json = new JsonResult();
+		Date date = new Date();
 		try {
 			// 保存时，添加uuid
 			if (StringUtils.isEmpty(menu.getId())) {
@@ -109,10 +110,9 @@ public class MenuController {
 				menu.setParentId("-1");
 			}
 			// 首次添加保存和更新时间
-			menu.setCreateTime(new Date());
-			menu.setUpdateTime(new Date());
-
-			menuService.saveObject(menu);
+			menu.setCreateTime(date);
+			menu.setUpdateTime(date);
+			menuService.saveMenu(menu);
 			json.setMessage(MessageTips.SAVE_SUCCESS);
 			json.setSuccess(true);
 		} catch (Exception e) {
@@ -133,16 +133,16 @@ public class MenuController {
 	@ResponseBody
 	@RequestMapping(value = "/updateMenu", method = RequestMethod.POST)
 	@SystemControllerLog(module = LogParamType.SYSTEM_MODAL, function = LogParamType.SYSTEM_FUNCTION_MENU, operation = LogParamType.UPDATE)
-	public JsonResult updateMenu(@RequestBody Menu menu) {
+	public JsonResult updateMenu(@RequestBody MenuDto menu) {
 		JsonResult json = new JsonResult();
+		Date date = new Date();
 		try {
 			String menuType = menu.getMenuType();
 			// 当节点类型选择0即树枝节点，parentId设置为-1为树枝节点类型
 			if ("0".equals(menuType)) {
 				menu.setParentId("-1");
 			}
-			menu.setUpdateTime(new Date());
-
+			menu.setUpdateTime(date);
 			menuService.updateMenu(menu);
 			json.setMessage(MessageTips.UPDATE_SUCCESS);
 			json.setSuccess(true);
@@ -155,11 +155,11 @@ public class MenuController {
 
 	/**
 	 * 删除菜单
+	 * 
 	 * @param id
 	 * @return
 	 * @author XiaoY
-	 * @date: 
-	 * 2016年4月17日 下午5:16:18
+	 * @date: 2016年4月17日 下午5:16:18
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/deleteMenu/{id}", method = RequestMethod.POST)
@@ -167,7 +167,7 @@ public class MenuController {
 	public JsonResult deleteMenu(@PathVariable("id") String id) {
 		JsonResult json = new JsonResult();
 		try {
-			menuService.deleteObjectByid(id);
+			menuService.deleteMenuByid(id);
 			json.setSuccess(true);
 			json.setMessage(MessageTips.DELETE_SUCCESS);
 		} catch (Exception e) {

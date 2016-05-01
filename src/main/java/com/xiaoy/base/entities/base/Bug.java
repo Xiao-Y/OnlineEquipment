@@ -1,11 +1,11 @@
-package com.xiaoy.base.entities;
+package com.xiaoy.base.entities.base;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.MappedSuperclass;
+
+import com.xiaoy.base.entities.base.base.BaseEntity;
 
 /**
  * bug实体类
@@ -13,11 +13,10 @@ import javax.persistence.Transient;
  * @author XiaoY
  * @date 2015年8月12日下午4:28:33
  */
-@Entity
-@Table(name = "BUG")
+@MappedSuperclass
 public class Bug extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 9100328495508187536L;
+	private static final long serialVersionUID = -3573099077777635304L;
 
 	// bug标题
 	private String title;
@@ -39,22 +38,6 @@ public class Bug extends BaseEntity implements Serializable {
 	private String reappear;
 	// bug类型
 	private String bugType;
-
-	/********* 临时的变量******start ****************/
-	// bug状态名称
-	private String statusName;
-	// bug出现的父模块名称
-	private String parentName;
-	// bug出现的子模块名称
-	private String childrenName;
-	// bug严重程度名称
-	private String severityName;
-	// 重现规律名称
-	private String reappearName;
-	// bug类型名称
-	private String bugTypeName;
-
-	/********* 临时的变量******end ****************/
 
 	public Bug() {
 		super();
@@ -150,65 +133,10 @@ public class Bug extends BaseEntity implements Serializable {
 		this.bugType = bugType;
 	}
 
-	@Transient
-	public String getStatusName() {
-		return statusName;
-	}
-
-	public void setStatusName(String statusName) {
-		this.statusName = statusName;
-	}
-
-	@Transient
-	public String getParentName() {
-		return parentName;
-	}
-
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
-	}
-
-	@Transient
-	public String getChildrenName() {
-		return childrenName;
-	}
-
-	public void setChildrenName(String childrenName) {
-		this.childrenName = childrenName;
-	}
-
-	@Transient
-	public String getSeverityName() {
-		return severityName;
-	}
-
-	public void setSeverityName(String severityName) {
-		this.severityName = severityName;
-	}
-
-	@Transient
-	public String getReappearName() {
-		return reappearName;
-	}
-
-	public void setReappearName(String reappearName) {
-		this.reappearName = reappearName;
-	}
-
-	@Transient
-	public String getBugTypeName() {
-		return bugTypeName;
-	}
-
-	public void setBugTypeName(String bugTypeName) {
-		this.bugTypeName = bugTypeName;
-	}
-
 	@Override
 	public String toString() {
-		return "Bug [title=" + title + ", note=" + note + ", imgUrl=" + imgUrl + ", status=" + status + ", reviseExplain=" + reviseExplain + ", parentId="
-				+ parentId + ", childrenId=" + childrenId + ", severity=" + severity + ", reappear=" + reappear + ", bugType=" + bugType + ", statusName="
-				+ statusName + ", parentName=" + parentName + ", childrenName=" + childrenName + ", severityName=" + severityName + ", reappearName="
-				+ reappearName + ", bugTypeName=" + bugTypeName + "]";
+		return "Bug [title=" + title + ", note=" + note + ", imgUrl=" + imgUrl + ", status=" + status
+				+ ", reviseExplain=" + reviseExplain + ", parentId=" + parentId + ", childrenId=" + childrenId
+				+ ", severity=" + severity + ", reappear=" + reappear + ", bugType=" + bugType + "]";
 	}
 }
