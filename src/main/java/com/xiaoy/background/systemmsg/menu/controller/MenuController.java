@@ -61,6 +61,7 @@ public class MenuController {
 		menu.setParentId(Tools.getStringParameter(request, "parentId"));
 		menu.setMenuType(Tools.getStringParameter(request, "menuType"));
 		menu.setMenuName(Tools.getStringParameter(request, "menuName"));
+		menu.setMenuCode(Tools.getStringParameter(request, "menuCode"));
 		menu.setCreateTime(DateHelper.stringConverDate(Tools.getStringParameter(request, "createTime")));
 		menu.setUpdateTime(DateHelper.stringConverDate(Tools.getStringParameter(request, "updateTime")));
 		String start = Tools.getStringParameter(request, "start", "");

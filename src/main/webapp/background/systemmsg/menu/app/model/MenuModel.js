@@ -8,6 +8,10 @@ Ext.define('AM.model.MenuModel', {
 		type : 'string',
 		sortable : true
 	}, {
+		name : 'menuCode',
+		type : 'string',
+		sortable : true
+	}, {
 		name : 'menuUrl',
 		type : 'string'
 	}, {

@@ -27,6 +27,10 @@ Ext.define('AM.view.MenuAdd', {
 			name : 'menuName',
 			allowBlank : false
 		}, {
+			fieldLabel : '菜单CODE',
+			name : 'menuCode',
+			allowBlank : false
+		}, {
 			fieldLabel : '请求路径',
 			name : 'menuUrl'
 		},{

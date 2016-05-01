@@ -26,6 +26,10 @@ Ext.define('AM.view.MenuQuery', {
 			xtype : 'textfield',
 			name : 'menuName'
 		}, {
+			fieldLabel : '菜单CODE',
+			xtype : 'textfield',
+			name : 'menuCode'
+		}, {
 			xtype : 'radiogroup',
 			fieldLabel : '节点类型',
 			id : 'menuType',

@@ -9,6 +9,7 @@ Ext.define('AM.view.RoleAuthorize', {
 	items : [ {
 		xtype : 'form',//为了显示滑动条
 		autoScroll:true,
+		id : 'authorizeForm',
 		items:[{
 			xtype : 'treepanel',//添加菜单树
 			id : "treepanelId",
@@ -32,7 +33,7 @@ Ext.define('AM.view.RoleAuthorize', {
 			glyph : 0xf002
 		}, {
 			xtype : 'button',
-			id : 'cancelAuthorize',
+			id : 'cancel',
 			text : '关闭',
 			glyph:0xf00d
 		} ]

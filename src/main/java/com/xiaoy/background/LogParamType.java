@@ -42,7 +42,7 @@ public class LogParamType {
 	/**
 	 * 数据字典：删除字段
 	 */
-	public final static String DELETE_Field = "数据字典：删除字段";
+	public final static String DELETE_FIELD = "数据字典：删除字段";
 
 	/**
 	 * 数据字典：删除模块
@@ -87,6 +87,10 @@ public class LogParamType {
 	 * 用户管理
 	 */
 	public final static String SYSTEM_FUNCTION_USER = "用户管理";
+	/**
+	 * 角色管理
+	 */
+	public final static String SYSTEM_FUNCTION_ROLE = "角色管理";
 	// -------------功能---end------------------
 
 }

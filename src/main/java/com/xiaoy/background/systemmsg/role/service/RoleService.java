@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.xiaoy.base.entities.Menu;
 import com.xiaoy.base.entities.Role;
+import com.xiaoy.base.service.CommonService;
 
 /**
  * 角色服务
@@ -14,7 +15,7 @@ import com.xiaoy.base.entities.Role;
  * @author XiaoY
  * @date: 2015年8月16日 上午10:42:22
  */
-public interface RoleService {
+public interface RoleService extends CommonService<Role> {
 
 	/**
 	 * 通过用户的id查询出现角色Code信息

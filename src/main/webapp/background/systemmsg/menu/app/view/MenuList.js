@@ -48,14 +48,16 @@ Ext.define('AM.view.MenuList', {
 			xtype : 'rownumberer',
 			width : 50,
 			header : '序号'
-		}, 
-		{
+		}, {
 			header : 'ID',
 			hidden : true,
 			dataIndex : 'id'
 		}, {
 			header : '菜单名称',
 			dataIndex : 'menuName'
+		}, {
+			header : '菜单CODE',
+			dataIndex : 'menuCode'
 		}, {
 			header : '请求路径',
 			dataIndex : 'menuUrl'
