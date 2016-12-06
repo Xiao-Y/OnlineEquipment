@@ -18,8 +18,8 @@
 					<c:if test="${!empty tree.children }">
 						<ul>
 							<c:forEach items="${tree.children }" var="children" varStatus="numb">
-								<li onclick="clickLoad('${children.url }')" style="background: #3A3A3A">
-									<a class="submenu" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<li onclick="clickLoad( '${pageContext.request.contextPath }/foreground${children.url }')" style="background: #3A3A3A">
+									<a class="submenu" href="#">
 										<i class="icon-file-alt"></i>
 										<span class="hidden-tablet">${children.text }</span>
 									</a>

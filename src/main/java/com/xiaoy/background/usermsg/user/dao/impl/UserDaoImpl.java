@@ -23,7 +23,7 @@ public class UserDaoImpl extends CommonDaoImpl<UserDto> implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> getUserIdByName(String name) {
-		String hql = "select id from User where username like :username";
+		String hql = "select id from UserDto where username like :username";
 		Session session = this.getSession();
 		Query query = session.createQuery(hql);
 		query.setParameter("username", name);
@@ -33,7 +33,7 @@ public class UserDaoImpl extends CommonDaoImpl<UserDto> implements UserDao {
 
 	@Override
 	public UserDto findByName(String loginName) {
-		String hql = "select User from User where username = :username";
+		String hql = "select User from UserDto where username = :username";
 		Session session = this.getSession();
 		Query query = session.createQuery(hql);
 		query.setParameter("username", loginName);
@@ -44,9 +44,9 @@ public class UserDaoImpl extends CommonDaoImpl<UserDto> implements UserDao {
 	public List<UserDto> findUsersByCondition(UserDto user, String start, String limit) {
 		StringBuffer hql = new StringBuffer("");
 		if (user != null && user.getRoles() != null && !user.getRoles().isEmpty()) {
-			hql.append("from User u left join fetch u.roles role where 1=1 ");
+			hql.append("from UserDto u left join fetch u.roles role where 1=1 ");
 		} else {
-			hql.append("from User u where 1=1 ");
+			hql.append("from UserDto u where 1=1 ");
 		}
 		Map<String, Object> paramsMapValue = this.appendWher(hql, user);
 		List<UserDto> users = this.find(hql.toString(), paramsMapValue, start, limit);
@@ -57,9 +57,9 @@ public class UserDaoImpl extends CommonDaoImpl<UserDto> implements UserDao {
 	public long countByCollection(UserDto user) {
 		StringBuffer hql = new StringBuffer("select count(*) ");
 		if (user != null && user.getRoles() != null && !user.getRoles().isEmpty()) {
-			hql.append("from User u left join u.roles role where 1=1 ");
+			hql.append("from UserDto u left join u.roles role where 1=1 ");
 		} else {
-			hql.append("from User u where 1=1 ");
+			hql.append("from UserDto u where 1=1 ");
 		}
 		Map<String, Object> paramsMapValue = this.appendWher(hql, user);
 		return this.countHQLByCollection(hql.toString(), paramsMapValue);

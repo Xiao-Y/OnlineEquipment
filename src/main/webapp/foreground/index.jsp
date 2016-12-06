@@ -66,18 +66,20 @@
 	<!-- start: JavaScript-->
 	<script type="text/javascript">
 		function clickLoad(url){
-			$.ajax({
-				url : url,//url
-				async : true,//异步
-				type : "POST",//请求方式
-				dataType : "html",//返回数据格式
-				success : function(data, textStatus){//请求成功
-					$("#content").html(data);
-				},
-				error : function(){//请求错误
-					$("#content").html("数据显示错误，请重试！");
-				}
-			});
+			if(url != ''){
+				$.ajax({
+					url : url,//url
+					async : true,//异步
+					type : "POST",//请求方式
+					dataType : "html",//返回数据格式
+					success : function(data, textStatus){//请求成功
+						$("#content").html(data);
+					},
+					error : function(){//请求错误
+						$("#content").html("数据显示错误，请重试！");
+					}
+				});
+			}
 		}
 	</script>
 	<!-- end: JavaScript-->
